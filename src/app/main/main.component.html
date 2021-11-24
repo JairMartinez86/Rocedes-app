@@ -1,0 +1,133 @@
+<body>
+
+
+<main>
+  <header>
+    <div class="px-3 py-2 bg-dark text-white custom-header">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img src="../assets/imagenes/LogoRoc.svg" width="64" height="64" class="d-inline-block align-top">
+          </a>
+
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+            <li>
+              <a href="#" class="nav-link text-secondary" (click)="Modulo('Home')">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link text-white" (click)="Modulo('SIS')" >
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
+                Configuración
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link text-white" (click)="Modulo('INV')">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
+                Inventario
+              </a>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <div class="container">
+    <nav class="navbar custom-navbar navbar-expand-lg navbar-light bg-light rounded">
+
+      <div class="container-fluid">
+ 
+    
+
+        <a class="navbar-brand" id="navModulo"  href="#">{{Esquema._Nombre}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+            <!-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  id="navUsuario" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='SIS'">Usuarios</a>
+              <ul class="dropdown-menu" aria-labelledby="">
+                <li><a id="LinkUsuario" class="dropdown-item" href="#">Nuevo Usuario</a></li>
+                <li><a id="LinkRegistrosUsuario" class="dropdown-item" href="#">Registros</a></li>
+              </ul>
+            </li>
+
+            <!--<li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='SIS'">
+              <a id="LinkUsuario" class="nav-link" href="#" >Usuario</a>
+            </li>-->
+
+            <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
+            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
+              <a (mouseenter) ="mouseEnter('aDescargue') "  (mouseleave) ="mouseLeave('aDescargue')" id="LinkDescargue" class="nav-link" href="#" >Descargue</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  id="navInvContabilizacion" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Accounting</a>
+              <ul class="dropdown-menu" aria-labelledby="">
+                <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
+              </ul>
+            </li>
+
+        
+
+
+            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
+              <a id="LinkOtro" class="nav-link" href="#" >Otros</a>
+            </li>
+
+            <!--<li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown09">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>-->
+          </ul>
+          <div class="text-end">
+            <!--<button type="button" class="btn btn-light text-dark me-2">Login</button>-->
+            <button (click)="Salir()" type="button" class="btn btn-danger">Desconectar</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+
+  <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom">
+
+    <div class="container" *ngIf="Esquema._Esquema=='SIS'">
+      <app-usuario></app-usuario>
+    </div>
+
+    <div class="container" *ngIf="Esquema._Esquema=='INV'">
+      <div class="container">
+        <app-descargue></app-descargue>
+        <app-bundle-boxing></app-bundle-boxing>
+      </div>
+
+    </div>
+
+  </div>
+ 
+
+</main>
+</body>

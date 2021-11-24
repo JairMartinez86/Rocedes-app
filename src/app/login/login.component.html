@@ -1,0 +1,50 @@
+<body class="text-center">
+    <main class="form-signin ">
+        <form name="frm">
+          <img class="mb-4" src="../assets/imagenes/log.ico" alt="" width="72" height="57">
+          <h1 class="h3 mb-3 fw-normal">Por favor, registrese</h1>
+        
+
+          <!--<mat-form-field appearance="outline">
+           <div class="form-floating">
+              <input  type="text" [(ngModel)]="str_user" class="form-control" id="floatingInput" placeholder="name@rocedes.com.ni">
+            <label for="floatingInput">User</label>
+          </div>
+        </mat-form-field>-->
+
+          <div class="form-floating">
+              <input matInput  type="text" [(ngModel)]="str_user" name="first3" class="form-control" id="floatingInput" placeholder="name@rocedes.com.ni">
+            <label for="floatingInput">Usuario</label>
+         </div>
+    
+
+    
+         
+         
+          <!--<div class="form-floating">
+            <input mdbInput type="text" class="form-control" id="floatingInput" placeholder="name@rocedes.com.ni">
+            <label for="floatingInput">User</label>
+          </div>
+        -->
+ 
+          <div class="form-floating">
+            <input matInput   [(ngModel)]="str_pass" name="first"  type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Contraseña</label>
+          </div>
+  
+          
+
+          <div class="checkbox mb-3">
+            <label>
+              <input [(ngModel)]="bol_remenber" name="first2" type="checkbox"  value="remember-me"> Recordar
+            </label>
+          </div>
+          <button (click)="InicioSesion()" class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+          <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+         
+
+        </form>
+    
+      </main>
+    
+</body>

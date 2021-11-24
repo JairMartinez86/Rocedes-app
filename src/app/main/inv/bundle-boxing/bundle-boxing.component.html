@@ -1,0 +1,188 @@
+
+<ng-container *ngIf="str_from == 'BundleBoxing'; then ngBundleBoxing_Seleccion; else second"></ng-container>
+
+<ng-template #second>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_Cuerpo';  then ngBundleBoxing_Cuerpo; else ngBundleBoxing_Complemento"></ng-container>
+
+</ng-template>
+
+
+
+
+
+
+
+<ng-template #ngBundleBoxing_Seleccion>
+    <div class="formulario" id="divInicioBundleBoxing">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Seleccion Corte</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+        </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="valSeleccion.ValForm"  novalidate>
+                <div class="row">
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label><b>Corte.</b></mat-label>
+                        <input appAutofocus  matInput type="text" id="txtBox_SeleccionCorte" 
+                        formControlName="txtBox_SeleccionCorte"
+                         placehoder="Ingrese No. Corte" 
+                         [matAutocomplete]="auto"
+                        (input)="txtBox_SeleccionCorte_onSearchChange($event)">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarCorteSelec">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option.Corte}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                        <mat-error *ngIf="valSeleccion.ValForm.get('txtBox_SeleccionCorte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
+                    
+                    </mat-form-field>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" id="btnBoxingCuerpo" class="btn  sleccion-cuerpo"  [disabled]="valSeleccion.ValForm.invalid"  (click)="Cuerpo()">Cuerpo</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" id="btnBoxingComplemento" class="btn  sleccion-complemento" [disabled]="valSeleccion.ValForm.invalid"   (click)="Complemento()">Complemento</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" class="btn btn-outline-secondary"  (click)="Cerrar('')">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+                
+              </form>
+          </div>
+    </div>
+</ng-template>
+
+
+<ng-template #ngBundleBoxing_Cuerpo>
+    <div class="formulario" id="divBundleBoxing">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Bundle Boxing</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('frmBundleBoxing_Cuerpo')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+          </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="val.ValForm"  novalidate>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
+                        <label>Corte No. <b>{{str_Corte}}</b></label>
+                      
+                    </div>
+
+                    <mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
+                        <mat-label>Mesa #</mat-label>
+                        <input appAutofocus matInput type="text" id="txtBox_Mesa" formControlName="txtBox_Mesa" placeholder="Ingrese # Mesa">
+                        <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" id="btnBoxin_Empacar" class="btn btn-outline-secondary"  (click)="Empacar()">Iniciar Empaque</button>
+                        </div>
+                    </div>
+                </div>
+                
+              </form>
+          </div>
+    </div>
+
+
+    <div class="Lista-Registro" id="divRegistrosUsuario">
+        <div class="franja"><p>Registros de Piezas Escaneadas</p></div>
+
+        <div class="row" *ngIf="bol_IniciarEscaneo">
+            <mat-form-field class="col-12">
+                <mat-label>Escanear</mat-label>
+                <input matInput type="text"  placeholder="Escanear">
+                <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg"></fa-icon></mat-icon>
+              </mat-form-field>
+        </div>
+        
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource] = "dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="cIndex">
+                <th mat-header-cell *matHeaderCellDef>
+                No.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cIndex}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cNomPieza">
+                <th mat-header-cell *matHeaderCellDef>
+                Pieza.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cNomPieza}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cSeccion">
+                <th mat-header-cell *matHeaderCellDef>
+                Seccion.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cSeccion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cNoBulto">
+                <th mat-header-cell *matHeaderCellDef>
+                Bulto.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cNoBulto}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cCapaje">
+                <th mat-header-cell *matHeaderCellDef>
+                Capaje.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cCapaje}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cNoSaco">
+                <th mat-header-cell *matHeaderCellDef>
+                Saco.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cAccion">
+                <th mat-header-cell *matHeaderCellDef>
+                </th>
+                <td mat-cell *matCellDef="let element" >
+                  <a href="#"><fa-icon [icon]="['fas', 'circle']" class="fa-2x" [ngStyle]="{'color': element.cAccion? 'green' : 'red'}"></fa-icon></a>
+                </td>
+              </ng-container>
+
+             
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+            mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+        </div>
+
+    </div>
+</ng-template>
+
+
+
+
+<ng-template #ngBundleBoxing_Complemento></ng-template>
+
+
+
+

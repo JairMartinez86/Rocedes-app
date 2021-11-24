@@ -1,0 +1,42 @@
+<div *ngIf="!bol_Open else Formulario"></div>
+
+
+
+
+<ng-template #Formulario>
+
+    <div class="formulario" id="divDescargue">
+        <div class="head-form" id="from-encabezado">
+            <p>Descargue</p>
+        </div>
+
+        <div class="container">
+            <form class="form" [formGroup]="val.ValForm" >
+
+
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-4">
+                        <mat-label>No Factura.</mat-label>
+                            <mat-label></mat-label>
+                            <input type="text" matInput formControlName="NoFact2"  placeholder="">
+                            <mat-error *ngIf="val.ValForm.get('NoFact2')?.errors?.Regla=='1'">No Factura es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="offset-sm-0 offset-md-2 offset-lg-4 col-sm-12 col-md-4 col-lg-4">
+                        <mat-label>Fecha</mat-label>
+                        <input matInput [matDatepicker]="dtFecha" formControlName="dtFecha" [errorStateMatcher]="matcher">
+                        <mat-datepicker-toggle matSuffix [for]="dtFecha"></mat-datepicker-toggle>
+                        <mat-datepicker #dtFecha></mat-datepicker>
+                        <mat-error *ngIf="val.ValForm.get('dtFecha')?.errors?.Regla=='1'">Fecha es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                </div> 
+
+               
+                <hr>
+               
+            </form>
+        </div>
+        
+      </div>
+</ng-template>

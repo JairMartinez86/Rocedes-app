@@ -1,0 +1,171 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import "~bootstrap/dist/css/bootstrap.min.css";*/
+/*@import "~assets/dist/css/bootstrap.min.css";*/
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
+
+
+html,
+body {
+  height: 100%;
+}
+
+
+.formulario{
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color:#F8F9FA;
+  box-shadow: 10px 10px 5px #aaaaaa;
+  
+/*  bg-light border rounded-3 */
+
+}
+
+.formulario .container{
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.head-form{
+  width: 100%;
+  height: 3rem;
+  margin-bottom: 20px;
+  border-radius: 10px 10px 0 0;
+  border-style: none none solid none;
+  border-width: 0.1em;
+  background-color: #006699;
+  border-bottom-color:#006699;
+  /*border-bottom-color:#358BC9;
+  /*background-color: white;*/
+
+  
+}
+
+
+.head-form div{
+  display: inline-block;
+  font-size:  1.5em;
+  font-weight: bold;
+  color:white;
+  
+}
+
+.from-encabezado-titulo{
+  padding-top: 5px;
+  width: 90%;
+  text-align: center;
+}
+
+.from-encabezado-salir{
+  width: 30px;
+  text-align: justify;
+}
+
+
+
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+
+
+.dropdown-item:focus, .dropdown-item:hover{
+  color:#1e2125;
+  background-color:#e9ecef
+}
+
+
+
+.franja{
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size:  2em;
+  text-align: center;
+  color: #ffffff;
+  background-color: #1b364c;
+}
+
+
+/*****************************************************TABLA*****************************************************/
+
+table {
+  width: 100%;
+}
+
+table tr a{
+  margin: 15px;
+}
+
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+
+
+/***************************************************************************************************************/
+
+
+/*CUANDO DE DIALOGO MENSAJE*/
+
+.mat-dialog-container{
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  min-width: 300px !important;
+  max-width: 600px !important;
+  width: auto !important;
+  height: auto!important;
+}
+
+.mat-dialog-title{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #006699;
+  font-size:  1.2em;
+  font-weight: bold;
+  text-align: center;
+  color:white;
+}
+
+.mat-dialog-content{
+  min-width: 300px !important;
+  max-width: 600px !important;
+  width: auto !important;
+  height: auto!important;
+  padding: 20px !important;
+  margin: 0 !important;
+  font-size:  1em;
+  white-space: nowrap;
+}
+
+
+.mat-dialog-actions{
+  padding-right: 5px !important;
+  margin: 0 !important;
+  font-size:  1em;
+  justify-content: flex-end;
+}
+
+/***************************/
+
+.disabled
+{
+  pointer-events: none;
+  /* for "disabled" effect */
+  opacity: 0.5;
+  background: #CCC;
+}
+
