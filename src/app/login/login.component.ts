@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-
    // this.loginserv.InicioSesion().subscribe(datos => this.data$ = JSON.stringify(datos) );
   // this.loginserv.VerificarSession();
 

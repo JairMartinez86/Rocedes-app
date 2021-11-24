@@ -119,6 +119,8 @@ export class LoginService {
     sessionStorage.removeItem("Pwd");
     sessionStorage.removeItem("Fecha");
 
+    this.isOpen = false;
+
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
 
@@ -141,6 +143,7 @@ export class LoginService {
     sessionStorage.setItem('Pwd', str_pass);
     sessionStorage.setItem('Fecha', str_Fecha);
 
+    this.isOpen = true;
     this.router.navigate(['/main'], { skipLocationChange: false });
   }
 

@@ -27,23 +27,27 @@ import { MainComponent } from './main/main.component';
 import { DescargueComponent } from './main/inv/descargue/descargue.component';
 
 
+import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
+  faSearch, faCircle } from '@fortawesome/free-solid-svg-icons';
+  import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+  import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
+  import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+  import { BundleBoxingComponent } from './main/inv/bundle-boxing/bundle-boxing.component';
+  import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+  import { UsuarioComponent } from './main/sis/usuario/usuario.component';
+  import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+  
 
 import { LoginService } from './Services/Usuario/login.service';
 import { InventarioService } from './Services/inv/inventario.service';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 
-import { UsuarioComponent } from './main/sis/usuario/usuario.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-faSearch, faCircle } from '@fortawesome/free-solid-svg-icons';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-import { BundleBoxingComponent } from './main/inv/bundle-boxing/bundle-boxing.component';
-
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AutofocusDirective } from './Directive/autofocus.directive';
+
+
+
 
 @NgModule({
   declarations: [
@@ -116,9 +120,9 @@ import { AutofocusDirective } from './Directive/autofocus.directive';
 
 
    MatDatepickerModule,
-   MatNativeDateModule 
+   MatNativeDateModule,
 
-   
+   BnNgIdleService
   ],
   bootstrap: [AppComponent]
 })
