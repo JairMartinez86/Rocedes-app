@@ -11,6 +11,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
@@ -28,7 +29,7 @@ import { DescargueComponent } from './main/inv/descargue/descargue.component';
 
 
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-  faSearch, faCircle } from '@fortawesome/free-solid-svg-icons';
+  faSearch, faCircle, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -82,6 +83,7 @@ import { AutofocusDirective } from './Directive/autofocus.directive';
     MatCardModule,
     MatIconModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
@@ -130,7 +132,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add multiple icons to the library
     library.addIcons(faBroom, faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-      faSearch, faCircle);
+      faSearch, faCircle, faMinusSquare);
   }
 }
 

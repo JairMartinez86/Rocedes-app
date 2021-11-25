@@ -47,6 +47,9 @@ export class MainComponent implements OnInit {
 
  
   constructor(private loginserv : LoginService, private InventarioService : InventarioService) {
+
+    this.loginserv.VerificarSession()
+
     let _Esquema : Esquema;
 
     _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuario", "Usuario", false));
@@ -219,7 +222,8 @@ export class MainComponent implements OnInit {
       return confirmationMessage;              // Gecko, WebKit, Chrome <34
     });
 
-    this.loginserv.TimeOut(300, 30);
+    if(this.loginserv.isLoguin) this.loginserv.TimeOut(300, 30);
+    
 
   }
 

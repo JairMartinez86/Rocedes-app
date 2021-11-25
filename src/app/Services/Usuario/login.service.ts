@@ -25,7 +25,8 @@ export class LoginService {
   private Cnx : Conexion = new Conexion();
 
   private isCancel : boolean = false;
-  isOpen : boolean = false;
+  public isOpen : boolean = false;
+  public isLoguin : boolean = false;
   str_Form : string = "";
 
 
@@ -131,7 +132,8 @@ export class LoginService {
     sessionStorage.removeItem("Pwd");
     sessionStorage.removeItem("Fecha");
 
-    this.isOpen = false;
+    this.isLoguin = false;
+
 
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
@@ -155,7 +157,7 @@ export class LoginService {
     sessionStorage.setItem('Pwd', str_pass);
     sessionStorage.setItem('Fecha', str_Fecha);
 
-    this.isOpen = true;
+    this.isLoguin = true;
     this.router.navigate(['/main'], { skipLocationChange: false });
   }
 
@@ -227,39 +229,43 @@ Cerrar() {
     
     this.bnIdle1.startWatching(TimeVerif).subscribe((isTimedOut: boolean) => 
   {
-  if (isTimedOut) {
-  
-    this.bnIdle1.stopTimer();
+    if (isTimedOut) {
+      this.bnIdle1.stopTimer();
     
     
-    let _json = JSON.parse("{\"Codigo\": \"\",\"Mensaje\": \"Tu Sessión va a expirar pronto.\"}");
-  
-    if(this.dialog.getDialogById("TimeOut") == null){
-      this.dialogRef = this.dialog.open(DialogoComponent, {
-        id:"TimeOut",
-        data: _json,
-      });
-    }
-    else{
-      this.dialogRef != this.dialog.getDialogById("TimeOut");
-    }
-    
-  
-  this.dialogRef.afterOpened().subscribe(() => {
-    this.isCancel = false;
-    this.bnIdle2.stopTimer();
-    this.TimeOutSalir(TimeClose);
-  });
-  
-  this.dialogRef.afterClosed().subscribe(() => {
-    this.isCancel = true;
-    this.bnIdle2.stopTimer();
+      let _json = JSON.parse("{\"Codigo\": \"\",\"Mensaje\": \"Tu sessión va a expirar pronto.\"}");
       
-    if(this.isOpen) this.TimeOut(TimeVerif, TimeClose);
+      if(this.dialog.getDialogById("TimeOut") == null){
+        this.dialogRef = this.dialog.open(DialogoComponent, {
+          id:"TimeOut",
+          data: _json,
+        });
+      }
+      else{
+        this.dialogRef != this.dialog.getDialogById("TimeOut");
+      }
 
-    });
+      this.isCancel = false;
+      this.bnIdle2.stopTimer();
+      this.TimeOutSalir(TimeClose);
     
-  }});
+  
+    /*this.dialogRef.afterOpened().subscribe(() => {
+      this.isCancel = false;
+      this.bnIdle2.stopTimer();
+      this.TimeOutSalir(TimeClose);
+    });*/
+  
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.isCancel = true;
+      this.bnIdle2.stopTimer();
+      
+      if(this.isLoguin) this.TimeOut(TimeVerif, TimeClose);
+
+      });
+    
+    }
+  });
   
 }
   

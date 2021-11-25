@@ -89,7 +89,7 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <div class="button-row text-end">
+                        <div class="button-row text-end" *ngIf="!bol_IniciarEmpaque">
                             <button type="button" id="btnBoxin_Empacar" class="btn btn-outline-secondary"  (click)="Empacar()">Iniciar Empaque</button>
                         </div>
                     </div>
@@ -103,14 +103,45 @@
     <div class="Lista-Registro" id="divRegistrosUsuario">
         <div class="franja"><p>Registros de Piezas Escaneadas</p></div>
 
-        <div class="row" *ngIf="bol_IniciarEscaneo">
-            <mat-form-field class="col-12">
-                <mat-label>Escanear</mat-label>
-                <input matInput type="text"  placeholder="Escanear">
-                <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg"></fa-icon></mat-icon>
-              </mat-form-field>
+
+        <div class="flex-container" *ngIf="bol_IniciarEmpaque">
+            <div>
+                <button type="button" id="btnBoxin_CerrarEmpaque" class="btn btn-outline-secondary"  (click)="CerrarEmpaque()">Cerrar Empaque</button>
+            </div>
+
+            <div>
+                <button *ngIf="!bol_TerminarEmpaque" type="button" id="btnBoxin_TerminarEmpaque" class="btn btn-outline-secondary"  (click)="TerminarEmpaque()">Terminar Empaque</button>
+            </div>
+
+            <div>
+                <button *ngIf="!bol_AbrirSaco" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="AbrirSaco($event, 'Crear')">Crear Saco</button>
+            </div>
+
+            <div>
+                <button type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco($event, '')">Abrir Saco</button>
+            </div>
+          </div>
+
+
+        <div class="row">
+        
+            <div class="col-12">
+                <mat-form-field class="col-sm-12 col-md-4 col-md-6" *ngIf="bol_AbrirSaco" >
+                    <mat-label>Escanear</mat-label>
+                    <input matInput type="text"  placeholder="Escanear" appAutofocus>
+                    <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg"></fa-icon></mat-icon>
+                </mat-form-field>
+                <mat-form-field [ngClass]="bol_AbrirSaco ? 'col-ms-12 col-md-4 col-lg-4 offset-md-2 offset-lg-2' : 'col-12'" ngclass="">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+                </mat-form-field>
+            </div>
+            
+
         </div>
         
+
+      
 
         <div class="mat-elevation-z8">
             <table mat-table [dataSource] = "dataSource" class="mat-elevation-z8">
@@ -120,6 +151,14 @@
                 No.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cIndex}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cSerial">
+                <th mat-header-cell *matHeaderCellDef>
+                Serial.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cSerial}} </td>
             </ng-container>
 
 
@@ -159,13 +198,23 @@
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
             </ng-container>
-            <ng-container matColumnDef="cAccion">
+            <ng-container matColumnDef="cEscaneado">
                 <th mat-header-cell *matHeaderCellDef>
                 </th>
                 <td mat-cell *matCellDef="let element" >
-                  <a href="#"><fa-icon [icon]="['fas', 'circle']" class="fa-2x" [ngStyle]="{'color': element.cAccion? 'green' : 'red'}"></fa-icon></a>
+                  <!--<a href="#"><fa-icon [icon]="['fas', 'minus-square']" class="fa-2x" [ngStyle]="{'color': element.cEscaneado? 'green' : 'red'}"></fa-icon></a>-->
+                  <a href="#" *ngIf="element.cEscaneado"><fa-icon [icon]="['fas', 'check']" class="fa-2x" style="color:green"></fa-icon></a>
+                  <a href="#" *ngIf="!element.cEscaneado"><fa-icon [icon]="['fas', 'minus-square']" class="fa-2x" style="color:gray" ></fa-icon></a>
+                 
                 </td>
               </ng-container>
+
+              <ng-container matColumnDef="cAccion">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element"> {{element.cAccion}} </td>
+              </ng-container>
+
+              
 
              
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -173,6 +222,7 @@
             mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 
             </table>
+            <mat-paginator [pageSizeOptions]="[25, 50, 100]"  showFirstLastButtons></mat-paginator>
         </div>
 
     </div>

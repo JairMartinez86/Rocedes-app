@@ -161,6 +161,11 @@ table tr a{
 
 /***************************/
 
+mat-checkbox-ripple .mat-ripple-element,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background  {
+  background-color: #006699 !important;
+}
+
 .disabled
 {
   pointer-events: none;
@@ -169,3 +174,15 @@ table tr a{
   background: #CCC;
 }
 
+
+
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flex-container > div {
+  width: 100%;
+  margin: 10px;
+  text-align: center;
+}

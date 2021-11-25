@@ -534,9 +534,7 @@ export class UsuarioComponent implements OnInit {
 
   }
 
-  ngAfterViewInit() {
-   
-  }
+
 
   getRangeDisplayText = (page: number, pageSize: number, length: number) => {
     const initialText = `Usuarios`;  // customize this line
