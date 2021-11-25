@@ -106,27 +106,10 @@ export class UsuarioComponent implements OnInit {
 
   /*************************DIALOGO*****************************************/
   
-  @HostListener('document:click', ['$event'])
-  clickout(event : any) {
-    if (this.clickoutHandler) {
-      this.clickoutHandler(event);
-    }
-  }
-  clickoutHandler!: Function;
   dialogRef!: MatDialogRef<DialogoComponent>;
   dialogUsuarioRef!: MatDialogRef<UsuarioComponent>;
 
-  
-  closeDialogFromClickout(event: MouseEvent) {
-    const matDialogContainerEl = this.dialogRef.componentInstance.hostElement.nativeElement.parentElement;
-    const rect = matDialogContainerEl.getBoundingClientRect()
 
-    if(event.clientX <= rect.left || event.clientX >= rect.right || 
-        event.clientY <= rect.top || event.clientY >= rect.bottom) {
-          this.dialogRef.close();
-    }
-  }
-  
   /*************************************************************************/
 
 
@@ -223,7 +206,7 @@ export class UsuarioComponent implements OnInit {
           });
 
           this.dialogRef.afterOpened().subscribe(() => {
-            this.clickoutHandler = this.closeDialogFromClickout;
+            this.dialogRef.componentInstance.autoClose = true;
           });
           
           this.dialogRef.afterClosed().subscribe(() => {
@@ -242,11 +225,10 @@ export class UsuarioComponent implements OnInit {
 
 
         this.dialogRef.afterOpened().subscribe(() => {
-          this.clickoutHandler = this.closeDialogFromClickout;
+          this.dialogRef.componentInstance.autoClose = true;
         });
   
         this.dialogRef.afterClosed().subscribe(() => {
-          this.clickoutHandler = this.vacio;
           document?.getElementById(elementFocus)?.focus();
         });
 
@@ -342,13 +324,12 @@ export class UsuarioComponent implements OnInit {
 
           
         this.dialogRef.afterOpened().subscribe(() => {
-          this.clickoutHandler = this.closeDialogFromClickout;
+          this.dialogRef.componentInstance.autoClose = true;
         });
 
   
           this.dialogRef.afterClosed().subscribe(() => {
             this.LimpiarForm();
-            this.clickoutHandler = this.vacio;
           });
           
         }

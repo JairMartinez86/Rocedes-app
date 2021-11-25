@@ -61,29 +61,11 @@ export class BundleBoxingComponent implements OnInit {
 
 
   //#region DIALOGO
-  @HostListener('document:click', ['$event'])
-  clickout(event : any) {
-    if (this.clickoutHandler) {
-      this.clickoutHandler(event);
-    }
-  }
+
   clickoutHandler!: Function;
   dialogRef!: MatDialogRef<DialogoComponent>;
 
-  closeDialogFromClickout(event: MouseEvent) {
-    const matDialogContainerEl = this.dialogRef.componentInstance.hostElement.nativeElement.parentElement;
-    const rect = matDialogContainerEl.getBoundingClientRect()
 
-    if(event.clientX <= rect.left || event.clientX >= rect.right || 
-        event.clientY <= rect.top || event.clientY >= rect.bottom) {
-          this.dialogRef.close();
-    }
-  }
-
-  vacio() : void{
-      
-  }
-  
   //#endregion DIALOGO
 
 
@@ -192,12 +174,7 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
       })
 
       this.dialogRef.afterOpened().subscribe(() => {
-        this.clickoutHandler = this.closeDialogFromClickout;
-      });
-
-
-      this.dialogRef.afterClosed().subscribe(() => {
-        this.clickoutHandler = this.vacio;
+        this.dialogRef.componentInstance.autoClose = true;
       });
 
 
@@ -290,15 +267,9 @@ Complemento(): void{
 
 
           this.dialogRef.afterOpened().subscribe(() => {
-            this.clickoutHandler = this.closeDialogFromClickout;
+            this.dialogRef.componentInstance.autoClose = true;
           });
     
-    
-          this.dialogRef.afterClosed().subscribe(() => {
-            this.clickoutHandler = this.vacio;
-          });
-
-          
           
         }
 

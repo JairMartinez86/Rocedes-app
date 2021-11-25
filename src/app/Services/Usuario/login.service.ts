@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output, } from '@angular/core';
+import { EventEmitter, HostListener, Injectable, Output, } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders, } from '@angular/common/http';
 import {Router, CanActivate} from "@angular/router"
 
@@ -6,6 +6,9 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { ClsUsuario } from 'src/app/class/Form/cls-usuario';
 import { Conexion } from 'src/app/class/Cnx/conexion';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 
 
 
@@ -21,6 +24,7 @@ export class LoginService {
 
   private Cnx : Conexion = new Conexion();
 
+  private isCancel : boolean = false;
   isOpen : boolean = false;
   str_Form : string = "";
 
@@ -31,8 +35,16 @@ export class LoginService {
   bol_remenber : boolean = false;
 
 
+  
+  //#region DIALOGO
 
-  constructor(private http: HttpClient, private router:Router) {
+
+  dialogRef!: MatDialogRef<DialogoComponent>;
+
+  //#endregion DIALOGO
+  
+
+  constructor(private http: HttpClient, private router:Router, private bnIdle1: BnNgIdleService, private bnIdle2: BnNgIdleService, public dialog: MatDialog ) {
 
 
    }
@@ -196,6 +208,65 @@ Cerrar() {
   this.change.emit(this.str_Form);
 }
   
+
+  //#region TIMEOUT
+
+  private TimeOutSalir(TimeClose : number) :void{
+    this.bnIdle2.startWatching(TimeClose).subscribe((isTimedOut: boolean) => {
+      if (isTimedOut && !this.isCancel) {
+        this.dialog.getDialogById("TimeOut")?.close();
+        this.bnIdle1.stopTimer();
+        this.bnIdle2.stopTimer();
+        this.CerrarSession();
+      }
+    });
+  }
+  
+  TimeOut( TimeVerif : number,  TimeClose: number) :void{
+    //this.clickoutHandler = this.vacio;
+    
+    this.bnIdle1.startWatching(TimeVerif).subscribe((isTimedOut: boolean) => 
+  {
+  if (isTimedOut) {
+  
+    this.bnIdle1.stopTimer();
+    
+    
+    let _json = JSON.parse("{\"Codigo\": \"\",\"Mensaje\": \"Tu Sessión va a expirar pronto.\"}");
+  
+    if(this.dialog.getDialogById("TimeOut") == null){
+      this.dialogRef = this.dialog.open(DialogoComponent, {
+        id:"TimeOut",
+        data: _json,
+      });
+    }
+    else{
+      this.dialogRef != this.dialog.getDialogById("TimeOut");
+    }
+    
+  
+  this.dialogRef.afterOpened().subscribe(() => {
+    this.isCancel = false;
+    this.bnIdle2.stopTimer();
+    this.TimeOutSalir(TimeClose);
+  });
+  
+  this.dialogRef.afterClosed().subscribe(() => {
+    this.isCancel = true;
+    this.bnIdle2.stopTimer();
+      
+    if(this.isOpen) this.TimeOut(TimeVerif, TimeClose);
+
+    });
+    
+  }});
+  
+}
+  
+  
+  //#endregion TIMEOUT
+
+
 
 
 }
