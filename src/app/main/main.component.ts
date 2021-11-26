@@ -222,7 +222,7 @@ export class MainComponent implements OnInit {
       return confirmationMessage;              // Gecko, WebKit, Chrome <34
     });
 
-    if(this.loginserv.isLoguin) this.loginserv.TimeOut(300, 30);
+    if(this.loginserv.isLoguin) this.loginserv.TimeOut();
     
 
   }

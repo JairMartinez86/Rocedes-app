@@ -57,8 +57,6 @@ export class LoginService {
   
   InicioSesion(str_user : string, str_Pass : string): Observable<any> {
 
-    const headers = { 'content-type': 'application/json'} 
-
     return this.http.post<any>(this.Cnx.Url() + "Usuario" + "?usr="+str_user+"&pwd="+ str_Pass, { 'content-type': 'application/text'});
 
   }
@@ -183,16 +181,14 @@ export class LoginService {
   Nuevo(Usuario: ClsUsuario): Observable<any> {
 
     let json = JSON.stringify(Usuario);          
-    const headers = { 'content-type': 'application/json'}  
-    return this.http.post<any>(this.Cnx.Url() + "Usuario/NuevoUsuario" + "?d="+json, { 'content-type': 'application/text'});
+    return this.http.post<any>(this.Cnx.Url() + "Usuario/NuevoUsuario" + "?d="+json, { 'content-type': 'application/json'});
 
   }
 
   Editar(Usuario: ClsUsuario): Observable<any> {
 
     let json = JSON.stringify(Usuario);          
-    const headers = { 'content-type': 'application/json'}  
-    return this.http.post<any>(this.Cnx.Url() + "Usuario/EditarUsuario" + "?d="+json, { 'content-type': 'application/text'});
+    return this.http.post<any>(this.Cnx.Url() + "Usuario/EditarUsuario" + "?d="+json, { 'content-type': 'application/json'});
 
   }
 
@@ -224,48 +220,48 @@ Cerrar() {
     });
   }
   
-  TimeOut( TimeVerif : number,  TimeClose: number) :void{
+  TimeOut() :void{
     //this.clickoutHandler = this.vacio;
     
-    this.bnIdle1.startWatching(TimeVerif).subscribe((isTimedOut: boolean) => 
-  {
-    if (isTimedOut) {
-      this.bnIdle1.stopTimer();
-    
-    
-      let _json = JSON.parse("{\"Codigo\": \"\",\"Mensaje\": \"Tu sessión va a expirar pronto.\"}");
+    this.bnIdle1.startWatching(this.Cnx.TimeVerif).subscribe((isTimedOut: boolean) => 
+    {
+      if (isTimedOut) {
+        this.bnIdle1.stopTimer();
       
-      if(this.dialog.getDialogById("TimeOut") == null){
-        this.dialogRef = this.dialog.open(DialogoComponent, {
-          id:"TimeOut",
-          data: _json,
+      
+        let _json = JSON.parse("{\"Codigo\": \"\",\"Mensaje\": \"Tu sessión va a expirar pronto.\"}");
+        
+        if(this.dialog.getDialogById("TimeOut") == null){
+          this.dialogRef = this.dialog.open(DialogoComponent, {
+            id:"TimeOut",
+            data: _json,
+          });
+        }
+        else{
+          this.dialogRef != this.dialog.getDialogById("TimeOut");
+        }
+
+        this.isCancel = false;
+        this.bnIdle2.stopTimer();
+        this.TimeOutSalir(this.Cnx.TimeClose);
+      
+    
+      /*this.dialogRef.afterOpened().subscribe(() => {
+        this.isCancel = false;
+        this.bnIdle2.stopTimer();
+        this.TimeOutSalir(TimeClose);
+      });*/
+    
+      this.dialogRef.afterClosed().subscribe(() => {
+        this.isCancel = true;
+        this.bnIdle2.stopTimer();
+        
+        if(this.isLoguin) this.TimeOut();
+
         });
-      }
-      else{
-        this.dialogRef != this.dialog.getDialogById("TimeOut");
-      }
-
-      this.isCancel = false;
-      this.bnIdle2.stopTimer();
-      this.TimeOutSalir(TimeClose);
-    
-  
-    /*this.dialogRef.afterOpened().subscribe(() => {
-      this.isCancel = false;
-      this.bnIdle2.stopTimer();
-      this.TimeOutSalir(TimeClose);
-    });*/
-  
-    this.dialogRef.afterClosed().subscribe(() => {
-      this.isCancel = true;
-      this.bnIdle2.stopTimer();
       
-      if(this.isLoguin) this.TimeOut(TimeVerif, TimeClose);
-
-      });
-    
-    }
-  });
+      }
+    });
   
 }
   

@@ -10,7 +10,7 @@ export class AuditoriaService {
 
   private Cnx : Conexion = new Conexion();
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) { }
 
 
     

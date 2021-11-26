@@ -101,7 +101,7 @@
 
 
     <div class="Lista-Registro" id="divRegistrosUsuario">
-        <div class="franja"><p>Registros de Piezas Escaneadas</p></div>
+        <div class="franja"><p>Registros de Piezas Escaneadas</p><p style="color: green;"></p></div>
 
 
         <div class="flex-container" *ngIf="bol_IniciarEmpaque">
@@ -144,10 +144,10 @@
       
 
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource] = "dataSource" class="mat-elevation-z8">
+            <table mat-table [dataSource] = "dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
             <ng-container matColumnDef="cIndex">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cIndex">
                 No.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cIndex}} </td>
@@ -155,7 +155,7 @@
 
 
             <ng-container matColumnDef="cSerial">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cSerial">
                 Serial.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cSerial}} </td>
@@ -163,7 +163,7 @@
 
 
             <ng-container matColumnDef="cNomPieza">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNomPieza">
                 Pieza.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cNomPieza}} </td>
@@ -171,14 +171,14 @@
 
 
             <ng-container matColumnDef="cSeccion">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cSeccion">
                 Seccion.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cSeccion}} </td>
             </ng-container>
 
             <ng-container matColumnDef="cNoBulto">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoBulto">
                 Bulto.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cNoBulto}} </td>
@@ -186,20 +186,20 @@
 
 
             <ng-container matColumnDef="cCapaje">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cCapaje">
                 Capaje.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cCapaje}} </td>
             </ng-container>
 
             <ng-container matColumnDef="cNoSaco">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoSaco">
                 Saco.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
             </ng-container>
             <ng-container matColumnDef="cEscaneado">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cEscaneado">
                 </th>
                 <td mat-cell *matCellDef="let element" >
                   <!--<a href="#"><fa-icon [icon]="['fas', 'minus-square']" class="fa-2x" [ngStyle]="{'color': element.cEscaneado? 'green' : 'red'}"></fa-icon></a>-->

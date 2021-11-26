@@ -316,7 +316,6 @@ export class UsuarioComponent implements OnInit {
   
         this.dialogRef = this.dialog.open(DialogoComponent, {
           data: _json["msj"],
-          restoreFocus: false
         });
   
         if(_json["esError"] == 0){
@@ -441,7 +440,6 @@ export class UsuarioComponent implements OnInit {
       else{
         this.dialogRef = this.dialog.open(DialogoComponent, {
           data: _json["msj"],
-          restoreFocus: false
         });
       }
 
