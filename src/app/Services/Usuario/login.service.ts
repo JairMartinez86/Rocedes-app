@@ -27,13 +27,14 @@ export class LoginService {
   private isCancel : boolean = false;
   public isOpen : boolean = false;
   public isLoguin : boolean = false;
+  bol_remenber : boolean = false;
+
+
   str_Form : string = "";
-
-
   str_user : string = "";
   str_pass : string = "";
   str_Fecha : string = "";
-  bol_remenber : boolean = false;
+  
 
 
   

@@ -102,6 +102,8 @@ export class BundleBoxingComponent implements OnInit {
   str_Seccion : string = "";
   str_Titulo_Saco : string = "";
 
+  int_Saco : number = 0;
+
   checked   = true;
   bol_IniciarEmpaque : boolean = false;
   bol_AbrirSaco : boolean = false;
@@ -401,57 +403,63 @@ Complemento(): void{
 
 
   AbrirSaco(e: Event, evento : string) : void{
+    
 
     this.str_Titulo_Saco = "";
 
+    if(evento == "Crear") this.int_Saco = 0;
 
-    if(evento == "Crear"){
-
-      this.BundleBoningService.CrearSaco(this.LoginService.str_user, this.str_Corte, this.str_Seccion).subscribe( s => {
+    if(this.dataSource.data.length == 0) return;
 
 
-        let _json = JSON.parse(s)
+    this.BundleBoningService.Saco(this.LoginService.str_user, this.str_Corte, this.str_Seccion, this.int_Saco.toString()).subscribe( s => {
 
-        if(_json["esError"] == 0){
 
-          if(_json["count"] > 0)
+      let _json = JSON.parse(s)
+
+      if(_json["esError"] == 0){
+
+        if(_json["count"] > 0)
+        {
+
+
+          if(evento == "Crear")
           {
-            this.str_Titulo_Saco = " Saco # " + _json["d"][0]["Saco"];
+            this.int_Saco = Number.parseInt(_json["d"][0].Saco);
+            this.str_Titulo_Saco = " Saco # " + _json["d"][0].Saco;
+          }
+          
 
-            
-            this.bol_AbrirSaco = !this.bol_AbrirSaco;
+          
+          this.bol_AbrirSaco = !this.bol_AbrirSaco;
 
-            let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+          let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
 
 
-            if(this.bol_AbrirSaco){
-              element.innerText = "Cerrar Saco";
-            }
-            else{
-              element.innerText = "Abrir Saco";
-            }
-
+          if(this.bol_AbrirSaco){
+            element.innerText = "Cerrar Saco";
+          }
+          else{
+            element.innerText = "Abrir Saco";
           }
 
-
         }
-        else{
 
-          this.dialogRef = this.dialog.open(DialogoComponent, {
-            data: _json["msj"],
-          });
 
-          this.dialogRef.componentInstance.autoClose = true;
+      }
+      else{
 
-            
-    
+        this.dialogRef = this.dialog.open(DialogoComponent, {
+          data: _json["msj"],
+        });
 
-  
-        }
-        
+        this.dialogRef.componentInstance.autoClose = true;
 
-      });
-    }
+      }
+      
+
+    });
+
 
   }
 

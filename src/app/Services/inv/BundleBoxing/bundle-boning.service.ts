@@ -19,9 +19,9 @@ export class BundleBoningService {
   }
 
 
-  CrearSaco(str_usuario: string, str_Corte : string, str_Seccion : string): Observable<any> {
+  Saco(str_usuario: string, str_Corte : string, str_Seccion : string, str_Saco : string): Observable<any> {
        
-    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/CrearSaco" + "?usuario=" + str_usuario  + "?corte="+str_Corte + "?seccion=" + str_Seccion,  { 'content-type': 'application/text'});
+    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Saco" + "?usuario=" + str_usuario  + "&corte="+str_Corte + "&seccion=" + str_Seccion + "&saco=" + str_Saco,  { 'content-type': 'application/text'});
 
   }
 
