@@ -4,7 +4,7 @@ import {Router, CanActivate} from "@angular/router"
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
-import { ClsUsuario } from 'src/app/class/Form/cls-usuario';
+import { ClsUsuario } from 'src/app/class/Form/sis/cls-usuario';
 import { Conexion } from 'src/app/class/Cnx/conexion';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';

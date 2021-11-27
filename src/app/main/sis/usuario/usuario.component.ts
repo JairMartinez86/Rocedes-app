@@ -8,10 +8,7 @@ import { LiveAnnouncer} from '@angular/cdk/a11y';
 import { MatSort, Sort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ClsUsuario } from 'src/app/class/Form/cls-usuario';
-import { ContentObserver } from '@angular/cdk/observers';
-import { DescargueComponent } from '../../inv/descargue/descargue.component';
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { ClsUsuario } from 'src/app/class/Form/sis/cls-usuario';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { _Schedule } from '@angular/cdk/table';
 
@@ -21,7 +18,6 @@ import { _Schedule } from '@angular/cdk/table';
 /*
 1. ngOnChanges
 2. ngOnInit
-3. ngDoCheck
 4. ngAfterContentInit
 5. ngAfterContentChecked
 6. ngAfterViewInit

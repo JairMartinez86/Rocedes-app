@@ -5,11 +5,12 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ignoreElements, map, Observable, startWith, Subject, timer } from 'rxjs';
-import { ClsSacoEstado } from 'src/app/class/Form/cls-saco-estado';
+import { map, Observable, startWith, Subject, timer } from 'rxjs';
+import { ClsBundleBoxing } from 'src/app/class/Form/Inv/cls-bundle-boxing';
+import { ClsSacoEstado } from 'src/app/class/Form/Inv/cls-saco-estado';
 import { Validacion } from 'src/app/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
-import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boning.service';
+import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boxing.service';
 import {InventarioService} from 'src/app/Services/inv/inventario.service'; 
 import { LoginService } from 'src/app/Services/Usuario/login.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
@@ -25,6 +26,8 @@ export interface IBoxin {
   cNoSaco: number;
   cEscaneado : boolean;
   cAccion : string;
+  cCorte: string;
+  cOper: string;
 }
 
 export interface ICorte {
@@ -342,7 +345,7 @@ Complemento(): void{
 
           let i : number = 1;
           _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : number, Saco : number, Corte : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck"})
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cOper : b.Oper})
           
             i+=1;
           });
@@ -404,6 +407,7 @@ Complemento(): void{
         this.dataSource.data.forEach((Fila, IBoxin) => {
           Fila.cEscaneado = false;
           Fila.cNoSaco = 0;
+          Fila.cAccion = "uncheck";
 
           if(_json["count"] > 0){
             _json["d"].forEach((d: { Serial : number, Bulto : number, Saco : number}) => {
@@ -411,6 +415,7 @@ Complemento(): void{
               if(Fila.cSerial == d.Serial && Fila.cNoBulto == d.Bulto) {
                 Fila.cNoSaco = d.Saco;
                 Fila.cEscaneado = true;
+                Fila.cAccion = "check";
                 return;
               }
 
@@ -437,9 +442,58 @@ Complemento(): void{
     this.GuardarPiezaEscaneada(event.target.value);
   }
 
-  GuardarPiezaEscaneada(_value : string) : void{
+  GuardarPiezaEscaneada(_Serial : string) : void{
+    if(_Serial.length <= 2) return
 
-    if(_value.length <= 2) return
+
+    let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == Number(_Serial) && !f.cEscaneado)
+    let Boxing  : ClsBundleBoxing = new ClsBundleBoxing();
+
+
+    if(_Fila != null){
+
+      Boxing.Serial = _Fila.cSerial;
+      Boxing.Nombre = _Fila.cNomPieza;
+      Boxing.Seccion = _Fila.cSeccion;
+      Boxing.Bulto = _Fila.cNoBulto;
+      Boxing.Capaje = _Fila.cCapaje;
+      Boxing.Saco = this.int_Saco;
+      Boxing.Corte = _Fila.cCorte;
+      Boxing.Oper = _Fila.cOper;
+      Boxing.Escaneado = true;
+
+
+      this.BundleBoningService.Pieza(Boxing).subscribe( s =>{
+
+
+        let _json = JSON.parse(s);
+
+        if(_json["esError"] == 0)
+        {
+
+          if(_json["count"] > 0)
+          {
+            _Fila.cEscaneado = true;
+            _Fila.cNoSaco = _json["d"][0].Saco;
+            _Fila.cAccion = "check";
+          }
+
+
+        }
+        else
+        {
+
+          this.dialogRef = this.dialog.open(DialogoComponent, {
+            data : _json["msj"]
+          })
+
+        }
+
+      });
+
+    }
+
+
   }
 
    //#endregion EVENTO TABLA

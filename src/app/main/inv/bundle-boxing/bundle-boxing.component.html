@@ -200,6 +200,7 @@
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
             </ng-container>
+
             <ng-container matColumnDef="cEscaneado">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cEscaneado">
                 </th>
@@ -212,10 +213,20 @@
               </ng-container>
 
               <ng-container matColumnDef="cAccion">
-                <th mat-header-cell *matHeaderCellDef></th>
+                <th mat-header-cell *matHeaderCellDef>*</th>
                 <td mat-cell *matCellDef="let element"> {{element.cAccion}} </td>
               </ng-container>
 
+
+              <ng-container matColumnDef="cCorte">
+                <th mat-header-cell *matHeaderCellDef>No Corte</th>
+                <td mat-cell *matCellDef="let element"> {{element.cCorte}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cOper">
+                <th mat-header-cell *matHeaderCellDef>Operacion</th>
+                <td mat-cell *matCellDef="let element"> {{element.cOper}} </td>
+              </ng-container>
               
 
              

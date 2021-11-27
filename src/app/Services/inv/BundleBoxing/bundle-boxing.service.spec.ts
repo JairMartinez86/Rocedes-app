@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BundleBoningService } from './bundle-boning.service';
+import { BundleBoningService } from './bundle-boxing.service';
 
 describe('BundleBoningService', () => {
   let service: BundleBoningService;
