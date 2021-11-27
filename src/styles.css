@@ -129,43 +129,59 @@ table tr a{
   width: auto !important;
   height: auto!important;
 }
+.mat-mat-dialog-title, .mat-dialog-content, .mat-dialog-actions{
+  padding: 0 !important;
+  margin: 0 !important;
+}
 
-.mat-dialog-title{
+
+
+.dialog-container{
+  padding: 0;
+  margin: 0;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  width: auto;
+  height: auto;
+  max-width: 450px;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+
+.dialog-title{
   padding-top: 5px;
   padding-bottom: 5px;
-  background-color: #1b364c;
-  font-size:  1.2em;
+  margin-bottom: 15px;
+  background-color: #6C757D;
+  font-size:  1.4em;
   font-weight: bold;
   text-align: center;
   color:white;
 }
 
-.mat-dialog-content{
-  min-width: 300px !important;
-  max-width: 600px !important;
-  width: auto !important;
-  height: auto!important;
-  padding: 20px !important;
-  margin: 0 !important;
-  font-size:  1em;
-  white-space: nowrap;
+
+.dialog-content div{
+  margin: 0;
+  padding: 0;
 }
 
-.mat-dialog-content div{
-  overflow-x: hidden !important;
-  text-align:justify !important; 
-  text-justify:inter-word !important;
+.dialog-content p{
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 
-.mat-dialog-actions{
-  width: auto !important;
-  height: auto!important;
-  padding-right: 5px !important;
-  margin: 0 !important;
-  font-size:  1em;
-  justify-content: flex-end;
+.dialog-container .dialog-actions{
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
+
+
+
+
+
+
 
 /***************************************************************************************************************/
 
@@ -194,3 +210,4 @@ mat-checkbox-ripple .mat-ripple-element,
   margin: 10px;
   text-align: center;
 }
+

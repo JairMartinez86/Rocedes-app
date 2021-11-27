@@ -124,6 +124,54 @@ export class Validacion {
                             break;
 
 
+
+
+
+
+
+
+                            case "NUM>":
+
+                                if( !(Number(str_cadena) >  Number(element.valor)))
+                                    errores = "1";
+                                
+                            break;
+
+                            case "NUM<":
+                                if( !(Number(str_cadena) <  Number(element.valor)))
+                                    errores = "1";
+                                
+                            break;
+
+                            case "NUM>=":
+                                if( !(Number(str_cadena) >=  Number(element.valor)))
+                                    errores = "1";
+                                
+                            break;
+
+                            case "NUM<=":
+                                if( !(Number(str_cadena) <=  Number(element.valor)))
+                                    errores = "1";
+                                
+                            break;
+
+                            case "NUM==":
+                                if( !(Number(str_cadena) ==  Number(element.valor)))
+                                    errores = "1";
+                                
+                            break;
+
+
+
+
+
+
+
+
+
+
+
+
                             case "DATE":
 
                                 if(!this.ValidarFecha(str_cadena))

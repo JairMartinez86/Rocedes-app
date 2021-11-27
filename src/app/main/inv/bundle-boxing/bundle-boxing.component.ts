@@ -5,7 +5,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Observable, startWith, Subject, timer } from 'rxjs';
+import { ignoreElements, map, Observable, startWith, Subject, timer } from 'rxjs';
+import { ClsSacoEstado } from 'src/app/class/Form/cls-saco-estado';
 import { Validacion } from 'src/app/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
 import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boning.service';
@@ -96,13 +97,14 @@ export class BundleBoxingComponent implements OnInit {
 
   public valSeleccion = new Validacion();
   public val = new Validacion();
+  public valSaco = new Validacion();
 
   str_from : string = "";
   str_Corte :string = "";
-  str_Seccion : string = "";
   str_Titulo_Saco : string = "";
 
   int_Saco : number = 0;
+  int_Seccion : number = 0;
 
   checked   = true;
   bol_IniciarEmpaque : boolean = false;
@@ -115,12 +117,14 @@ export class BundleBoxingComponent implements OnInit {
   }
 
 
-  number$Subscription : any
+  Timer$Subscription : any
 
   //#region DIALOGO
 
   clickoutHandler!: Function;
   dialogRef!: MatDialogRef<DialogoComponent>;
+
+  dialogSaco!: MatDialogRef<BundleBoxingComponent>;
 
 
   //#endregion DIALOGO
@@ -134,10 +138,12 @@ export class BundleBoxingComponent implements OnInit {
 
     this.val.add("txtBox_Mesa", "1", "LEN>", "0");
 
-    this.dataSource.data.splice(0, this.dataSource.data.length)
+    this.valSaco.add("txtBox_Saco", "1", "LEN>", "0")
+    this.valSaco.add("txtBox_Saco", "2", "NUM>", "0")
 
     this.LimpiarForm("");
 
+  
    }
 
 
@@ -147,13 +153,13 @@ export class BundleBoxingComponent implements OnInit {
   }
 
  
-  
 
   Cerrar(form : string) : void{
 
+
     if(form == ""){
       this.str_from = "";
-      this.number$Subscription = VerificarScanTimer.subscribe(() => {
+      this.Timer$Subscription = VerificarScanTimer.subscribe(() => {
         this.VerificarEscanneado();
       });
       
@@ -162,7 +168,7 @@ export class BundleBoxingComponent implements OnInit {
     if(form == "frmBundleBoxing_Cuerpo"){
       this.str_from = "BundleBoxing";
 
-      this.number$Subscription.unsubscribe();
+      this.Timer$Subscription.unsubscribe();
     }
 
     this.LimpiarForm(form);
@@ -287,17 +293,17 @@ Cuerpo() : void{
   
   this.str_Corte = _Opcion.Corte;
   this.str_Corte = this.str_Corte.trimEnd();
-  this.str_Seccion = "";
+  this.int_Seccion = 0;
 
   if(this.str_Corte.indexOf("-") != -1){
-    this.str_Seccion =  this.str_Corte[this.str_Corte.indexOf("-") + 1];
+    this.int_Seccion =  Number(this.str_Corte[this.str_Corte.indexOf("-") + 1]);
   } 
 
   this.str_from = "frmBundleBoxing_Cuerpo"
   this.bol_AbrirSaco = false;
   this.cargarTabla();
 
-  this.number$Subscription = VerificarScanTimer.subscribe(() => {
+  this.Timer$Subscription = VerificarScanTimer.subscribe(() => {
     this.VerificarEscanneado();
   });
   
@@ -312,7 +318,10 @@ Complemento(): void{
     
   //#region FORMULARIO EMPAQUE
 
-  cargarTabla(){
+
+   //#region EVENTO TABLA
+
+   cargarTabla(){
     
     
     let seccion :number = 0
@@ -374,95 +383,6 @@ Complemento(): void{
     }
   }
 
-  Empacar(): void{
-
-    if(this.val.ValForm.invalid) return;
-
-    this.bol_IniciarEmpaque = !this.bol_IniciarEmpaque;
-    this.bol_AbrirSaco = false;
-    this.bol_TerminarEmpaque = false;
-    this.dataSource.filter = "";
-    this.val.ValForm.get("txtBox_Mesa")?.disable();
-
-  }
-  
-
-  CerrarEmpaque() : void{
-
-    this.bol_IniciarEmpaque = false;
-    this.dataSource.filter = "";
-    this.val.ValForm.get("txtBox_Mesa")?.enable();
-    document.getElementById("txtBox_Mesa")?.focus();
-      
-  }
-
-  TerminarEmpaque() :void{
-    this.bol_TerminarEmpaque = true;
-  }
-
-
-
-  AbrirSaco(e: Event, evento : string) : void{
-    
-
-    this.str_Titulo_Saco = "";
-
-    if(evento == "Crear") this.int_Saco = 0;
-
-    if(this.dataSource.data.length == 0) return;
-
-
-    this.BundleBoningService.Saco(this.LoginService.str_user, this.str_Corte, this.str_Seccion, this.int_Saco.toString()).subscribe( s => {
-
-
-      let _json = JSON.parse(s)
-
-      if(_json["esError"] == 0){
-
-        if(_json["count"] > 0)
-        {
-
-
-          if(evento == "Crear")
-          {
-            this.int_Saco = Number.parseInt(_json["d"][0].Saco);
-            this.str_Titulo_Saco = " Saco # " + _json["d"][0].Saco;
-          }
-          
-
-          
-          this.bol_AbrirSaco = !this.bol_AbrirSaco;
-
-          let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
-
-
-          if(this.bol_AbrirSaco){
-            element.innerText = "Cerrar Saco";
-          }
-          else{
-            element.innerText = "Abrir Saco";
-          }
-
-        }
-
-
-      }
-      else{
-
-        this.dialogRef = this.dialog.open(DialogoComponent, {
-          data: _json["msj"],
-        });
-
-        this.dialogRef.componentInstance.autoClose = true;
-
-      }
-      
-
-    });
-
-
-  }
-
   filtrar(event: Event) {
     let filtro : string = (event.target as HTMLInputElement).value;
 
@@ -473,7 +393,6 @@ Complemento(): void{
   }  
  
 
-  
   VerificarEscanneado() {
     
       if(this.bol_Verificando) return;
@@ -508,11 +427,197 @@ Complemento(): void{
       });
   
   }
+ 
+ 
+  txtBox_EscanSerial_Change(event : any) : void{
+    this.GuardarPiezaEscaneada(event.target.value);
+  }
+
+  txtBox_EscanSerial_KeyEnter(event :any){
+    this.GuardarPiezaEscaneada(event.target.value);
+  }
+
+  GuardarPiezaEscaneada(_value : string) : void{
+
+    if(_value.length <= 2) return
+  }
+
+   //#endregion EVENTO TABLA
+
+   
+ 
+  Empacar(): void{
+
+    if(this.val.ValForm.invalid) return;
+
+    this.bol_IniciarEmpaque = !this.bol_IniciarEmpaque;
+    this.bol_AbrirSaco = false;
+    this.bol_TerminarEmpaque = false;
+    this.dataSource.filter = "";
+    this.val.ValForm.get("txtBox_Mesa")?.disable();
+
+
+  }
+  
+
+  CerrarEmpaque() : void{
+
+    this.bol_IniciarEmpaque = false;
+    this.dataSource.filter = "";
+    this.val.ValForm.get("txtBox_Mesa")?.enable();
+    document.getElementById("txtBox_Mesa")?.focus();
+      
+  }
+
+  TerminarEmpaque() :void{
+    this.bol_TerminarEmpaque = true;
+  }
+
+
+   //#region EVENTOS CREAR, CERRAR, ABIR SACO
+
+   BuscarSaco() :void{
+
+    if(this.valSaco.ValForm.invalid) return;
+
+    this.int_Saco = Number.parseInt(this.valSaco.ValForm.get("txtBox_Saco")?.value);
+    this.GuardarSaco("Abrir")
+  }
+
+  CerrarDialogoSaco() :void{ 
+    this.BundleBoningService.change.emit("Close:Saco");
+  }
+
+
+  
+
+  AbrirSaco() : void{
+
+    if(!this.bol_AbrirSaco)
+    {
+      this.dialogSaco = this.dialog.open(BundleBoxingComponent, { id: "DialogBundleBoxingComponent" });
+      this.dialogSaco.componentInstance.str_from = "frmBundleBoxing_Saco";
+      this.dialogSaco.componentInstance.str_Corte = this.str_Corte;
+      this.dialogSaco.componentInstance.int_Seccion = this.int_Seccion;
+      
+      this.dialogSaco.afterOpened().subscribe( s =>{
+      document.getElementById("divBundleBoxing")?.classList.add("disabled");
+        document.getElementById("divRegistrosUsuario")?.classList.add("disabled");
+        document.getElementById("divBundleBoxing")?.classList.add("disabled");
+      });
+
+      this.dialogSaco.afterClosed().subscribe( s =>{
+        document.getElementById("divBundleBoxing")?.classList.remove("disabled");
+        document.getElementById("divRegistrosUsuario")?.classList.remove("disabled");
+        document.getElementById("divBundleBoxing")?.classList.remove("disabled");
+        this.int_Saco = this.dialogSaco.componentInstance.int_Saco;
+        this.str_Titulo_Saco = this.dialogSaco.componentInstance.str_Titulo_Saco;
+
+        this.bol_AbrirSaco = !this.bol_AbrirSaco;
+
+        let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+
+
+        if(this.bol_AbrirSaco){
+          element.innerText = "Cerrar Saco";
+        }
+        else{
+          element.innerText = "Abrir Saco";
+        }
+
+      });
+    }
+    else
+    {
+      this.GuardarSaco("Cerrar") 
+    }
+
+    
+   
+  }
+
+
+
+  GuardarSaco(evento : string) : void{
+    
+
+    this.str_Titulo_Saco = "";
+
+    if(evento == "Crear") this.int_Saco = 0;
+
+    let Saco : ClsSacoEstado = new ClsSacoEstado();
+
+    Saco.Corte = this.str_Corte;
+    Saco.Seccion = this.int_Seccion;
+    Saco.Saco = this.int_Saco;
+    Saco.Estado = evento;
+    Saco.Login = this.LoginService.str_user;
+
+
+    this.BundleBoningService.Saco(Saco).subscribe( s => {
+
+
+      let _json = JSON.parse(s)
+
+      if(_json["esError"] == 0){
+
+        this.int_Saco = 0;
+        this.str_Titulo_Saco = "";
+
+        if(_json["count"] > 0)
+        {
+
+          this.int_Saco = 0;
+          this.str_Titulo_Saco = "";
+
+          if(evento != "Cerrar")
+          {
+            this.int_Saco = Number.parseInt(_json["d"][0].Saco);
+            this.str_Titulo_Saco = " Saco # " + _json["d"][0].Saco;
+          }
+
+          this.bol_AbrirSaco = !this.bol_AbrirSaco;
+         
+
+          let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+
+          if(this.bol_AbrirSaco){
+            element.innerText = "Cerrar Saco";
+          }
+          else{
+            element.innerText = "Abrir Saco";
+          }
+
+          this.BundleBoningService.change.emit("Close:Saco");
+
+          
+        }
+
+      }
+      else{
+
+        this.dialogRef = this.dialog.open(DialogoComponent, {
+          data: _json["msj"],
+        });
+
+      }
+      
+
+    });
+
+
+
+  }
+
+ 
+   //#endregion EVENTOS CREAR, CERRAR, ABIR SACO
+
+
+
+   
+
 
   //#endregion FORMULARIO EMPAQUE
-
-
-
 
 
   ngOnInit(): void {
@@ -529,6 +634,16 @@ Complemento(): void{
       }
       
     });
+
+
+    this.BundleBoningService.change.subscribe(s => {
+
+       if(s.split(":")[0] == "Close" && s.split(":")[1] == "Saco"){
+        this.dialogSaco?.close();
+      }
+      
+    });
+
   }
 
 

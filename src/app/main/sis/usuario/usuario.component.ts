@@ -205,10 +205,7 @@ export class UsuarioComponent implements OnInit {
             data: _json["msj"]
           });
 
-          this.dialogRef.afterOpened().subscribe(() => {
-            this.dialogRef.componentInstance.autoClose = true;
-          });
-          
+
           this.dialogRef.afterClosed().subscribe(() => {
             document?.getElementById(elementFocus)?.focus();
           });
@@ -224,10 +221,6 @@ export class UsuarioComponent implements OnInit {
         });
 
 
-        this.dialogRef.afterOpened().subscribe(() => {
-          this.dialogRef.componentInstance.autoClose = true;
-        });
-  
         this.dialogRef.afterClosed().subscribe(() => {
           document?.getElementById(elementFocus)?.focus();
         });
@@ -321,12 +314,6 @@ export class UsuarioComponent implements OnInit {
         if(_json["esError"] == 0){
          
 
-          
-        this.dialogRef.afterOpened().subscribe(() => {
-          this.dialogRef.componentInstance.autoClose = true;
-        });
-
-  
           this.dialogRef.afterClosed().subscribe(() => {
             this.LimpiarForm();
           });
@@ -512,10 +499,6 @@ export class UsuarioComponent implements OnInit {
 
  
 
-
-  vacio(){
-
-  }
   
 
   ngOnInit(): void {

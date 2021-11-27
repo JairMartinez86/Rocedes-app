@@ -1,5 +1,6 @@
 import { Component, OnInit,Inject, ElementRef, HostListener  } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';;
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+;
 
 @Component({
   selector: 'app-dialogo',
@@ -14,8 +15,7 @@ export class DialogoComponent implements OnInit {
   public str_Error : string = "";
 
   public autoClose : boolean = true;
-  
-  
+
   //#region DIALOGO
   @HostListener('document:click', ['$event'])
   clickout(event : any) {
@@ -39,21 +39,27 @@ export class DialogoComponent implements OnInit {
 
   //#endregion DIALOGO
 
-  constructor(public hostElement: ElementRef, public dialogRef: MatDialogRef<DialogoComponent>,
+  constructor(private sanitizer: DomSanitizer, public hostElement: ElementRef, public dialogRef: MatDialogRef<DialogoComponent>,
     @ Inject(MAT_DIALOG_DATA) public data : any) { 
 
-   
       this.str_Error = data["Codigo"];
       this.str_Mensaje = data["Mensaje"];
-      if(data["Codigo"] == "") this.str_Caption = "";
+      if(this.data["Codigo"] == "") this.str_Caption = "";
       this.clickoutHandler = this.closeDialogFromClickout;
- 
+
     }
 
 
+    Cerrar(){
+      this.dialogRef.close();
+    }
   
   
   ngOnInit(): void {
+
+    
+
   }
+
 
 }

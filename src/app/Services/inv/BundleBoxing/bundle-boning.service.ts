@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/class/Cnx/conexion';
+import { ClsSacoEstado } from 'src/app/class/Form/cls-saco-estado';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BundleBoningService {
+
+  @Output() change: EventEmitter<string> = new EventEmitter();
 
   private Cnx : Conexion = new Conexion();
 
@@ -19,9 +22,10 @@ export class BundleBoningService {
   }
 
 
-  Saco(str_usuario: string, str_Corte : string, str_Seccion : string, str_Saco : string): Observable<any> {
+  Saco(SacoEstado : ClsSacoEstado): Observable<any> {
        
-    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Saco" + "?usuario=" + str_usuario  + "&corte="+str_Corte + "&seccion=" + str_Seccion + "&saco=" + str_Saco,  { 'content-type': 'application/text'});
+    let json = JSON.stringify(SacoEstado);  
+    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Saco" + "?d=" + json,  { 'content-type': 'application/json'});
 
   }
 

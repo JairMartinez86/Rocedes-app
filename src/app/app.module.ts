@@ -49,7 +49,6 @@ import { AutofocusDirective } from './Directive/autofocus.directive';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +58,7 @@ import { AutofocusDirective } from './Directive/autofocus.directive';
     UsuarioComponent,
     DialogoComponent,
     BundleBoxingComponent,
-    AutofocusDirective,
+    AutofocusDirective
 
 
     
