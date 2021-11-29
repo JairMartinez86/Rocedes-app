@@ -17,6 +17,7 @@ export class MainComponent implements OnInit {
   private lstEsquema :  Esquema[] = [];
   Esquema !:Esquema; 
   
+  public NomUsuario : string = "";
  
 
 
@@ -49,6 +50,7 @@ export class MainComponent implements OnInit {
   constructor(private loginserv : LoginService, private InventarioService : InventarioService) {
 
     this.loginserv.VerificarSession()
+    this.NomUsuario = this.loginserv.Nombre;
 
     let _Esquema : Esquema;
 

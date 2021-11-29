@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="str_from == 'BundleBoxing'; then ngBundleBoxing_Seleccion; else SegundoCont"></ng-container>
 
 <ng-template #SegundoCont>
@@ -8,9 +9,6 @@
 <ng-template #TercerCont>
     <ng-container *ngIf="str_from == 'frmBundleBoxing_Saco';  then ngBundleBoxing_Saco; else ngBundleBoxing_Complemento"></ng-container>
 </ng-template>
-
-
-
 
 
 
@@ -79,12 +77,12 @@
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
                         <label>Corte No. <b>{{str_Corte}}</b></label>
-                      
+                        <label>Estilo. <b>{{str_Estilo}}</b></label>
                     </div>
 
                     <mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
                         <mat-label>Mesa #</mat-label>
-                        <input appAutofocus matInput type="text" id="txtBox_Mesa" formControlName="txtBox_Mesa" placeholder="Ingrese # Mesa">
+                        <input appAutofocus matInput type="text" id="txtBox_Mesa" formControlName="txtBox_Mesa" placeholder="Ingrese # Mesa" (keydown.enter)="Empacar()">
                         <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
                     </mat-form-field>
                 </div>
@@ -112,7 +110,7 @@
             </div>
 
             <div>
-                <button *ngIf="!bol_TerminarEmpaque" type="button" id="btnBoxin_TerminarEmpaque" class="btn btn-outline-secondary"  (click)="TerminarEmpaque()">Terminar Empaque</button>
+                <button *ngIf="!bol_TerminarEmpaque" type="button" id="btnBoxin_TerminarEmpaque" class="btn btn-outline-secondary"  (click)="TerminarEmpaque()">Finalizar</button>
             </div>
 
             <div>
@@ -126,11 +124,11 @@
 
 
         <div class="row">
-        
+
             <div class="col-12">
                 <mat-form-field class="col-sm-12 col-md-4 col-md-6" *ngIf="bol_AbrirSaco" >
                     <mat-label>Escanear</mat-label>
-                    <input matInput type="text" id="txtBox_EscanSerial"  placeholder="Escanear" (keydown.enter)="txtBox_EscanSerial_KeyEnter($event)" (change)="txtBox_EscanSerial_Change($event)" appAutofocus>
+                    <input matInput type="text" id="txtBox_EscanSerial"  placeholder="Escanear" (keydown.enter)="txtBox_EscanSerial_KeyEnter($event)"  appAutofocus>
                     <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg"></fa-icon></mat-icon>
                 </mat-form-field>
                 <mat-form-field [ngClass]="bol_AbrirSaco ? 'col-ms-12 col-md-4 col-lg-4 offset-md-2 offset-lg-2' : 'col-12'" ngclass="">
@@ -201,6 +199,13 @@
                 <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="cMesa">
+                <th mat-header-cell *matHeaderCellDef>
+                    No Mesa
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cMesa}} </td>
+              </ng-container>
+
             <ng-container matColumnDef="cEscaneado">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cEscaneado">
                 </th>
@@ -255,7 +260,7 @@
                     <div class="col-12">
                         <mat-form-field class="col-12">
                             <mat-label>Saco #</mat-label>
-                            <input appAutofocus matInput type="text" id="txtBox_Saco" formControlName="txtBox_Saco" placeholder="Ingrese # Saco">
+                            <input appAutofocus matInput type="text" id="txtBox_Saco" formControlName="txtBox_Saco" placeholder="Ingrese # Saco" (keydown.enter)="BuscarSaco()">
                             <mat-error *ngIf="valSaco.ValForm.get('txtBox_Saco')?.errors?.Regla=='1'">Saco # es <strong>requerido</strong></mat-error>
                             <mat-error *ngIf="valSaco.ValForm.get('txtBox_Saco')?.errors?.Regla=='2'"> Solo se permiten numeros mayor a: <strong>0</strong></mat-error>
                         </mat-form-field>

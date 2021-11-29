@@ -16,9 +16,9 @@ export class BundleBoningService {
 
   constructor(private http: HttpClient) { }
 
-  GetSerialesEscaneado(str_corte: string): Observable<any> {
+  GetSerialesEscaneado(str_corte: string, str_estilo : string): Observable<any> {
 
-    return this.http.get<any>(this.Cnx.Url() + "BundleBoxing/GetSerialesEscaneado" + "?corte="+str_corte);
+    return this.http.get<any>(this.Cnx.Url() + "BundleBoxing/GetSerialesEscaneado" + "?corte="+str_corte + "&estilo=" + str_estilo);
 
   }
 
@@ -27,6 +27,7 @@ export class BundleBoningService {
        
     let json = JSON.stringify(SacoEstado);  
     return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Saco" + "?d=" + json,  { 'content-type': 'application/json'});
+    
 
   }
 
@@ -34,7 +35,7 @@ export class BundleBoningService {
   Pieza(Boxing : ClsBundleBoxing): Observable<any> {
        
     let json = JSON.stringify(Boxing);  
-    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/GuardarPieza" + "?d=" + json,  { 'content-type': 'application/json'});
+    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Pieza" + "?d=" + json,  { 'content-type': 'application/json'});
 
   }
   

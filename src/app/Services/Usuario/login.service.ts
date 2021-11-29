@@ -30,6 +30,7 @@ export class LoginService {
   bol_remenber : boolean = false;
 
 
+  Nombre : string = "";
   str_Form : string = "";
   str_user : string = "";
   str_pass : string = "";
@@ -79,6 +80,7 @@ export class LoginService {
     {
       this.str_user = <string>localStorage.getItem("User");
       this.str_pass = <string>localStorage.getItem("Pwd");
+      this.Nombre = <string>localStorage.getItem("Nombre");
       this.bol_remenber = true;
     }
 
@@ -100,7 +102,7 @@ export class LoginService {
       if(Object.keys(_json["d"]).length > 0)
       {
 
-        this.GuardarSession(this.bol_remenber,  this.str_user, this.str_pass, _json["d"]["Fecha"]);
+        this.GuardarSession(this.bol_remenber,  this.str_user, this.str_pass, _json["d"][0]["Nombre"], _json["d"][0]["Fecha"]);
         return;
       }
       else
@@ -126,10 +128,12 @@ export class LoginService {
     localStorage.removeItem("User");
     localStorage.removeItem("Pwd");
     localStorage.removeItem("Fecha");
+    localStorage.removeItem("Nombre");
 
     sessionStorage.removeItem("User");
     sessionStorage.removeItem("Pwd");
     sessionStorage.removeItem("Fecha");
+    sessionStorage.removeItem("Nombre");
 
     this.isLoguin = false;
 
@@ -137,8 +141,9 @@ export class LoginService {
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
 
-  GuardarSession(bol_remenber : boolean, str_user : string, str_pass : string, str_Fecha : string ) : void
+  GuardarSession(bol_remenber : boolean, str_user : string, str_pass : string, str_Nombre : string, str_Fecha : string ) : void
   {
+    this.Nombre = str_Nombre;
     this.str_user = str_user;
     this.str_pass = str_pass;
     this.str_Fecha = str_Fecha;
@@ -147,11 +152,13 @@ export class LoginService {
 
     if(bol_remenber)
     {
+      localStorage.setItem('Nombre', str_Nombre);
       localStorage.setItem('User', str_user);
       localStorage.setItem('Pwd', str_pass);
       localStorage.setItem('Fecha', str_Fecha);
     }
 
+    sessionStorage.setItem('Nombre', str_Nombre);
     sessionStorage.setItem('User', str_user);
     sessionStorage.setItem('Pwd', str_pass);
     sessionStorage.setItem('Fecha', str_Fecha);

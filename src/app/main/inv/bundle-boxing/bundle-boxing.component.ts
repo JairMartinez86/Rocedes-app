@@ -13,7 +13,9 @@ import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
 import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boxing.service';
 import {InventarioService} from 'src/app/Services/inv/inventario.service'; 
 import { LoginService } from 'src/app/Services/Usuario/login.service';
+import { AlertService } from '../../otro/alert/alert/alert.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
+import { ToastService } from '../../otro/toast/toast.service';
 
 
 export interface IBoxin {
@@ -24,14 +26,17 @@ export interface IBoxin {
   cNoBulto: number;
   cCapaje: number;
   cNoSaco: number;
+  cMesa: number;
   cEscaneado : boolean;
   cAccion : string;
   cCorte: string;
+  cEstilo: string;
   cOper: string;
 }
 
 export interface ICorte {
   Corte: string;
+  Style: string;
 }
 
 
@@ -104,6 +109,7 @@ export class BundleBoxingComponent implements OnInit {
 
   str_from : string = "";
   str_Corte :string = "";
+  str_Estilo : string = "";
   str_Titulo_Saco : string = "";
 
   int_Saco : number = 0;
@@ -114,6 +120,7 @@ export class BundleBoxingComponent implements OnInit {
   bol_AbrirSaco : boolean = false;
   bol_TerminarEmpaque : boolean = false;
   bol_Verificando : boolean = false;
+  bol_Load  : boolean = false;
 
   checkValue(){
     this.checked = !this.checked
@@ -135,7 +142,7 @@ export class BundleBoxingComponent implements OnInit {
 
 
   
-  constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoningService : BundleBoningService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer ) {
+  constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoningService : BundleBoningService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer, protected alertService: AlertService, public toastService: ToastService ) {
 
     this.valSeleccion.add("txtBox_SeleccionCorte", "1", "LEN>", "0");
 
@@ -146,7 +153,7 @@ export class BundleBoxingComponent implements OnInit {
 
     this.LimpiarForm("");
 
-  
+
    }
 
 
@@ -179,6 +186,11 @@ export class BundleBoxingComponent implements OnInit {
   }
 
   LimpiarForm(form : string) : void{
+
+    this.bol_Load = false;
+    this.bol_IniciarEmpaque = false;
+    this.bol_AbrirSaco = false;
+    this.int_Saco = 0;
 
     if(form == ""){
      
@@ -233,8 +245,8 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
 
       if(_json["count"] > 0){
         
-        _json["d"].forEach((b: {  Corte : string}) => {
-          this.optionCorte.push({Corte : b.Corte});
+        _json["d"].forEach((b: {  Corte : string, Style : string}) => {
+          this.optionCorte.push({Corte : b.Corte, Style : b.Style});
         });
 
         this.filteredOptions = this.valSeleccion.ValForm.valueChanges.pipe(
@@ -295,7 +307,9 @@ Cuerpo() : void{
 
   
   this.str_Corte = _Opcion.Corte;
+  this.str_Estilo = _Opcion.Style;
   this.str_Corte = this.str_Corte.trimEnd();
+  this.str_Estilo = this.str_Estilo.trimEnd();
   this.int_Seccion = 0;
 
   if(this.str_Corte.indexOf("-") != -1){
@@ -344,8 +358,8 @@ Complemento(): void{
         if(_json["count"] > 0){
 
           let i : number = 1;
-          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : number, Saco : number, Corte : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cOper : b.Oper})
+          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : number, Saco : number, Mesa : number, Corte :  string, Estilo : string, Oper : string, Escaneado : boolean}) => {
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cOper : b.Oper})
           
             i+=1;
           });
@@ -400,7 +414,7 @@ Complemento(): void{
     
       if(this.bol_Verificando) return;
 
-      this.BundleBoningService.GetSerialesEscaneado(this.str_Corte).subscribe( s =>{
+      this.BundleBoningService.GetSerialesEscaneado(this.str_Corte, this.str_Estilo).subscribe( s =>{
 
         let _json = JSON.parse(s);
 
@@ -434,21 +448,21 @@ Complemento(): void{
   }
  
  
-  txtBox_EscanSerial_Change(event : any) : void{
-    this.GuardarPiezaEscaneada(event.target.value);
-  }
-
   txtBox_EscanSerial_KeyEnter(event :any){
     this.GuardarPiezaEscaneada(event.target.value);
   }
 
   GuardarPiezaEscaneada(_Serial : string) : void{
+
+  
     if(_Serial.length <= 2) return
 
 
     let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == Number(_Serial) && !f.cEscaneado)
     let Boxing  : ClsBundleBoxing = new ClsBundleBoxing();
 
+    if(this.bol_Load) return;
+    this.bol_Load = true;
 
     if(_Fila != null){
 
@@ -458,39 +472,65 @@ Complemento(): void{
       Boxing.Bulto = _Fila.cNoBulto;
       Boxing.Capaje = _Fila.cCapaje;
       Boxing.Saco = this.int_Saco;
+      Boxing.Mesa = this.val.ValForm.get("txtBox_Mesa")?.value;
       Boxing.Corte = _Fila.cCorte;
+      Boxing.Estilo = this.str_Estilo;
       Boxing.Oper = _Fila.cOper;
       Boxing.Escaneado = true;
+      Boxing.Login = this.LoginService.str_user;
 
 
-      this.BundleBoningService.Pieza(Boxing).subscribe( s =>{
+      if(!_Fila.cEscaneado)
+      {
+
+        this.BundleBoningService.Pieza(Boxing).subscribe( s =>{
 
 
-        let _json = JSON.parse(s);
-
-        if(_json["esError"] == 0)
-        {
-
-          if(_json["count"] > 0)
+          let _json = JSON.parse(s);
+  
+          if(_json["esError"] == 0)
           {
-            _Fila.cEscaneado = true;
-            _Fila.cNoSaco = _json["d"][0].Saco;
-            _Fila.cAccion = "check";
+  
+            if(_json["count"] > 0)
+            {
+              _Fila.cEscaneado =  _json["d"].Escaneado;
+              _Fila.cNoSaco = _json["d"].Saco;
+              _Fila.cMesa = _json["d"].Mesa;
+              _Fila.cAccion =  _json["d"].Escaneado == true ? "check" : "uncheck";
+              
+            }
+  
+            (<HTMLInputElement>document.getElementById("txtBox_EscanSerial")).value = "";
+     
+            this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+  
           }
+          else
+          {
+  
+            this.dialogRef = this.dialog.open(DialogoComponent, {
+              data: _json["msj"],
+            });
 
+          }
+  
+         
+        });
 
-        }
-        else
-        {
+       
 
-          this.dialogRef = this.dialog.open(DialogoComponent, {
-            data : _json["msj"]
-          })
+      }
+      else{
+        this.toastService.show("Serial # <b>"+ _Serial +"</b> escaneado.!", { classname: 'bg-warning text-light', delay: 10000 });
+      }
+      
+      this.bol_Load = false;
 
-        }
-
-      });
-
+    }
+    else{
+      
+      this.toastService.show("Serial # <b>"+ _Serial +"</b> no ecnotrado.!", { classname: 'bg-secondary text-light', delay: 10000 });
+      this.bol_Load = false;
     }
 
 
@@ -509,14 +549,15 @@ Complemento(): void{
     this.bol_TerminarEmpaque = false;
     this.dataSource.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.disable();
-
-
   }
   
 
   CerrarEmpaque() : void{
 
+    this.bol_Load = false;
     this.bol_IniciarEmpaque = false;
+    this.bol_AbrirSaco = false;
+    this.int_Saco = 0;
     this.dataSource.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.enable();
     document.getElementById("txtBox_Mesa")?.focus();
@@ -567,17 +608,21 @@ Complemento(): void{
         this.int_Saco = this.dialogSaco.componentInstance.int_Saco;
         this.str_Titulo_Saco = this.dialogSaco.componentInstance.str_Titulo_Saco;
 
-        this.bol_AbrirSaco = !this.bol_AbrirSaco;
-
-        let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
-
-
-        if(this.bol_AbrirSaco){
-          element.innerText = "Cerrar Saco";
+        if(this.int_Saco > 0){
+          this.bol_AbrirSaco = !this.bol_AbrirSaco;
+          let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+          if(this.bol_AbrirSaco){
+            element.innerText = "Cerrar Saco";
+          }
+          else{
+            element.innerText = "Abrir Saco";
+          }
         }
-        else{
-          element.innerText = "Abrir Saco";
-        }
+
+        
+
+
+       
 
       });
     }
@@ -621,13 +666,12 @@ Complemento(): void{
         if(_json["count"] > 0)
         {
 
-          this.int_Saco = 0;
-          this.str_Titulo_Saco = "";
+         
 
           if(evento != "Cerrar")
           {
-            this.int_Saco = Number.parseInt(_json["d"][0].Saco);
-            this.str_Titulo_Saco = " Saco # " + _json["d"][0].Saco;
+            this.int_Saco = Number.parseInt(_json["d"].Saco);
+            this.str_Titulo_Saco = " Saco # " + _json["d"].Saco;
           }
 
           this.bol_AbrirSaco = !this.bol_AbrirSaco;
@@ -654,6 +698,8 @@ Complemento(): void{
           data: _json["msj"],
         });
 
+        this.int_Saco = 0;
+
       }
       
 
@@ -679,6 +725,12 @@ Complemento(): void{
 
       if(s.split(":")[0] == "Open" && s.split(":")[1] == "BundleBoxing"){
         this.str_from = "BundleBoxing";
+
+        let options = {
+          autoClose: false,
+          keepAfterRouteChange: true,
+      };
+      
         
 
       }

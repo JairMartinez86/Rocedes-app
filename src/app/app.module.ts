@@ -46,7 +46,10 @@ import { BnNgIdleService } from 'bn-ng-idle';
 
 
 import { AutofocusDirective } from './Directive/autofocus.directive';
-
+import { AlertComponent } from './main/otro/alert/alert/alert.component';
+import { ToastComponent } from './main/otro/toast/toast.component';
+import { NgbToastModule } from  'ngb-toast';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -58,7 +61,10 @@ import { AutofocusDirective } from './Directive/autofocus.directive';
     UsuarioComponent,
     DialogoComponent,
     BundleBoxingComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    AlertComponent,
+    ToastComponent,
+
 
 
     
@@ -95,7 +101,9 @@ import { AutofocusDirective } from './Directive/autofocus.directive';
     FontAwesomeModule,
 
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgbToastModule,
+    NgbModule
     
   ],
   entryComponents: [

@@ -1,8 +1,6 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import {Router, CanActivate} from "@angular/router"
-
+import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../Services/Usuario/login.service'; 
-import { Observable } from 'rxjs';
+
 
 
 
@@ -44,7 +42,7 @@ export class LoginComponent implements OnInit {
       if(Object.keys(_json["d"]).length > 0)
       {
         
-        this.loginserv.GuardarSession(this.bol_remenber, this.str_user, this.str_pass, _json["d"]["Fecha"]);
+        this.loginserv.GuardarSession(this.bol_remenber, this.str_user, this.str_pass, _json["d"]["Nombre"], _json["d"]["Fecha"]);
       }
      
     } );

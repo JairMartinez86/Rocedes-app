@@ -24,7 +24,7 @@
               <div class="row">
                   <mat-form-field class="col-12">
                       <mat-label>Código Barra.</mat-label>
-                      <input appAutofocus matInput type="text" id="txtCodbar"  formControlName="txtCodbar" placeholder=""   (keydown.enter)="onKeyEnter($event)" (change)="onChangeEvent($event)">
+                      <input appAutofocus matInput type="text" id="txtCodbar"  formControlName="txtCodbar" placeholder=""   (keydown.enter)="onKeyEnter($event)">
                       <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg" *ngIf="!bol_Load else spinBar"></fa-icon></mat-icon>
                       <mat-error *ngIf="val.ValForm.get('txtCodbar')?.errors?.Regla=='1'">Código Barra es <strong>requerido</strong></mat-error>
                     </mat-form-field>
