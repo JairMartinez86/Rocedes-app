@@ -349,7 +349,7 @@ Complemento(): void{
 
     this.dataSource.data.splice(0, this.dataSource.data.length);
 
-    this.AuditoriaService.GetSerial2(this.str_Corte).subscribe(s=>{
+    this.AuditoriaService.GetSerial2(this.str_Corte, this.str_Estilo).subscribe(s=>{
 
       let _json = JSON.parse(s);
 

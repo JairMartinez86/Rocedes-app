@@ -21,9 +21,9 @@ export class AuditoriaService {
   }
 
 
-  GetSerial2(str_corte: string): Observable<any> {
+  GetSerial2(str_corte: string, str_estilo : string): Observable<any> {
 
-    return this.http.get<any>(this.Cnx.Url() + "Auditoria/GetSerial2" + "?corte="+str_corte);
+    return this.http.get<any>(this.Cnx.Url() + "Auditoria/GetSerial2" + "?corte="+str_corte + "&estilo="+ str_estilo);
 
   }
 
