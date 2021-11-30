@@ -1,4 +1,3 @@
-
 <ng-container *ngIf="str_from == 'BundleBoxing'; then ngBundleBoxing_Seleccion; else SegundoCont"></ng-container>
 
 <ng-template #SegundoCont>
@@ -101,7 +100,7 @@
 
 
     <div class="Lista-Registro" id="divRegistrosUsuario">
-        <div class="franja"><p>Registros de Piezas Escaneadas</p>{{str_Titulo_Saco}}<p style="color: green;"></p></div>
+        <div class="franja"><p>Registros de Piezas Escaneadas</p><p style="color: green;">{{str_Titulo_Saco}}</p></div>
 
 
         <div class="flex-container" *ngIf="bol_IniciarEmpaque">
@@ -204,7 +203,7 @@
                     No Mesa
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cMesa}} </td>
-              </ng-container>
+            </ng-container>
 
             <ng-container matColumnDef="cEscaneado">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cEscaneado">

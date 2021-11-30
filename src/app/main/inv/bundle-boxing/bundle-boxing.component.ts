@@ -41,9 +41,7 @@ export interface ICorte {
 
 
 
-let ELEMENT_DATA: IBoxin[] = [
-  
-];
+let ELEMENT_DATA: IBoxin[] = [];
 
 const VerificarScanTimer = timer(0, 300000);
 

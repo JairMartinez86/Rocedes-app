@@ -1,15 +1,9 @@
-import { Overlay } from '@angular/cdk/overlay';
-import { ComponentFactoryResolver, EventEmitter, Injectable, Output, ViewChild } from '@angular/core';
-import { BundleBoxingComponent } from 'src/app/main/inv/bundle-boxing/bundle-boxing.component';
-import { DescargueComponent } from 'src/app/main/inv/descargue/descargue.component';
-
+import { EventEmitter, Injectable, Output } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioService {
 
-  @ViewChild(DescargueComponent)DescargueComp!: DescargueComponent; 
-  @ViewChild(BundleBoxingComponent)BundleBoxingComp!: BundleBoxingComponent; 
 
 
   @Output() change: EventEmitter<string> = new EventEmitter();
@@ -35,6 +29,10 @@ export class InventarioService {
       case "LinkBundleBoxing":
         this.change.emit("Open:BundleBoxing");
         break;
+
+        case "LinkReportBundleBoxing":
+        this.change.emit("Open:LinkReportBundleBoxing");
+        break;
        
     }
     
@@ -52,6 +50,10 @@ export class InventarioService {
       case "LinkBundleBoxing":
         this.change.emit("Close:BundleBoxing");
         break;
+
+        case "LinkReportBundleBoxing":
+          this.change.emit("Close:LinkReportBundleBoxing");
+          break;
        
     }
   }
@@ -59,5 +61,6 @@ export class InventarioService {
   CerrarTodo(){
     this.change.emit("Close:Descargue");
     this.change.emit("Close:BundleBoxing");
+    this.change.emit("Close:LinkReportBundleBoxing");
   }
 }

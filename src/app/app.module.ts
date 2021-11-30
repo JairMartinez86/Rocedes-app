@@ -50,6 +50,8 @@ import { AlertComponent } from './main/otro/alert/alert/alert.component';
 import { ToastComponent } from './main/otro/toast/toast.component';
 import { NgbToastModule } from  'ngb-toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReportBundleBoxingComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing.component';
+import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 
 
 @NgModule({
@@ -64,6 +66,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AutofocusDirective,
     AlertComponent,
     ToastComponent,
+    ReportBundleBoxingComponent,
+    ReportBundleBoxingTablaComponent,
 
 
 
@@ -94,6 +98,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatPaginatorModule,
     BrowserAnimationsModule,
     MatSortModule,
+    
 
 
 

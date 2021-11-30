@@ -1,0 +1,165 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { map, Observable, startWith } from 'rxjs';
+import { Validacion } from 'src/app/class/Validacion/validacion';
+import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
+import { InventarioService } from 'src/app/Services/inv/inventario.service';
+import { ReportBundleBoxingTablaComponent } from './report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
+
+
+
+export interface ICorte {
+  Corte: string;
+  Style: string;
+}
+
+
+@Component({
+  selector: 'app-report-bundle-boxing',
+  templateUrl: './report-bundle-boxing.component.html',
+  styleUrls: ['./report-bundle-boxing.component.css']
+})
+export class ReportBundleBoxingComponent implements OnInit {
+
+  @ViewChild(ReportBundleBoxingTablaComponent)ReportBundleBoxingTablaComp?: ReportBundleBoxingTablaComponent; 
+
+
+  str_from : string = "";
+  str_Estilo : string = "";
+  str_Corte : string = "";
+
+  public valSeleccion = new Validacion();
+
+
+  dialogRef!: MatDialogRef<DialogoComponent>;
+  
+ 
+  constructor(private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, public dialog: MatDialog) { 
+    this.valSeleccion.add("txtReport_Box_Corte", "1", "LEN>", "0");
+
+    this.valSeleccion.ValForm.reset();
+  }
+
+
+  Cerrar() : void{
+    this.str_from = "";
+    this.valSeleccion.ValForm.reset();
+  }
+
+
+
+
+  //#region AUTO COMPLETADO
+	
+  optionCorte : ICorte[] = [];
+  filteredOptions!: Observable<ICorte[]>;
+
+  txtReport_Box_Corte_onSearchChange(event : any) :void{
+
+  this.optionCorte.splice(0, this.optionCorte.length);
+
+  if(event.target.value == null) return;
+
+  let value : string = event.target.value;
+
+  if(value.length <= 2) return;
+
+  
+  this.AuditoriaService.GetPOrder(value).subscribe( s => {
+    let _json = JSON.parse(s);
+
+
+    if(_json["esError"] == 0){
+
+
+      if(_json["count"] > 0){
+        
+        _json["d"].forEach((b: {  Corte : string, Style : string}) => {
+          this.optionCorte.push({Corte : b.Corte, Style : b.Style});
+        });
+
+        this.filteredOptions = this.valSeleccion.ValForm.valueChanges.pipe(
+          startWith(''),
+          map(value => (typeof value === 'string' ? value : value.Corte)),
+          map(Corte => (Corte ? this._FiltroSeleccion(Corte) : this.optionCorte.slice())),
+        );
+       
+      }
+     
+    }else{
+      this.dialogRef = this.dialog.open(DialogoComponent, {
+        data: _json["msj"]
+      })
+
+      this.dialogRef.afterOpened().subscribe(() => {
+        this.dialogRef.componentInstance.autoClose = true;
+      });
+
+
+    }
+
+  });
+
+
+
+}
+
+Generar(){
+
+   let _Opcion : any = this.valSeleccion.ValForm.get("txtReport_Box_Corte")?.value;
+
+  if( typeof(_Opcion) == 'string' ) {
+
+    _Opcion = this.optionCorte.filter( f => f.Corte == this.valSeleccion.ValForm.get("txtReport_Box_Corte")?.value)[0]
+
+    if(_Opcion == null){
+      this.valSeleccion.ValForm.get("txtReport_Box_Corte")?.setValue("");
+      return;
+    }
+    
+  }
+
+  this.str_Estilo = _Opcion.Style;
+  this.str_Corte = _Opcion.Corte;
+
+  this.ReportBundleBoxingTablaComp!.str_from = "ReportBundleBoxing-Tabla";
+
+
+}
+
+MostrarCorteSelec(Registro: ICorte): string {
+  if(Registro == null) return "";
+  return Registro.Corte;
+}
+
+private _FiltroSeleccion(Corte: string): ICorte[] {
+  const filterValue = Corte.toLowerCase();
+  return this.optionCorte.filter(option => option.Corte.toLowerCase().startsWith(filterValue));
+}
+
+
+
+
+
+
+//#endregion AUTO COMPLETADO
+
+  ngOnInit(): void {
+
+    this.InventarioService.change.subscribe(s => {
+
+      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkReportBundleBoxing"){
+        this.str_from = "ReportBundleBoxing";
+
+      }
+
+       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkReportBundleBoxing"){
+        this.str_from = "";
+      }
+      
+    });
+
+  }
+
+}
