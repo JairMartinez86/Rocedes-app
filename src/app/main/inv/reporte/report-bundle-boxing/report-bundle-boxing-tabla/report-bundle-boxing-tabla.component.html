@@ -1,44 +1,3 @@
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-      <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
-        <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
-        <td mat-cell *matCellDef="let row">{{ row[col] }}</td>
-      </ng-container>
-
-    
-      <!-- Default Table lines -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-      <!-- Group header cells-->
-      <ng-container matColumnDef="groupHeader">
-        <td colspan="999" mat-cell *matCellDef="let group">
-          <strong>{{group.groupName}}</strong>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="groupReducer">
-        <td colspan="1" mat-cell *matCellDef="let group">
-          <div fxFill fxLayoutAlign="center center">
-            <mat-icon *ngIf="!group.reduced">expand_less</mat-icon>
-            <mat-icon *ngIf="group.reduced">expand_more</mat-icon>
-          </div>
-        </td>
-      </ng-container>
-    
-      <!-- Group line -->
-      <tr mat-row  class="clickable"
-          *matRowDef="let row; columns: ['groupReducer','groupHeader']; when: isGroup" 
-          (click)="reduceGroup(row)" > 
-      </tr>
-    
-    </table>
-
-
-
-
 <ng-container *ngIf="str_from == 'ReportBundleBoxing-Tabla'">
     <div class="container">
         <div class="row">
@@ -150,7 +109,8 @@
                  
         
                 </table>
-                <mat-paginator [pageSizeOptions]="[3, 50, 100]"  showFirstLastButtons></mat-paginator>
+                <mat-paginator length="{{int_TotalRegistros}}" [pageSizeOptions]="[50, 500, 1000, 10000]"  showFirstLastButtons (page)="setPageSize($event)"></mat-paginator>
+
         </div>
     </div>
     

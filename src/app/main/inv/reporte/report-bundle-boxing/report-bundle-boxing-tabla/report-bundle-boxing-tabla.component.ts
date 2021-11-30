@@ -1,8 +1,6 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 
 export interface IBoxin {
   cIndex: number;
@@ -41,6 +39,17 @@ let ELEMENT_DATA: IBoxin[] = [
 })
 export class ReportBundleBoxingTablaComponent implements OnInit {
 
+  
+  @ViewChild(MatSort) sort!: MatSort
+
+  @ViewChild(MatPaginator, {static: false})
+  set paginator(value: MatPaginator) {
+    if (this.dataSource){
+      value._intl.getRangeLabel = this.getRangeDisplayText;
+    }
+  }
+  
+
   str_from : string = "";
   
   int_Seccion : number = 0;
@@ -48,18 +57,18 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
   
 
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cNoSaco", "cUsuario", "cFecha"];
+  dataSource =  ELEMENT_DATA;
+  int_TotalRegistros = ELEMENT_DATA.length;
+  clickedRows = new Set<IBoxin>();
 
-  //displayedColumns!: string[];
-
-  //dataSource = [];
 
   groupingColumn : any;
-
   reducedGroups : any = [];
-
   initialData!: any [];
 
-  constructor(private _liveAnnouncer: LiveAnnouncer){
+
+  constructor(){
     	// Replace people with any dataArray !
       let inputData  = ELEMENT_DATA;
 
@@ -68,7 +77,14 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       this.groupingColumn = "cUsuario"
   
       this.buildDataSource();
+
   }
+
+
+
+  
+
+   //#region EVENTO TABLA
 
 
 
@@ -85,6 +101,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
    * Rebuilds the datasource after any change to the criterions
    */
   buildDataSource(){
+
     this.dataSource = this.groupBy(this.groupingColumn,this.initialData,this.reducedGroups);
   }
   
@@ -142,29 +159,6 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     
     this.buildDataSource();
   }
-  
-
-   //#region EVENTO TABLA
-
-
-   displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cNoSaco", "cUsuario", "cFecha"];
-   dataSource = new MatTableDataSource(ELEMENT_DATA);
-   clickedRows = new Set<IBoxin>();
-   
-   
-  @ViewChild(MatPaginator, {static: false})
-  set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
-    }
-  }
-
-  @ViewChild(MatSort, {static: false})
-  set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
-  }
-
 
   getRangeDisplayText = (page: number, pageSize: number, length: number) => {
     const initialText = `Seriales`;  // customize this line
@@ -180,16 +174,53 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   };
 
   
+  SortChange(sort: Sort) {
+    let data = this.initialData;
+    //const index = data.findIndex((x) => x['level'] == 1);
+    if (sort.active && sort.direction !== '') {
+      /*if (index > -1) {
+        data.splice(index, 1);
+      }*/
 
-  SortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      
+      data = data.sort((a: IBoxin, b: IBoxin) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'cIndex':
+            return this.compare(a.cIndex, b.cIndex, isAsc);
+          case 'surname':
+            return this.compare(a.cNomPieza, b.cNomPieza, isAsc);
+          default:
+            return 0;
+        }
+      });
     }
+
+    
+    this.buildDataSource();
+
+    
   }
 
+  private compare(a: any, b: any, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 
+  setPageSize(e : any) : void
+  {
+    const data = ELEMENT_DATA;
+    const startIndex = e.pageIndex * e.pageSize;
+    const filter = data.filter(f => f.cIndex > 0).splice(startIndex, e.pageSize);
+    const start = filter[0];
+    const end = filter[filter.length - 1];
+    this.initialData = data.slice().splice(data.indexOf(start), data.indexOf(end));
+
+    
+    this.getRangeDisplayText(e.pageIndex, e.pageSize, ELEMENT_DATA.length)
+
+   
+    this.buildDataSource();
+  }
 
 
    //#endregion EVENTO TABLA
