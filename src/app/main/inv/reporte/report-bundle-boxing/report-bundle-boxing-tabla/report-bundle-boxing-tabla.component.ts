@@ -4,10 +4,12 @@ import { MatSort, Sort } from '@angular/material/sort';
 
 export interface IBoxin {
   cIndex: number;
+  cMesa : number;
   cSerial : number;
   cNomPieza : string;
   cNoBulto: number;
   cCapaje: number;
+  cSeccion: number;
   cNoSaco: number;
   cUsuario: string;
   cFecha : string;
@@ -16,19 +18,7 @@ export interface IBoxin {
 
 
 
-let ELEMENT_DATA: IBoxin[] = [
-  {cIndex: 0, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "jmg", cFecha : ""},
-  {cIndex: 1, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "jmg", cFecha : ""},
-  {cIndex: 2, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaa", cFecha : ""},
-  {cIndex: 3, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "jmg", cFecha : ""},
-  {cIndex: 4, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaaa", cFecha : ""},
-  {cIndex: 5, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "jmg", cFecha : ""},
-  {cIndex: 6, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaaa", cFecha : ""},
-  {cIndex: 7, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaaa", cFecha : ""},
-  {cIndex: 8, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaaa", cFecha : ""},
-  {cIndex: 9, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaaa", cFecha : ""},
-  {cIndex: 10, cSerial: 0, cNomPieza: "Female", cNoBulto: 0, cCapaje: 0, cNoSaco: 0, cUsuario : "aaaa", cFecha : ""},
-];
+let ELEMENT_DATA: IBoxin[] = [];
 
 
 
@@ -55,9 +45,11 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   int_Seccion : number = 0;
   int_Mesa : number = 0;
 
+  pageIndex : number = 0;
+  pageSize : number = 50;
   
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cNoSaco", "cUsuario", "cFecha"];
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cNoBulto", "cCapaje", "cNoSaco", "cUsuario", "cFecha"];
   dataSource =  ELEMENT_DATA;
   int_TotalRegistros = ELEMENT_DATA.length;
   clickedRows = new Set<IBoxin>();
@@ -74,9 +66,9 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
       if(!this.initData(inputData)) return;
   
-      this.groupingColumn = "cUsuario"
+      this.groupingColumn = "cSeccion"
   
-      this.buildDataSource();
+      this.Paginar();
 
   }
 
@@ -157,7 +149,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     else
       this.reducedGroups = this.reducedGroups.filter((el : any)=>el.value!=row.value);
     
-    this.buildDataSource();
+    this.Paginar();
   }
 
   getRangeDisplayText = (page: number, pageSize: number, length: number) => {
@@ -197,7 +189,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     }
 
     
-    this.buildDataSource();
+    this.Paginar();
 
     
   }
@@ -208,17 +200,18 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
   setPageSize(e : any) : void
   {
+    this.pageIndex, e.pageIndex;
+    this.pageSize, e.pageSize;
+    this.Paginar();
+  }
+
+  Paginar() : void{
     const data = ELEMENT_DATA;
-    const startIndex = e.pageIndex * e.pageSize;
-    const filter = data.filter(f => f.cIndex > 0).splice(startIndex, e.pageSize);
+    const startIndex = this.pageIndex * this.pageSize;
+    const filter = data.filter(f => f.cIndex > 0).splice(startIndex, this.pageSize);
     const start = filter[0];
     const end = filter[filter.length - 1];
     this.initialData = data.slice().splice(data.indexOf(start), data.indexOf(end));
-
-    
-    this.getRangeDisplayText(e.pageIndex, e.pageSize, ELEMENT_DATA.length)
-
-   
     this.buildDataSource();
   }
 

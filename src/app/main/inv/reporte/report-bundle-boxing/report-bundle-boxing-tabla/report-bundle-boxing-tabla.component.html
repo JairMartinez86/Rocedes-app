@@ -1,12 +1,6 @@
 <ng-container *ngIf="str_from == 'ReportBundleBoxing-Tabla'">
-    <div class="container">
-        <div class="row">
-            <div class="col-6">Seccion # {{int_Seccion}}</div>
-            <div class="col-6">Mesa # {{int_Seccion}}</div>
-        </div>
-    </div>
-   <div class="Lista-Registro" id="divBundleBoxing-Tablao">
-    
+    <div class="Lista-Registro" id="divBundleBoxing-Tablao">
+        <div class="franja"><p>Report Bundle Boxing</p></div>
     
         <div class="mat-elevation-z8">
             <table mat-table [dataSource] = "dataSource" matSort (matSortChange)="SortChange($event)" class="mat-elevation-z8">
@@ -113,8 +107,6 @@
 
         </div>
     </div>
-    
-
 </ng-container>
 
 
