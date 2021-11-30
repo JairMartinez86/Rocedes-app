@@ -114,13 +114,15 @@ export class BundleBoxingComponent implements OnInit {
 
   int_Saco : number = 0;
   int_Seccion : number = 0;
+  int_Mesa : number = 0;
 
   checked   = true;
   bol_IniciarEmpaque : boolean = false;
   bol_AbrirSaco : boolean = false;
   bol_TerminarEmpaque : boolean = false;
-  bol_Verificando : boolean = false;
-  bol_Load  : boolean = false;
+  private bol_Verificando : boolean = false;
+  private bol_Load  : boolean = false;
+
 
   checkValue(){
     this.checked = !this.checked
@@ -190,7 +192,9 @@ export class BundleBoxingComponent implements OnInit {
     this.bol_Load = false;
     this.bol_IniciarEmpaque = false;
     this.bol_AbrirSaco = false;
+
     this.int_Saco = 0;
+    this.int_Mesa = 0;
 
     if(form == ""){
      
@@ -547,6 +551,7 @@ Complemento(): void{
     this.bol_IniciarEmpaque = !this.bol_IniciarEmpaque;
     this.bol_AbrirSaco = false;
     this.bol_TerminarEmpaque = false;
+    this.int_Mesa = Number.parseInt( this.val.ValForm.get("txtBox_Mesa")?.value);
     this.dataSource.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.disable();
   }
@@ -554,13 +559,17 @@ Complemento(): void{
 
   CerrarEmpaque() : void{
 
+    this.GuardarSaco("Cerrar");
     this.bol_Load = false;
     this.bol_IniciarEmpaque = false;
-    this.bol_AbrirSaco = false;
     this.int_Saco = 0;
+    this.int_Mesa = 0;
+    this.bol_AbrirSaco = false;
     this.dataSource.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.enable();
     document.getElementById("txtBox_Mesa")?.focus();
+    
+    
       
   }
 
@@ -594,6 +603,7 @@ Complemento(): void{
       this.dialogSaco.componentInstance.str_from = "frmBundleBoxing_Saco";
       this.dialogSaco.componentInstance.str_Corte = this.str_Corte;
       this.dialogSaco.componentInstance.int_Seccion = this.int_Seccion;
+      this.dialogSaco.componentInstance.int_Mesa = this.int_Mesa;
       
       this.dialogSaco.afterOpened().subscribe( s =>{
       document.getElementById("divBundleBoxing")?.classList.add("disabled");
@@ -647,6 +657,7 @@ Complemento(): void{
     let Saco : ClsSacoEstado = new ClsSacoEstado();
 
     Saco.Corte = this.str_Corte;
+    Saco.Mesa = this.int_Mesa;
     Saco.Seccion = this.int_Seccion;
     Saco.Saco = this.int_Saco;
     Saco.Estado = evento;
@@ -668,16 +679,20 @@ Complemento(): void{
 
          
 
+          this.bol_AbrirSaco = !this.bol_AbrirSaco;
+          
           if(evento != "Cerrar")
           {
             this.int_Saco = Number.parseInt(_json["d"].Saco);
             this.str_Titulo_Saco = " Saco # " + _json["d"].Saco;
           }
 
-          this.bol_AbrirSaco = !this.bol_AbrirSaco;
-         
-
+          
           let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+
+         if(element != null)
+         {
+          
 
           if(this.bol_AbrirSaco){
             element.innerText = "Cerrar Saco";
@@ -686,6 +701,9 @@ Complemento(): void{
             element.innerText = "Abrir Saco";
           }
 
+         }
+
+          
           this.BundleBoningService.change.emit("Close:Saco");
 
           
