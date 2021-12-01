@@ -22,9 +22,9 @@ export class BundleBoningService {
 
   }
 
-  GetBundleBoxing(str_corte: string, str_estilo : string): Observable<any> {
+  GetBundleBoxing(str_corte: string): Observable<any> {
 
-    return this.http.get<any>(this.Cnx.Url() + "BundleBoxing/GetBundleBoxing" + "?corte="+str_corte + "&estilo=" + str_estilo);
+    return this.http.get<any>(this.Cnx.Url() + "BundleBoxing/GetBundleBoxing" + "?corte="+str_corte);
 
   }
 

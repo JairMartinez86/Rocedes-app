@@ -52,6 +52,7 @@ import { NgbToastModule } from  'ngb-toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReportBundleBoxingComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing.component';
 import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -126,6 +127,8 @@ import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bund
    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
    { provide: MatPaginatorIntl, useValue: CustomPaginator() },
 
+   
+   DatePipe,
 
 
    LoginService,

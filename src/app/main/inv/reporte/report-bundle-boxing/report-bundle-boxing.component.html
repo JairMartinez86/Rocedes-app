@@ -1,7 +1,7 @@
 <ng-container *ngIf="str_from == 'ReportBundleBoxing'">
     <div class="formulario" id="divReportBundleBoxing">
         <div class="head-form" id="from-encabezado">
-            <div class="from-encabezado-titulo"><p>Report Bundle Boxing</p></div>
+            <div class="from-encabezado-titulo"><p>Bundle Boxing Report</p></div>
             <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
           </div>
     
@@ -24,11 +24,6 @@
                         <mat-error *ngIf="valSeleccion.ValForm.get('txtReport_Box_Corte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
                     
                     </mat-form-field>
-    
-                    <div class="col-sm-12 col-md-5 col-lg-5 offset-md-1 offset-lg-1">
-                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
-                        <label>Estilo. <b>{{str_Estilo}}</b></label>
-                    </div>
                 </div>
     
                 <div class="row">
@@ -42,8 +37,15 @@
               </form>
           </div>
     </div>
+    
     <app-report-bundle-boxing-tabla></app-report-bundle-boxing-tabla>
 </ng-container>
+
+
+
+
+
+    
 
 
 

@@ -8,6 +8,7 @@ export class ClsBundleBoxing {
     public Saco: number = 0;
     public Mesa : number = 0;
     public Corte: string = "";
+    public CorteCompleto: string = "";
     public Estilo: string = "";
     public Oper: string = "";
     public Escaneado : boolean = false;

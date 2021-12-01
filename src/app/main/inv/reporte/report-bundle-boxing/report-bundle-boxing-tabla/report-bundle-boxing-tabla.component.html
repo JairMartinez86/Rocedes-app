@@ -1,9 +1,22 @@
 <ng-container *ngIf="str_from == 'ReportBundleBoxing-Tabla'">
-    <div class="Lista-Registro" id="divBundleBoxing-Tablao">
-        <div class="franja"><p>Report Bundle Boxing</p></div>
+
+    <div class="Lista-Registro" id="divBundleBoxing-Tabla">
+        <div class="franja"><p>Report</p></div>
+
+        <div class="row">
+
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+                </mat-form-field>
+            </div>
+            
+
+        </div>
     
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource] = "dataSource" matSort (matSortChange)="SortChange($event)" class="mat-elevation-z8">
+            <table mat-table [dataSource] = "dataSource" matSort (matSortChange)="SortChange($event)">
 
                 <ng-container matColumnDef="cIndex">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cIndex">
@@ -29,13 +42,7 @@
                 </ng-container>
     
     
-                <ng-container matColumnDef="cSeccion">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cSeccion">
-                    Seccion.
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.cSeccion}} </td>
-                </ng-container>
-    
+
                 <ng-container matColumnDef="cNoBulto">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoBulto">
                     Bulto.
@@ -76,37 +83,39 @@
      
     
                  <!-- Default Table lines -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-      <!-- Group header cells-->
-      <ng-container matColumnDef="groupHeader">
-        <td colspan="999" mat-cell *matCellDef="let group">
-          <strong>{{group.groupName}}</strong>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="groupReducer">
-        <td colspan="1" mat-cell *matCellDef="let group">
-          <div fxFill fxLayoutAlign="center center">
-            <mat-icon *ngIf="!group.reduced">expand_less</mat-icon>
-            <mat-icon *ngIf="group.reduced">expand_more</mat-icon>
-          </div>
-        </td>
-      </ng-container>
-    
-      <!-- Group line -->
-      <tr mat-row  class="clickable"
-          *matRowDef="let row; columns: ['groupReducer','groupHeader']; when: isGroup" 
-          (click)="reduceGroup(row)" > 
-      </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                <!-- Group header cells-->
+                <ng-container matColumnDef="groupHeader">
+                    <td colspan="999" mat-cell *matCellDef="let group">
+                    <strong>{{group.groupName}}</strong>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="groupReducer">
+                    <td colspan="1" mat-cell *matCellDef="let group">
+                    <div fxFill fxLayoutAlign="center center">
+                        <mat-icon *ngIf="!group.reduced">expand_less</mat-icon>
+                        <mat-icon *ngIf="group.reduced">expand_more</mat-icon>
+                    </div>
+                    </td>
+                </ng-container>
+                
+                <!-- Group line -->
+                <tr mat-row  class="clickable"
+                    *matRowDef="let row; columns: ['groupReducer','groupHeader']; when: isGroup" 
+                    (click)="reduceGroup(row)" > 
+                </tr>
 
-                 
-        
-                </table>
-                <mat-paginator length="{{int_TotalRegistros}}" [pageSizeOptions]="[50, 500, 1000, 10000]"  showFirstLastButtons (page)="setPageSize($event)"></mat-paginator>
+
+            </table>
+                
+            <mat-paginator length="{{int_TotalRegistros}}" [pageSizeOptions]="[50, 500, 1000, 10000]"  showFirstLastButtons (page)="setPageSize($event)"></mat-paginator>
 
         </div>
     </div>
+
+    
 </ng-container>
 
 

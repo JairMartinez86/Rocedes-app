@@ -1,9 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 
 export interface IBoxin {
   cIndex: number;
+  Grupo : string;
   cMesa : number;
   cSerial : number;
   cNomPieza : string;
@@ -11,8 +13,11 @@ export interface IBoxin {
   cCapaje: number;
   cSeccion: number;
   cNoSaco: number;
+  cCorte : string,
+  cEstilo : string,
   cUsuario: string;
-  cFecha : string;
+  cFecha : any;
+  cfiltro : string;
 }
 
 
@@ -35,7 +40,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
     if (this.dataSource){
-      value._intl.getRangeLabel = this.getRangeDisplayText;
+      if(value != null) value._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
   
@@ -60,19 +65,29 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   initialData!: any [];
 
 
-  constructor(){
-    	// Replace people with any dataArray !
-      let inputData  = ELEMENT_DATA;
+  constructor(public datepipe: DatePipe){}
 
-      if(!this.initData(inputData)) return;
-  
-      this.groupingColumn = "cSeccion"
-  
-      this.Paginar();
+
+  Abrir(_json : any[]) : void{
+    this.str_from = "ReportBundleBoxing-Tabla";
+
+    // Replace people with any dataArray !
+    if(!this.initData(_json)) return;
+    
+    ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
+    
+    let x : number = 1;
+    _json.forEach((j: { Grupo : string, Mesa : number, Serial : number, Nombre : string, Bulto : number, Capaje : number, Seccion : number, Saco : number, Corte : string, Estilo :string, Login : string, Fecha: string}) => {
+      ELEMENT_DATA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cNoBulto : j.Bulto, cCapaje : j.Capaje, cSeccion : j.Seccion, cNoSaco : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
+    cfiltro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
+      x++;
+    });
+
+    this.int_TotalRegistros = ELEMENT_DATA.length;
+    this.groupingColumn = "Grupo" 
+    this.Paginar();
 
   }
-
-
 
   
 
@@ -110,7 +125,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       let currentGroup = currentValue[column];
       if(!accumulator[currentGroup])
       accumulator[currentGroup] = [{
-        groupName: `${column} ${currentValue[column]}`,
+        groupName: `${""} ${currentValue[column]}`,//groupName: `${column} ${currentValue[column]}`,
         value: currentValue[column], 
         isGroup: true,
         reduced: collapsedGroups?.some((group) => group.value == currentValue[column])
@@ -208,13 +223,26 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   Paginar() : void{
     const data = ELEMENT_DATA;
     const startIndex = this.pageIndex * this.pageSize;
-    const filter = data.filter(f => f.cIndex > 0).splice(startIndex, this.pageSize);
+    const filter = data.filter(f => f.cfiltro != "").splice(startIndex, this.pageSize);
     const start = filter[0];
     const end = filter[filter.length - 1];
-    this.initialData = data.slice().splice(data.indexOf(start), data.indexOf(end));
+    this.initialData = data.slice().splice(data.indexOf(start), data.indexOf(end) + 1);
     this.buildDataSource();
   }
 
+  
+  filtrar(event: Event) {
+    let filtro : string = (event.target as HTMLInputElement).value;
+
+    const data = ELEMENT_DATA;
+    const startIndex = this.pageIndex * this.pageSize;
+    const filter = data.filter(f => ~f.cfiltro.toString().toLowerCase().indexOf(filtro.toLowerCase())).splice(startIndex, this.pageSize);
+    const start = filter[0];
+    const end = filter[filter.length - 1];
+    this.initialData = data.slice().splice(data.indexOf(start), data.indexOf(end) + 1);
+    this.buildDataSource();
+  }  
+ 
 
    //#endregion EVENTO TABLA
 

@@ -14,9 +14,9 @@ export class AuditoriaService {
 
 
     
-  GetPOrder(str_corte: string): Observable<any> {
+  GetCorte(str_corte: string, bol_esSeccion : boolean): Observable<any> {
 
-    return this.http.get<any>(this.Cnx.Url() + "Auditoria/GetAutoPOrder" + "?corte="+str_corte);
+    return this.http.get<any>(this.Cnx.Url() + "Auditoria/GetAutoCorte" + "?corte="+str_corte +"&esSeccion=" + String(bol_esSeccion));
 
   }
 

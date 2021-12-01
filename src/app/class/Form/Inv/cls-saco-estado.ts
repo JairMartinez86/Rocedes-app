@@ -10,4 +10,5 @@ export class ClsSacoEstado {
     public Seccion : number = 0;
     public Estado : string = "";
     public Login : string = "";
+    public CorteCompleto : string = "";
 }

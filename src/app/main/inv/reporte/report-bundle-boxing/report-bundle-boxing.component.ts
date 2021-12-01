@@ -4,6 +4,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { Validacion } from 'src/app/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
+import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boxing.service';
 import { InventarioService } from 'src/app/Services/inv/inventario.service';
 import { ReportBundleBoxingTablaComponent } from './report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 
@@ -11,7 +12,6 @@ import { ReportBundleBoxingTablaComponent } from './report-bundle-boxing-tabla/r
 
 export interface ICorte {
   Corte: string;
-  Style: string;
 }
 
 
@@ -26,7 +26,6 @@ export class ReportBundleBoxingComponent implements OnInit {
 
 
   str_from : string = "";
-  str_Estilo : string = "";
   str_Corte : string = "";
 
   public valSeleccion = new Validacion();
@@ -35,9 +34,10 @@ export class ReportBundleBoxingComponent implements OnInit {
   dialogRef!: MatDialogRef<DialogoComponent>;
   
  
-  constructor(private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, public dialog: MatDialog) { 
+  constructor(private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoningService : BundleBoningService, private dialog: MatDialog) { 
     this.valSeleccion.add("txtReport_Box_Corte", "1", "LEN>", "0");
 
+    this.valSeleccion.ValForm.get("txtReport_Box_Corte")?.setValue("");
     this.valSeleccion.ValForm.reset();
   }
 
@@ -66,7 +66,7 @@ export class ReportBundleBoxingComponent implements OnInit {
   if(value.length <= 2) return;
 
   
-  this.AuditoriaService.GetPOrder(value).subscribe( s => {
+  this.AuditoriaService.GetCorte(value, false).subscribe( s => {
     let _json = JSON.parse(s);
 
 
@@ -75,8 +75,8 @@ export class ReportBundleBoxingComponent implements OnInit {
 
       if(_json["count"] > 0){
         
-        _json["d"].forEach((b: {  Corte : string, Style : string}) => {
-          this.optionCorte.push({Corte : b.Corte, Style : b.Style});
+        _json["d"].forEach((b: {  Corte : string}) => {
+          this.optionCorte.push({Corte : b.Corte});
         });
 
         this.filteredOptions = this.valSeleccion.ValForm.valueChanges.pipe(
@@ -120,10 +120,26 @@ Generar(){
     
   }
 
-  this.str_Estilo = _Opcion.Style;
   this.str_Corte = _Opcion.Corte;
 
-  this.ReportBundleBoxingTablaComp!.str_from = "ReportBundleBoxing-Tabla";
+  this.BundleBoningService.GetBundleBoxing(this.str_Corte).subscribe( s => {
+    let _json = JSON.parse(s);
+
+    if(_json["esError"] == 0)
+    {
+      this.ReportBundleBoxingTablaComp!.Abrir(_json["d"]);
+      
+    }
+    else
+    {
+      this.dialogRef = this.dialog.open(DialogoComponent, {
+        data: _json["msj"]
+      })
+    }
+
+  });
+
+  
 
 
 }

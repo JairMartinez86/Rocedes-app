@@ -151,23 +151,19 @@
     </nav>
   </div>
   
+<!--class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom"-->
+<div *ngIf="Esquema._Esquema=='SIS'">
+  <app-usuario></app-usuario>
+</div>
 
-  <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom">
-    <div class="container" *ngIf="Esquema._Esquema=='SIS'">
-      <app-usuario></app-usuario>
-    </div>
-
-    <div class="container" *ngIf="Esquema._Esquema=='INV'">
-      <div class="container">
-        <app-descargue></app-descargue>
-        <app-bundle-boxing></app-bundle-boxing>
-        <app-report-bundle-boxing></app-report-bundle-boxing>
-      </div>
-
-    </div>
-
-  </div>
+<div *ngIf="Esquema._Esquema=='INV'">
+  <div class="container"><app-descargue></app-descargue></div>
+  <div class="container"><app-bundle-boxing></app-bundle-boxing></div>
+  <div class="container"><app-report-bundle-boxing></app-report-bundle-boxing></div>
+  
+</div>
  
+
 
 </main>
 </body>

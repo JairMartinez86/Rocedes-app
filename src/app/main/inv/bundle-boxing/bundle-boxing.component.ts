@@ -30,12 +30,14 @@ export interface IBoxin {
   cEscaneado : boolean;
   cAccion : string;
   cCorte: string;
+  cCorteCompleto: string;
   cEstilo: string;
   cOper: string;
 }
 
 export interface ICorte {
   Corte: string;
+  CorteCompleto: string;
   Style: string;
 }
 
@@ -107,6 +109,7 @@ export class BundleBoxingComponent implements OnInit {
 
   str_from : string = "";
   str_Corte :string = "";
+  str_CorteCompleto :string = "";
   str_Estilo : string = "";
   str_Titulo_Saco : string = "";
 
@@ -238,7 +241,7 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
   if(value.length <= 2) return;
 
   
-  this.AuditoriaService.GetPOrder(value).subscribe( s => {
+  this.AuditoriaService.GetCorte(value, true).subscribe( s => {
     let _json = JSON.parse(s);
 
 
@@ -247,8 +250,8 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
 
       if(_json["count"] > 0){
         
-        _json["d"].forEach((b: {  Corte : string, Style : string}) => {
-          this.optionCorte.push({Corte : b.Corte, Style : b.Style});
+        _json["d"].forEach((b: {  Corte : string, CorteCompleto : string, Style : string}) => {
+          this.optionCorte.push({Corte : b.Corte, CorteCompleto: b.CorteCompleto, Style : b.Style});
         });
 
         this.filteredOptions = this.valSeleccion.ValForm.valueChanges.pipe(
@@ -263,11 +266,6 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
       this.dialogRef = this.dialog.open(DialogoComponent, {
         data: _json["msj"]
       })
-
-      this.dialogRef.afterOpened().subscribe(() => {
-        this.dialogRef.componentInstance.autoClose = true;
-      });
-
 
     }
 
@@ -307,12 +305,16 @@ Cuerpo() : void{
 
 
 
-  
+  this.str_CorteCompleto = _Opcion.CorteCompleto;
   this.str_Corte = _Opcion.Corte;
   this.str_Estilo = _Opcion.Style;
+  this.str_CorteCompleto = this.str_CorteCompleto.trimEnd();
   this.str_Corte = this.str_Corte.trimEnd();
   this.str_Estilo = this.str_Estilo.trimEnd();
   this.int_Seccion = 0;
+
+  this.val.ValForm.get("txtBox_Mesa")?.value == "";
+  this.val.ValForm.get("txtBox_Mesa")?.enable();
 
   if(this.str_Corte.indexOf("-") != -1){
     this.int_Seccion =  Number(this.str_Corte[this.str_Corte.indexOf("-") + 1]);
@@ -360,8 +362,8 @@ Complemento(): void{
         if(_json["count"] > 0){
 
           let i : number = 1;
-          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : number, Saco : number, Mesa : number, Corte :  string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cOper : b.Oper})
+          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : number, Saco : number, Mesa : number, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });
@@ -476,6 +478,7 @@ Complemento(): void{
       Boxing.Saco = this.int_Saco;
       Boxing.Mesa = this.val.ValForm.get("txtBox_Mesa")?.value;
       Boxing.Corte = _Fila.cCorte;
+      Boxing.CorteCompleto = _Fila.cCorteCompleto;
       Boxing.Estilo = this.str_Estilo;
       Boxing.Oper = _Fila.cOper;
       Boxing.Escaneado = true;
@@ -545,6 +548,9 @@ Complemento(): void{
   Empacar(): void{
 
     if(this.val.ValForm.invalid) return;
+    if(this.val.ValForm.get("txtBox_Mesa")?.value == null) return
+    if(this.val.ValForm.get("txtBox_Mesa")?.value == "") return
+
 
     this.bol_IniciarEmpaque = !this.bol_IniciarEmpaque;
     this.bol_AbrirSaco = false;
@@ -600,6 +606,7 @@ Complemento(): void{
       this.dialogSaco = this.dialog.open(BundleBoxingComponent, { id: "DialogBundleBoxingComponent" });
       this.dialogSaco.componentInstance.str_from = "frmBundleBoxing_Saco";
       this.dialogSaco.componentInstance.str_Corte = this.str_Corte;
+      this.dialogSaco.componentInstance.str_CorteCompleto = this.str_CorteCompleto;
       this.dialogSaco.componentInstance.int_Seccion = this.int_Seccion;
       this.dialogSaco.componentInstance.int_Mesa = this.int_Mesa;
       
@@ -655,6 +662,7 @@ Complemento(): void{
     let Saco : ClsSacoEstado = new ClsSacoEstado();
 
     Saco.Corte = this.str_Corte;
+    Saco.CorteCompleto = this.str_CorteCompleto;
     Saco.Mesa = this.int_Mesa;
     Saco.Seccion = this.int_Seccion;
     Saco.Saco = this.int_Saco;
@@ -677,7 +685,9 @@ Complemento(): void{
 
          
 
-          this.bol_AbrirSaco = !this.bol_AbrirSaco;
+          this.bol_AbrirSaco = false;
+
+          if(evento == "Abrir" || evento =="Crear") this.bol_AbrirSaco = true;
           
           if(evento != "Cerrar")
           {
