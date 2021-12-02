@@ -106,6 +106,7 @@ export class BundleBoxingComponent implements OnInit {
   public valSeleccion = new Validacion();
   public val = new Validacion();
   public valSaco = new Validacion();
+  public valSerial = new Validacion();
 
   str_from : string = "";
   str_Corte :string = "";
@@ -113,6 +114,8 @@ export class BundleBoxingComponent implements OnInit {
   str_Estilo : string = "";
   str_Titulo_Saco : string = "";
   str_Mesa : string = "0";
+  opcion_material : string = "";
+  opcion_presentacion : string = "";
 
   int_Saco : number = 0;
   int_Seccion : number = 0;
@@ -152,21 +155,24 @@ export class BundleBoxingComponent implements OnInit {
 
     this.val.add("txtBox_Mesa", "1", "NUM>", "0");
 
-    this.valSaco.add("txtBox_Saco", "1", "LEN>", "0")
-    this.valSaco.add("txtBox_Saco", "2", "NUM>", "0")
+    this.valSaco.add("txtBox_Saco", "1", "LEN>", "0");
+    this.valSaco.add("txtBox_Saco", "2", "NUM>", "0");
 
+
+    this.valSerial.add("txtBox_Nombre", "1", "LEN>", "0");
+    this.valSerial.add("SelectBox_Material", "1", "LEN>", "0");
+    this.valSerial.add("SelectBox_Presentacion", "1", "LEN>", "0");
+    this.valSerial.add("spinBox_Cantidad", "1", "NUM>=", "0");
+    this.valSerial.add("spinBox_Capaje", "1", "NUM>=", "0");
+
+    
+    
     this.LimpiarForm("");
 
 
    }
 
 
-
-  Abrir() : void{
-
-  }
-
- 
 
   Cerrar(form : string) : void{
 
@@ -179,7 +185,7 @@ export class BundleBoxingComponent implements OnInit {
       
     }
 
-    if(form == "frmBundleBoxing_Cuerpo"){
+    if(form == "frmBundleBoxing_Escanner" || form == "frmBundleBoxing_CrearSerial"){
       this.str_from = "BundleBoxing";
 
       this.Timer$Subscription.unsubscribe();
@@ -210,9 +216,17 @@ export class BundleBoxingComponent implements OnInit {
 
     }
 
-    if(form == "frmBundleBoxing_Cuerpo"){
+    if(form == "frmBundleBoxing_Escanner"){
       this.str_Titulo_Saco = "";
       this.val.ValForm.reset();
+
+    }
+
+    if(form == "frmBundleBoxing_CrearSerial"){
+      this.bol_IniciarEmpaque = false;
+      this.bol_AbrirSaco = false;
+      this.bol_TerminarEmpaque = false;
+      this.valSerial.ValForm.reset();
 
     }
 
@@ -289,7 +303,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
 
 
 
-Cuerpo() : void{
+Escanner() : void{
 
   let _Opcion : any = this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.value;
 
@@ -303,8 +317,6 @@ Cuerpo() : void{
     }
     
   }
-
-
 
   this.str_CorteCompleto = _Opcion.CorteCompleto;
   this.str_Corte = _Opcion.Corte;
@@ -321,7 +333,7 @@ Cuerpo() : void{
     this.int_Seccion =  Number(this.str_Corte[this.str_Corte.indexOf("-") + 1]);
   } 
 
-  this.str_from = "frmBundleBoxing_Cuerpo"
+  this.str_from = "frmBundleBoxing_Escanner"
   this.bol_AbrirSaco = false;
   this.cargarTabla();
 
@@ -331,14 +343,47 @@ Cuerpo() : void{
   
 }
 
-Complemento(): void{
+CrearSerial(): void{
+
+  let _Opcion : any = this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.value;
+
+  if( typeof(_Opcion) == 'string' ) {
+
+    _Opcion = this.optionCorte.filter( f => f.Corte == this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.value)[0]
+
+    if(_Opcion == null){
+      this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.setValue("");
+      return;
+    }
+
+  }
+
+  
+   
+  this.str_CorteCompleto = _Opcion.CorteCompleto;
+  this.str_Corte = _Opcion.Corte;
+  this.str_Estilo = _Opcion.Style;
+  this.str_CorteCompleto = this.str_CorteCompleto.trimEnd();
+  this.str_Corte = this.str_Corte.trimEnd();
+  this.str_Estilo = this.str_Estilo.trimEnd();
+  this.int_Seccion = 0;
+
+
+  if(this.str_Corte.indexOf("-") != -1){
+    this.int_Seccion =  Number(this.str_Corte[this.str_Corte.indexOf("-") + 1]);
+  } 
+
+  this.str_from = "frmBundleBoxing_CrearSerial"
+  this.bol_AbrirSaco = false;
+
+  
   
 }
 //#endregion FORMULARIO SELECCION
 
     
     
-  //#region FORMULARIO EMPAQUE
+  //#region FORMULARIO ESCANNER
 
 
    //#region EVENTO TABLA
@@ -551,7 +596,7 @@ Complemento(): void{
 
     
     if(this.val.ValForm.invalid) return;
-    if(this.val.ValForm.get("txtBox_Mesa")?.invalid) return;
+    if(this.val.ValForm.invalid) return;
 
 
     if(this.val.ValForm.get("txtBox_Mesa")?.value == null) return
@@ -749,8 +794,14 @@ Complemento(): void{
    
 
 
-  //#endregion FORMULARIO EMPAQUE
+  //#endregion FORMULARIO ESCANNER
 
+
+    //#region FORMULARIO SERIAL
+
+
+  
+    //#endregion FORMULARIO SERIAL
 
   ngOnInit(): void {
     this.InventarioService.change.subscribe(s => {

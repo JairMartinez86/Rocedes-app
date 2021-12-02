@@ -1,13 +1,20 @@
 <ng-container *ngIf="str_from == 'BundleBoxing'; then ngBundleBoxing_Seleccion; else SegundoCont"></ng-container>
 
 <ng-template #SegundoCont>
-    <ng-container *ngIf="str_from == 'frmBundleBoxing_Cuerpo';  then ngBundleBoxing_Cuerpo; else TercerCont"></ng-container>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_Escanner';  then ngBundleBoxing_Escanner; else TercerCont"></ng-container>
 </ng-template>
 
 
 <ng-template #TercerCont>
-    <ng-container *ngIf="str_from == 'frmBundleBoxing_Saco';  then ngBundleBoxing_Saco; else ngBundleBoxing_Complemento"></ng-container>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_Saco';  then ngBundleBoxing_Saco; else CuartoCont"></ng-container>
 </ng-template>
+
+<ng-template #CuartoCont>
+    <ng-container *ngIf="str_from == 'frmBundleBoxing_CrearSerial';  then ngBundleBoxing_CrearSerial; else QuintoCont"></ng-container>
+</ng-template>
+
+<ng-template #QuintoCont></ng-template>
+
 
 
 
@@ -42,10 +49,10 @@
 
                 <div class="row">
                     <div class="col-6">
-                        <button type="button" id="btnBoxingCuerpo" class="btn  sleccion-cuerpo"  [disabled]="valSeleccion.ValForm.invalid"  (click)="Cuerpo()">Cuerpo</button>
+                        <button type="button" id="btnBoxingEscanner" class="btn  sleccion-escanner"  [disabled]="valSeleccion.ValForm.invalid"  (click)="Escanner()">Escanner</button>
                     </div>
                     <div class="col-6">
-                        <button type="button" id="btnBoxingComplemento" class="btn  sleccion-complemento" [disabled]="valSeleccion.ValForm.invalid"   (click)="Complemento()">Complemento</button>
+                        <button type="button" id="btnBoxingCrearSerial" class="btn  sleccion-crearserial" [disabled]="valSeleccion.ValForm.invalid"   (click)="CrearSerial()">Crear Serial</button>
                     </div>
                 </div>
 
@@ -63,11 +70,11 @@
 </ng-template>
 
 
-<ng-template #ngBundleBoxing_Cuerpo>
+<ng-template #ngBundleBoxing_Escanner>
     <div class="formulario" id="divBundleBoxing">
         <div class="head-form" id="from-encabezado">
             <div class="from-encabezado-titulo"><p>Bundle Boxing</p></div>
-            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('frmBundleBoxing_Cuerpo')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('frmBundleBoxing_Escanner')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
           </div>
     
           <div class="container">
@@ -98,24 +105,7 @@
                         <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
                       </mat-form-field>
 
-                    <!--<mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
-                        <mat-label>Mesa #</mat-label>
-                        <mat-select value="str_Mesa" id="txtBox_Mesa" formControlName="txtBox_Mesa" (keydown.enter)="Empacar()">
-                            <mat-option value="1">Mesa 1</mat-option>
-                            <mat-option value="2">Mesa 2</mat-option>
-                            <mat-option value="3">Mesa 3</mat-option>
-                            <mat-option value="4">Mesa 4</mat-option>
-                            <mat-option value="5">Mesa 5</mat-option>
-                            <mat-option value="6">Mesa 6</mat-option>
-                            <mat-option value="7">Mesa 7</mat-option>
-                            <mat-option value="8">Mesa 8</mat-option>
-                            <mat-option value="9">Mesa 9</mat-option>
-                            <mat-option value="10">Mesa 10</mat-option>
-                            <mat-option value="11">Mesa 11</mat-option>
-                            <mat-option value="12">Mesa 12</mat-option>
-                          </mat-select>
-                        <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
-                    </mat-form-field>-->
+
                 </div>
 
                 <div class="row">
@@ -309,8 +299,84 @@
 </ng-template>
 
 
-<ng-template #ngBundleBoxing_Complemento>
+<ng-template #ngBundleBoxing_CrearSerial>
+    <div class="formulario" id="divBundleBoxing_CrearSerial">
+        <div class="head-form" id="from-encabezado">
+            <div class="from-encabezado-titulo"><p>Crear Serial</p></div>
+            <div class="from-encabezado-salir"><a href="#" (click)="Cerrar('frmBundleBoxing_CrearSerial')"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+          </div>
+    
+          <div class="container">
+              <form class="form" [formGroup]="valSerial.ValForm"  novalidate>
 
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
+                        <label>Estilo. <b>{{str_Estilo}}</b></label>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
+                        <label>Estilo. <b>{{str_Estilo}}</b></label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <mat-form-field class="col-sm-12">
+                        <mat-label><b>Nombre.</b></mat-label>
+                        <input appAutofocus matInput type="text" id="txtBox_Nombre" formControlName="txtBox_Nombre" placeholder="Ingrese el nombre de la pieza.">
+                        <mat-error *ngIf="valSerial.ValForm.get('txtBox_Nombre')?.errors?.Regla=='1'">Nombre es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Material.</mat-label>
+                        <mat-select  [(value)]="opcion_material" id="SelectBox_Material" formControlName="SelectBox_Material" (keydown.enter)="Empacar()">
+                          <mat-option value="1"> 1</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="valSerial.ValForm.get('SelectBox_Material')?.errors?.Regla=='1'">Material es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Presentacion.</mat-label>
+                        <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (keydown.enter)="Empacar()">
+                          <mat-option value="Rollo">Rollo</mat-option>
+                          <mat-option value="Bulto">Bulto</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="valSerial.ValForm.get('selectBox_Presentacion')?.errors?.Regla=='1'">Presentacion es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+
+                </div>
+
+                <div class="row">
+
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Capaje.</mat-label>
+                        <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="0">
+                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">Capaje es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                   
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Cantidad.</mat-label>
+                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="0">
+                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Cantidad')?.errors?.Regla=='1'">Cantidad es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success"  (click)="Empacar()">IMPRIMIR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+                
+              </form>
+          </div>
+    </div>
 </ng-template>
 
 

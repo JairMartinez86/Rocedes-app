@@ -1,5 +1,5 @@
 
-#divInicioBundleBoxing .sleccion-cuerpo, #divInicioBundleBoxing  .sleccion-complemento {
+#divInicioBundleBoxing .sleccion-escanner, #divInicioBundleBoxing  .sleccion-crearserial {
   display: block;
   width: 100%;
   height: 80px;
@@ -12,14 +12,14 @@
 
 
 
-#divInicioBundleBoxing .sleccion-cuerpo {
+#divInicioBundleBoxing .sleccion-escanner {
   background-color: transparent;
   border:solid;
   border-color: #383;
   color: #383;
 }
 
-#divInicioBundleBoxing .sleccion-complemento {
+#divInicioBundleBoxing .sleccion-crearserial {
   background-color: transparent;
   border:solid;
   border-color: #286090;
@@ -27,13 +27,13 @@
 }
 
 
-#divInicioBundleBoxing #btnBoxingCuerpo:hover{
+#divInicioBundleBoxing #btnBoxingEscanner:hover{
   background-color: #383;
   color: white;
 }
 
 
-#divInicioBundleBoxing #btnBoxingComplemento:hover{
+#divInicioBundleBoxing #btnBoxingCrearSerial:hover{
   background-color: #286090;
   color: white;
 }
@@ -60,3 +60,11 @@
   #divAbrirSaco{
     max-width: 300px;
   }
+
+
+  
+#divBundleBoxing, #divBundleBoxing_CrearSerial{
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
