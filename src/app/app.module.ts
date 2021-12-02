@@ -29,7 +29,7 @@ import { DescargueComponent } from './main/inv/descargue/descargue.component';
 
 
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-  faSearch, faCircle, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
+  faSearch, faCircle, faMinusSquare, faFileExcel } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -53,6 +53,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReportBundleBoxingComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing.component';
 import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 import { DatePipe } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { DatePipe } from '@angular/common';
     MatPaginatorModule,
     BrowserAnimationsModule,
     MatSortModule,
+    MatSelectModule,
     
 
 
@@ -147,7 +149,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add multiple icons to the library
     library.addIcons(faBroom, faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-      faSearch, faCircle, faMinusSquare);
+      faSearch, faCircle, faMinusSquare, faFileExcel);
   }
 }
 

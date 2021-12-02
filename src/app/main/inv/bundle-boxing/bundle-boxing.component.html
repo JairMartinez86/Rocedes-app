@@ -81,9 +81,41 @@
 
                     <mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
                         <mat-label>Mesa #</mat-label>
-                        <input appAutofocus matInput type="text" id="txtBox_Mesa" formControlName="txtBox_Mesa" placeholder="Ingrese # Mesa" (keydown.enter)="Empacar()">
+                        <mat-select appAutofocus [(value)]="str_Mesa" id="txtBox_Mesa" formControlName="txtBox_Mesa" (keydown.enter)="Empacar()">
+                          <mat-option value="1">Mesa 1</mat-option>
+                          <mat-option value="2">Mesa 2</mat-option>
+                          <mat-option value="3">Mesa 3</mat-option>
+                          <mat-option value="4">Mesa 4</mat-option>
+                          <mat-option value="5">Mesa 5</mat-option>
+                          <mat-option value="6">Mesa 6</mat-option>
+                          <mat-option value="7">Mesa 7</mat-option>
+                          <mat-option value="8">Mesa 8</mat-option>
+                          <mat-option value="9">Mesa 9</mat-option>
+                          <mat-option value="10">Mesa 10</mat-option>
+                          <mat-option value="11">Mesa 11</mat-option>
+                          <mat-option value="12">Mesa 12</mat-option>
+                        </mat-select>
                         <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
-                    </mat-form-field>
+                      </mat-form-field>
+
+                    <!--<mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
+                        <mat-label>Mesa #</mat-label>
+                        <mat-select value="str_Mesa" id="txtBox_Mesa" formControlName="txtBox_Mesa" (keydown.enter)="Empacar()">
+                            <mat-option value="1">Mesa 1</mat-option>
+                            <mat-option value="2">Mesa 2</mat-option>
+                            <mat-option value="3">Mesa 3</mat-option>
+                            <mat-option value="4">Mesa 4</mat-option>
+                            <mat-option value="5">Mesa 5</mat-option>
+                            <mat-option value="6">Mesa 6</mat-option>
+                            <mat-option value="7">Mesa 7</mat-option>
+                            <mat-option value="8">Mesa 8</mat-option>
+                            <mat-option value="9">Mesa 9</mat-option>
+                            <mat-option value="10">Mesa 10</mat-option>
+                            <mat-option value="11">Mesa 11</mat-option>
+                            <mat-option value="12">Mesa 12</mat-option>
+                          </mat-select>
+                        <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
+                    </mat-form-field>-->
                 </div>
 
                 <div class="row">

@@ -165,6 +165,7 @@ export class LoginService {
 
     this.isLoguin = true;
     this.router.navigate(['/main'], { skipLocationChange: false });
+    this.change.emit(this.str_Form);
   }
 
 

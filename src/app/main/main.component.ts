@@ -51,8 +51,7 @@ export class MainComponent implements OnInit {
   constructor(private loginserv : LoginService, private InventarioService : InventarioService) {
 
     this.loginserv.VerificarSession()
-    this.NomUsuario = this.loginserv.Nombre;
-
+  
     let _Esquema : Esquema;
 
     _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuario", "Usuario", false));
@@ -237,7 +236,14 @@ export class MainComponent implements OnInit {
     });
 
     if(this.loginserv.isLoguin) this.loginserv.TimeOut();
-    
+
+    this.loginserv.change.subscribe(s => {
+
+      this.NomUsuario = this.loginserv.Nombre;
+      
+    });
+
+
 
   }
 

@@ -112,6 +112,7 @@ export class BundleBoxingComponent implements OnInit {
   str_CorteCompleto :string = "";
   str_Estilo : string = "";
   str_Titulo_Saco : string = "";
+  str_Mesa : string = "0";
 
   int_Saco : number = 0;
   int_Seccion : number = 0;
@@ -149,7 +150,7 @@ export class BundleBoxingComponent implements OnInit {
 
     this.valSeleccion.add("txtBox_SeleccionCorte", "1", "LEN>", "0");
 
-    this.val.add("txtBox_Mesa", "1", "LEN>", "0");
+    this.val.add("txtBox_Mesa", "1", "NUM>", "0");
 
     this.valSaco.add("txtBox_Saco", "1", "LEN>", "0")
     this.valSaco.add("txtBox_Saco", "2", "NUM>", "0")
@@ -313,7 +314,7 @@ Cuerpo() : void{
   this.str_Estilo = this.str_Estilo.trimEnd();
   this.int_Seccion = 0;
 
-  this.val.ValForm.get("txtBox_Mesa")?.value == "";
+  this.val.ValForm.get("txtBox_Mesa")?.value == this.str_Mesa;
   this.val.ValForm.get("txtBox_Mesa")?.enable();
 
   if(this.str_Corte.indexOf("-") != -1){
@@ -547,7 +548,12 @@ Complemento(): void{
  
   Empacar(): void{
 
+
+    
     if(this.val.ValForm.invalid) return;
+    if(this.val.ValForm.get("txtBox_Mesa")?.invalid) return;
+
+
     if(this.val.ValForm.get("txtBox_Mesa")?.value == null) return
     if(this.val.ValForm.get("txtBox_Mesa")?.value == "") return
 

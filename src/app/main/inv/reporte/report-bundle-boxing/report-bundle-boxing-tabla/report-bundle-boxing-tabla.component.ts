@@ -3,6 +3,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 
+
+import { Workbook } from 'exceljs';
+
+import * as fs from 'file-saver';
+
+import * as XLSX from 'xlsx'; 
+
+
 export interface IBoxin {
   cIndex: number;
   Grupo : string;
@@ -21,9 +29,26 @@ export interface IBoxin {
 }
 
 
+export interface IExcel {
+  Index: number;
+  Serial : number;
+  Pieza : string;
+  Bulto: number;
+  Capaje: number;
+  Saco: number;
+  Usuario: string;
+  Fecha : any;
+  Grupo : string;
+  filtro : string;
+}
+
+
+
 
 
 let ELEMENT_DATA: IBoxin[] = [];
+
+let ELEMENT_EXCEL: IExcel[] = [];
 
 
 
@@ -34,7 +59,7 @@ let ELEMENT_DATA: IBoxin[] = [];
 })
 export class ReportBundleBoxingTablaComponent implements OnInit {
 
-  
+
   @ViewChild(MatSort) sort!: MatSort
 
   @ViewChild(MatPaginator, {static: false})
@@ -47,8 +72,11 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
   str_from : string = "";
   
+  
   int_Seccion : number = 0;
   int_Mesa : number = 0;
+
+
 
   pageIndex : number = 0;
   pageSize : number = 50;
@@ -75,11 +103,16 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     if(!this.initData(_json)) return;
     
     ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
+    ELEMENT_EXCEL.splice(0, ELEMENT_EXCEL.length);
+    
     
     let x : number = 1;
     _json.forEach((j: { Grupo : string, Mesa : number, Serial : number, Nombre : string, Bulto : number, Capaje : number, Seccion : number, Saco : number, Corte : string, Estilo :string, Login : string, Fecha: string}) => {
       ELEMENT_DATA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cNoBulto : j.Bulto, cCapaje : j.Capaje, cSeccion : j.Seccion, cNoSaco : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
     cfiltro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
+
+    ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Bulto : j.Bulto, Capaje : j.Capaje, Saco : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
+    filtro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
       x++;
     });
 
@@ -90,6 +123,170 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   }
 
   
+
+  sTyleHeader(worksheet : any, cel : string[], line : number) : void
+  {
+    cel.forEach((c : string) => {
+      worksheet.getCell(c + line).font = {
+        name: 'Arial BlackS',
+        family: 2,
+        size: 11,
+        underline: false,
+        italic: false,
+        bold: true,
+        color: { argb: 'FFFFFF' }
+      };
+  
+      worksheet.getCell(c + line).fill = {
+        type: 'pattern',
+        pattern:'solid',
+        fgColor:{argb:'1B364C'},
+      };
+  
+  
+  
+      worksheet.getCell(c + line).alignment = { vertical: 'middle', horizontal: 'center' };
+    });
+
+    
+  }
+
+  exportar(): void {
+
+    //ORDENANDO POR GRUPO
+    var datos: { Grupo: string; }[] = ELEMENT_EXCEL.filter( f => f.filtro.includes((<HTMLInputElement>document.getElementById("txt_BundleBoxing_Tabla_Filtro")).value)).sort((n1,n2) => {
+      if (n1.Grupo > n2.Grupo) {
+          return 1;
+      }
+  
+      if (n1.Grupo < n2.Grupo) {
+          return -1;
+      }
+  
+      return 0;
+  });
+
+
+   //create new excel work book
+  let workbook = new Workbook();
+
+  //add name to sheet
+  let worksheet = workbook.addWorksheet("Employee Data");
+
+  //add column name
+  let header=["No",  "Serial", "Pieza", "Bulto", "Capaje", "Saco",  "Usuario", "Fecha", "Grupo"]
+ 
+ 
+  let str_Grupo : string = "";
+
+ 
+  let int_Salto_Linea_Grupos = 3;
+  let int_Merge_Row = 2;
+  let int_Linea = 7;
+
+
+  worksheet.addRow([]);
+  worksheet.addRow(["Bundle Boxing Report"]);
+  worksheet.mergeCells("A2:H4")
+  worksheet.getCell("A2").font = {
+    name: 'Arial BlackS',
+    family: 2,
+    size: 18,
+    underline: false,
+    italic: false,
+    bold: true,
+    color: { argb: 'FFFFFF' }
+  };
+
+  worksheet.getCell("A2").fill = {
+    type: 'pattern',
+    pattern:'solid',
+    fgColor:{argb:'006699'},
+  };
+
+  worksheet.getCell("A2").alignment = { vertical: 'middle', horizontal: 'center' };
+
+
+
+  worksheet.addRow([]);
+  worksheet.addRow([]);
+  worksheet.addRow([]);
+
+
+  for (let i = 0; i < datos.length; i++)
+  {
+    if(str_Grupo != datos[i].Grupo)
+    {
+      str_Grupo = datos[i].Grupo;
+
+      if(int_Linea > 7)
+      {
+        for (let s = 0; s < int_Salto_Linea_Grupos; s++)
+        {
+          worksheet.addRow([]);
+          int_Linea++;
+        }
+      }
+
+      worksheet.addRow(header,);
+      int_Linea++;
+
+      this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H"],  int_Linea)
+
+      worksheet.addRow([str_Grupo]);
+      int_Linea++;
+      worksheet.getCell("A" + int_Linea).alignment = { vertical: 'middle', horizontal: 'center' };
+      worksheet.getCell("A" + int_Linea).font = {
+        name: 'Arial BlackS',
+        family: 2,
+        size: 11,
+        underline: false,
+        italic: false,
+        bold: true,
+        color: { argb: '000000' }
+      };
+
+
+      worksheet.mergeCells(("A" + int_Linea) + ":H" + (int_Merge_Row + int_Linea - 1))
+      int_Linea += int_Merge_Row - 1;
+
+      
+    
+    }
+
+
+    let x2  = Object.values(datos[i]);
+    let temp=[]
+    for(let y = 0; y < x2.length; y++)
+    {
+      temp.push(x2[y])
+    }
+    worksheet.addRow(temp)
+    int_Linea ++;
+
+
+
+  }
+
+
+  worksheet.spliceColumns(9, 2);
+  worksheet.properties.defaultColWidth = 20;
+
+
+  //set downloadable file name
+    let fname="Bubdle-Boxing"
+
+    //add data and file name and download
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, fname+'-'+new Date().valueOf()+'.xlsx');
+    });
+
+
+  }
+
+  
+
 
    //#region EVENTO TABLA
 
