@@ -48,7 +48,7 @@
 
                 <ng-container matColumnDef="cNoBulto">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoBulto">
-                    Bulto.
+                    Bulto/Rollo.
                     </th>
                     <td mat-cell *matCellDef="let element"> {{element.cNoBulto}} </td>
                 </ng-container>
@@ -59,6 +59,13 @@
                     Capaje.
                     </th>
                     <td mat-cell *matCellDef="let element"> {{element.cCapaje}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cYarda">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cYarda">
+                    Yardaje.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cYarda}} </td>
                 </ng-container>
     
                 <ng-container matColumnDef="cNoSaco">

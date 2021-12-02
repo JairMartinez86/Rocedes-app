@@ -24,8 +24,9 @@ export interface IBoxin {
   cNomPieza : string;
   cSeccion: number;
   cNoBulto: number;
-  cCapaje: number;
-  cNoSaco: number;
+  cCapaje: string;
+  cYarda : string;
+  cNoSaco: string;
   cMesa: number;
   cEscaneado : boolean;
   cAccion : string;
@@ -99,7 +100,7 @@ export class BundleBoxingComponent implements OnInit {
   filteredOptions!: Observable<ICorte[]>;
 
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cNoSaco", "cEscaneado"];
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cEscaneado"];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<IBoxin>();
 
@@ -114,6 +115,7 @@ export class BundleBoxingComponent implements OnInit {
   str_Estilo : string = "";
   str_Titulo_Saco : string = "";
   str_Mesa : string = "0";
+  str_Label_Capaje : string = "Capaje."
   opcion_material : string = "";
   opcion_presentacion : string = "";
 
@@ -161,9 +163,9 @@ export class BundleBoxingComponent implements OnInit {
 
     this.valSerial.add("txtBox_Nombre", "1", "LEN>", "0");
     this.valSerial.add("SelectBox_Material", "1", "LEN>", "0");
-    this.valSerial.add("SelectBox_Presentacion", "1", "LEN>", "0");
-    this.valSerial.add("spinBox_Cantidad", "1", "NUM>=", "0");
-    this.valSerial.add("spinBox_Capaje", "1", "NUM>=", "0");
+    this.valSerial.add("selectBox_Presentacion", "1", "LEN>", "0");
+    this.valSerial.add("spinBox_Cantidad", "1", "NUM>=", "1");
+    this.valSerial.add("spinBox_Capaje", "1", "NUM>=", "1");
 
     
     
@@ -227,6 +229,7 @@ export class BundleBoxingComponent implements OnInit {
       this.bol_AbrirSaco = false;
       this.bol_TerminarEmpaque = false;
       this.valSerial.ValForm.reset();
+      this.str_Label_Capaje = "Capaje.";
 
     }
 
@@ -367,6 +370,7 @@ CrearSerial(): void{
   this.str_Corte = this.str_Corte.trimEnd();
   this.str_Estilo = this.str_Estilo.trimEnd();
   this.int_Seccion = 0;
+  this.str_Label_Capaje = "Capaje."
 
 
   if(this.str_Corte.indexOf("-") != -1){
@@ -408,8 +412,8 @@ CrearSerial(): void{
         if(_json["count"] > 0){
 
           let i : number = 1;
-          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : number, Saco : number, Mesa : number, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje, cNoSaco: b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
+          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });
@@ -470,11 +474,11 @@ CrearSerial(): void{
 
         this.dataSource.data.forEach((Fila, IBoxin) => {
           Fila.cEscaneado = false;
-          Fila.cNoSaco = 0;
+          Fila.cNoSaco = "";
           Fila.cAccion = "uncheck";
 
           if(_json["count"] > 0){
-            _json["d"].forEach((d: { Serial : number, Bulto : number, Saco : number}) => {
+            _json["d"].forEach((d: { Serial : number, Bulto : number, Saco : string}) => {
 
               if(Fila.cSerial == d.Serial && Fila.cNoBulto == d.Bulto) {
                 Fila.cNoSaco = d.Saco;
@@ -520,7 +524,8 @@ CrearSerial(): void{
       Boxing.Nombre = _Fila.cNomPieza;
       Boxing.Seccion = _Fila.cSeccion;
       Boxing.Bulto = _Fila.cNoBulto;
-      Boxing.Capaje = _Fila.cCapaje;
+      Boxing.Capaje = _Fila.cCapaje == "" ? 0 : Number(_Fila.cCapaje);
+      Boxing.Yarda = _Fila.cYarda == "" ? 0 : Number(_Fila.cYarda);
       Boxing.Saco = this.int_Saco;
       Boxing.Mesa = this.val.ValForm.get("txtBox_Mesa")?.value;
       Boxing.Corte = _Fila.cCorte;
@@ -563,6 +568,7 @@ CrearSerial(): void{
               data: _json["msj"],
             });
 
+
           }
   
          
@@ -584,7 +590,7 @@ CrearSerial(): void{
       this.bol_Load = false;
     }
 
-
+    (<HTMLInputElement>document.getElementById("txtBox_EscanSerial")).value = "";
   }
 
    //#endregion EVENTO TABLA
@@ -799,6 +805,11 @@ CrearSerial(): void{
 
     //#region FORMULARIO SERIAL
 
+    selectBox_select(): void
+    {
+      this.str_Label_Capaje = "Capaje.";
+      if(this.opcion_presentacion == "Rollo") this.str_Label_Capaje = "Yardaje.";
+    }
 
   
     //#endregion FORMULARIO SERIAL

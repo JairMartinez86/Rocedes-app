@@ -200,7 +200,7 @@
 
             <ng-container matColumnDef="cNoBulto">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cNoBulto">
-                Bulto.
+                Bulto / Rollo.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cNoBulto}} </td>
             </ng-container>
@@ -211,6 +211,13 @@
                 Capaje.
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.cCapaje}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cYarda">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cYarda">
+                Yardaje.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.cYarda}} </td>
             </ng-container>
 
             <ng-container matColumnDef="cNoSaco">
@@ -312,7 +319,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
-                        <label>Estilo. <b>{{str_Estilo}}</b></label>
+                        <label>Corte. <b>{{str_Corte}}</b></label>
                     </div>
 
                     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -341,7 +348,7 @@
 
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>Presentacion.</mat-label>
-                        <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (keydown.enter)="Empacar()">
+                        <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (selectionChange)="selectBox_select()" (keydown.enter)="Empacar()">
                           <mat-option value="Rollo">Rollo</mat-option>
                           <mat-option value="Bulto">Bulto</mat-option>
                         </mat-select>
@@ -354,14 +361,14 @@
                 <div class="row">
 
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-                        <mat-label>Capaje.</mat-label>
-                        <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="0">
-                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">Capaje es <strong>requerido</strong></mat-error>
+                        <mat-label>{{str_Label_Capaje}}</mat-label>
+                        <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="1">
+                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">{{str_Label_Capaje}} es <strong>requerido</strong></mat-error>
                     </mat-form-field>
                    
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>Cantidad.</mat-label>
-                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="0">
+                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="1">
                         <mat-error *ngIf="valSerial.ValForm.get('spinBox_Cantidad')?.errors?.Regla=='1'">Cantidad es <strong>requerido</strong></mat-error>
                     </mat-form-field>
                 </div>

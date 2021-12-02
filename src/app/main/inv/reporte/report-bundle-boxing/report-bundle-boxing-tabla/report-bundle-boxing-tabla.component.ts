@@ -18,9 +18,10 @@ export interface IBoxin {
   cSerial : number;
   cNomPieza : string;
   cNoBulto: number;
-  cCapaje: number;
+  cCapaje: string;
+  cYarda: string;
   cSeccion: number;
-  cNoSaco: number;
+  cNoSaco: string;
   cCorte : string,
   cEstilo : string,
   cUsuario: string;
@@ -34,8 +35,9 @@ export interface IExcel {
   Serial : number;
   Pieza : string;
   Bulto: number;
-  Capaje: number;
-  Saco: number;
+  Capaje: string;
+  Yarda: string;
+  Saco: string;
   Usuario: string;
   Fecha : any;
   Grupo : string;
@@ -82,7 +84,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   pageSize : number = 50;
   
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cNoBulto", "cCapaje", "cNoSaco", "cUsuario", "cFecha"];
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cUsuario", "cFecha"];
   dataSource =  ELEMENT_DATA;
   int_TotalRegistros = ELEMENT_DATA.length;
   clickedRows = new Set<IBoxin>();
@@ -107,11 +109,11 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     
     
     let x : number = 1;
-    _json.forEach((j: { Grupo : string, Mesa : number, Serial : number, Nombre : string, Bulto : number, Capaje : number, Seccion : number, Saco : number, Corte : string, Estilo :string, Login : string, Fecha: string}) => {
-      ELEMENT_DATA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cNoBulto : j.Bulto, cCapaje : j.Capaje, cSeccion : j.Seccion, cNoSaco : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
+    _json.forEach((j: { Grupo : string, Mesa : number, Serial : number, Nombre : string, Bulto : number, Capaje : string, Yarda: string, Seccion : number, Saco : string, Corte : string, Estilo :string, Login : string, Fecha: string}) => {
+      ELEMENT_DATA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cNoBulto : j.Bulto, cCapaje : j.Capaje == "0" ? "" : j.Capaje, cYarda : j.Yarda == "0" ? "" : j.Yarda, cSeccion : j.Seccion, cNoSaco : j.Saco == "0" ? "" : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
     cfiltro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
 
-    ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Bulto : j.Bulto, Capaje : j.Capaje, Saco : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
+    ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Bulto : j.Bulto, Capaje : j.Capaje == "0" ? "" : j.Capaje, Yarda : j.Yarda == "0" ? "" : j.Yarda, Saco : j.Saco == "0" ? "" : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
     filtro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
       x++;
     });
@@ -174,7 +176,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   let worksheet = workbook.addWorksheet("Employee Data");
 
   //add column name
-  let header=["No",  "Serial", "Pieza", "Bulto", "Capaje", "Saco",  "Usuario", "Fecha", "Grupo"]
+  let header=["No",  "Serial", "Pieza", "Bulto/Rollo", "Capaje", "Yardaje", "Saco",  "Usuario", "Fecha", "Grupo"]
  
  
   let str_Grupo : string = "";
@@ -187,7 +189,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
   worksheet.addRow([]);
   worksheet.addRow(["Bundle Boxing Report"]);
-  worksheet.mergeCells("A2:H4")
+  worksheet.mergeCells("A2:I4")
   worksheet.getCell("A2").font = {
     name: 'Arial BlackS',
     family: 2,
@@ -231,7 +233,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       worksheet.addRow(header,);
       int_Linea++;
 
-      this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H"],  int_Linea)
+      this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I"],  int_Linea)
 
       worksheet.addRow([str_Grupo]);
       int_Linea++;
@@ -247,7 +249,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       };
 
 
-      worksheet.mergeCells(("A" + int_Linea) + ":H" + (int_Merge_Row + int_Linea - 1))
+      worksheet.mergeCells(("A" + int_Linea) + ":I" + (int_Merge_Row + int_Linea - 1))
       int_Linea += int_Merge_Row - 1;
 
       
@@ -269,7 +271,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   }
 
 
-  worksheet.spliceColumns(9, 2);
+  worksheet.spliceColumns(10, 2);
   worksheet.properties.defaultColWidth = 20;
 
 

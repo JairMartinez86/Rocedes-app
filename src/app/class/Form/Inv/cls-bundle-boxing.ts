@@ -5,6 +5,7 @@ export class ClsBundleBoxing {
     public Seccion: number = 0;
     public Bulto: number = 0;
     public Capaje: number = 0;
+    public Yarda: number = 0;
     public Saco: number = 0;
     public Mesa : number = 0;
     public Corte: string = "";
