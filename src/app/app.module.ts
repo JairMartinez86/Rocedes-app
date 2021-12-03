@@ -54,6 +54,8 @@ import { ReportBundleBoxingComponent } from './main/inv/reporte/report-bundle-bo
 import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxBarcodeModule } from 'ngx-barcode';
+
 
 
 @NgModule({
@@ -81,7 +83,7 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     BrowserModule,
     AppRoutingModule,
-   
+    NgxBarcodeModule,
     
     FormsModule,
 
@@ -140,6 +142,7 @@ import { MatSelectModule } from '@angular/material/select';
 
    MatDatepickerModule,
    MatNativeDateModule,
+
 
    BnNgIdleService
   ],

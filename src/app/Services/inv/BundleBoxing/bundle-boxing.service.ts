@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/class/Cnx/conexion';
 import { ClsBundleBoxing } from 'src/app/class/Form/Inv/cls-bundle-boxing';
 import { ClsSacoEstado } from 'src/app/class/Form/Inv/cls-saco-estado';
+import { ClsSerialBoxing } from 'src/app/class/Form/Inv/Cls-Serial-Boxing';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,19 @@ export class BundleBoningService {
     return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Pieza" + "?d=" + json,  { 'content-type': 'application/json'});
 
   }
+
+
+  GenerarSerial(Serial : ClsSerialBoxing): Observable<any> {
+       
+    let json = JSON.stringify(Serial);  
+    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/GenerarSerial" + "?d=" + json,  { 'content-type': 'application/json'});
+
+  }
   
+  
+
+
+
 
 
 }

@@ -1,5 +1,6 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,6 +9,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith, Subject, timer } from 'rxjs';
 import { ClsBundleBoxing } from 'src/app/class/Form/Inv/cls-bundle-boxing';
 import { ClsSacoEstado } from 'src/app/class/Form/Inv/cls-saco-estado';
+import { ClsSerialBoxing } from 'src/app/class/Form/Inv/Cls-Serial-Boxing';
+import { IMaterial } from 'src/app/class/Form/Inv/Interface/i-Material';
+import { IPresentacionSerial } from 'src/app/class/Form/Inv/Interface/i-Presentacion';
 import { Validacion } from 'src/app/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
 import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boxing.service';
@@ -44,6 +48,7 @@ export interface ICorte {
 
 
 
+
 let ELEMENT_DATA: IBoxin[] = [];
 
 const VerificarScanTimer = timer(0, 300000);
@@ -65,6 +70,7 @@ function stop() {
 export class BundleBoxingComponent implements OnInit {
 
  
+  str_CodeBar = "";
 
 
   @ViewChild(MatPaginator, {static: false})
@@ -128,7 +134,11 @@ export class BundleBoxingComponent implements OnInit {
   bol_AbrirSaco : boolean = false;
   bol_TerminarEmpaque : boolean = false;
   private bol_Verificando : boolean = false;
-  private bol_Load  : boolean = false;
+  public bol_Load  : boolean = false;
+
+
+  public IPresentacion : IPresentacionSerial[] = []
+  public IMaterial : IMaterial[] = []
 
 
   checkValue(){
@@ -230,6 +240,7 @@ export class BundleBoxingComponent implements OnInit {
       this.bol_TerminarEmpaque = false;
       this.valSerial.ValForm.reset();
       this.str_Label_Capaje = "Capaje.";
+      this.str_CodeBar = "";
 
     }
 
@@ -303,9 +314,6 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
   return this.optionCorte.filter(option => option.Corte.toLowerCase().startsWith(filterValue));
 }
 
-
-
-
 Escanner() : void{
 
   let _Opcion : any = this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.value;
@@ -373,6 +381,7 @@ CrearSerial(): void{
   this.str_Label_Capaje = "Capaje."
 
 
+  this.str_CodeBar = "";
   if(this.str_Corte.indexOf("-") != -1){
     this.int_Seccion =  Number(this.str_Corte[this.str_Corte.indexOf("-") + 1]);
   } 
@@ -380,7 +389,7 @@ CrearSerial(): void{
   this.str_from = "frmBundleBoxing_CrearSerial"
   this.bol_AbrirSaco = false;
 
-  
+  this.CargarPresentacion();
   
 }
 //#endregion FORMULARIO SELECCION
@@ -802,13 +811,147 @@ CrearSerial(): void{
 
   //#endregion FORMULARIO ESCANNER
 
+  //#region FORMULARIO SERIAL
 
-    //#region FORMULARIO SERIAL
+  
+  
+
+ getNumbersInString(cadena : string) {
+  var tmp = cadena.split("");
+  var map = tmp.map(function(current : string) {
+    
+    if (!isNaN(parseInt(current))) {
+      return current;
+    }
+    return "";
+  });
+
+  var numbers = map.filter(function(value) {
+    return value != undefined;
+  });
+
+  return numbers.join("");
+}
+
+
+
+  CargarPresentacion() : void
+  {
+
+ 
+    this.IMaterial.splice(0, this.IMaterial.length);
+    this.IPresentacion.splice(0, this.IPresentacion.length);
+
+    this.InventarioService.GetPresentacionSerial().subscribe( s=>{
+
+      let _json = JSON.parse(s);
+
+      if(_json["esError"] == 0)
+      {
+        if(_json["count"] > 0)
+        {
+          _json["d"].forEach( (j : IPresentacionSerial) => {
+            this.IPresentacion.push(j);
+          });
+        }
+      }
+      else
+      {
+        this.dialog.open(DialogoComponent, {
+          data : _json["msj"]
+        });
+        
+      }
+
+    });
+
+  }
+
+
+  CargarMaterial() : void
+  {
+    this.IMaterial.splice(0, this.IMaterial.length);
+    this.InventarioService.GetMaterial(this.opcion_presentacion).subscribe( s=>{
+
+      let _json = JSON.parse(s);
+
+      if(_json["esError"] == 0)
+      {
+        if(_json["count"] > 0)
+        {
+          _json["d"].forEach( (j : IMaterial) => {
+            this.IMaterial.push(j);
+          });
+        }
+      }
+      else
+      {
+        this.dialog.open(DialogoComponent, {
+          data : _json["msj"]
+        });
+        
+      }
+
+    });
+
+  }
+
 
     selectBox_select(): void
     {
       this.str_Label_Capaje = "Capaje.";
-      if(this.opcion_presentacion == "Rollo") this.str_Label_Capaje = "Yardaje.";
+      if(this.opcion_presentacion == "2") this.str_Label_Capaje = "Yardaje.";
+      this.CargarMaterial();
+    }
+
+
+    GenerarSerial() : void
+    {
+      if(this.valSerial.ValForm.invalid) return;
+
+      let Serial : ClsSerialBoxing = new ClsSerialBoxing();
+
+      this.str_CodeBar = "";
+      Serial.Corte = this.str_Corte;
+      Serial.CorteCompleto = this.str_CorteCompleto;
+      Serial.Estilo = this.str_Estilo;
+      Serial.Pieza = this.valSerial.ValForm.get("txtBox_Nombre")?.value;
+      Serial.IdPresentacionSerial = Number(this.opcion_presentacion);
+      Serial.IdMaterial = Number(this.opcion_material);
+      Serial.Cantidad = Number(this.valSerial.ValForm.get("spinBox_Cantidad")?.value);
+      Serial.Capaje = Number(this.valSerial.ValForm.get("spinBox_Capaje")?.value);
+      Serial.Serial = this.getNumbersInString(this.str_Corte);
+      Serial.Login = this.LoginService.str_user;
+
+      this.BundleBoningService.GenerarSerial(Serial).subscribe( s =>{
+
+        this.str_CodeBar = "";
+
+        let _json = JSON.parse(s);
+
+        if(_json["esError"] == 0)
+        {
+          if(_json["count"] > 0)
+          {
+            this.str_CodeBar =  _json["d"][0].Serial;
+          }
+        }
+        else
+        {
+          this.dialog.open(DialogoComponent, {
+            data : _json["msj"]
+          });
+          
+        }
+
+
+      });
+
+    }
+
+    ImprimirSerial() : void
+    {
+
     }
 
   

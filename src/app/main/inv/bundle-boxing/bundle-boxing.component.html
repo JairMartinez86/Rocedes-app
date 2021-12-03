@@ -338,45 +338,61 @@
                 </div>
 
                 <div class="row">
-                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-                        <mat-label>Material.</mat-label>
-                        <mat-select  [(value)]="opcion_material" id="SelectBox_Material" formControlName="SelectBox_Material" (keydown.enter)="Empacar()">
-                          <mat-option value="1"> 1</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="valSerial.ValForm.get('SelectBox_Material')?.errors?.Regla=='1'">Material es <strong>requerido</strong></mat-error>
-                    </mat-form-field>
 
+                    
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>Presentacion.</mat-label>
                         <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (selectionChange)="selectBox_select()" (keydown.enter)="Empacar()">
-                          <mat-option value="Rollo">Rollo</mat-option>
-                          <mat-option value="Bulto">Bulto</mat-option>
+                          <mat-option  *ngFor="let p of IPresentacion" [value]="p.IdPresentacionSerial">{{p.Presentacion}}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="valSerial.ValForm.get('selectBox_Presentacion')?.errors?.Regla=='1'">Presentacion es <strong>requerido</strong></mat-error>
                     </mat-form-field>
 
 
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Material.</mat-label>
+                        <mat-select  [(value)]="opcion_material" id="SelectBox_Material" formControlName="SelectBox_Material" (keydown.enter)="Empacar()">
+                            <mat-option  *ngFor="let p of IMaterial" [value]="p.IdMaterial">{{p.Material}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="valSerial.ValForm.get('SelectBox_Material')?.errors?.Regla=='1'">Material es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
                 </div>
 
                 <div class="row">
 
+                    
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label>Cantidad.</mat-label>
+                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="1">
+                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Cantidad')?.errors?.Regla=='1'">Cantidad es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+                    
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>{{str_Label_Capaje}}</mat-label>
                         <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="1">
                         <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">{{str_Label_Capaje}} es <strong>requerido</strong></mat-error>
                     </mat-form-field>
                    
-                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-                        <mat-label>Cantidad.</mat-label>
-                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="1">
-                        <mat-error *ngIf="valSerial.ValForm.get('spinBox_Cantidad')?.errors?.Regla=='1'">Cantidad es <strong>requerido</strong></mat-error>
-                    </mat-form-field>
                 </div>
+
+                <div class="row">
+                    <div fxLayout="column">
+                        <ngx-barcode [bc-value]="str_CodeBar"  [bc-display-value]="true" bc-element-type="svg" bc-format="UPC" bc-font="monospace"  bc-text-align ="center"  [bc-font-size]="13" [bc-width]="2" [bc-height]="100" bc-background="transparent"></ngx-barcode>
+                    </div>
+
+                </div>
+
 
                 <div class="row">
                     <div class="col-12">
                         <div class="button-row text-end">
-                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success"  (click)="Empacar()">IMPRIMIR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
+                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success"  (click)="GenerarSerial()">GENERAR</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success"  (click)="ImprimirSerial()">IMPRIMIR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
                         </div>
                     </div>
                 </div>
@@ -389,3 +405,13 @@
 
 
 
+
+<!-----------------------------------------------------SPINNER---------------------------------------------------------------->
+
+<ng-template #spinBar>
+    <div style="text-align: right;">
+        <div class="spinner-border text-primary" role="status" >
+            <span class="sr-only">Loading...</span>
+          </div>
+    </div>
+</ng-template>
