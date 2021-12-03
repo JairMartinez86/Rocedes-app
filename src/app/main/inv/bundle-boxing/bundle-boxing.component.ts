@@ -900,7 +900,7 @@ CrearSerial(): void{
     selectBox_select(): void
     {
       this.str_Label_Capaje = "Capaje.";
-      if(this.opcion_presentacion == "2") this.str_Label_Capaje = "Yardaje.";
+      if(!this.IMaterial.find( f => f.IdMaterial == Number(this.opcion_presentacion))?.EsBunidad) this.str_Label_Capaje = "Yardaje.";
       this.CargarMaterial();
     }
 
@@ -933,7 +933,8 @@ CrearSerial(): void{
         {
           if(_json["count"] > 0)
           {
-            this.str_CodeBar =  _json["d"][0].Serial;
+            this.str_CodeBar =  _json["d"].Serial;
+            this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
           }
         }
         else
