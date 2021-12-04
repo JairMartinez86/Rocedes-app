@@ -1,14 +1,14 @@
 import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { LoginService } from 'src/app/Services/Usuario/login.service';
+import { LoginService } from '../../Services/Usuario/login.service';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
-import { Validacion } from 'src/app/class/Validacion/validacion';
+import { Validacion } from '../../class/Validacion/validacion';
 
 import { LiveAnnouncer} from '@angular/cdk/a11y';
 import { MatSort, Sort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ClsUsuario } from 'src/app/class/Form/sis/cls-usuario';
+import { ClsUsuario } from '../../class/Form/sis/cls-usuario';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { _Schedule } from '@angular/cdk/table';
 

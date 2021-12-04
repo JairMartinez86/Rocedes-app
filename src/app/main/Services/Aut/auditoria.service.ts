@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Conexion } from 'src/app/class/Cnx/conexion';
+import { Conexion } from '../../class/Cnx/conexion';
+
 
 @Injectable({
   providedIn: 'root'

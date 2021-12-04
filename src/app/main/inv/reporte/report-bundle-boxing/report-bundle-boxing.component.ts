@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
-import { Validacion } from 'src/app/class/Validacion/validacion';
+import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { AuditoriaService } from 'src/app/Services/Aut/auditoria.service';
-import { BundleBoningService } from 'src/app/Services/inv/BundleBoxing/bundle-boxing.service';
-import { InventarioService } from 'src/app/Services/inv/inventario.service';
+import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
+import { BundleBoningService } from 'src/app/main/Services/inv/BundleBoxing/bundle-boxing.service';
+import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
 import { ReportBundleBoxingTablaComponent } from './report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 
 

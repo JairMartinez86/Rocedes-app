@@ -4,10 +4,10 @@ import { Component, OnInit} from '@angular/core';
 
 import { AbstractControl, FormControl, ValidatorFn, FormGroupDirective, NgForm, Validators, NG_VALIDATORS, FormBuilder, FormGroup, ValidationErrors  } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Validacion } from 'src/app/class/Validacion/validacion';
+import { Validacion } from 'src/app/main/class/Validacion/validacion';
 
 
-import {InventarioService} from 'src/app/Services/inv/inventario.service'; 
+import {InventarioService} from 'src/app/main/Services/inv/inventario.service'; 
 
 
 /** Error when invalid control is dirty, touched, or submitted. */

@@ -1,8 +1,8 @@
 import { Component, OnInit, HostListener, Input} from '@angular/core';
 
-import { Esquema, Formulario } from 'src/app/class/Esquema/esquema';
-import {LoginService,} from '../Services/Usuario/login.service'; 
-import {InventarioService} from '../Services/inv/inventario.service'; 
+import { Esquema, Formulario } from 'src/app/main/class/Esquema/esquema';
+import {LoginService,} from './Services/Usuario/login.service'; 
+import {InventarioService} from './Services/inv/inventario.service'; 
 
 
 

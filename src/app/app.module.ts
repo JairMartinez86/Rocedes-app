@@ -40,12 +40,12 @@ import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faC
   import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   
 
-import { LoginService } from './Services/Usuario/login.service';
-import { InventarioService } from './Services/inv/inventario.service';
+import { LoginService } from './main/Services/Usuario/login.service';
+import { InventarioService } from './main/Services/inv/inventario.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 
 
-import { AutofocusDirective } from './Directive/autofocus.directive';
+import { AutofocusDirective } from './main/Directive/autofocus.directive';
 import { AlertComponent } from './main/otro/alert/alert/alert.component';
 import { ToastComponent } from './main/otro/toast/toast.component';
 import { NgbToastModule } from  'ngb-toast';

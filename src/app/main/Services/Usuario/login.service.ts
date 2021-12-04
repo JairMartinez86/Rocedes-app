@@ -1,14 +1,14 @@
-import { EventEmitter, HostListener, Injectable, Output, } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders, } from '@angular/common/http';
-import {Router, CanActivate} from "@angular/router"
+import { EventEmitter, Injectable, Output, } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router"
 
-import { Observable, throwError } from 'rxjs';
-import { map, catchError} from 'rxjs/operators';
-import { ClsUsuario } from 'src/app/class/Form/sis/cls-usuario';
-import { Conexion } from 'src/app/class/Cnx/conexion';
+import { Observable } from 'rxjs';
+
+import { Conexion } from '../../class/Cnx/conexion';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
+import { ClsUsuario } from '../../class/Form/sis/cls-usuario';
 
 
 

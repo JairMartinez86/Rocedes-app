@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../Services/Usuario/login.service'; 
+import {LoginService} from '../main/Services/Usuario/login.service'; 
 
 
 

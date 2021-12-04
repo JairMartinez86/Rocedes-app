@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Conexion } from 'src/app/class/Cnx/conexion';
-import { ClsBundleBoxing } from 'src/app/class/Form/Inv/cls-bundle-boxing';
-import { ClsSacoEstado } from 'src/app/class/Form/Inv/cls-saco-estado';
-import { ClsSerialBoxing } from 'src/app/class/Form/Inv/Cls-Serial-Boxing';
+import { Conexion } from 'src/app/main/class/Cnx/conexion';
+import { ClsBundleBoxing } from 'src/app/main/class/Form/Inv/cls-bundle-boxing';
+import { ClsSacoEstado } from 'src/app/main/class/Form/Inv/cls-saco-estado';
+import { ClsSerialBoxing } from 'src/app/main/class/Form/Inv/Cls-Serial-Boxing';
 
 @Injectable({
   providedIn: 'root'
