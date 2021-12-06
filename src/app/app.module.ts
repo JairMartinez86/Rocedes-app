@@ -55,7 +55,17 @@ import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bund
 import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxBarcodeModule } from 'ngx-barcode';
+import { ReportViewerComponent } from './main/otro/report-viewer/report-viewer.component';
 
+
+import { BoldReportViewerModule } from '@boldreports/angular-reporting-components';
+
+// Report viewer
+import '@boldreports/javascript-reporting-controls/Scripts/bold.report-viewer.min';
+
+// data-visualization
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
 
 
 @NgModule({
@@ -72,6 +82,7 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     ToastComponent,
     ReportBundleBoxingComponent,
     ReportBundleBoxingTablaComponent,
+    ReportViewerComponent,
 
 
 
@@ -113,7 +124,9 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     MatDialogModule,
     MatAutocompleteModule,
     NgbToastModule,
-    NgbModule
+    NgbModule,
+    BrowserModule,
+    BoldReportViewerModule
     
   ],
   entryComponents: [
