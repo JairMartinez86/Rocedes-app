@@ -1,2 +1,2 @@
-<bold-reportviewer id="reportViewer_Control" [reportServiceUrl] = "serviceUrl"   [processingMode] = "Remote"  [dataSources]="reportData" [reportPath] = "reportPath" [printMode] = "isPrintMode" style="width: 100%;height: 950px">
+<bold-reportviewer *ngIf="serviceUrl != ''" id="reportViewer_Control" [reportServiceUrl] = "serviceUrl"   [processingMode] = "Remote"  [dataSources]="reportData" [reportPath] = "reportPath" [parameters] = "parameters" [printMode] = "isPrintMode" style="width: 100%;height: 950px">
 </bold-reportviewer>

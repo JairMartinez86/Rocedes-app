@@ -11,19 +11,33 @@ export class ReportViewerComponent {
   public serviceUrl: string = "";
   public reportPath: string = "";
   public reportData: any;
-  public json : string[] = [];
   public Remote : string = "Local"
   public isPrintMode: boolean = false;
+  public parameters: any;
+
  
 
 
   constructor() { 
 
-        this.serviceUrl = 'https://localhost:44311//api/ReportViewer';
-        this.reportPath = '~/Resources/SerialComponente.rdl';
-    this.isPrintMode = true;
     }
 
+    Imprimir(Serial : string){
+
+      this.serviceUrl = 'https:/localhost:44311/api/ReportViewer';
+      this.reportPath = '~/Resources/SerialComponente.rdl';
+      this.isPrintMode = true;
+      this.parameters = [Serial];
+    }
+
+
+    Limpiar(){
+
+      this.serviceUrl = "";
+      this.reportPath = "";
+      this.isPrintMode = false;
+      this.parameters = [];
+    }
   
     
 

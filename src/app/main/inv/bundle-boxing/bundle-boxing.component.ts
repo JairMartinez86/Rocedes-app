@@ -19,6 +19,7 @@ import {InventarioService} from 'src/app/main/Services/inv/inventario.service';
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 import { AlertService } from '../../otro/alert/alert/alert.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
+import { ReportViewerComponent } from '../../otro/report-viewer/report-viewer.component';
 import { ToastService } from '../../otro/toast/toast.service';
 
 
@@ -68,6 +69,8 @@ function stop() {
   styleUrls: ['./bundle-boxing.component.css']
 })
 export class BundleBoxingComponent implements OnInit {
+
+  @ViewChild(ReportViewerComponent)ReportViewerComponentComp?: ReportViewerComponent; 
 
  
   str_CodeBar = "";
@@ -900,13 +903,15 @@ CrearSerial(): void{
     selectBox_select(): void
     {
       this.str_Label_Capaje = "Capaje.";
-      if(!this.IMaterial.find( f => f.IdMaterial == Number(this.opcion_presentacion))?.EsBunidad) this.str_Label_Capaje = "Yardaje.";
+      if(!this.IPresentacion.find( f => f.IdPresentacionSerial == Number(this.opcion_presentacion))?.EsUnidad) this.str_Label_Capaje = "Yardaje.";
       this.CargarMaterial();
     }
 
 
     GenerarSerial() : void
     {
+      this.ReportViewerComponentComp?.Limpiar();
+
       if(this.valSerial.ValForm.invalid) return;
 
       let Serial : ClsSerialBoxing = new ClsSerialBoxing();
@@ -935,6 +940,8 @@ CrearSerial(): void{
           {
             this.str_CodeBar =  _json["d"].Serial;
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+            this.ReportViewerComponentComp?.Imprimir(_json["d"]);
+
           }
         }
         else
@@ -950,10 +957,6 @@ CrearSerial(): void{
 
     }
 
-    ImprimirSerial() : void
-    {
-
-    }
 
   
     //#endregion FORMULARIO SERIAL
