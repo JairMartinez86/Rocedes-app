@@ -25,7 +25,7 @@ import { ToastService } from '../../otro/toast/toast.service';
 
 export interface IBoxin {
   cIndex: number;
-  cSerial : number;
+  cSerial : string;
   cNomPieza : string;
   cSeccion: number;
   cNoBulto: number;
@@ -424,7 +424,7 @@ CrearSerial(): void{
         if(_json["count"] > 0){
 
           let i : number = 1;
-          _json["d"].forEach((b:{Serial : number, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
+          _json["d"].forEach((b:{Serial : string, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
             this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
@@ -490,7 +490,7 @@ CrearSerial(): void{
           Fila.cAccion = "uncheck";
 
           if(_json["count"] > 0){
-            _json["d"].forEach((d: { Serial : number, Bulto : number, Saco : string}) => {
+            _json["d"].forEach((d: { Serial : string, Bulto : number, Saco : string}) => {
 
               if(Fila.cSerial == d.Serial && Fila.cNoBulto == d.Bulto) {
                 Fila.cNoSaco = d.Saco;
@@ -524,7 +524,7 @@ CrearSerial(): void{
     if(_Serial.length <= 2) return
 
 
-    let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == Number(_Serial) && !f.cEscaneado)
+    let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == _Serial && !f.cEscaneado)
     let Boxing  : ClsBundleBoxing = new ClsBundleBoxing();
 
     if(this.bol_Load) return;

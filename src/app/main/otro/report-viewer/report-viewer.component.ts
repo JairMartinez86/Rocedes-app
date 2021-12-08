@@ -14,7 +14,8 @@ export class ReportViewerComponent {
   public Remote : string = "Local"
   public isPrintMode: boolean = false;
   public parameters: any;
-
+  public pageSettings : any;
+  public toolbarSettings : any;
  
 
 
@@ -28,17 +29,34 @@ export class ReportViewerComponent {
       this.reportPath = '~/Resources/SerialComponente.rdl';
       this.isPrintMode = true;
       this.parameters = [Serial];
-    }
+      this.pageSettings =  {
+        width: 3,
+        height: 2,
+        margins: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+      }
+    };
+
+    this.toolbarSettings = {
+      showToolbar: false,
+  }
+    
+  }
 
 
     Limpiar(){
+
 
       this.serviceUrl = "";
       this.reportPath = "";
       this.isPrintMode = false;
       this.parameters = [];
+      this.pageSettings = [];
+
     }
-  
-    
+
 
 }

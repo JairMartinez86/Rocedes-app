@@ -1,6 +1,6 @@
 export class ClsBundleBoxing {
 
-    public Serial : number = 0;
+    public Serial : string = "";
     public Nombre : string = "";
     public Seccion: number = 0;
     public Bulto: number = 0;
