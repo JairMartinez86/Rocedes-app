@@ -1,4 +1,5 @@
 import { Component, } from '@angular/core';
+import { Conexion } from '../../class/Cnx/conexion';
 
 @Component({
   selector: 'app-report-viewer',
@@ -7,11 +8,12 @@ import { Component, } from '@angular/core';
 })
 export class ReportViewerComponent {
 
+  private Cnx : Conexion = new Conexion();
 
   public serviceUrl: string = "";
   public reportPath: string = "";
   public reportData: any;
-  public Remote : string = "Local"
+  public Remote : string = "Remote"
   public isPrintMode: boolean = false;
   public parameters: any;
   public pageSettings : any;
@@ -25,7 +27,7 @@ export class ReportViewerComponent {
 
     Imprimir(Serial : string){
 
-      this.serviceUrl = 'https:/localhost:44311/api/ReportViewer';
+      this.serviceUrl = this.Cnx.Url() + "ReportViewer";
       this.reportPath = '~/Resources/SerialComponente.rdl';
       this.isPrintMode = true;
       this.parameters = [Serial];
@@ -41,7 +43,7 @@ export class ReportViewerComponent {
     };
 
     this.toolbarSettings = {
-      showToolbar: false,
+      showToolbar: true,
   }
     
   }

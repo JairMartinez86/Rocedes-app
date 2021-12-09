@@ -147,12 +147,12 @@
         <div class="row">
 
             <div class="col-12">
-                <mat-form-field class="col-sm-12 col-md-4 col-md-6" *ngIf="bol_AbrirSaco" >
+                <mat-form-field class="col-sm-12 col-md-4 col-md-6" *ngIf="bol_IniciarEmpaque">
                     <mat-label>Escanear</mat-label>
                     <input matInput type="text" id="txtBox_EscanSerial"  placeholder="Escanear" (keydown.enter)="txtBox_EscanSerial_KeyEnter($event)"  appAutofocus>
                     <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg" *ngIf="!bol_Load else spinBar"></fa-icon></mat-icon>
                 </mat-form-field>
-                <mat-form-field [ngClass]="bol_AbrirSaco ? 'col-ms-12 col-md-4 col-lg-4 offset-md-2 offset-lg-2' : 'col-12'" ngclass="">
+                <mat-form-field [ngClass]="bol_IniciarEmpaque ? 'col-ms-12 col-md-4 col-lg-4 offset-md-2 offset-lg-2' : 'col-12'" ngclass="">
                     <mat-label>Buscar</mat-label>
                     <input matInput (keyup)="filtrar($event)" placeholder="buscar">
                 </mat-form-field>
@@ -317,15 +317,25 @@
               <form class="form" [formGroup]="valSerial.ValForm"  novalidate>
 
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="col-sm-5 col-md-5 col-lg-4">
                         <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
                         <label>Corte. <b>{{str_Corte}}</b></label>
                     </div>
 
-                    <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="col-sm-5 col-md-5 col-lg-4">
                         <!--<mat-icon matPrefix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>-->
                         <label>Estilo. <b>{{str_Estilo}}</b></label>
                     </div>
+
+                    <div class="col-sm-2 col-md-2 col-lg-4">
+                        <mat-checkbox  formControlName="checkBox_Saco" [(ngModel)]="checked" (click)="CheckChange();"   color="accent">
+                            <b>En Saco?</b>
+                         </mat-checkbox>
+                    </div>
+
+                    
+                   
+
                 </div>
 
                 <div class="row">
@@ -373,7 +383,8 @@
                         <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="1">
                         <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">{{str_Label_Capaje}} es <strong>requerido</strong></mat-error>
                     </mat-form-field>
-                   
+
+  
                 </div>
 
                 <div class="row">
@@ -387,7 +398,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-row text-end">
-                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success" [disabled]="valSerial.ValForm.invalid" (click)="GenerarSerial()">IMPRIMIR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
+                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success" [disabled]="valSerial.ValForm.invalid" (click)="GenerarSerial()">GENERAR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
                         </div>
                     </div>
                 </div>

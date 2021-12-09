@@ -42,10 +42,25 @@ export class DialogoComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, public hostElement: ElementRef, public dialogRef: MatDialogRef<DialogoComponent>,
     @ Inject(MAT_DIALOG_DATA) public data : any) { 
 
-      this.str_Error = data["Codigo"];
-      this.str_Mensaje = data["Mensaje"];
-      if(this.data["Codigo"] == "") this.str_Caption = "";
-      this.clickoutHandler = this.closeDialogFromClickout;
+
+      if((typeof data === 'object'))
+      {
+        this.str_Error = data["Codigo"];
+        this.str_Mensaje = data["Mensaje"];
+        if(this.data["Codigo"] == "") this.str_Caption = "";
+       
+       } 
+       else 
+       {
+        this.str_Error = "";
+        this.str_Mensaje = String(data);
+        this.str_Caption = "";
+       }
+
+
+       this.clickoutHandler = this.closeDialogFromClickout;
+
+     
 
     }
 

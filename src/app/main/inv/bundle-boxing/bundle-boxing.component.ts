@@ -33,6 +33,7 @@ export interface IBoxin {
   cYarda : string;
   cNoSaco: string;
   cMesa: number;
+  cEnSaco : boolean;
   cEscaneado : boolean;
   cAccion : string;
   cCorte: string;
@@ -132,7 +133,7 @@ export class BundleBoxingComponent implements OnInit {
   int_Seccion : number = 0;
   int_Mesa : number = 0;
 
-  checked   = true;
+  checked : boolean = false;
   bol_IniciarEmpaque : boolean = false;
   bol_AbrirSaco : boolean = false;
   bol_TerminarEmpaque : boolean = false;
@@ -144,10 +145,9 @@ export class BundleBoxingComponent implements OnInit {
   public IMaterial : IMaterial[] = []
 
 
-  checkValue(){
-    this.checked = !this.checked
+  CheckChange() {
+    this.checked = !this.checked;
   }
-
 
   Timer$Subscription : any
 
@@ -174,6 +174,8 @@ export class BundleBoxingComponent implements OnInit {
     this.valSaco.add("txtBox_Saco", "2", "NUM>", "0");
 
 
+    
+    this.valSerial.add("checkBox_Saco", "1", "LEN>=", "0");
     this.valSerial.add("txtBox_Nombre", "1", "LEN>", "0");
     this.valSerial.add("SelectBox_Material", "1", "LEN>", "0");
     this.valSerial.add("selectBox_Presentacion", "1", "LEN>", "0");
@@ -215,6 +217,7 @@ export class BundleBoxingComponent implements OnInit {
     this.bol_Load = false;
     this.bol_IniciarEmpaque = false;
     this.bol_AbrirSaco = false;
+    this.checked = false;
 
     this.int_Saco = 0;
     this.int_Mesa = 0;
@@ -373,7 +376,7 @@ CrearSerial(): void{
   }
 
   
-   
+  this.checked = false;
   this.str_CorteCompleto = _Opcion.CorteCompleto;
   this.str_Corte = _Opcion.Corte;
   this.str_Estilo = _Opcion.Style;
@@ -424,8 +427,8 @@ CrearSerial(): void{
         if(_json["count"] > 0){
 
           let i : number = 1;
-          _json["d"].forEach((b:{Serial : string, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
+          _json["d"].forEach((b:{Serial : string, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, EnSaco : boolean, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });
@@ -532,14 +535,28 @@ CrearSerial(): void{
 
     if(_Fila != null){
 
+
+      if(_Fila.cEnSaco && !this.bol_AbrirSaco){
+
+        this.dialogRef = this.dialog.open(DialogoComponent, {
+          data: "<p>Para escanear el serial # <b>" +  _Fila.cSerial + "</b></p><p>Debe de abrir un saco.</p>"
+        });
+        (<HTMLInputElement>document.getElementById("txtBox_EscanSerial")).value = "";
+        this.bol_Load = false;
+        return; 
+      }
+
+
+
       Boxing.Serial = _Fila.cSerial;
       Boxing.Nombre = _Fila.cNomPieza;
       Boxing.Seccion = _Fila.cSeccion;
       Boxing.Bulto = _Fila.cNoBulto;
       Boxing.Capaje = _Fila.cCapaje == "" ? 0 : Number(_Fila.cCapaje);
       Boxing.Yarda = _Fila.cYarda == "" ? 0 : Number(_Fila.cYarda);
-      Boxing.Saco = this.int_Saco;
-      Boxing.Mesa = this.val.ValForm.get("txtBox_Mesa")?.value;
+      Boxing.Saco = !_Fila.cEnSaco ? 0 :  this.int_Saco;
+      Boxing.Mesa =  _Fila.cCapaje == "" ? 0 :  this.val.ValForm.get("txtBox_Mesa")?.value;
+      Boxing.EnSaco = _Fila.cEnSaco;
       Boxing.Corte = _Fila.cCorte;
       Boxing.CorteCompleto = _Fila.cCorteCompleto;
       Boxing.Estilo = this.str_Estilo;
@@ -562,8 +579,8 @@ CrearSerial(): void{
             if(_json["count"] > 0)
             {
               _Fila.cEscaneado =  _json["d"].Escaneado;
-              _Fila.cNoSaco = _json["d"].Saco;
-              _Fila.cMesa = _json["d"].Mesa;
+              _Fila.cNoSaco = _Fila.cCapaje == "" ? 0 : _json["d"].Saco;
+              _Fila.cMesa = _Fila.cCapaje == "" ? 0 : _json["d"].Mesa;
               _Fila.cAccion =  _json["d"].Escaneado == true ? "check" : "uncheck";
               
             }
@@ -925,6 +942,7 @@ CrearSerial(): void{
       Serial.IdMaterial = Number(this.opcion_material);
       Serial.Cantidad = Number(this.valSerial.ValForm.get("spinBox_Cantidad")?.value);
       Serial.Capaje = Number(this.valSerial.ValForm.get("spinBox_Capaje")?.value);
+      Serial.EnSaco =  this.checked;
       Serial.Serial = this.getNumbersInString(this.str_Corte);
       Serial.Login = this.LoginService.str_user;
 

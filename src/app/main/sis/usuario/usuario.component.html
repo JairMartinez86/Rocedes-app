@@ -72,7 +72,7 @@
                               <mat-icon matSuffix (click)="bol_HidePass = !bol_HidePass">{{bol_HidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
                               <mat-icon matPrefix >lock</mat-icon>
                               <mat-error *ngIf="val.ValForm.get('txtPass')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
-                              <mat-error *ngIf="val.ValForm.get('txtPass')?.errors?.Regla=='2'">Debe de contener al menos <strong>8</strong> cáracteres</mat-error>
+                              <mat-error *ngIf="val.ValForm.get('txtPass')?.errors?.Regla=='2'">Debe de contener al menos <strong>6</strong> cáracteres</mat-error>
                               <!--<mat-icon matSuffix>lock</mat-icon>-->
                           </mat-form-field>
       
@@ -231,7 +231,7 @@
           mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
           
         </table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 15]"  showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[25, 50, 100, 1000]"  showFirstLastButtons></mat-paginator>
         </div>
 
         

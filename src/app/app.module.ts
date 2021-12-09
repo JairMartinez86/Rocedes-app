@@ -68,6 +68,9 @@ import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
 
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +137,8 @@ import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej
   ],
   providers: [
     
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, 
       useValue: "legacy",

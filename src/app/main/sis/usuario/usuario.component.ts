@@ -121,7 +121,7 @@ export class UsuarioComponent implements OnInit {
     this.val.add("txtUsuario", "1","LEN>", "0");
     this.val.add("txtUsuario", "2","LEN>=", "5");
     this.val.add("txtPass", "1", "LEN>", "0");
-    this.val.add("txtPass", "2", "LEN>=", "8");
+    this.val.add("txtPass", "2", "LEN>=", "6");
     this.LimpiarForm();
     
   }
