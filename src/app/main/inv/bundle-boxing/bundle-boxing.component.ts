@@ -1,6 +1,5 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,9 +18,9 @@ import {InventarioService} from 'src/app/main/Services/inv/inventario.service';
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 import { AlertService } from '../../otro/alert/alert/alert.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
-import { ReportViewerComponent } from '../../otro/report-viewer/report-viewer.component';
 import { ToastService } from '../../otro/toast/toast.service';
-
+import { BundleBoxingSacoService } from '../../Services/inv/BundleBoxingSaco/bundle-boxing-saco.service';
+import { BundleBoxingSerialService } from '../../Services/inv/BundleBoxingSerial/bundle-boxing-serial.service';
 
 export interface IBoxin {
   cIndex: number;
@@ -71,9 +70,6 @@ function stop() {
 })
 export class BundleBoxingComponent implements OnInit {
 
-  @ViewChild(ReportViewerComponent)ReportViewerComponentComp?: ReportViewerComponent; 
-
- 
   str_CodeBar = "";
 
 
@@ -164,7 +160,10 @@ export class BundleBoxingComponent implements OnInit {
 
 
   
-  constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoningService : BundleBoningService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer, protected alertService: AlertService, public toastService: ToastService ) {
+  constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService,
+    private BundleBoningService : BundleBoningService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer,
+    protected alertService: AlertService, public toastService: ToastService, private BundleBoxingSerialService : BundleBoxingSerialService,
+    private BundleBoxingSacoService : BundleBoxingSacoService ) {
 
     this.valSeleccion.add("txtBox_SeleccionCorte", "1", "LEN>", "0");
 
@@ -204,9 +203,11 @@ export class BundleBoxingComponent implements OnInit {
 
     if(form == "frmBundleBoxing_Escanner" || form == "frmBundleBoxing_CrearSerial"){
       this.str_from = "BundleBoxing";
+      this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
 
       this.Timer$Subscription.unsubscribe();
     }
+
 
     this.LimpiarForm(form);
     
@@ -374,6 +375,15 @@ CrearSerial(): void{
     }
 
   }
+
+  this.valSerial.ValForm.get("checkBox_Saco")?.setValue(false);
+  this.valSerial.ValForm.get("txtBox_Nombre")?.setValue("");
+  this.valSerial.ValForm.get("SelectBox_Material")?.setValue("");
+  this.valSerial.ValForm.get("selectBox_Presentacion")?.setValue("");
+  this.valSerial.ValForm.get("spinBox_Cantidad")?.setValue("");
+  this.valSerial.ValForm.get("spinBox_Capaje")?.setValue("");
+  this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
+  this.valSerial.ValForm.reset();
 
   
   this.checked = false;
@@ -756,7 +766,7 @@ CrearSerial(): void{
     Saco.Login = this.LoginService.str_user;
 
 
-    this.BundleBoningService.Saco(Saco).subscribe( s => {
+    this.BundleBoxingSacoService.Saco(Saco).subscribe( s => {
 
 
       let _json = JSON.parse(s)
@@ -927,7 +937,7 @@ CrearSerial(): void{
 
     GenerarSerial() : void
     {
-      this.ReportViewerComponentComp?.Limpiar();
+      this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
 
       if(this.valSerial.ValForm.invalid) return;
 
@@ -958,8 +968,7 @@ CrearSerial(): void{
           {
             this.str_CodeBar =  _json["d"].Serial;
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
-            this.ReportViewerComponentComp?.Imprimir(_json["d"]);
-
+            this.BundleBoxingSerialService.change.emit(["Imprimir", _json["d"]]);
           }
         }
         else

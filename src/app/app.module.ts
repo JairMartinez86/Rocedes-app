@@ -18,6 +18,7 @@ import {MatSortModule} from '@angular/material/sort';
 
 
 
+
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 
@@ -25,11 +26,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
-import { DescargueComponent } from './main/inv/descargue/descargue.component';
 
 
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint } from '@fortawesome/free-solid-svg-icons';
+  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -50,8 +50,8 @@ import { AlertComponent } from './main/otro/alert/alert/alert.component';
 import { ToastComponent } from './main/otro/toast/toast.component';
 import { NgbToastModule } from  'ngb-toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReportBundleBoxingComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing.component';
-import { ReportBundleBoxingTablaComponent } from './main/inv/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
+import { ReportBundleBoxingComponent } from './main/inv/bundle-boxing/reporte/report-bundle-boxing/report-bundle-boxing.component';
+import { ReportBundleBoxingTablaComponent } from './main/inv/bundle-boxing/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxBarcodeModule } from 'ngx-barcode';
@@ -69,6 +69,9 @@ import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej
 
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ReportViewerBoxingSerialComponent } from './main/inv/bundle-boxing-serial/ReportViewer/report-viewer-boxing-serial/report-viewer-boxing-serial.component';
+import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
+import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
 
 
 @NgModule({
@@ -76,7 +79,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AppComponent,
     MainComponent,
     LoginComponent,
-    DescargueComponent,
     UsuarioComponent,
     DialogoComponent,
     BundleBoxingComponent,
@@ -86,8 +88,10 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ReportBundleBoxingComponent,
     ReportBundleBoxingTablaComponent,
     ReportViewerComponent,
-
-
+    ReportViewerBoxingSerialComponent,
+    BundleBoxingSerialComponent,
+    BundleBoxingSacoComponent,
+  
 
     
     
@@ -170,7 +174,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add multiple icons to the library
     library.addIcons(faBroom, faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint);
+      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase);
   }
 }
 

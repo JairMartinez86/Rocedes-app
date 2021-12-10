@@ -102,17 +102,17 @@
             </li>-->
 
             <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
-            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
-              <a (mouseenter) ="mouseEnter('aDescargue') "  (mouseleave) ="mouseLeave('aDescargue')" id="LinkDescargue" class="nav-link" href="#" >Descargue</a>
-            </li>
-
+   
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle"  id="navInvContabilizacion" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Accounting</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
+                <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
+                <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>
               </ul>
             </li>
 
+     
 
             <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
               <a id="LinkOtro" class="nav-link" href="#" >Otros</a>
@@ -157,13 +157,13 @@
 </div>
 
 <div *ngIf="Esquema._Esquema=='INV'">
-  <div class="container"><app-descargue></app-descargue></div>
   <div class="container"><app-bundle-boxing></app-bundle-boxing></div>
   <div class="container"><app-report-bundle-boxing></app-report-bundle-boxing></div>
-  
-</div>
- 
+  <div class="container"><app-bundle-boxing-serial></app-bundle-boxing-serial></div>
+  <div class="container"><app-bundle-boxing-saco></app-bundle-boxing-saco></div>
 
+  <div class="container"><app-report-viewer-boxing-serial></app-report-viewer-boxing-serial></div>
+</div>
 
 </main>
 </body>

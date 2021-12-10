@@ -28,7 +28,7 @@ export class ReportViewerComponent {
     Imprimir(Serial : string){
 
       this.serviceUrl = this.Cnx.Url() + "ReportViewer";
-      this.reportPath = '~/Resources/SerialComponente.rdl';
+      this.reportPath = '~/Resources/*.rdl';
       this.isPrintMode = true;
       this.parameters = [Serial];
       this.pageSettings =  {

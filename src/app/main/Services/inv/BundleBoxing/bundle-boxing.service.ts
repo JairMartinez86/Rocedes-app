@@ -3,7 +3,6 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ClsBundleBoxing } from 'src/app/main/class/Form/Inv/cls-bundle-boxing';
-import { ClsSacoEstado } from 'src/app/main/class/Form/Inv/cls-saco-estado';
 import { ClsSerialBoxing } from 'src/app/main/class/Form/Inv/Cls-Serial-Boxing';
 
 @Injectable({
@@ -29,14 +28,6 @@ export class BundleBoningService {
 
   }
 
-
-  Saco(SacoEstado : ClsSacoEstado): Observable<any> {
-       
-    let json = JSON.stringify(SacoEstado);  
-    return this.http.post<any>(this.Cnx.Url() + "BundleBoxing/Saco" + "?d=" + json,  { 'content-type': 'application/json'});
-    
-
-  }
 
 
   Pieza(Boxing : ClsBundleBoxing): Observable<any> {

@@ -58,14 +58,18 @@ export class MainComponent implements OnInit {
     this.lstEsquema.push(_Esquema);
   
 
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkDescargue", "Descargue", false));
-    this.lstEsquema.push(_Esquema);
 
+
+    
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));
     this.lstEsquema.push(_Esquema);
 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkReportBundleBoxing", "Reporte Bundle Boxing", false));
     this.lstEsquema.push(_Esquema);
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingSerial", "Seriales", false));
+    this.lstEsquema.push(_Esquema);
+    
 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkOtro", "Otro", false));
     this.lstEsquema.push(_Esquema);
@@ -108,9 +112,6 @@ export class MainComponent implements OnInit {
 
   if(this.Esquema._Esquema == "INV")
   {
-    if(_Id != "LinkDescargue"){
-      this.InventarioService.Cerrar("LinkDescargue");
-    }
 
     if(_Id != "LinkBundleBoxing"){
       this.InventarioService.Cerrar("LinkBundleBoxing");
@@ -118,6 +119,14 @@ export class MainComponent implements OnInit {
 
     if(_Id != "LinkReportBundleBoxing"){
       this.InventarioService.Cerrar("LinkReportBundleBoxing");
+    }
+
+    if(_Id != "LinkBundleBoxingSaco"){
+      this.InventarioService.Cerrar("LinkBundleBoxingSaco");
+    }
+
+    if(_Id != "LinkBundleBoxingSerial"){
+      this.InventarioService.Cerrar("LinkBundleBoxingSerial");
     }
 
     
@@ -157,10 +166,7 @@ export class MainComponent implements OnInit {
       case "INV":
         switch(_Id)
         {
-          case "LinkDescargue":
-            this.InventarioService.Abrir("LinkDescargue");
-          break;
-          
+
           case "LinkBundleBoxing":
             this.InventarioService.Abrir("LinkBundleBoxing");
             break;
@@ -168,6 +174,14 @@ export class MainComponent implements OnInit {
             case "LinkReportBundleBoxing":
               this.InventarioService.Abrir("LinkReportBundleBoxing");
               break;
+
+              case "LinkBundleBoxingSaco":
+                this.InventarioService.Abrir("LinkBundleBoxingSaco");
+                break;
+
+              case "LinkBundleBoxingSerial":
+                this.InventarioService.Abrir("LinkBundleBoxingSerial");
+                break;
             
 
           case "LinkOtro":

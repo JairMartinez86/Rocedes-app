@@ -101,7 +101,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   Abrir(_json : any[]) : void{
     this.str_from = "ReportBundleBoxing-Tabla";
 
-    // Replace people with any dataArray !
+
     if(!this.initData(_json)) return;
     
     ELEMENT_DATA.splice(0, ELEMENT_DATA.length);

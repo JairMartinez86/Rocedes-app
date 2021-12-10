@@ -27,10 +27,6 @@ export class InventarioService {
     
     switch(frm){
 
-      case "LinkDescargue":
-        this.change.emit("Open:Descargue");
-        break;
-        
 
       case "LinkBundleBoxing":
         this.change.emit("Open:BundleBoxing");
@@ -39,6 +35,14 @@ export class InventarioService {
         case "LinkReportBundleBoxing":
         this.change.emit("Open:LinkReportBundleBoxing");
         break;
+
+        case "LinkBundleBoxingSaco":
+          this.change.emit("Open:LinkBundleBoxingSaco");
+          break;
+
+          case "LinkBundleBoxingSerial":
+            this.change.emit("Open:LinkBundleBoxingSerial");
+            break;
        
     }
     
@@ -48,10 +52,6 @@ export class InventarioService {
     
     switch(frm){
 
-      case "LinkDescargue":
-        this.change.emit("Close:Descargue");
-        break;
-        
 
       case "LinkBundleBoxing":
         this.change.emit("Close:BundleBoxing");
@@ -60,14 +60,24 @@ export class InventarioService {
         case "LinkReportBundleBoxing":
           this.change.emit("Close:LinkReportBundleBoxing");
           break;
+
+
+          case "LinkBundleBoxingSaco":
+            this.change.emit("Close:LinkBundleBoxingSaco");
+            break;
+
+            case "LinkBundleBoxingSerial":
+            this.change.emit("Close:LinkBundleBoxingSerial");
+            break;
        
     }
   }
 
   CerrarTodo(){
-    this.change.emit("Close:Descargue");
     this.change.emit("Close:BundleBoxing");
     this.change.emit("Close:LinkReportBundleBoxing");
+    this.change.emit("Close:BundleBoxingSaco");
+    this.change.emit("Close:BundleBoxingSerial");
   }
 
 
