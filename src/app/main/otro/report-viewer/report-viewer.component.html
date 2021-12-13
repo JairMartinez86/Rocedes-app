@@ -1,9 +1,4 @@
-<!--<bold-reportviewer *ngIf="serviceUrl != ''" id="reportViewer_Control" [reportServiceUrl] = "serviceUrl"   [processingMode] = "Remote"  [dataSources]="reportData" [reportPath] = "reportPath" [parameters] = "parameters" [printMode] = "isPrintMode" 
-[pageSettings] = "pageSettings" [toolbarSettings] = "toolbarSettings"
-style="width: 0px;height: 0px; visibility: hidden;">
-</bold-reportviewer>-->
-
-<bold-reportviewer *ngIf="serviceUrl != ''" id="reportViewer_Control" [reportServiceUrl] = "serviceUrl"   [processingMode] = "Remote"  [dataSources]="reportData" [reportPath] = "reportPath" [parameters] = "parameters" [printMode] = "isPrintMode" 
+<bold-reportviewer *ngIf="serviceUrl != ''" id="reportViewer_Control" [reportServiceUrl] = "serviceUrl"  [reportPath] = "reportPath" [parameters] = "parameters" [printMode] = "isPrintMode" 
 [pageSettings] = "pageSettings" [toolbarSettings] = "toolbarSettings"
 style="width: 100%;height: 480px;">
 </bold-reportviewer>

@@ -1,4 +1,4 @@
-export interface IBoginxSaco {
+export interface ISaco {
     IdSaco : number;
     Serial : string;
     Saco : number;

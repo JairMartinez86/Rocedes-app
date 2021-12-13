@@ -5,15 +5,21 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IBoginxSaco } from 'src/app/main/class/Form/Inv/Interface/I-Saco';
+import { ClsSacoEstado } from 'src/app/main/class/Form/Inv/cls-saco-estado';
+import { ISaco } from 'src/app/main/class/Form/Inv/Interface/I-Saco';
 import { IBoginxSerial } from 'src/app/main/class/Form/Inv/Interface/IBoxingSerial';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { ToastService } from 'src/app/main/otro/toast/toast.service';
 import { BundleBoxingSacoService } from 'src/app/main/Services/inv/BundleBoxingSaco/bundle-boxing-saco.service';
 import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
+import { ReportViewerService } from 'src/app/main/otro/report-viewer/report-viewer.service';
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
+import { IReporte } from 'src/app/main/class/Form/Reporte/i-Reporte';
+import { ISacoSerial } from 'src/app/main/class/Form/Inv/i-SacoSerial';
 
-let ELEMENT_DATA : IBoginxSaco[] = [];
+
+
+let ELEMENT_DATA : ISaco[] = [];
 
 
 @Component({
@@ -51,7 +57,7 @@ export class BundleBoxingSacoComponent implements OnInit {
 
 
   constructor(private LoginService : LoginService, private InventarioService : InventarioService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer
-    ,  public datepipe: DatePipe, public toastService: ToastService, private BundleBoxingSacoService : BundleBoxingSacoService
+    ,  public datepipe: DatePipe, public toastService: ToastService, private BundleBoxingSacoService : BundleBoxingSacoService, private ReportViewerService : ReportViewerService
     ) {
       this.Limpiar();
      }
@@ -73,7 +79,7 @@ export class BundleBoxingSacoComponent implements OnInit {
       {
         if(_json["count"] > 0)
         {
-          _json["d"].forEach((j : IBoginxSaco) => {
+          _json["d"].forEach((j : ISaco) => {
             this.dataSource.data.push(j);
           });
         }
@@ -196,6 +202,44 @@ export class BundleBoxingSacoComponent implements OnInit {
 
     if(evento == "Cerrar")
     {
+      
+  
+
+    let Saco : ClsSacoEstado = new ClsSacoEstado();
+
+    Saco.Corte = row.Corte;
+    Saco.CorteCompleto = row.CorteCompleto;
+    Saco.Mesa = row.NoMesa;
+    Saco.Seccion = row.Seccion;
+    Saco.Saco = row.Saco;
+    Saco.Estado = evento;
+    Saco.Login = this.LoginService.str_user;
+
+
+    this.BundleBoxingSacoService.Saco(Saco).subscribe( s => {
+
+
+      let _json = JSON.parse(s)
+
+      if(_json["esError"] == 0){
+
+        row.Abierto = false;
+        row.IdUsuarioAbre = 0;
+        row.UsuarioAbre = "";
+
+      }
+      else{
+
+
+        this.dialog.open(DialogoComponent, {
+          data: _json["msj"],
+        });
+
+      }
+      
+
+    });
+
 
     }
 
@@ -203,22 +247,19 @@ export class BundleBoxingSacoComponent implements OnInit {
 
     if(evento == "Imprimir")
     {
-     /* let Serial : ClsSerialBoxing = new ClsSerialBoxing();
+      let reporte : IReporte = new IReporte();
+      let ISaco : ISacoSerial = new ISacoSerial();
 
+      ISaco.Serial = row.Serial;
+      ISaco.NoMesa = row.NoMesa;
+      ISaco.Corte = row.Corte;
+      ISaco.Saco = row.Saco;
 
-      Serial.Corte = row.Corte;
-      Serial.CorteCompleto = row.CorteCompleto;
-      Serial.Estilo = row.Estilo;
-      Serial.Pieza = row.Pieza;
-      Serial.IdPresentacionSerial = row.IdPresentacionSerial;
-      Serial.IdMaterial = row.IdMaterial;
-      Serial.Cantidad = row.Cantidad;
-      Serial.Capaje = row.Capaje;
-      Serial.EnSaco = row.EnSaco;
-      Serial.Serial = row.Serial;
-      Serial.Login = "";
-    
-      this.BundleBoxingSacoService.change.emit(["Imprimir", Serial]);*/
+      
+      reporte.Rdlc = "SerialSaco.rdlc"
+      reporte.json = ISaco;
+
+      this.ReportViewerService.change.emit(["Imprimir",  reporte]);
     }
 
   }

@@ -14,7 +14,6 @@ import {Router} from "@angular/router"
 export class AppComponent {
   title = 'Rocedes-app';
    
- 
 
   constructor(private router:Router) {
     this.Iniciar();

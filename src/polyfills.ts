@@ -58,6 +58,11 @@ import '@angular/localize/init';
  *
  */
 
+ import * as jquery from 'jquery';
+ let windowInstance = (window as { [key: string]: any });
+ windowInstance['jQuery'] = jquery;
+ windowInstance['$'] = jquery;
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
@@ -67,8 +72,3 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-
- import * as jquery from 'jquery';
- let windowInstance = (window as { [key: string]: any });
- windowInstance['jQuery'] = jquery;
- windowInstance['$'] = jquery;

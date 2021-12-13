@@ -8,8 +8,6 @@ import { Conexion } from 'src/app/main/class/Cnx/conexion';
 })
 export class BundleBoxingSerialService {
 
-  @Output() change: EventEmitter<any> = new EventEmitter();
-
   private Cnx : Conexion = new Conexion();
 
   constructor(private http: HttpClient) { }

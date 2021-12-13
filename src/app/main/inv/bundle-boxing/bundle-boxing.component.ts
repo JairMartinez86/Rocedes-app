@@ -16,11 +16,13 @@ import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
 import { BundleBoningService } from 'src/app/main/Services/inv/BundleBoxing/bundle-boxing.service';
 import {InventarioService} from 'src/app/main/Services/inv/inventario.service'; 
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
+import { IReporte } from '../../class/Form/Reporte/i-Reporte';
 import { AlertService } from '../../otro/alert/alert/alert.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
+import { ReportViewerService } from '../../otro/report-viewer/report-viewer.service';
 import { ToastService } from '../../otro/toast/toast.service';
 import { BundleBoxingSacoService } from '../../Services/inv/BundleBoxingSaco/bundle-boxing-saco.service';
-import { BundleBoxingSerialService } from '../../Services/inv/BundleBoxingSerial/bundle-boxing-serial.service';
+
 
 export interface IBoxin {
   cIndex: number;
@@ -162,7 +164,7 @@ export class BundleBoxingComponent implements OnInit {
   
   constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService,
     private BundleBoningService : BundleBoningService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer,
-    protected alertService: AlertService, public toastService: ToastService, private BundleBoxingSerialService : BundleBoxingSerialService,
+    protected alertService: AlertService, public toastService: ToastService, private ReportViewerService : ReportViewerService,
     private BundleBoxingSacoService : BundleBoxingSacoService ) {
 
     this.valSeleccion.add("txtBox_SeleccionCorte", "1", "LEN>", "0");
@@ -203,7 +205,7 @@ export class BundleBoxingComponent implements OnInit {
 
     if(form == "frmBundleBoxing_Escanner" || form == "frmBundleBoxing_CrearSerial"){
       this.str_from = "BundleBoxing";
-      this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
+      this.ReportViewerService.change.emit(["Limpiar", ""]);
 
       this.Timer$Subscription.unsubscribe();
     }
@@ -382,7 +384,7 @@ CrearSerial(): void{
   this.valSerial.ValForm.get("selectBox_Presentacion")?.setValue("");
   this.valSerial.ValForm.get("spinBox_Cantidad")?.setValue("");
   this.valSerial.ValForm.get("spinBox_Capaje")?.setValue("");
-  this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
+  this.ReportViewerService.change.emit(["Limpiar", ""]);
   this.valSerial.ValForm.reset();
 
   
@@ -937,7 +939,7 @@ CrearSerial(): void{
 
     GenerarSerial() : void
     {
-      this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
+      this.ReportViewerService.change.emit(["Limpiar", ""]);
 
       if(this.valSerial.ValForm.invalid) return;
 
@@ -966,9 +968,14 @@ CrearSerial(): void{
         {
           if(_json["count"] > 0)
           {
+            let reporte : IReporte = new IReporte();
+            reporte.Rdlc = "SerialComponente.rdlc"
+            reporte.json = _json["d"];
+            
             this.str_CodeBar =  _json["d"].Serial;
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
-            this.BundleBoxingSerialService.change.emit(["Imprimir", _json["d"]]);
+
+            this.ReportViewerService.change.emit(["Imprimir", reporte]);
           }
         }
         else

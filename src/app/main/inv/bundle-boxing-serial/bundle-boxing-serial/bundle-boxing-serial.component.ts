@@ -7,7 +7,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClsSerialBoxing } from 'src/app/main/class/Form/Inv/Cls-Serial-Boxing';
 import { IBoginxSerial } from 'src/app/main/class/Form/Inv/Interface/IBoxingSerial';
+import { IReporte } from 'src/app/main/class/Form/Reporte/i-Reporte';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { ReportViewerService } from 'src/app/main/otro/report-viewer/report-viewer.service';
 import { ToastService } from 'src/app/main/otro/toast/toast.service';
 import { BundleBoxingSerialService } from 'src/app/main/Services/inv/BundleBoxingSerial/bundle-boxing-serial.service';
 import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
@@ -51,7 +53,7 @@ export class BundleBoxingSerialComponent implements OnInit {
 
 
   constructor(private LoginService : LoginService, private InventarioService : InventarioService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer
-    , private BundleBoxingSerialService : BundleBoxingSerialService, public datepipe: DatePipe, public toastService: ToastService
+    , private BundleBoxingSerialService : BundleBoxingSerialService, public datepipe: DatePipe, public toastService: ToastService, private ReportViewerService : ReportViewerService
     ) {
       this.Limpiar();
      }
@@ -61,7 +63,7 @@ export class BundleBoxingSerialComponent implements OnInit {
 
   LLenarTabla() : void
   {
-    this.BundleBoxingSerialService.change.emit(["Limpiar", ""])
+    this.ReportViewerService.change.emit(["Limpiar", ""])
     this.dataSource.data.splice(0, this.dataSource.data.length);
 
     this.BundleBoxingSerialService.Get().subscribe( s =>{
@@ -103,7 +105,7 @@ export class BundleBoxingSerialComponent implements OnInit {
     this.dataSource.data.splice(0, this.dataSource.data.length);
     if( this.dialogConfirmar != null)this.dialogConfirmar.close();
     if( this.dialog != null)this.dialog.closeAll();
-    this.BundleBoxingSerialService.change.emit(["Limpiar", ""]);
+    this.ReportViewerService.change.emit(["Limpiar", ""]);
  
   }
 
@@ -199,6 +201,9 @@ export class BundleBoxingSerialComponent implements OnInit {
     {
       let Serial : ClsSerialBoxing = new ClsSerialBoxing();
 
+      let reporte : IReporte = new IReporte();
+    
+
 
       Serial.Corte = row.Corte;
       Serial.CorteCompleto = row.CorteCompleto;
@@ -211,8 +216,14 @@ export class BundleBoxingSerialComponent implements OnInit {
       Serial.EnSaco = row.EnSaco;
       Serial.Serial = row.Serial;
       Serial.Login = "";
+
+
+      reporte.Rdlc = "SerialComponente.rdlc"
+      reporte.json = Serial;
+
+
     
-      this.BundleBoxingSerialService.change.emit(["Imprimir", Serial]);
+      this.ReportViewerService.change.emit(["Imprimir", reporte]);
     }
 
   }

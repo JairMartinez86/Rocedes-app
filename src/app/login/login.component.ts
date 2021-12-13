@@ -13,8 +13,8 @@ import {LoginService} from '../main/Services/Usuario/login.service';
 
 
 export class LoginComponent implements OnInit {
-  str_user : string = '';
-  str_pass : string = '';
+  str_user : string = 'JMartinez';
+  str_pass : string = '12345678';
   bol_remenber : boolean = false;
  
 

@@ -1,3 +1,5 @@
+`<reference types="reports.all" />`
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -69,10 +71,9 @@ import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej
 
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ReportViewerBoxingSerialComponent } from './main/inv/bundle-boxing-serial/ReportViewer/report-viewer-boxing-serial/report-viewer-boxing-serial.component';
 import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
 import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
-
+import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
 
 @NgModule({
   declarations: [
@@ -88,10 +89,9 @@ import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-
     ReportBundleBoxingComponent,
     ReportBundleBoxingTablaComponent,
     ReportViewerComponent,
-    ReportViewerBoxingSerialComponent,
     BundleBoxingSerialComponent,
     BundleBoxingSacoComponent,
-  
+
 
     
     
@@ -121,7 +121,6 @@ import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-
     BrowserAnimationsModule,
     MatSortModule,
     MatSelectModule,
-    
 
 
 
@@ -133,7 +132,8 @@ import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-
     NgbToastModule,
     NgbModule,
     BrowserModule,
-    BoldReportViewerModule
+    BoldReportViewerModule,
+    ReportViewerModule
     
   ],
   entryComponents: [
