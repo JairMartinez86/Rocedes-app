@@ -32,6 +32,10 @@ export class InventarioService {
         this.change.emit("Open:BundleBoxing");
         break;
 
+        case "LinkBundleBoxingComplemento":
+          this.change.emit("Open:BundleBoxingComplemento");
+          break;
+
         case "LinkReportBundleBoxing":
         this.change.emit("Open:LinkReportBundleBoxing");
         break;
@@ -56,6 +60,13 @@ export class InventarioService {
       case "LinkBundleBoxing":
         this.change.emit("Close:BundleBoxing");
         break;
+
+        
+
+
+        case "LinkBundleBoxingComplemento":
+          this.change.emit("Close:BundleBoxing");
+          break;
 
         case "LinkReportBundleBoxing":
           this.change.emit("Close:LinkReportBundleBoxing");

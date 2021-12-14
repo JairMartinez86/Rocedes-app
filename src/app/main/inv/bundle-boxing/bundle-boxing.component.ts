@@ -1,5 +1,6 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -73,6 +74,7 @@ function stop() {
 export class BundleBoxingComponent implements OnInit {
 
   str_CodeBar = "";
+  renderer: any;
 
 
   @ViewChild(MatPaginator, {static: false})
@@ -122,10 +124,11 @@ export class BundleBoxingComponent implements OnInit {
   str_CorteCompleto :string = "";
   str_Estilo : string = "";
   str_Titulo_Saco : string = "";
-  str_Mesa : string = "0";
+  str_Mesa : string = "-1";
   str_Label_Capaje : string = "Capaje."
   opcion_material : string = "";
   opcion_presentacion : string = "";
+  str_Label_Mesa : string = "Mesa #";
 
   int_Saco : number = 0;
   int_Seccion : number = 0;
@@ -137,6 +140,7 @@ export class BundleBoxingComponent implements OnInit {
   bol_TerminarEmpaque : boolean = false;
   private bol_Verificando : boolean = false;
   public bol_Load  : boolean = false;
+  public EsComplemento : boolean = false;
 
 
   public IPresentacion : IPresentacionSerial[] = []
@@ -169,7 +173,7 @@ export class BundleBoxingComponent implements OnInit {
 
     this.valSeleccion.add("txtBox_SeleccionCorte", "1", "LEN>", "0");
 
-    this.val.add("txtBox_Mesa", "1", "NUM>", "0");
+    this.val.add("txtBox_Mesa", "1", "NUM>=", "0");
 
     this.valSaco.add("txtBox_Saco", "1", "LEN>", "0");
     this.valSaco.add("txtBox_Saco", "2", "NUM>", "0");
@@ -183,7 +187,6 @@ export class BundleBoxingComponent implements OnInit {
     this.valSerial.add("spinBox_Cantidad", "1", "NUM>=", "1");
     this.valSerial.add("spinBox_Capaje", "1", "NUM>=", "1");
 
-    
     
     this.LimpiarForm("");
 
@@ -278,10 +281,13 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
 
   if(value.length <= 2) return;
 
+
+
   
   this.AuditoriaService.GetCorte(value, true).subscribe( s => {
     let _json = JSON.parse(s);
 
+    this.dialog.closeAll();
 
     if(_json["esError"] == 0){
 
@@ -301,7 +307,7 @@ txtBox_SeleccionCorte_onSearchChange(event : any) :void{
       }
      
     }else{
-      this.dialogRef = this.dialog.open(DialogoComponent, {
+      this.dialog.open(DialogoComponent, {
         data: _json["msj"]
       })
 
@@ -354,6 +360,7 @@ Escanner() : void{
   } 
 
   this.str_from = "frmBundleBoxing_Escanner"
+  this.bol_IniciarEmpaque = false;
   this.bol_AbrirSaco = false;
   this.cargarTabla();
 
@@ -430,7 +437,7 @@ CrearSerial(): void{
 
     this.dataSource.data.splice(0, this.dataSource.data.length);
 
-    this.AuditoriaService.GetSerial2(this.str_Corte, this.str_Estilo).subscribe(s=>{
+    this.AuditoriaService.GetSerial2(this.str_Corte, this.str_Estilo, this.EsComplemento).subscribe(s=>{
 
       let _json = JSON.parse(s);
 
@@ -641,9 +648,7 @@ CrearSerial(): void{
   Empacar(): void{
 
 
-    
-    if(this.val.ValForm.invalid) return;
-    if(this.val.ValForm.invalid) return;
+    if(this.val.ValForm.get("txtBox_Mesa")?.invalid) return
 
 
     if(this.val.ValForm.get("txtBox_Mesa")?.value == null) return
@@ -991,6 +996,49 @@ CrearSerial(): void{
 
     }
 
+    onKeyEnter(event: any){
+    
+
+      let _input : string = event.target.id;
+      
+  
+      if(event.target.value == "") {
+        document?.getElementById(_input)?.focus();
+        event.preventDefault();
+        return;
+      }
+
+
+      switch(_input){
+
+        case "txtBox_Nombre":
+          document?.getElementById("selectBox_Presentacion")?.focus();
+          break;
+  
+          case "selectBox_Presentacion":
+            this.Empacar();
+            document?.getElementById("SelectBox_Material")?.focus();
+          break;
+  
+          case "SelectBox_Material":
+            document?.getElementById("spinBox_Cantidad")?.focus();
+            break;
+  
+          case "spinBox_Cantidad":
+              document?.getElementById("spinBox_Capaje")?.focus();
+            break;
+  
+          case "spinBox_Capaje":
+              document?.getElementById("btnBoxin_CrearSerial")?.focus();
+              this.GenerarSerial();
+            break;
+      }
+  
+  
+      event.preventDefault();
+  
+    }
+
 
   
     //#endregion FORMULARIO SERIAL
@@ -998,15 +1046,17 @@ CrearSerial(): void{
   ngOnInit(): void {
     this.InventarioService.change.subscribe(s => {
 
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "BundleBoxing"){
+      if(s.split(":")[0] == "Open" && (s.split(":")[1] == "BundleBoxing" || s.split(":")[1] == "BundleBoxingComplemento")){
         this.str_from = "BundleBoxing";
+        this.str_Label_Mesa = "Mesa #"
+        this.EsComplemento = false;
+        if(s.split(":")[1] == "BundleBoxingComplemento") 
+        {
+          this.str_Label_Mesa = "Seleccione"
+          this.EsComplemento = true;
+        }
 
-        let options = {
-          autoClose: false,
-          keepAfterRouteChange: true,
-      };
-      
-        
+        this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.setValue("");
 
       }
 

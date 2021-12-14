@@ -68,6 +68,8 @@ export class BundleBoxingSacoComponent implements OnInit {
   LLenarTabla() : void
   {
     this.BundleBoxingSacoService.change.emit(["Limpiar", ""])
+    
+    ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
     this.dataSource.data.splice(0, this.dataSource.data.length);
 
     this.BundleBoxingSacoService.Get().subscribe( s =>{
@@ -100,13 +102,14 @@ export class BundleBoxingSacoComponent implements OnInit {
   Limpiar() : void
   {
     
+    ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
+    this.dataSource.data.splice(0, this.dataSource.data.length);
     document.getElementById("divRegistrosBoginxSaco")?.classList.remove("disabled");
 
     this._Respuesta = null;
     this.bol_OpenDialog = false;
     this.str_from = "";
     this.str_Serial = "";
-    this.dataSource.data.splice(0, this.dataSource.data.length);
     if( this.dialogConfirmar != null)this.dialogConfirmar.close();
     if( this.dialog != null)this.dialog.closeAll();
     this.BundleBoxingSacoService.change.emit(["Limpiar", ""]);
@@ -192,7 +195,11 @@ export class BundleBoxingSacoComponent implements OnInit {
         let _json = this.dialogConfirmar.componentInstance._Respuesta;
         this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
         
-        if(_json["esError"] == 0) row.Activo = _json["d"].Activo;
+        if(_json["esError"] == 0)
+        {
+          row.Activo = _json["d"].Activo;
+          row.Usuario = this.LoginService.str_user;
+        } 
 
       }
       

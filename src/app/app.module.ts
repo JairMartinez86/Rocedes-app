@@ -31,7 +31,7 @@ import { MainComponent } from './main/main.component';
 
 
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase } from '@fortawesome/free-solid-svg-icons';
+  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -58,7 +58,7 @@ import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { ReportViewerComponent } from './main/otro/report-viewer/report-viewer.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { BoldReportViewerModule } from '@boldreports/angular-reporting-components';
 
@@ -133,7 +133,8 @@ import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
     NgbModule,
     BrowserModule,
     BoldReportViewerModule,
-    ReportViewerModule
+    ReportViewerModule,
+    MatProgressSpinnerModule
     
   ],
   entryComponents: [
@@ -174,7 +175,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add multiple icons to the library
     library.addIcons(faBroom, faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase);
+      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock);
   }
 }
 

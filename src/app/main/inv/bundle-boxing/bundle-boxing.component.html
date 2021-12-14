@@ -42,8 +42,8 @@
                           </mat-autocomplete>
                         <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
                         <mat-error *ngIf="valSeleccion.ValForm.get('txtBox_SeleccionCorte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
-                    
                     </mat-form-field>
+
                 </div>
 
 
@@ -51,7 +51,7 @@
                     <div class="col-6">
                         <button type="button" id="btnBoxingEscanner" class="btn  sleccion-escanner"  [disabled]="valSeleccion.ValForm.invalid"  (click)="Escanner()">Escanner</button>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6" *ngIf="!EsComplemento">
                         <button type="button" id="btnBoxingCrearSerial" class="btn  sleccion-crearserial" [disabled]="valSeleccion.ValForm.invalid"   (click)="CrearSerial()">Crear Serial</button>
                     </div>
                 </div>
@@ -87,23 +87,26 @@
                     </div>
 
                     <mat-form-field class="col-sm-6 col-md-4 col-lg-4 offset-md-2 offset-lg-2">
-                        <mat-label>Mesa #</mat-label>
+                        <mat-label>{{str_Label_Mesa}}</mat-label>
                         <mat-select appAutofocus [(value)]="str_Mesa" id="txtBox_Mesa" formControlName="txtBox_Mesa" (keydown.enter)="Empacar()">
-                          <mat-option value="1">Mesa 1</mat-option>
-                          <mat-option value="2">Mesa 2</mat-option>
-                          <mat-option value="3">Mesa 3</mat-option>
-                          <mat-option value="4">Mesa 4</mat-option>
-                          <mat-option value="5">Mesa 5</mat-option>
-                          <mat-option value="6">Mesa 6</mat-option>
-                          <mat-option value="7">Mesa 7</mat-option>
-                          <mat-option value="8">Mesa 8</mat-option>
-                          <mat-option value="9">Mesa 9</mat-option>
-                          <mat-option value="10">Mesa 10</mat-option>
-                          <mat-option value="11">Mesa 11</mat-option>
-                          <mat-option value="12">Mesa 12</mat-option>
+                            <mat-option *ngIf="EsComplemento" value="0">Maquina Cortadora</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="1">Mesa 1</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="2">Mesa 2</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="3">Mesa 3</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="4">Mesa 4</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="5">Mesa 5</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="6">Mesa 6</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="7">Mesa 7</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="8">Mesa 8</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="9">Mesa 9</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="10">Mesa 10</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="11">Mesa 11</mat-option>
+                            <mat-option *ngIf="!EsComplemento" value="12">Mesa 12</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'"># Mesa es <strong>requerido</strong></mat-error>
+                        <mat-error *ngIf="val.ValForm.get('txtBox_Mesa')?.errors?.Regla=='1'">{{str_Label_Mesa}} es <strong>requerido</strong></mat-error>
                       </mat-form-field>
+
+              
 
 
                 </div>
@@ -135,11 +138,11 @@
             </div>
 
             <div>
-                <button *ngIf="!bol_AbrirSaco && dataSource.data.length > 0" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="GuardarSaco('Crear')">Crear Saco</button>
+                <button *ngIf="!bol_AbrirSaco && dataSource.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="GuardarSaco('Crear')">Crear Saco</button>
             </div>
 
             <div>
-                <button *ngIf="dataSource.data.length > 0" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco()">Abrir Saco</button>
+                <button *ngIf="dataSource.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco()">Abrir Saco</button>
             </div>
           </div>
 
@@ -341,7 +344,7 @@
                 <div class="row">
                     <mat-form-field class="col-sm-12">
                         <mat-label><b>Nombre.</b></mat-label>
-                        <input appAutofocus matInput type="text" id="txtBox_Nombre" formControlName="txtBox_Nombre" placeholder="Ingrese el nombre de la pieza.">
+                        <input appAutofocus matInput type="text" id="txtBox_Nombre" formControlName="txtBox_Nombre" placeholder="Ingrese el nombre de la pieza." (keydown.enter)="onKeyEnter($event)">
                         <mat-error *ngIf="valSerial.ValForm.get('txtBox_Nombre')?.errors?.Regla=='1'">Nombre es <strong>requerido</strong></mat-error>
                     </mat-form-field>
 
@@ -352,7 +355,7 @@
                     
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>Presentacion.</mat-label>
-                        <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (selectionChange)="selectBox_select()" (keydown.enter)="Empacar()">
+                        <mat-select  [(value)]="opcion_presentacion" id="selectBox_Presentacion" formControlName="selectBox_Presentacion" (selectionChange)="selectBox_select()" (keydown.enter)="onKeyEnter($event)">
                           <mat-option  *ngFor="let p of IPresentacion" [value]="p.IdPresentacionSerial">{{p.Presentacion}}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="valSerial.ValForm.get('selectBox_Presentacion')?.errors?.Regla=='1'">Presentacion es <strong>requerido</strong></mat-error>
@@ -361,7 +364,7 @@
 
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>Material.</mat-label>
-                        <mat-select  [(value)]="opcion_material" id="SelectBox_Material" formControlName="SelectBox_Material" (keydown.enter)="Empacar()">
+                        <mat-select  [(value)]="opcion_material" id="SelectBox_Material" formControlName="SelectBox_Material" (keydown.enter)="onKeyEnter($event)">
                             <mat-option  *ngFor="let p of IMaterial" [value]="p.IdMaterial">{{p.Material}}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="valSerial.ValForm.get('SelectBox_Material')?.errors?.Regla=='1'">Material es <strong>requerido</strong></mat-error>
@@ -374,13 +377,13 @@
                     
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>Cantidad.</mat-label>
-                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="1">
+                        <input matInput type="number"  id="spinBox_Cantidad" formControlName="spinBox_Cantidad" placeholder="" min="1" (keydown.enter)="onKeyEnter($event)">
                         <mat-error *ngIf="valSerial.ValForm.get('spinBox_Cantidad')?.errors?.Regla=='1'">Cantidad es <strong>requerido</strong></mat-error>
                     </mat-form-field>
                     
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label>{{str_Label_Capaje}}</mat-label>
-                        <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="1">
+                        <input matInput type="number"  id="spinBox_Capaje" formControlName="spinBox_Capaje" placeholder="" min="1" (keydown.enter)="onKeyEnter($event)">
                         <mat-error *ngIf="valSerial.ValForm.get('spinBox_Capaje')?.errors?.Regla=='1'">{{str_Label_Capaje}} es <strong>requerido</strong></mat-error>
                     </mat-form-field>
 

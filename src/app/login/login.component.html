@@ -1,49 +1,72 @@
 <body class="text-center">
     <main class="form-signin ">
-        <form name="frm">
+        <form name="frm"  [formGroup]="val.ValForm"   novalidate>
           <img class="mb-4" src="../assets/imagenes/log-1.png" alt="" width="72" height="57">
           <h1 class="h3 mb-3 fw-normal">Por favor, registrese</h1>
         
 
-          <!--<mat-form-field appearance="outline">
-           <div class="form-floating">
-              <input  type="text" [(ngModel)]="str_user" class="form-control" id="floatingInput" placeholder="name@rocedes.com.ni">
-            <label for="floatingInput">User</label>
-          </div>
-        </mat-form-field>-->
 
-          <div class="form-floating">
-              <input matInput  type="text" [(ngModel)]="str_user" name="first3" class="form-control" id="floatingInput" placeholder="name@rocedes.com.ni">
-            <!--<label for="floatingInput">Usuario</label><p>JMartinez</p>-->
-         </div>
+         <mat-form-field class="form-floating">
+          <mat-label>Usuario.</mat-label>
+          <input appAutofocus matInput type="text"  id="txtLoginUsuario" formControlName="txtLoginUsuario" placeholder="Ingrese el usuario." (keydown.enter)="onKeyEnter($event)">
+          <mat-icon matPrefix >person</mat-icon>
+          <mat-error *ngIf="val.ValForm.get('txtLoginUsuario')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
+          <mat-error *ngIf="val.ValForm.get('txtLoginUsuario')?.errors?.Regla=='2'">Debe de contener al menos <strong>5</strong> cáracteres</mat-error>
+        </mat-form-field>
     
 
     
          
-         
-          <!--<div class="form-floating">
-            <input mdbInput type="text" class="form-control" id="floatingInput" placeholder="name@rocedes.com.ni">
-            <label for="floatingInput">User</label>
-          </div>
-        -->
- 
-          <div class="form-floating">
-            <input matInput   [(ngModel)]="str_pass" name="first"  type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <!--<label for="floatingPassword">Contraseña</label><p>12345678</p>-->
-          </div>
+
+
+
+          <mat-form-field class="form-floating">
+            <mat-label>Contraseña.</mat-label>
+            <input matInput  [type]="bol_HidePass ? 'password' : 'text'" id="txtLoginPass"    formControlName="txtLoginPass" placeholder="Contraseña"  (keydown.enter)="InicioSesion()">
+            <mat-icon matSuffix (click)="bol_HidePass = !bol_HidePass">{{bol_HidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon matPrefix >lock</mat-icon>
+            <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
+            <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='2'">Debe de contener al menos <strong>6</strong> cáracteres</mat-error>
+        </mat-form-field>
+        
   
           
-
+          
           <div class="checkbox mb-3">
-            <label>
-              <input [(ngModel)]="bol_remenber" name="first2" type="checkbox"  value="remember-me"> Recordar
-            </label>
-          </div>
-          <button (click)="InicioSesion()" class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+            <mat-checkbox  formControlName="checkBox_Recordar" (click)="CheckChange();"   color="accent">
+                <b>Recordar?</b>
+             </mat-checkbox>
+        </div>
+
+
+        <div>
+          <button *ngIf="!bol_Load else spinBar" (click)="InicioSesion()" class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="val.ValForm.invalid || bol_Load">Iniciar Sesión 
+            <fa-icon [icon]="['fas', 'unlock']" class="fa-lg"></fa-icon>
+          </button>
+          
+        </div>
+          
 
          
 
         </form>
+
+        <!-----------------------------------------------------SPINNER---------------------------------------------------------------->
+
+      <ng-template #spinBar>
+        <div class="spinner-wrapper">
+          <span><b>Por favor espere...</b></span>
+          <mat-progress-spinner 
+          class="example-margin"
+          color="primary"
+          mode="indeterminate"
+          [diameter]="30">
+        </mat-progress-spinner>
+        </div>
+
+        
+      </ng-template>
+
     
       </main>
     
