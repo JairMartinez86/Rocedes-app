@@ -36,7 +36,6 @@ export interface IUsuario {
   cApellido: string;
   cCodBar : string;
   cActivo : boolean;
-  cAccion : string;
 }
 
 let ELEMENT_DATA: IUsuario[] = [
@@ -79,7 +78,7 @@ export class UsuarioComponent implements OnInit {
 
   public val = new Validacion();
 
-  displayedColumns: string[] = ['cIndex', 'cUsuario',  'cNombre', 'cApellido', "cActivo", "cAccion"];
+  displayedColumns: string[] = ['cIndex', 'cUsuario',  'cNombre', 'cApellido', "cActivo", "cAccion1", "cAccion2", "cAccion3"];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<IUsuario>();
 
@@ -409,7 +408,7 @@ export class UsuarioComponent implements OnInit {
 
         _json["d"].forEach((b: {  IdUsuario : number;  Login: string; Pass: string; Nombres: string; Apellidos: string; CodBar : string; Activo : boolean }) => {
 
-          this.dataSource.data.push({cIndex: i, cIdUsuario : b.IdUsuario, cUsuario: b.Login , cPass : b.Pass, cNombre: b.Nombres, cApellido: b.Apellidos, cCodBar : b.CodBar, cActivo : b.Activo, cAccion : ""})
+          this.dataSource.data.push({cIndex: i, cIdUsuario : b.IdUsuario, cUsuario: b.Login , cPass : b.Pass, cNombre: b.Nombres, cApellido: b.Apellidos, cCodBar : b.CodBar, cActivo : b.Activo})
           i+=1;
           
         });

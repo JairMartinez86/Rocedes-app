@@ -34,7 +34,7 @@ export class BundleBoxingSerialComponent implements OnInit {
   _Respuesta : any = null;
 
 
-  displayedColumns: string[] = ['IdSerialComplemento', 'Serial',  'Pieza', 'PresentacionSerial', "Material", "Cantidad", "Capaje", "EnSaco", "Usuario", "FechaRegistro", "Corte", "Estilo", "Activo"];
+  displayedColumns: string[] = ['IdSerialComplemento', 'Serial',  'Pieza', 'PresentacionSerial', "Material", "Cantidad", "Capaje", "EnSaco", "Usuario", "FechaRegistro", "Corte", "Estilo", "Activo", "Imprimir", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<IBoginxSerial>();
 

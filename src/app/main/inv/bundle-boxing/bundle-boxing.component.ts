@@ -74,7 +74,6 @@ function stop() {
 export class BundleBoxingComponent implements OnInit {
 
   str_CodeBar = "";
-  renderer: any;
 
 
   @ViewChild(MatPaginator, {static: false})
@@ -134,7 +133,7 @@ export class BundleBoxingComponent implements OnInit {
   int_Seccion : number = 0;
   int_Mesa : number = 0;
 
-  checked : boolean = false;
+  EnSaco : boolean = false;
   bol_IniciarEmpaque : boolean = false;
   bol_AbrirSaco : boolean = false;
   bol_TerminarEmpaque : boolean = false;
@@ -148,7 +147,7 @@ export class BundleBoxingComponent implements OnInit {
 
 
   CheckChange() {
-    this.checked = !this.checked;
+    this.EnSaco = !this.EnSaco;
   }
 
   Timer$Subscription : any
@@ -223,7 +222,7 @@ export class BundleBoxingComponent implements OnInit {
     this.bol_Load = false;
     this.bol_IniciarEmpaque = false;
     this.bol_AbrirSaco = false;
-    this.checked = false;
+    this.EnSaco = false;
 
     this.int_Saco = 0;
     this.int_Mesa = 0;
@@ -395,7 +394,7 @@ CrearSerial(): void{
   this.valSerial.ValForm.reset();
 
   
-  this.checked = false;
+  this.EnSaco = false;
   this.str_CorteCompleto = _Opcion.CorteCompleto;
   this.str_Corte = _Opcion.Corte;
   this.str_Estilo = _Opcion.Style;
@@ -959,7 +958,7 @@ CrearSerial(): void{
       Serial.IdMaterial = Number(this.opcion_material);
       Serial.Cantidad = Number(this.valSerial.ValForm.get("spinBox_Cantidad")?.value);
       Serial.Capaje = Number(this.valSerial.ValForm.get("spinBox_Capaje")?.value);
-      Serial.EnSaco =  this.checked;
+      Serial.EnSaco =  this.EnSaco;
       Serial.Serial = this.getNumbersInString(this.str_Corte);
       Serial.Login = this.LoginService.str_user;
 

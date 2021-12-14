@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   bol_remenber : boolean = false;
   bol_HidePass : boolean = true;
   bol_Load : boolean = false;
-  checked : boolean = false;
  
   public val = new Validacion();
 
@@ -39,13 +38,13 @@ export class LoginComponent implements OnInit {
     this.val.add("txtLoginUsuario", "2","LEN>=", "5");
     this.val.add("txtLoginPass", "1", "LEN>", "0");
     this.val.add("txtLoginPass", "2", "LEN>=", "6");
-    this.val.add("checkBox_Recordar", "1", "LEN>=", "0");
+    this.val.add("check_LogRecordar", "1", "LEN>=", "0");
 
     
 
     this.val.ValForm.get("txtLoginUsuario")?.setValue(this.str_user);
     this.val.ValForm.get("txtLoginPass")?.setValue(this.str_pass);
-    this.val.ValForm.get("checkBox_Recordar")?.setValue(this.bol_remenber);
+    this.val.ValForm.get("check_LogRecordar")?.setValue(this.bol_remenber);
 
     /*this.val.ValForm.get("txtLoginUsuario")?.setValue("JMartinez");
     this.val.ValForm.get("txtLoginPass")?.setValue("12345678");
@@ -54,11 +53,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-  CheckChange() {
-    this.bol_remenber = !this.bol_remenber;
-    this.val.ValForm.get("checkBox_Recordar")?.setValue(this.bol_remenber);
-  }
-
   
   InicioSesion() : void{
 
@@ -66,7 +60,7 @@ export class LoginComponent implements OnInit {
 
     this.str_user = this.val.ValForm.get("txtLoginUsuario")?.value;
     this.str_pass = this.val.ValForm.get("txtLoginPass")?.value;
-    this.bol_remenber = this.val.ValForm.get("checkBox_Recordar")?.value;
+    this.bol_remenber = this.val.ValForm.get("check_LogRecordar")?.value;
 
     this.bol_Load = true;
     this.loginserv.InicioSesion(this.str_user, this.str_pass).subscribe(datos => {

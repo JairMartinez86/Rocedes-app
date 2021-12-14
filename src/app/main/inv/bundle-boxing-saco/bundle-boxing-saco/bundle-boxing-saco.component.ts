@@ -38,7 +38,7 @@ export class BundleBoxingSacoComponent implements OnInit {
   _Respuesta : any = null;
 
 
-  displayedColumns: string[] = ['IdSaco', 'Serial',  'Saco', 'NoMesa',  "Usuario", "UsuarioAbre", "FechaRegistro", "Corte", "Activo"];
+  displayedColumns: string[] = ['IdSaco', 'Serial',  'Saco', 'NoMesa',  "Usuario", "UsuarioAbre", "FechaRegistro", "Corte", "Activo", "Imprimir", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<IBoginxSerial>();
 

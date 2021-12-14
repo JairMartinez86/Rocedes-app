@@ -43,7 +43,7 @@
                         <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
                         <mat-error *ngIf="valSeleccion.ValForm.get('txtBox_SeleccionCorte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
                     </mat-form-field>
-
+                    <span>Ejemplo: <b>MP350028-1</b></span>
                 </div>
 
 
@@ -331,7 +331,7 @@
                     </div>
 
                     <div class="col-sm-2 col-md-2 col-lg-4">
-                        <mat-checkbox  formControlName="checkBox_Saco" [(ngModel)]="checked" (click)="CheckChange();"   color="accent">
+                        <mat-checkbox  formControlName="checkBox_Saco" [(ngModel)]="EnSaco" (click)="CheckChange();"   color="accent">
                             <b>En Saco?</b>
                          </mat-checkbox>
                     </div>

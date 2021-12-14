@@ -138,14 +138,14 @@
 
     <div>
 
-      <mat-form-field>
+      <mat-form-field class="col-ms-12">
         <mat-label>Buscar</mat-label>
         <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="buscar">
       </mat-form-field>
 
    
         <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
         
 
           <ng-container matColumnDef="cIndex">
@@ -211,12 +211,28 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="cAccion">
+          <ng-container matColumnDef="cAccion1">
             <th mat-header-cell *matHeaderCellDef>
             </th>
             <td mat-cell *matCellDef="let element" >
               <a href="#" id="aEditar" (click)="clickRow('Editar', element)" *ngIf="element.cActivo"><fa-icon [icon]="['fas', 'user-edit']"  class="fa-2x" ></fa-icon></a>
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="cAccion2">
+            <th mat-header-cell *matHeaderCellDef>
+            </th>
+            <td mat-cell *matCellDef="let element" >
               <a href="#" id="aActivar" (click)="clickRow('Activar', element)" *ngIf="!element.cActivo"><fa-icon [icon]="['fas', 'trash-restore']" class="fa-2x" style="color:green"></fa-icon></a>
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="cAccion3">
+            <th mat-header-cell *matHeaderCellDef>
+            </th>
+            <td mat-cell *matCellDef="let element" >
               <a href="#" id="aEliminar" (click)="clickRow('Eliminar', element)" *ngIf="element.cActivo"><fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:red"></fa-icon></a>
             </td>
           </ng-container>

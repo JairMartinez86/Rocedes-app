@@ -30,13 +30,12 @@
         </mat-form-field>
         
   
-          
-          
-          <div class="checkbox mb-3">
-            <mat-checkbox  formControlName="checkBox_Recordar" (click)="CheckChange();"   color="accent">
-                <b>Recordar?</b>
-             </mat-checkbox>
-        </div>
+
+        <div class="checkbox mb-3">
+          <mat-checkbox  formControlName="check_LogRecordar" [(ngModel)]="bol_remenber"  color="accent">
+              <b>Recordar?</b>
+           </mat-checkbox>
+      </div>
 
 
         <div>
