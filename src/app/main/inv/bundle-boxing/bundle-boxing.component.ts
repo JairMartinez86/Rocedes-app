@@ -541,11 +541,12 @@ CrearSerial(): void{
 
   GuardarPiezaEscaneada(_Serial : string) : void{
 
+    _Serial = _Serial.trimStart().trimEnd();
   
     if(_Serial.length <= 2) return
 
 
-    let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == _Serial && !f.cEscaneado)
+    let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == _Serial)
     let Boxing  : ClsBundleBoxing = new ClsBundleBoxing();
 
     if(this.bol_Load) return;
@@ -625,7 +626,7 @@ CrearSerial(): void{
 
       }
       else{
-        this.toastService.show("Serial # <b>"+ _Serial +"</b> escaneado.!", { classname: 'bg-warning text-light', delay: 10000 });
+        this.toastService.show("Serial # <b>"+ _Serial +"</b> ya escaneado.!", { classname: 'bg-warning text-light', delay: 10000 });
       }
       
       this.bol_Load = false;
@@ -633,7 +634,8 @@ CrearSerial(): void{
     }
     else{
       
-      this.toastService.show("Serial # <b>"+ _Serial +"</b> no ecnotrado.!", { classname: 'bg-secondary text-light', delay: 10000 });
+      this.toastService.show("Serial # <b>"+ _Serial +"</b> no encontrado.!", { classname: 'bg-secondary text-light', delay: 10000 });
+      
       this.bol_Load = false;
     }
 
@@ -719,15 +721,18 @@ CrearSerial(): void{
       });
 
       this.dialogSaco.afterClosed().subscribe( s =>{
+        
         document.getElementById("divBundleBoxing")?.classList.remove("disabled");
         document.getElementById("divRegistrosUsuario")?.classList.remove("disabled");
         document.getElementById("divBundleBoxing")?.classList.remove("disabled");
         this.int_Saco = this.dialogSaco.componentInstance.int_Saco;
         this.str_Titulo_Saco = this.dialogSaco.componentInstance.str_Titulo_Saco;
+        
 
         if(this.int_Saco > 0){
           this.bol_AbrirSaco = !this.bol_AbrirSaco;
           let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+          document.getElementById("txtBox_EscanSerial")?.focus();
           if(this.bol_AbrirSaco){
             element.innerText = "Cerrar Saco";
           }

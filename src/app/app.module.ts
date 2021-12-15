@@ -31,7 +31,7 @@ import { MainComponent } from './main/main.component';
 
 
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock } from '@fortawesome/free-solid-svg-icons';
+  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -74,6 +74,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
 import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
+import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
     ReportViewerComponent,
     BundleBoxingSerialComponent,
     BundleBoxingSacoComponent,
+    BundleBoxingEnvioComponent,
 
 
     
@@ -175,7 +177,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add multiple icons to the library
     library.addIcons(faBroom, faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock);
+      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser);
   }
 }
 

@@ -108,8 +108,7 @@
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
                 <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
-                <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
-                <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>
+                <li><a id="LinkBundleBoxingEnvio" class="dropdown-item" href="#">Envio</a></li>
               </ul>
             </li>
 
@@ -124,6 +123,8 @@
               <a class="nav-link dropdown-toggle"  id="navReporte" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkReportBundleBoxing" class="dropdown-item" href="#">BundleBoxing</a></li>
+                <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
+                <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>
               </ul>
             </li>
 
@@ -162,9 +163,12 @@
   <div class="container"><app-report-bundle-boxing></app-report-bundle-boxing></div>
   <div class="container"><app-bundle-boxing-serial></app-bundle-boxing-serial></div>
   <div class="container"><app-bundle-boxing-saco></app-bundle-boxing-saco></div>
+  <div class="container"><app-bundle-boxing-envio></app-bundle-boxing-envio></div>
 
   <!--<div class="container"><app-report-viewer-boxing-serial></app-report-viewer-boxing-serial></div>-->
   <div class="container"><app-report-viewer></app-report-viewer></div>
+
+
 </div>
 
 </main>

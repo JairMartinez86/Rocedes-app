@@ -70,6 +70,10 @@ export class MainComponent implements OnInit {
 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingSerial", "Seriales", false));
     this.lstEsquema.push(_Esquema);
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingEnvio", "Envio", false));
+    this.lstEsquema.push(_Esquema);
+    
     
 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkOtro", "Otro", false));
@@ -131,6 +135,10 @@ export class MainComponent implements OnInit {
       this.InventarioService.Cerrar("LinkBundleBoxingSerial");
     }
 
+    if(_Id != "LinkBundleBoxingEnvio"){
+      this.InventarioService.Cerrar("LinkBundleBoxingEnvio");
+    }
+
     
     
   }
@@ -188,6 +196,10 @@ export class MainComponent implements OnInit {
               case "LinkBundleBoxingSerial":
                 this.InventarioService.Abrir("LinkBundleBoxingSerial");
                 break;
+
+                case "LinkBundleBoxingEnvio":
+                  this.InventarioService.Abrir("LinkBundleBoxingEnvio");
+                  break;
             
 
           case "LinkOtro":

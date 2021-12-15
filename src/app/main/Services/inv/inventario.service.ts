@@ -32,21 +32,25 @@ export class InventarioService {
         this.change.emit("Open:BundleBoxing");
         break;
 
-        case "LinkBundleBoxingComplemento":
-          this.change.emit("Open:BundleBoxingComplemento");
-          break;
+      case "LinkBundleBoxingComplemento":
+        this.change.emit("Open:BundleBoxingComplemento");
+        break;
 
-        case "LinkReportBundleBoxing":
+      case "LinkReportBundleBoxing":
         this.change.emit("Open:LinkReportBundleBoxing");
         break;
 
-        case "LinkBundleBoxingSaco":
-          this.change.emit("Open:LinkBundleBoxingSaco");
-          break;
+      case "LinkBundleBoxingSaco":
+        this.change.emit("Open:LinkBundleBoxingSaco");
+        break;
 
-          case "LinkBundleBoxingSerial":
-            this.change.emit("Open:LinkBundleBoxingSerial");
-            break;
+      case "LinkBundleBoxingSerial":
+        this.change.emit("Open:LinkBundleBoxingSerial");
+        break;
+
+      case "LinkBundleBoxingEnvio":
+        this.change.emit("Open:LinkBundleBoxingEnvio");
+        break;
        
     }
     
@@ -64,22 +68,27 @@ export class InventarioService {
         
 
 
-        case "LinkBundleBoxingComplemento":
-          this.change.emit("Close:BundleBoxing");
-          break;
+      case "LinkBundleBoxingComplemento":
+        this.change.emit("Close:BundleBoxing");
+        break;
 
-        case "LinkReportBundleBoxing":
-          this.change.emit("Close:LinkReportBundleBoxing");
-          break;
+      case "LinkReportBundleBoxing":
+        this.change.emit("Close:LinkReportBundleBoxing");
+        break;
 
 
-          case "LinkBundleBoxingSaco":
-            this.change.emit("Close:LinkBundleBoxingSaco");
-            break;
+      case "LinkBundleBoxingSaco":
+        this.change.emit("Close:LinkBundleBoxingSaco");
+        break;
 
-            case "LinkBundleBoxingSerial":
-            this.change.emit("Close:LinkBundleBoxingSerial");
-            break;
+      case "LinkBundleBoxingSerial":
+        this.change.emit("Close:LinkBundleBoxingSerial");
+        break;
+
+
+      case "LinkBundleBoxingEnvio":
+        this.change.emit("Close:LinkBundleBoxingEnvio");
+        break;
        
     }
   }
@@ -89,6 +98,7 @@ export class InventarioService {
     this.change.emit("Close:LinkReportBundleBoxing");
     this.change.emit("Close:BundleBoxingSaco");
     this.change.emit("Close:BundleBoxingSerial");
+    this.change.emit("Close:LinkBundleBoxingEnvio");
   }
 
 

@@ -118,6 +118,8 @@ table tr a{
 
 
 
+
+
 /***************************************************************************************************************/
 
 
@@ -214,5 +216,35 @@ mat-checkbox-ripple .mat-ripple-element,
   text-align: center;
 }
 
+
+
+
+/*****************************************************MAT CARD***************************************************/
+
+.mat-card-header{
+  background: #EEEEEE;
+  
+}
+.mat-card-header b{
+  color: maroon;
+}
+
+.mat-card-header div{
+  display: inline-block;
+  font-size:  1.5em;
+  font-weight: bold;
+}
+
+.mat-card-Titulo{
+  padding-top: 5px;
+  width: 90%;
+  text-align: center;
+
+}
+
+.mat-card-salir{
+  padding-top: 5px;
+  text-align: justify;
+}
 
 
