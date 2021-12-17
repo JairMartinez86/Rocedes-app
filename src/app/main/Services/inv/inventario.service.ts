@@ -51,7 +51,15 @@ export class InventarioService {
       case "LinkBundleBoxingEnvio":
         this.change.emit("Open:LinkBundleBoxingEnvio");
         break;
-       
+      
+      case "LinkProcesoTendidoFactor":
+        this.change.emit("Open:LinkProcesoTendidoFactor");
+        break;
+
+      case "LinkProcesoTendidoTiempo":
+        this.change.emit("Open:LinkProcesoTendidoTiempo");
+        break;
+        
     }
     
   }
@@ -89,7 +97,17 @@ export class InventarioService {
       case "LinkBundleBoxingEnvio":
         this.change.emit("Close:LinkBundleBoxingEnvio");
         break;
+
+
+      case "LinkProcesoTendidoFactor":
+        this.change.emit("Close:LinkProcesoTendidoFactor");
+        break;
        
+      case "LinkProcesoTendidoTiempo":
+        this.change.emit("Close:LinkProcesoTendidoTiempo");
+        break;
+
+        
     }
   }
 
@@ -99,6 +117,9 @@ export class InventarioService {
     this.change.emit("Close:BundleBoxingSaco");
     this.change.emit("Close:BundleBoxingSerial");
     this.change.emit("Close:LinkBundleBoxingEnvio");
+    this.change.emit("Close:LinkProcesoTendidoFactor");
+    this.change.emit("Close:LinkProcesoTendidoTiempo");
+    
   }
 
 

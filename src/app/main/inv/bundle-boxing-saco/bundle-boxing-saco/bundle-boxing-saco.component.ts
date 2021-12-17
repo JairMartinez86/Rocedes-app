@@ -19,7 +19,7 @@ import { ISacoSerial } from 'src/app/main/class/Form/Inv/i-SacoSerial';
 
 
 
-let ELEMENT_DATA : ISaco[] = [];
+let ELEMENT_DATA_SACO : ISaco[] = [];
 
 
 @Component({
@@ -39,7 +39,7 @@ export class BundleBoxingSacoComponent implements OnInit {
 
 
   displayedColumns: string[] = ['IdSaco', 'Serial',  'Saco', 'NoMesa',  "Usuario", "UsuarioAbre", "FechaRegistro", "Corte", "Activo", "Imprimir", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(ELEMENT_DATA_SACO);
   clickedRows = new Set<IBoginxSerial>();
 
  
@@ -69,7 +69,7 @@ export class BundleBoxingSacoComponent implements OnInit {
   {
     this.BundleBoxingSacoService.change.emit(["Limpiar", ""])
     
-    ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
+    ELEMENT_DATA_SACO.splice(0, ELEMENT_DATA_SACO.length);
     this.dataSource.data.splice(0, this.dataSource.data.length);
 
     this.BundleBoxingSacoService.Get().subscribe( s =>{
@@ -102,7 +102,7 @@ export class BundleBoxingSacoComponent implements OnInit {
   Limpiar() : void
   {
     
-    ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
+    ELEMENT_DATA_SACO.splice(0, ELEMENT_DATA_SACO.length);
     this.dataSource.data.splice(0, this.dataSource.data.length);
     document.getElementById("divRegistrosBoginxSaco")?.classList.remove("disabled");
 

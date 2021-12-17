@@ -13,18 +13,18 @@
                 <div class="row">
                     <mat-form-field class="col-sm-12" appearance="fill">
                         <mat-label><b>Corte.</b></mat-label>
-                        <input appAutofocus  matInput type="text" id="txt_Corte" 
-                        formControlName="txt_Corte"
+                        <input appAutofocus  matInput type="text" id="txtEnvio_Corte" 
+                        formControlName="txtEnvio_Corte"
                          placehoder="Ingrese No. Corte" 
                          [matAutocomplete]="auto"
-                        (input)="txt_Corte_onSearchChange($event)" (keydown.enter)="txt_Corte_onKeyEnter($event)">
+                        (input)="txtEnvio_Corte_onSearchChange($event)" (keydown.enter)="txtEnvio_Corte_onKeyEnter($event)">
                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarCorteSelec">
                             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                               {{option.Corte}}
                             </mat-option>
                           </mat-autocomplete>
                         <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
-                        <mat-error *ngIf="val.ValForm.get('txt_Corte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
+                        <mat-error *ngIf="val.ValForm.get('txtEnvio_Corte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
                         
                     </mat-form-field>
                     <br>
@@ -39,7 +39,7 @@
 
                         <mat-card-header>
                             <div class="mat-card-titulo"><mat-card-title class="mat-card-title">Corte. <b>{{str_Corte}}</b></mat-card-title></div>
-                            <div class="mat-card-salir"><a href="#" (click)="Cerrar()" *ngIf="str_Corte != ''"><fa-icon [icon]="['fas', 'eraser']" class="fa-lg" style="color:rgb(39, 36, 26)B"></fa-icon></a></div>
+                            <div class="mat-card-salir"><a href="#" (click)="LimpiarCorte()" *ngIf="str_Corte != ''"><fa-icon [icon]="['fas', 'eraser']" class="fa-lg" style="color:rgb(39, 36, 26)B"></fa-icon></a></div>
                         </mat-card-header>
   
                         <mat-card-content>
@@ -57,8 +57,8 @@
 
                             <div class="row">
                                 <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
-                                    <mat-label>Polin #</mat-label>
-                                    <mat-select [(value)]="SeleccionPolin" id="txtBox_Polin" formControlName="txtBox_Polin">
+                                    <mat-label><b>Polin #</b></mat-label>
+                                    <mat-select [(value)]="SeleccionPolin" id="txtEnvio_Polin" formControlName="txtEnvio_Polin" [disabled]=bol_Desabilitar>
                                         <mat-option  value="1">1</mat-option>
                                         <mat-option  value="2">2</mat-option>
                                         <mat-option  value="3">3</mat-option>
@@ -72,15 +72,16 @@
                                         <mat-option  value="11">11</mat-option>
                                         <mat-option  value="12">12</mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="val.ValForm.get('txtBox_Polin')?.errors?.Regla=='1'"> # Polin es <strong>requerido</strong></mat-error>
+                                    <mat-error *ngIf="val.ValForm.get('txtEnvio_Polin')?.errors?.Regla=='1'"># Polin es <strong>requerido</strong></mat-error>
                                 </mat-form-field>
     
                                 <mat-form-field class="col-sm-12 col-md-4 col-lg-4 offset-md-4 offset-lg-4">
                                     <mat-label><b>Fecha.</b></mat-label>
-                                    <input matInput [matDatepicker]="picker">
+                                    <input matInput [matDatepicker]="picker" id="txtEnvio_Fecha" formControlName="txtEnvio_Fecha" [disabled]=bol_Desabilitar>
                                     <mat-datepicker-toggle matSuffix [for]="picker">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="val.ValForm.get('txtEnvio_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
                                 </mat-form-field>
                             </div>
                             

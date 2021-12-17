@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
@@ -26,17 +27,19 @@ export class BundleBoxingEnvioComponent implements OnInit {
   public str_Corte : string = "";
 
   public bol_Load : boolean = false;
+  public bol_Desabilitar : boolean = true
 
   public val = new Validacion();
 
   constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService,
-    private dialog: MatDialog) { 
+    private dialog: MatDialog, public datepipe: DatePipe) { 
     this.Limpiar();
 
-    this.val.add("txt_Corte", "1", "LEN>", "0");
-    this.val.add("txtSerial", "1", "LEN>", "0");
-    this.val.add("txtBox_Polin", "1", "LEN>", "0");
-    
+    this.val.add("txtEnvio_Corte", "1", "LEN>", "0");
+    this.val.add("txtEnvio_Serial", "1", "LEN>", "0");
+    this.val.add("txtEnvio_Polin", "1", "LEN>", "0");
+    this.val.add("txtEnvio_Fecha", "1", "LEN>", "0");
+
 
   }
 
@@ -48,6 +51,17 @@ export class BundleBoxingEnvioComponent implements OnInit {
     this.SeleccionPolin = "1";
     this.str_Corte = "";
     this.bol_Load = false;
+    this.bol_Desabilitar = true;
+
+    this.SeleccionPolin = "1";
+
+    
+
+    this.val.ValForm.get("txtEnvio_Corte")?.enable();
+    this.val.ValForm.get("<txtEnvio_Corte")?.setValue("");
+    this.val.ValForm.get("txtEnvio_Polin")?.setValue(this.SeleccionPolin);
+    this.val.ValForm.get("txtEnvio_Fecha")?.setValue((this.datepipe.transform(new Date(), 'dd/MM/yyyy'))?.toString());
+
 
     this.val.ValForm.reset();
   }
@@ -57,9 +71,22 @@ export class BundleBoxingEnvioComponent implements OnInit {
     this.Limpiar();
   }
 
+  public LimpiarCorte()
+  {
 
+    this.bol_Desabilitar = true;
+    this.str_Corte = "";
+    this.SeleccionPolin = "1";
 
+    this.val.ValForm.get("txtEnvio_Polin")?.setValue(this.SeleccionPolin);
+    this.val.ValForm.get("txtEnvio_Fecha")?.setValue((this.datepipe.transform(new Date(), 'dd/MM/yyyy'))?.toString());
+    this.val.ValForm.get("txtEnvio_Corte")?.enable();
 
+ 
+    document.getElementById("txtEnvio_Corte")?.focus();
+    this.val.ValForm.reset();
+
+  }
 
 
   
@@ -68,7 +95,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
   optionCorte : ICorte[] = [];
   filteredOptions!: Observable<ICorte[]>;
 
-  txt_Corte_onSearchChange(event : any) :void{
+  txtEnvio_Corte_onSearchChange(event : any) :void{
 
   this.optionCorte.splice(0, this.optionCorte.length);
 
@@ -116,7 +143,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
 }
 
 
-txt_Corte_onKeyEnter(event: any){
+txtEnvio_Corte_onKeyEnter(event: any){
     
 
   let _input : string = event.target.id;
@@ -131,22 +158,23 @@ txt_Corte_onKeyEnter(event: any){
 
 
   
-  let _Opcion : any = this.val.ValForm.get("txt_Corte")?.value;
+  let _Opcion : any = this.val.ValForm.get("txtEnvio_Corte")?.value;
 
   if( typeof(_Opcion) == 'string' ) {
 
-    _Opcion = this.optionCorte.filter( f => f.Corte == this.val.ValForm.get("txt_Corte")?.value)[0]
+    _Opcion = this.optionCorte.filter( f => f.Corte == this.val.ValForm.get("txtEnvio_Corte")?.value)[0]
 
     if(_Opcion == null){
-      this.val.ValForm.get("txt_Corte")?.setValue("");
+      this.val.ValForm.get("txtEnvio_Corte")?.setValue("");
       return;
     }
     
   }
 
+  this.bol_Desabilitar = false;
   this.str_Corte = _Opcion.Corte;
 
-
+  this.val.ValForm.get("txtEnvio_Corte")?.disable();
 
 
   event.preventDefault();

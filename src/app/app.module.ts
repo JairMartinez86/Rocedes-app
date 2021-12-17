@@ -75,6 +75,9 @@ import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing-serial/bun
 import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
 import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
+import { DropdownDirective } from './main/Directive/dropdown.directive';
+import { FactorTendidoComponent } from './main/inv/proceso-tendido/factor-tendido/factor-tendido.component';
+import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,9 @@ import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing-envio/bundl
     BundleBoxingSerialComponent,
     BundleBoxingSacoComponent,
     BundleBoxingEnvioComponent,
+    DropdownDirective,
+    FactorTendidoComponent,
+    TendidoTiempoComponent,
 
 
     

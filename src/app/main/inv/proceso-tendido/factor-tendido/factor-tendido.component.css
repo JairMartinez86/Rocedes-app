@@ -1,0 +1,12 @@
+.myHeader, .myCell{
+    flex: 0 0 100px;
+    white-space: nowrap;
+  }
+
+
+  .col-factor-tendido {
+    width: 120px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+ 

@@ -44,6 +44,13 @@
                     <td mat-cell *matCellDef="let element"> {{element.cNomPieza}} </td>
                 </ng-container>
     
+
+                <ng-container matColumnDef="cTalla">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cTalla">
+                    Talla.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cTalla}} </td>
+                </ng-container>
     
 
                 <ng-container matColumnDef="cNoBulto">

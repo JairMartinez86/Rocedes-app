@@ -50,7 +50,7 @@ export interface IExcel {
 
 
 
-let ELEMENT_DATA: IBoxin[] = [];
+let ELEMENT_DATA_TABLA: IBoxin[] = [];
 
 let ELEMENT_EXCEL: IExcel[] = [];
 
@@ -86,9 +86,9 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   pageSize : number = 50;
   
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cUsuario", "cFecha"];
-  dataSource =  ELEMENT_DATA;
-  int_TotalRegistros = ELEMENT_DATA.length;
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cUsuario", "cFecha"];
+  dataSource =  ELEMENT_DATA_TABLA;
+  int_TotalRegistros = ELEMENT_DATA_TABLA.length;
   clickedRows = new Set<IBoxin>();
 
 
@@ -106,13 +106,13 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
     if(!this.initData(_json)) return;
     
-    ELEMENT_DATA.splice(0, ELEMENT_DATA.length);
+    ELEMENT_DATA_TABLA.splice(0, ELEMENT_DATA_TABLA.length);
     ELEMENT_EXCEL.splice(0, ELEMENT_EXCEL.length);
     
     
     let x : number = 1;
     _json.forEach((j: { Grupo : string, Mesa : number, Serial : number, Nombre : string, Talla : string, Bulto : number, Capaje : string, Yarda: string, Seccion : number, Saco : string, Corte : string, Estilo :string, Login : string, Fecha: string}) => {
-      ELEMENT_DATA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cTalla : j.Talla, cNoBulto : j.Bulto, cCapaje : j.Capaje == "0" ? "" : j.Capaje, cYarda : j.Yarda == "0" ? "" : j.Yarda, cSeccion : j.Seccion, cNoSaco : j.Saco == "0" ? "" : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
+      ELEMENT_DATA_TABLA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cTalla : j.Talla, cNoBulto : j.Bulto, cCapaje : j.Capaje == "0" ? "" : j.Capaje, cYarda : j.Yarda == "0" ? "" : j.Yarda, cSeccion : j.Seccion, cNoSaco : j.Saco == "0" ? "" : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
     cfiltro : j.Mesa + " "+ j.Serial + " "+ j.Nombre +  "" + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
 
     ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Talla : j.Talla, Bulto : j.Bulto, Capaje : j.Capaje == "0" ? "" : j.Capaje, Yarda : j.Yarda == "0" ? "" : j.Yarda, Saco : j.Saco == "0" ? "" : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
@@ -120,7 +120,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       x++;
     });
 
-    this.int_TotalRegistros = ELEMENT_DATA.length;
+    this.int_TotalRegistros = ELEMENT_DATA_TABLA.length;
     this.groupingColumn = "Grupo" 
     this.Paginar();
 
@@ -273,7 +273,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   }
 
 
-  worksheet.spliceColumns(10, 2);
+  worksheet.spliceColumns(11, 2);
   worksheet.properties.defaultColWidth = 20;
 
 
@@ -301,7 +301,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
    */
    initData(data : any[]){
     if(!data) return false;
-    this.initialData = ELEMENT_DATA;
+    this.initialData = ELEMENT_DATA_TABLA;
     return true;
   }
 
@@ -422,7 +422,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   }
 
   Paginar() : void{
-    const data = ELEMENT_DATA;
+    const data = ELEMENT_DATA_TABLA;
     const startIndex = this.pageIndex * this.pageSize;
     const filter = data.filter(f => f.cfiltro != "").splice(startIndex, this.pageSize);
     const start = filter[0];
@@ -435,7 +435,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   filtrar(event: Event) {
     let filtro : string = (event.target as HTMLInputElement).value;
 
-    const data = ELEMENT_DATA;
+    const data = ELEMENT_DATA_TABLA;
     const startIndex = this.pageIndex * this.pageSize;
     const filter = data.filter(f => ~f.cfiltro.toString().toLowerCase().indexOf(filtro.toLowerCase())).splice(startIndex, this.pageSize);
     const start = filter[0];

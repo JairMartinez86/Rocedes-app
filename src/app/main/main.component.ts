@@ -10,7 +10,7 @@ import {InventarioService} from './Services/inv/inventario.service';
   selector: 'app-main',
   templateUrl: './main.component.html',
  // template: `<app-descargue></app-descargue>`,
-  styleUrls: ['./main.component.css'],
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
   Esquema !:Esquema; 
   
   public NomUsuario : string = "";
-
+  searchDrop = false;
  
 
 
@@ -49,6 +49,7 @@ export class MainComponent implements OnInit {
 
  
   constructor(private loginserv : LoginService, private InventarioService : InventarioService) {
+    
 
     this.loginserv.VerificarSession()
   
@@ -88,6 +89,8 @@ export class MainComponent implements OnInit {
 
 
   }
+
+
 
   AbrirForm(_Id : string)
   {
@@ -137,6 +140,14 @@ export class MainComponent implements OnInit {
 
     if(_Id != "LinkBundleBoxingEnvio"){
       this.InventarioService.Cerrar("LinkBundleBoxingEnvio");
+    }
+
+    if(_Id != "LinkProcesoTendidoFactor"){
+      this.InventarioService.Cerrar("LinkProcesoTendidoFactor");
+    }
+
+    if(_Id != "LinkProcesoTendidoTiempo"){
+      this.InventarioService.Cerrar("LinkProcesoTendidoTiempo");
     }
 
     
@@ -189,19 +200,27 @@ export class MainComponent implements OnInit {
               this.InventarioService.Abrir("LinkReportBundleBoxing");
               break;
 
-              case "LinkBundleBoxingSaco":
-                this.InventarioService.Abrir("LinkBundleBoxingSaco");
-                break;
+            case "LinkBundleBoxingSaco":
+              this.InventarioService.Abrir("LinkBundleBoxingSaco");
+              break;
 
-              case "LinkBundleBoxingSerial":
-                this.InventarioService.Abrir("LinkBundleBoxingSerial");
-                break;
+            case "LinkBundleBoxingSerial":
+              this.InventarioService.Abrir("LinkBundleBoxingSerial");
+              break;
 
-                case "LinkBundleBoxingEnvio":
-                  this.InventarioService.Abrir("LinkBundleBoxingEnvio");
-                  break;
+            case "LinkBundleBoxingEnvio":
+              this.InventarioService.Abrir("LinkBundleBoxingEnvio");
+              break;
+
+            case "LinkProcesoTendidoFactor":
+              this.InventarioService.Abrir("LinkProcesoTendidoFactor");
+              break;
+
+            case "LinkProcesoTendidoTiempo":
+              this.InventarioService.Abrir("LinkProcesoTendidoTiempo");
+              break;
             
-
+                  
           case "LinkOtro":
 
           break;

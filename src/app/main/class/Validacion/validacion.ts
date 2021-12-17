@@ -1,9 +1,7 @@
-import { AbstractControl, FormControl, ValidatorFn, FormGroupDirective, NgForm, Validators, NG_VALIDATORS, FormBuilder, FormGroup, ValidationErrors  } from '@angular/forms';
+import { AbstractControl, FormControl, ValidatorFn, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import {formatDate} from '@angular/common';
-import { ngfactoryFilePath } from '@angular/compiler/src/aot/util';
-import { ContentObserver } from '@angular/cdk/observers';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -25,12 +23,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class Validacion {
 
     private fb = new FormBuilder;
-    private locale!: string
+
 
     private lstReglas : ReglasValidacion[] = [];
 
     constructor(){}
     
+
 
     public ValForm = this.fb.group(
         {

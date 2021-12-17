@@ -1,6 +1,5 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -53,7 +52,7 @@ export interface ICorte {
 
 
 
-let ELEMENT_DATA: IBoxin[] = [];
+let ELEMENT_DATA_BOXING: IBoxin[] = [];
 
 const VerificarScanTimer = timer(0, 300000);
 
@@ -110,7 +109,7 @@ export class BundleBoxingComponent implements OnInit {
 
 
   displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cEscaneado"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(ELEMENT_DATA_BOXING);
   clickedRows = new Set<IBoxin>();
 
   public valSeleccion = new Validacion();
@@ -446,7 +445,7 @@ CrearSerial(): void{
 
           let i : number = 1;
           _json["d"].forEach((b:{Serial : string, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, EnSaco : boolean, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado === true ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });

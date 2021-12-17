@@ -38,7 +38,7 @@ export interface IUsuario {
   cActivo : boolean;
 }
 
-let ELEMENT_DATA: IUsuario[] = [
+let ELEMENT_DATA_USUARIO: IUsuario[] = [
   
 ];
 
@@ -79,7 +79,7 @@ export class UsuarioComponent implements OnInit {
   public val = new Validacion();
 
   displayedColumns: string[] = ['cIndex', 'cUsuario',  'cNombre', 'cApellido', "cActivo", "cAccion1", "cAccion2", "cAccion3"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(ELEMENT_DATA_USUARIO);
   clickedRows = new Set<IUsuario>();
 
  

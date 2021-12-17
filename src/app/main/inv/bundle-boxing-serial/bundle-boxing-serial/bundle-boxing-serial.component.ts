@@ -16,7 +16,7 @@ import { InventarioService } from 'src/app/main/Services/inv/inventario.service'
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 
 
-let ELEMENT_DATA : IBoginxSerial[] = [];
+let ELEMENT_DATA_SERIAL : IBoginxSerial[] = [];
 
 
 @Component({
@@ -35,7 +35,7 @@ export class BundleBoxingSerialComponent implements OnInit {
 
 
   displayedColumns: string[] = ['IdSerialComplemento', 'Serial',  'Pieza', 'PresentacionSerial', "Material", "Cantidad", "Capaje", "EnSaco", "Usuario", "FechaRegistro", "Corte", "Estilo", "Activo", "Imprimir", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(ELEMENT_DATA_SERIAL);
   clickedRows = new Set<IBoginxSerial>();
 
  
