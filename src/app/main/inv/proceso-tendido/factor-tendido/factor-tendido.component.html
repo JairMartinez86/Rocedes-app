@@ -55,7 +55,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input  matInput placeholder="" [value]="element.Factor1" [(ngModel)]="element.Factor1">
+                            <input  matInput placeholder="" [value]="element.Factor1" [(ngModel)]="element.Factor1" [disabled]="element.NoFactor + 1 <= 1">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -66,7 +66,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor2" [(ngModel)]="element.Factor2">
+                            <input matInput placeholder="" [value]="element.Factor2" [(ngModel)]="element.Factor2" [disabled]="element.NoFactor + 1 <= 2">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -78,7 +78,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor3" [(ngModel)]="element.Factor3">
+                            <input matInput placeholder="" [value]="element.Factor3" [(ngModel)]="element.Factor3" [disabled]="element.NoFactor + 1 <= 3">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -90,7 +90,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor4" [(ngModel)]="element.Factor4">
+                            <input matInput placeholder="" [value]="element.Factor4" [(ngModel)]="element.Factor4" [disabled]="element.NoFactor + 1 <= 4">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -102,7 +102,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor5" [(ngModel)]="element.Factor5">
+                            <input matInput placeholder="" [value]="element.Factor5" [(ngModel)]="element.Factor5" [disabled]="element.NoFactor + 1 <= 5">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -113,7 +113,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor6" [(ngModel)]="element.Factor6">
+                            <input matInput placeholder="" [value]="element.Factor6" [(ngModel)]="element.Factor6" [disabled]="element.NoFactor + 1 <= 6">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -125,7 +125,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor7" [(ngModel)]="element.Factor7">
+                            <input matInput placeholder="" [value]="element.Factor7" [(ngModel)]="element.Factor7" [disabled]="element.NoFactor + 1 <= 7">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -136,7 +136,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor8" [(ngModel)]="element.Factor8">
+                            <input matInput placeholder="" [value]="element.Factor8" [(ngModel)]="element.Factor8" [disabled]="element.NoFactor + 1 <= 8">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -147,7 +147,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor9" [(ngModel)]="element.Factor9">
+                            <input matInput placeholder="" [value]="element.Factor9" [(ngModel)]="element.Factor9" [disabled]="element.NoFactor + 1 <= 9">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -158,7 +158,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor10" [(ngModel)]="element.Factor10">
+                            <input matInput placeholder="" [value]="element.Factor10" [(ngModel)]="element.Factor10" [disabled]="element.NoFactor + 1 <= 10">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -170,7 +170,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor11" [(ngModel)]="element.Factor11">
+                            <input matInput placeholder="" [value]="element.Factor11" [(ngModel)]="element.Factor11" [disabled]="element.NoFactor + 1 <= 11">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -181,7 +181,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> 
                         <mat-form-field floatLabel="never" class="col-factor-tendido">
-                            <input matInput placeholder="" [value]="element.Factor12" [(ngModel)]="element.Factor12">
+                            <input matInput placeholder="" [value]="element.Factor12" [(ngModel)]="element.Factor12" [disabled]="element.NoFactor + 1 <= 12">
                         </mat-form-field>
                     </td>
                 </ng-container>

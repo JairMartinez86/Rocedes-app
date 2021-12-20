@@ -3,8 +3,13 @@ import { Component, OnInit, HostListener, Input} from '@angular/core';
 import { Esquema, Formulario } from 'src/app/main/class/Esquema/esquema';
 import {LoginService,} from './Services/Usuario/login.service'; 
 import {InventarioService} from './Services/inv/inventario.service'; 
+import { IUsuarioPerfil } from './class/Form/sis/Interface/i-UsuarioPerfil';
+import { DialogoComponent } from './otro/dialogo/dialogo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfiguracionService } from './Services/sis/configuracion.service';
 
 
+let ELEMENT_DATA_PERFIL: IUsuarioPerfil[] = [];
 
 @Component({
   selector: 'app-main',
@@ -32,7 +37,8 @@ export class MainComponent implements OnInit {
   @HostListener('click', ['$event']) public onClick(event: Event): void {
     if (!this.href || this.href == '#' || (this.href && this.href.length === 0)) {
       var element = <HTMLElement>event.target;
- 
+
+
       if(element.tagName  == "A" && element.getAttribute("href") == "#"){
         this.AbrirForm(element.id);   
       }  
@@ -48,7 +54,7 @@ export class MainComponent implements OnInit {
   
 
  
-  constructor(private loginserv : LoginService, private InventarioService : InventarioService) {
+  constructor(private loginserv : LoginService, private InventarioService : InventarioService, private _ConfiguracionService : ConfiguracionService,  private dialog : MatDialog) {
     
 
     this.loginserv.VerificarSession()
@@ -56,6 +62,9 @@ export class MainComponent implements OnInit {
     let _Esquema : Esquema;
 
     _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuario", "Usuario", false));
+    this.lstEsquema.push(_Esquema);
+
+    _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuarioPerfil", "Perfil", false));
     this.lstEsquema.push(_Esquema);
   
 
@@ -115,6 +124,11 @@ export class MainComponent implements OnInit {
   
     }
 
+    if(_Id != "LinkUsuarioPerfil"){
+      this._ConfiguracionService.Cerrar("LinkUsuarioPerfil");
+  
+    }
+
   }
 
 
@@ -157,6 +171,8 @@ export class MainComponent implements OnInit {
 
   this.Esquema.ActivarForm(_Id);
 
+
+
   let element!: HTMLElement;
 
     switch(this.Esquema._Esquema){
@@ -169,6 +185,12 @@ export class MainComponent implements OnInit {
             if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.loginserv.Cerrar();
               
             this.loginserv.Abrir("frmUsuario");
+
+          break;
+
+          case "LinkUsuarioPerfil":
+
+            this._ConfiguracionService.Abrir("LinkUsuarioPerfil");
 
           break;
 
@@ -233,8 +255,6 @@ export class MainComponent implements OnInit {
     document.getElementById(_Id)?.classList.add("active");
     
 
-
-    
   }
 
   Salir()
@@ -247,8 +267,6 @@ export class MainComponent implements OnInit {
   {
 
     this.Esquema =  <Esquema>this.lstEsquema.find(x => x._Esquema == m);
-    
-
     switch(m){
 
       case "SIS":
@@ -261,6 +279,9 @@ export class MainComponent implements OnInit {
         this.Esquema._Nombre = "Inventario"
         break;
     }
+
+    this.Perfiles();
+
   }
 
   mouseEnter(a : string)
@@ -277,6 +298,87 @@ export class MainComponent implements OnInit {
     this.element.setAttribute("class", 'nav-item');*/
   }
 
+  Perfiles() : void
+  {
+    ELEMENT_DATA_PERFIL.splice(0, ELEMENT_DATA_PERFIL.length);
+    this.loginserv.BuscarAcceso().subscribe( s =>{
+    
+      let _json = JSON.parse(s);
+      
+      if(_json["esError"] == 0)
+      {
+        if(_json["count"] > 0)
+        {
+
+
+          _json["d"].forEach((j : IUsuarioPerfil) => {
+            ELEMENT_DATA_PERFIL.push(j);
+          });
+        }
+      }
+      else
+      {
+        this.dialog.open(DialogoComponent, {
+          data : _json["msj"]
+        })
+      }
+
+      this.Nodos(<Element>document.getElementById("Esquema"), true);
+      this.Nodos(<Element>document.getElementById("NavControl"), false);
+
+    });
+
+  }
+
+
+  Nodos(_element : Element, esEscquema : boolean) : void
+  {
+
+
+    for(var i = 0; i < _element.children.length; i++)
+    {
+
+      if(_element.children.length > 0)
+      {
+        this.Nodos(_element.children[i], esEscquema);
+
+      }
+    }
+
+
+    if(_element.id == "LinkProcesoTendidoFactor")
+    {
+      console.log("adfas");
+    }
+    if(_element.children.length <=1 && _element.id != "")
+    {
+      document.getElementById(_element.id)?.classList.add("NoVisible");
+
+      if(esEscquema)
+      {
+        if(ELEMENT_DATA_PERFIL.findIndex( f => f.Esquema == _element.id) != -1)
+        {
+          document.getElementById(_element.id)?.classList.remove("NoVisible");
+        }
+      }
+      else
+      {
+        
+        if(ELEMENT_DATA_PERFIL.findIndex( f => f.Link == _element.id) != -1)
+        {
+          
+          document.getElementById(_element.id)?.classList.remove("NoVisible");
+        }
+
+      }
+     
+
+      
+    }
+    
+
+
+  }
  
   ngOnInit(): void {
 
@@ -291,7 +393,8 @@ export class MainComponent implements OnInit {
     this.loginserv.change.subscribe(s => {
 
       this.NomUsuario = this.loginserv.Nombre;
-      
+
+      this.Perfiles();
     });
 
 

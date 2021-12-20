@@ -78,6 +78,7 @@ import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing-envio/bundl
 import { DropdownDirective } from './main/Directive/dropdown.directive';
 import { FactorTendidoComponent } from './main/inv/proceso-tendido/factor-tendido/factor-tendido.component';
 import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
+import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiemp
     DropdownDirective,
     FactorTendidoComponent,
     TendidoTiempoComponent,
+    AccesoLinkComponent,
 
 
     

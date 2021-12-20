@@ -2,6 +2,7 @@ export interface IFactorTendido {
     IdProcesoTendido: number
     Orden : number;
     Descripcion: string;
+    NoFactor : number;
     Factor1: number;
     Factor2: number;
     Factor3: number;

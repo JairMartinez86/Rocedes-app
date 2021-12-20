@@ -203,6 +203,14 @@ mat-checkbox-ripple .mat-ripple-element,
   background: #CCC;
 }
 
+.NoVisible
+{
+  pointer-events: none;
+  /* for "disabled" effect */
+  opacity: 0.5;
+  display: none;
+}
+
 
 
 .flex-container {

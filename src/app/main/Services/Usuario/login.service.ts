@@ -181,8 +181,19 @@ export class LoginService {
 
   }
 
+  BuscarUsuario(login : string): Observable<any> {
+    return this.http.get<any>(this.Cnx.Url() + "BuscarUsuario" + "?login="+login);
+  }
+
+
   BuscarRegistros(): Observable<any> {
     return this.http.get<any>(this.Cnx.Url() + "Usuario/Registros");
+  }
+
+
+  
+  BuscarAcceso(): Observable<any> {
+    return this.http.get<any>(this.Cnx.Url() + "Usuario/BuscarAcceso" + "?login="+this.str_user);
   }
 
 

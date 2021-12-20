@@ -13,7 +13,6 @@ import { IMaterial } from 'src/app/main/class/Form/Inv/Interface/i-Material';
 import { IPresentacionSerial } from 'src/app/main/class/Form/Inv/Interface/i-Presentacion';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
-import { BundleBoningService } from 'src/app/main/Services/inv/BundleBoxing/bundle-boxing.service';
 import {InventarioService} from 'src/app/main/Services/inv/inventario.service'; 
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 import { IReporte } from '../../class/Form/Reporte/i-Reporte';
@@ -21,6 +20,7 @@ import { AlertService } from '../../otro/alert/alert/alert.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
 import { ReportViewerService } from '../../otro/report-viewer/report-viewer.service';
 import { ToastService } from '../../otro/toast/toast.service';
+import { BundleBoxingService } from '../../Services/inv/BundleBoxing/bundle-boxing.service';
 import { BundleBoxingSacoService } from '../../Services/inv/BundleBoxingSaco/bundle-boxing-saco.service';
 
 
@@ -165,7 +165,7 @@ export class BundleBoxingComponent implements OnInit {
 
   
   constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService,
-    private BundleBoningService : BundleBoningService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer,
+    private BundleBoxingService : BundleBoxingService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer,
     protected alertService: AlertService, public toastService: ToastService, private ReportViewerService : ReportViewerService,
     private BundleBoxingSacoService : BundleBoxingSacoService ) {
 
@@ -500,7 +500,7 @@ CrearSerial(): void{
     
       if(this.bol_Verificando) return;
 
-      this.BundleBoningService.GetSerialesEscaneado(this.str_Corte, this.str_Estilo).subscribe( s =>{
+      this.BundleBoxingService.GetSerialesEscaneado(this.str_Corte, this.str_Estilo).subscribe( s =>{
 
         let _json = JSON.parse(s);
 
@@ -586,7 +586,7 @@ CrearSerial(): void{
       if(!_Fila.cEscaneado)
       {
 
-        this.BundleBoningService.Pieza(Boxing).subscribe( s =>{
+        this.BundleBoxingService.Pieza(Boxing).subscribe( s =>{
 
 
           let _json = JSON.parse(s);
@@ -696,7 +696,7 @@ CrearSerial(): void{
   }
 
   CerrarDialogoSaco() :void{ 
-    this.BundleBoningService.change.emit("Close:Saco");
+    this.BundleBoxingService.change.emit("Close:Saco");
   }
 
 
@@ -818,7 +818,7 @@ CrearSerial(): void{
          }
 
           
-          this.BundleBoningService.change.emit("Close:Saco");
+          this.BundleBoxingService.change.emit("Close:Saco");
 
           
         }
@@ -966,7 +966,7 @@ CrearSerial(): void{
       Serial.Serial = this.getNumbersInString(this.str_Corte);
       Serial.Login = this.LoginService.str_user;
 
-      this.BundleBoningService.GenerarSerial(Serial).subscribe( s =>{
+      this.BundleBoxingService.GenerarSerial(Serial).subscribe( s =>{
 
         this.str_CodeBar = "";
 
@@ -1070,7 +1070,7 @@ CrearSerial(): void{
     });
 
 
-    this.BundleBoningService.change.subscribe(s => {
+    this.BundleBoxingService.change.subscribe(s => {
 
        if(s.split(":")[0] == "Close" && s.split(":")[1] == "Saco"){
         this.dialogSaco?.close();

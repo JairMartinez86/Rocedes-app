@@ -4,7 +4,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
-import { BundleBoningService } from 'src/app/main/Services/inv/BundleBoxing/bundle-boxing.service';
+import { BundleBoxingService } from 'src/app/main/Services/inv/BundleBoxing/bundle-boxing.service';
 import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
 import { ReportBundleBoxingTablaComponent } from './report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 
@@ -34,7 +34,7 @@ export class ReportBundleBoxingComponent implements OnInit {
   dialogRef!: MatDialogRef<DialogoComponent>;
   
  
-  constructor(private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoningService : BundleBoningService, private dialog: MatDialog) { 
+  constructor(private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoxingService : BundleBoxingService, private dialog: MatDialog) { 
     this.valSeleccion.add("txtReport_Box_Corte", "1", "LEN>", "0");
 
     this.valSeleccion.ValForm.get("txtReport_Box_Corte")?.setValue("");
@@ -122,7 +122,7 @@ Generar(){
 
   this.str_Corte = _Opcion.Corte;
 
-  this.BundleBoningService.GetBundleBoxing(this.str_Corte).subscribe( s => {
+  this.BundleBoxingService.GetBundleBoxing(this.str_Corte).subscribe( s => {
     let _json = JSON.parse(s);
 
     if(_json["esError"] == 0)

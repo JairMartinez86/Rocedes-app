@@ -53,6 +53,7 @@
     <div class="Lista-Registro" id="divRegistrosFactorTiempo" >
         <div class="franja"><p>Tiempos de Tendido</p></div>
     
+        
           <div class="row">
 
             <div class="col-sm-12 col-md-4 col-md-6">
@@ -60,6 +61,9 @@
                 <mat-label>Buscar</mat-label>
                 <input matInput (keyup)="filtrar($event)" placeholder="buscar">
               </mat-form-field>
+              <a style="cursor: pointer" (click)="exportar()">
+                <fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon>
+              </a>
             </div>
             
 
@@ -130,4 +134,8 @@
     
        
     </div>
+
+    
+  
 </ng-container>
+

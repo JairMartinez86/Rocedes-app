@@ -34,7 +34,7 @@
             <img src="../assets/imagenes/LogoRoc.png" width="64" height="64" class="d-inline-block align-top">
           </a>
 
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small" id="Esquema">
             <li>
               <a href="#" class="nav-link text-secondary" (click)="Modulo('Home')">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
@@ -42,13 +42,13 @@
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" (click)="Modulo('SIS')" >
+              <a href="#" class="nav-link text-white" (click)="Modulo('SIS')"  id="SIS">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
                 Configuración
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" (click)="Modulo('INV')">
+              <a href="#" class="nav-link text-white" (click)="Modulo('INV')" id="INV">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
                 Inventario
               </a>
@@ -84,15 +84,16 @@
 
 
 
-        <div class="collapse navbar-collapse" id="navbarsExample09">
+        <div class="collapse navbar-collapse" id="NavControl">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 
             <!-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
-            <li class="nav-item dropdown" *ngIf="Esquema._Esquema=='SIS'" appDropdown>
-              <a class="nav-link dropdown-toggle"  id="navUsuario" data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
+            <li class="nav-item dropdown" id="navUsuario" *ngIf="Esquema._Esquema=='SIS'" appDropdown>
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkUsuario" class="dropdown-item" href="#">Nuevo Usuario</a></li>
+                <li><a id="LinkUsuarioPerfil" class="dropdown-item" href="#">Perfil</a></li>
                 <li><a id="LinkRegistrosUsuario" class="dropdown-item" href="#">Registros</a></li>
               </ul>
             </li>
@@ -103,8 +104,8 @@
 
             <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
    
-            <li class="nav-item dropdown"  *ngIf="Esquema._Esquema=='INV'" appDropdown>
-              <a class="nav-link dropdown-toggle"  id="navInvContabilizacion" data-bs-toggle="dropdown" aria-expanded="false">Accounting</a>
+            <li class="nav-item dropdown" id="navInvContabilizacion" *ngIf="Esquema._Esquema=='INV'" appDropdown>
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false">Accounting</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
                 <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
@@ -112,8 +113,8 @@
               </ul>
             </li>
 
-            <li class="nav-item dropdown"  *ngIf="Esquema._Esquema=='INV'" appDropdown>
-              <a class="nav-link dropdown-toggle"  id="navInvTendido" data-bs-toggle="dropdown" aria-expanded="false">Proceso de tendido</a>
+            <li class="nav-item dropdown" id="navInvFactor"  *ngIf="Esquema._Esquema=='INV'" appDropdown>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">Proceso de tendido</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores</a></li>
                 <li><a id="LinkProcesoTendidoTiempo" class="dropdown-item" href="#">Calculo de Tiempo</a></li>
@@ -128,8 +129,8 @@
             </li>
 
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle"  id="navReporte" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
+            <li class="nav-item dropdown" id="navReporte">
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkReportBundleBoxing" class="dropdown-item" href="#">BundleBoxing</a></li>
                 <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
@@ -165,7 +166,9 @@
 <!--class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom"-->
 <div *ngIf="Esquema._Esquema=='SIS'">
   <div class="container"><app-usuario></app-usuario></div>
+  <div class="container"><app-acceso-link></app-acceso-link></div>
 </div>
+
 
 <div *ngIf="Esquema._Esquema=='INV'">
   <div class="container"><app-bundle-boxing></app-bundle-boxing></div>

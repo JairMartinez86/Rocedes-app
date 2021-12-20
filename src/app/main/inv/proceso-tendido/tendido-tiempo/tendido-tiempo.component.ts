@@ -10,7 +10,23 @@ import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
 import { TendidoService } from 'src/app/main/Services/inv/ProcesoTendido/tendido.service';
 
+import { Workbook } from 'exceljs';
+
+import * as fs from 'file-saver';
+
+import * as XLSX from 'xlsx'; 
+
 let ELEMENT_DATA_TIEMPO : IFactorTendido[] = [];
+let ELEMENT_EXCEL_FACTOR: IExcelFactor[] = [];
+
+export interface IExcelFactor {
+  Index: number;
+  Proceso : string;
+  Factor : number;
+  Minutos : number;
+}
+
+
 
 @Component({
   selector: 'app-tendido-tiempo',
@@ -72,6 +88,7 @@ export class TendidoTiempoComponent implements OnInit {
   {
     
   
+    
     let Minutos : number = 0;
     let Factor : number = 0;
     let index : number = 0;
@@ -79,9 +96,21 @@ export class TendidoTiempoComponent implements OnInit {
     let CantidadCapas : number = Number(this.val.ValForm.get("txt_Tendido_Cantidad_Capas")?.value);
     let CantidadYardas : number = Number(this.val.ValForm.get("txt_Tendido_Cantidad_Yardas")?.value);
 
+    
+
     this.TotalYardas = CantidadCapas * CantidadYardas;
 
+
+    
+    index = this.dataSource.data.findIndex(f => f.IdProcesoTendido == -1)
+
+    if(index > 0) {
+      this.dataSource.data.splice(index, 1);
+      ELEMENT_EXCEL_FACTOR.splice(ELEMENT_EXCEL_FACTOR.length - 1, 1);
+    }
+
     if(this.val.ValForm.invalid)  return
+    
 
 
     this.dataSource.data.forEach( f =>{
@@ -118,30 +147,30 @@ export class TendidoTiempoComponent implements OnInit {
 
             break
 
-            case 5:
+          case 5:
+            f.Minutos = f.Factor1 * CantidadCapas;
+            f.Minutos += f.Factor2 * (CantidadYardas * CantidadCapas);
+            f.Minutos += f.Factor3 * CantidadCapas;
+            f.Minutos += f.Factor4 * (CantidadYardas * CantidadCapas);
+            f.Minutos += f.Factor5 / this.TotalYardas;
+            f.Minutos += f.Factor6 * CantidadYardas;
+            f.Minutos += f.Factor7 / this.TotalYardas;
+
+            break;
+
+          case 6:
               f.Minutos = f.Factor1 * CantidadCapas;
-              f.Minutos += f.Factor2 * (CantidadYardas * CantidadCapas);
+              f.Minutos += f.Factor2 * CantidadYardas * CantidadCapas;
               f.Minutos += f.Factor3 * CantidadCapas;
-              f.Minutos += f.Factor4 * (CantidadYardas * CantidadCapas);
-              f.Minutos += f.Factor5 / this.TotalYardas;
-              f.Minutos += f.Factor6 * CantidadYardas;
-              f.Minutos += f.Factor7 / this.TotalYardas;
+              f.Minutos += f.Factor4 * CantidadCapas * CantidadYardas;
 
-              break;
-
-              case 6:
-                f.Minutos = f.Factor1 * CantidadCapas;
-                f.Minutos += f.Factor2 * CantidadYardas * CantidadCapas;
-                f.Minutos += f.Factor3 * CantidadCapas;
-                f.Minutos += f.Factor4 * CantidadCapas * CantidadYardas;
-
-                break;
+            break;
 
 
-              case 9:
-                f.Minutos = (f.Factor1 * CantidadYardas) + f.Factor2;
+          case 9:
+              f.Minutos = (f.Factor1 * CantidadYardas) + f.Factor2;
 
-                break;
+            break;
 
       }
 
@@ -158,10 +187,18 @@ export class TendidoTiempoComponent implements OnInit {
     RegistroTotal.TotalFactor = Factor;
     RegistroTotal.Minutos = Minutos
 
-    
-    index = this.dataSource.data.findIndex(f => f.IdProcesoTendido == -1)
 
-    if(index > 0) this.dataSource.data.splice(index, 1);
+    
+    let excel : IExcelFactor = {} as IExcelFactor;
+    excel.Index = ELEMENT_EXCEL_FACTOR.length + 1;
+    excel.Proceso =  RegistroTotal.Descripcion;
+    excel.Factor = RegistroTotal.TotalFactor;
+    excel.Minutos = RegistroTotal.Minutos = Minutos;
+
+    ELEMENT_EXCEL_FACTOR.push(excel);
+
+
+    
 
     this.dataSource.data.push(RegistroTotal);
     this.dataSource.filter = "";
@@ -223,6 +260,7 @@ export class TendidoTiempoComponent implements OnInit {
     {
   
       ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
+      ELEMENT_EXCEL_FACTOR.splice(0, ELEMENT_EXCEL_FACTOR.length);
       this.dataSource.data.splice(0, this.dataSource.data.length);
   
       this.TendidoService.Get().subscribe( s =>{
@@ -235,8 +273,17 @@ export class TendidoTiempoComponent implements OnInit {
           if(_json["count"] > 0)
           {
             
+            let i : number = 1;
             _json["d"].forEach((j : IFactorTendido) => {
               this.dataSource.data.push(j);
+
+              let excel : IExcelFactor = {} as IExcelFactor;
+              excel.Index = i;
+              excel.Proceso = j.Descripcion;
+              excel.Factor = j.TotalFactor;
+              excel.Minutos = j.Minutos;
+
+              ELEMENT_EXCEL_FACTOR.push(excel);
             });
 
             this.calcularMinutos();
@@ -291,6 +338,133 @@ export class TendidoTiempoComponent implements OnInit {
     }
 
 
+    
+  sTyleHeader(worksheet : any, cel : string[], line : number) : void
+  {
+    cel.forEach((c : string) => {
+      worksheet.getCell(c + line).font = {
+        name: 'Arial BlackS',
+        family: 2,
+        size: 11,
+        underline: false,
+        italic: false,
+        bold: true,
+        color: { argb: 'FFFFFF' }
+      };
+  
+      worksheet.getCell(c + line).fill = {
+        type: 'pattern',
+        pattern:'solid',
+        fgColor:{argb:'1B364C'},
+      };
+  
+  
+  
+      worksheet.getCell(c + line).alignment = { vertical: 'middle', horizontal: 'center' };
+    });
+
+    
+  }
+
+
+
+  
+  exportar(): void {
+
+
+
+   //create new excel work book
+  let workbook = new Workbook();
+
+  //add name to sheet
+  let worksheet = workbook.addWorksheet("Employee Data");
+
+  //add column name
+  let header=["No",  "Proceso", "Factor", "Tiempo"]
+ 
+ 
+  let int_Merge_Row = 2;
+  let int_Linea = 6;
+
+
+  worksheet.addRow([]);
+  worksheet.addRow(["Tiempos de Tendido"]);
+  worksheet.mergeCells("A2:D4")
+  worksheet.getCell("A2").font = {
+    name: 'Arial BlackS',
+    family: 2,
+    size: 18,
+    underline: false,
+    italic: false,
+    bold: true,
+    color: { argb: 'FFFFFF' }
+  };
+
+  worksheet.getCell("A2").fill = {
+    type: 'pattern',
+    pattern:'solid',
+    fgColor:{argb:'006699'},
+  };
+
+  worksheet.getCell("A2").alignment = { vertical: 'middle', horizontal: 'center' };
+
+
+  worksheet.addRow([]);
+  worksheet.addRow(header);
+  this.sTyleHeader(worksheet, ["A", "B", "C", "D"],  int_Linea)
+
+  
+  int_Linea++;
+  worksheet.getCell("A" + int_Linea).alignment = { vertical: 'middle', horizontal: 'center' };
+  worksheet.getCell("A" + int_Linea).font = {
+    name: 'Arial BlackS',
+    family: 2,
+    size: 11,
+    underline: false,
+    italic: false,
+    bold: true,
+    color: { argb: '000000' }
+  };
+
+
+  for (let i = 0; i < ELEMENT_EXCEL_FACTOR.length; i++)
+  {
+   
+    let x2  = Object.values(ELEMENT_EXCEL_FACTOR[i]);
+    let temp=[]
+    for(let y = 0; y < x2.length; y++)
+    {
+      temp.push(x2[y])
+    }
+    worksheet.addRow(temp)
+    int_Linea ++;
+
+
+
+  }
+
+
+  worksheet.spliceColumns(11, 2);
+  worksheet.properties.defaultColWidth = 20;
+
+
+  //set downloadable file name
+    let fname="factor-tiempo"
+
+    //add data and file name and download
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, fname+'-'+new Date().valueOf()+'.xlsx');
+    });
+
+
+  }
+
+  
+
+
+
+  
 
   ngOnInit(): void {
     this.InventarioService.change.subscribe(s => {

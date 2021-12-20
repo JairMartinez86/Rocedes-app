@@ -1,0 +1,31 @@
+<div class="formulario" id="divAccesoLink" *ngIf="str_frm=='PerfilUsuario'">
+    <div class="head-form" id="from-encabezado">
+        <div class="from-encabezado-titulo"><p>Perfil</p></div>
+        <div class="from-encabezado-salir"><a href="#" (click)="Limpiar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+    </div>
+
+      <div class="container">
+          <form class="form" [formGroup]="val.ValForm"  novalidate>
+            <div class="row">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label><b>Usuario.</b></mat-label>
+                    <input appAutofocus  matInput type="text" id="txt_SIS_AccesoUsuario" 
+                    formControlName="txt_SIS_AccesoUsuario"
+                     placehoder="Ingrese el usuario." 
+                     [matAutocomplete]="auto"
+                    (input)="txt_SIS_AccesoUsuario_onSearchChange($event)">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarUsuarioSelec">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option.Login}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
+                    <mat-error *ngIf="val.ValForm.get('txt_SIS_AccesoUsuario')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
+                </mat-form-field>
+            </div>
+
+
+            
+          </form>
+      </div>
+</div>
