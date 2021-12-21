@@ -24,6 +24,7 @@ export interface IExcelFactor {
   Proceso : string;
   Factor : number;
   Minutos : number;
+  Id: number;
 }
 
 
@@ -104,10 +105,8 @@ export class TendidoTiempoComponent implements OnInit {
     
     index = this.dataSource.data.findIndex(f => f.IdProcesoTendido == -1)
 
-    if(index > 0) {
-      this.dataSource.data.splice(index, 1);
-      ELEMENT_EXCEL_FACTOR.splice(ELEMENT_EXCEL_FACTOR.length - 1, 1);
-    }
+    if(index > 0) this.dataSource.data.splice(index, 1);
+
 
     if(this.val.ValForm.invalid)  return
     
@@ -188,17 +187,6 @@ export class TendidoTiempoComponent implements OnInit {
     RegistroTotal.Minutos = Minutos
 
 
-    
-    let excel : IExcelFactor = {} as IExcelFactor;
-    excel.Index = ELEMENT_EXCEL_FACTOR.length + 1;
-    excel.Proceso =  RegistroTotal.Descripcion;
-    excel.Factor = RegistroTotal.TotalFactor;
-    excel.Minutos = RegistroTotal.Minutos = Minutos;
-
-    ELEMENT_EXCEL_FACTOR.push(excel);
-
-
-    
 
     this.dataSource.data.push(RegistroTotal);
     this.dataSource.filter = "";
@@ -260,7 +248,6 @@ export class TendidoTiempoComponent implements OnInit {
     {
   
       ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
-      ELEMENT_EXCEL_FACTOR.splice(0, ELEMENT_EXCEL_FACTOR.length);
       this.dataSource.data.splice(0, this.dataSource.data.length);
   
       this.TendidoService.Get().subscribe( s =>{
@@ -273,17 +260,8 @@ export class TendidoTiempoComponent implements OnInit {
           if(_json["count"] > 0)
           {
             
-            let i : number = 1;
             _json["d"].forEach((j : IFactorTendido) => {
               this.dataSource.data.push(j);
-
-              let excel : IExcelFactor = {} as IExcelFactor;
-              excel.Index = i;
-              excel.Proceso = j.Descripcion;
-              excel.Factor = j.TotalFactor;
-              excel.Minutos = j.Minutos;
-
-              ELEMENT_EXCEL_FACTOR.push(excel);
             });
 
             this.calcularMinutos();
@@ -367,23 +345,60 @@ export class TendidoTiempoComponent implements OnInit {
   }
 
 
+    
+  sTyleLine(worksheet : any, cel : string[], line : number) : void
+  {
+    cel.forEach((c : string) => {
+      worksheet.getCell(c + line).font = {
+        name: 'Arial BlackS',
+        family: 2,
+        size: 11,
+        underline: false,
+        italic: false,
+        bold: true,
+        color: { argb: '000000' }
+      };
+  
+
+    });
+
+    
+  }
+
 
   
   exportar(): void {
 
+
+    ELEMENT_EXCEL_FACTOR.splice(0, ELEMENT_EXCEL_FACTOR.length);
+
+    
+    let i : number = 1;
+    this.dataSource.data.forEach( f =>{
+
+      let excel : IExcelFactor = {} as IExcelFactor;
+      excel.Index = i;
+      excel.Proceso = f.Descripcion;
+      excel.Factor = f.TotalFactor;
+      excel.Minutos = f.Minutos;
+      excel.Id = f.IdProcesoTendido;
+
+      ELEMENT_EXCEL_FACTOR.push(excel);
+      i+=1;
+
+    });
 
 
    //create new excel work book
   let workbook = new Workbook();
 
   //add name to sheet
-  let worksheet = workbook.addWorksheet("Employee Data");
+  let worksheet = workbook.addWorksheet("Factor Tiempo");
 
   //add column name
-  let header=["No",  "Proceso", "Factor", "Tiempo"]
+  let header=["No",  "Proceso", "Factor", "Tiempo", "Id"]
  
- 
-  let int_Merge_Row = 2;
+
   let int_Linea = 6;
 
 
@@ -411,7 +426,7 @@ export class TendidoTiempoComponent implements OnInit {
 
   worksheet.addRow([]);
   worksheet.addRow(header);
-  this.sTyleHeader(worksheet, ["A", "B", "C", "D"],  int_Linea)
+  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E"],  int_Linea)
 
   
   int_Linea++;
@@ -440,11 +455,14 @@ export class TendidoTiempoComponent implements OnInit {
     int_Linea ++;
 
 
-
+    if(ELEMENT_EXCEL_FACTOR[i].Id == -1)
+    {
+      this.sTyleLine(worksheet, ["A", "B", "C", "D", "E"],  int_Linea)
+    }
+    
   }
 
-
-  worksheet.spliceColumns(11, 2);
+  worksheet.spliceColumns(5, 1);
   worksheet.properties.defaultColWidth = 20;
 
 

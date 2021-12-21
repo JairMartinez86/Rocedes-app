@@ -1,7 +1,8 @@
 export interface IUsuarioPerfil {
-  IdUsuarioPerfil : number;
-  IdUsuario : number;
-  IdPerfil: number;
+  EsMenu : boolean;
   Esquema : string;
+  NombreEsquema : string;
   Link : string;
+  NombreLink : string;
+  Activo : boolean;
   }

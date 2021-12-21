@@ -346,10 +346,6 @@ export class MainComponent implements OnInit {
     }
 
 
-    if(_element.id == "LinkProcesoTendidoFactor")
-    {
-      console.log("adfas");
-    }
     if(_element.children.length <=1 && _element.id != "")
     {
       document.getElementById(_element.id)?.classList.add("NoVisible");

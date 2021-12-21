@@ -7,7 +7,7 @@
         </div>
   
         <div class="container">
-            <form class="form"   [formGroup]="val.ValForm"  novalidate>
+            <form class="form"   [formGroup]="valEnvio.ValForm"  novalidate>
   
 
                 <div class="row">
@@ -24,7 +24,7 @@
                             </mat-option>
                           </mat-autocomplete>
                         <mat-icon matSuffix><fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon></mat-icon>
-                        <mat-error *ngIf="val.ValForm.get('txtEnvio_Corte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
+                        <mat-error *ngIf="valEnvio.ValForm.get('txtEnvio_Corte')?.errors?.Regla=='1'">No Corte <strong>requerido</strong></mat-error>
                         
                     </mat-form-field>
                     <br>
@@ -58,7 +58,7 @@
                             <div class="row">
                                 <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
                                     <mat-label><b>Polin #</b></mat-label>
-                                    <mat-select [(value)]="SeleccionPolin" id="txtEnvio_Polin" formControlName="txtEnvio_Polin" [disabled]=bol_Desabilitar>
+                                    <mat-select appAutofocus [(value)]="SeleccionPolin" id="txtEnvio_Polin" formControlName="txtEnvio_Polin" [disabled]=bol_Desabilitar>
                                         <mat-option  value="1">1</mat-option>
                                         <mat-option  value="2">2</mat-option>
                                         <mat-option  value="3">3</mat-option>
@@ -72,7 +72,7 @@
                                         <mat-option  value="11">11</mat-option>
                                         <mat-option  value="12">12</mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="val.ValForm.get('txtEnvio_Polin')?.errors?.Regla=='1'"># Polin es <strong>requerido</strong></mat-error>
+                                    <mat-error *ngIf="valEnvio.ValForm.get('txtEnvio_Polin')?.errors?.Regla=='1'"># Polin es <strong>requerido</strong></mat-error>
                                 </mat-form-field>
     
                                 <mat-form-field class="col-sm-12 col-md-4 col-lg-4 offset-md-4 offset-lg-4">
@@ -81,7 +81,7 @@
                                     <mat-datepicker-toggle matSuffix [for]="picker">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
-                                    <mat-error *ngIf="val.ValForm.get('txtEnvio_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+                                    <mat-error *ngIf="valEnvio.ValForm.get('txtEnvio_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
                                 </mat-form-field>
                             </div>
                             
@@ -106,14 +106,14 @@
     </div>
 
 
-    <div class="Lista-Registro" id="divRegistrosPolin" *ngIf="str_Corte != ''">
+    <div class="Lista-Registro" id="divRegistrosPolin" *ngIf="this.str_Corte != ''">
         <div class="franja"><p>Registros de Piezas Escaneadas</p></div>
         <div class="row">
   
             <div class="col-12">
                 <mat-form-field class="col-sm-12 col-md-4 col-md-6">
                     <mat-label>Escanear</mat-label>
-                    <input matInput type="text" id="txtBox_EscanSerialEnvio"  placeholder="Escanear" (keydown.enter)="txtBox_EscanSerialEnvio_KeyEnter($event)"  appAutofocus>
+                    <input matInput type="text" id="txtBox_EscanSerialEnvio"  placeholder="Escanear" (keydown.enter)="txtBox_EscanSerialEnvio_KeyEnter($event)"  >
                     <mat-icon matSuffix><fa-icon [icon]="['fas', 'barcode']" class="fa-lg" *ngIf="!bol_Load else spinBar"></fa-icon></mat-icon>
                 </mat-form-field>
                 <mat-form-field [ngClass]="str_Corte!='' ? 'col-ms-12 col-md-4 col-lg-4 offset-md-2 offset-lg-2' : 'col-12'" ngclass="">
@@ -156,7 +156,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Fecha">
                     Fecha.
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{this.datepipe.transform(element.FechaRegistro, 'dd-MM-yyyy hh:mm:ss')?.toString()}} </td>
+                    <td mat-cell *matCellDef="let element"> {{this.datepipe.transform(element.Fecha, 'dd-MM-yyyy')?.toString()}} </td>
                 </ng-container>
     
                 <ng-container matColumnDef="Login">

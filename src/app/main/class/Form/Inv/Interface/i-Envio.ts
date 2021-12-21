@@ -1,4 +1,5 @@
 export interface IEnvio {
+    IdEnvio : number;
     CorteCompleto : string;
     Corte : string;
     Serial: string;
@@ -11,3 +12,4 @@ export interface IEnvio {
     Login : string;
     Activo : boolean;
   }
+

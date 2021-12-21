@@ -9,6 +9,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
 import { ClsUsuario } from '../../class/Form/sis/cls-usuario';
+import { IUsuarioPerfil } from '../../class/Form/sis/Interface/i-UsuarioPerfil';
 
 
 
@@ -182,7 +183,7 @@ export class LoginService {
   }
 
   BuscarUsuario(login : string): Observable<any> {
-    return this.http.get<any>(this.Cnx.Url() + "BuscarUsuario" + "?login="+login);
+    return this.http.get<any>(this.Cnx.Url() + "Usuario" + "?usr="+login);
   }
 
 
@@ -194,6 +195,11 @@ export class LoginService {
   
   BuscarAcceso(): Observable<any> {
     return this.http.get<any>(this.Cnx.Url() + "Usuario/BuscarAcceso" + "?login="+this.str_user);
+  }
+
+    
+  BuscarPerfiles(user : string): Observable<any> {
+    return this.http.get<any>(this.Cnx.Url() + "Usuario/BuscarAcceso" + "?login="+user);
   }
 
 
@@ -209,6 +215,14 @@ export class LoginService {
 
     let json = JSON.stringify(Usuario);          
     return this.http.post<any>(this.Cnx.Url() + "Usuario/EditarUsuario" + "?d="+json, { 'content-type': 'application/json'});
+
+  }
+
+
+  GuardarPerfil(Perfil: IUsuarioPerfil, Usuario : string): Observable<any> {
+
+    let json = JSON.stringify(Perfil);          
+    return this.http.post<any>(this.Cnx.Url() + "Usuario/GuardarPerfil" + "?d="+json + "&usr=" + Usuario, { 'content-type': 'application/json'});
 
   }
 

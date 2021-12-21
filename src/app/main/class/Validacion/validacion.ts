@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import {formatDate} from '@angular/common';
 
 
+
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -173,10 +174,20 @@ export class Validacion {
 
                             case "DATE":
 
-                                if(!this.ValidarFecha(str_cadena))
+                                if(str_cadena == "")
                                 {
                                     errores = "1";
+
                                 }
+                                else
+                                {
+                                    if(!this.ValidarFecha(str_cadena))
+                                    {
+                                        errores = "1";
+                                    }
+                                }
+                                
+                                
 
                                 break;
 

@@ -38,7 +38,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
   public bol_Desabilitar : boolean = true
 
 
-  public val = new Validacion();
+  public valEnvio = new Validacion();
 
 
 
@@ -70,10 +70,10 @@ export class BundleBoxingEnvioComponent implements OnInit {
     private BundleBoxingService : BundleBoxingService) { 
     this.Limpiar();
 
-    this.val.add("txtEnvio_Corte", "1", "LEN>", "0");
-    this.val.add("txtEnvio_Serial", "1", "LEN>", "0");
-    this.val.add("txtEnvio_Polin", "1", "LEN>", "0");
-    this.val.add("txtEnvio_Fecha", "1", "LEN>", "0");
+    this.valEnvio.add("txtEnvio_Corte", "1", "LEN>", "0");
+    this.valEnvio.add("txtEnvio_Serial", "1", "LEN>", "0");
+    this.valEnvio.add("txtEnvio_Polin", "1", "LEN>", "0");
+    this.valEnvio.add("txtEnvio_Fecha", "1", "LEN>", "0");
 
 
   }
@@ -92,13 +92,13 @@ export class BundleBoxingEnvioComponent implements OnInit {
 
     
 
-    this.val.ValForm.get("txtEnvio_Corte")?.enable();
-    this.val.ValForm.get("<txtEnvio_Corte")?.setValue("");
-    this.val.ValForm.get("txtEnvio_Polin")?.setValue(this.SeleccionPolin);
-    this.val.ValForm.get("txtEnvio_Fecha")?.setValue((this.datepipe.transform(new Date(), 'dd/MM/yyyy'))?.toString());
+    this.valEnvio.ValForm.get("txtEnvio_Corte")?.enable();
+    this.valEnvio.ValForm.get("<txtEnvio_Corte")?.setValue("");
+    this.valEnvio.ValForm.get("txtEnvio_Polin")?.setValue(this.SeleccionPolin);
+    this.valEnvio.ValForm.get("txtEnvio_Fecha")?.setValue((this.datepipe.transform(new Date(), 'dd/MM/yyyy'))?.toString());
 
 
-    this.val.ValForm.reset();
+    this.valEnvio.ValForm.reset();
   }
 
   public Cerrar() : void
@@ -113,13 +113,11 @@ export class BundleBoxingEnvioComponent implements OnInit {
     this.str_Corte = "";
     this.SeleccionPolin = "1";
 
-    this.val.ValForm.get("txtEnvio_Polin")?.setValue(this.SeleccionPolin);
-    this.val.ValForm.get("txtEnvio_Fecha")?.setValue((this.datepipe.transform(new Date(), 'dd/MM/yyyy'))?.toString());
-    this.val.ValForm.get("txtEnvio_Corte")?.enable();
+    this.valEnvio.ValForm.get("txtEnvio_Corte")?.enable();
 
  
     document.getElementById("txtEnvio_Corte")?.focus();
-    this.val.ValForm.reset();
+    this.valEnvio.ValForm.reset();
 
   }
 
@@ -154,7 +152,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
           this.optionCorte.push({Corte : b.Corte});
         });
 
-        this.filteredOptions = this.val.ValForm.valueChanges.pipe(
+        this.filteredOptions = this.valEnvio.ValForm.valueChanges.pipe(
           startWith(''),
           map(value => (typeof value === 'string' ? value : value.Corte)),
           map(Corte => (Corte ? this._FiltroSeleccion(Corte) : this.optionCorte.slice())),
@@ -193,14 +191,14 @@ txtEnvio_Corte_onKeyEnter(event: any){
 
 
   
-  let _Opcion : any = this.val.ValForm.get("txtEnvio_Corte")?.value;
+  let _Opcion : any = this.valEnvio.ValForm.get("txtEnvio_Corte")?.value;
 
   if( typeof(_Opcion) == 'string' ) {
 
-    _Opcion = this.optionCorte.filter( f => f.Corte == this.val.ValForm.get("txtEnvio_Corte")?.value)[0]
+    _Opcion = this.optionCorte.filter( f => f.Corte == this.valEnvio.ValForm.get("txtEnvio_Corte")?.value)[0]
 
     if(_Opcion == null){
-      this.val.ValForm.get("txtEnvio_Corte")?.setValue("");
+      this.valEnvio.ValForm.get("txtEnvio_Corte")?.setValue("");
       return;
     }
     
@@ -209,7 +207,7 @@ txtEnvio_Corte_onKeyEnter(event: any){
   this.bol_Desabilitar = false;
   this.str_Corte = _Opcion.Corte;
 
-  this.val.ValForm.get("txtEnvio_Corte")?.disable();
+  this.valEnvio.ValForm.get("txtEnvio_Corte")?.disable();
   this.LlenarTabla();
 
 
@@ -274,11 +272,20 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
     }
 
     txtBox_EscanSerialEnvio_KeyEnter(event :any){
+      if(!this.valEnvio.ValForm.get("txtEnvio_Polin")?.valid){
+        document.getElementById("txtEnvio_Polin")?.focus();
+        return;
+      };
+      if(!this.valEnvio.ValForm.get("txtEnvio_Fecha")?.valid){
+        document.getElementById("txtEnvio_Fecha")?.focus();
+        return;
+      };
       this.GuardarPiezaEnvio(event.target.value);
     }
 
+  
     GuardarPiezaEnvio(_Serial : string) : void{
-
+  
       this.dialog.closeAll();
       _Serial = _Serial.trimStart().trimEnd();
     
@@ -299,7 +306,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
         _FilaEnvio.Serial = _Serial.trimStart().trimEnd();
         _FilaEnvio.Polin = Number( this.SeleccionPolin);
         _FilaEnvio.CorteCompleto = this.str_Corte;
-        _FilaEnvio.Fecha = this.val.ValForm.get("")?.value;
+        _FilaEnvio.Fecha = this.valEnvio.ValForm.get("txtEnvio_Fecha")?.value;
         _FilaEnvio.Login = this.LoginService.str_user;
     
         this.BundleBoxingService.GuardarEnvio(_FilaEnvio).subscribe( s =>{
@@ -312,10 +319,12 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
   
           if(_json["count"] > 0)
           {
-            _json["d"].forEach((j : IEnvio) => {
-              this.dataSource.data.push(j);
-            });
-          this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+
+            let j : IEnvio = _json["d"];
+            this.dataSource.data.push(j);
+            this.dataSource.filter = "";
+            this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+           
           }
           else
           {
@@ -343,12 +352,10 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
       else
       {
         this.toastService.show("Serial # <b>"+ _Serial +"</b> ya escaneado.!", { classname: 'bg-warning text-light', delay: 10000 });
+        this.bol_Load = false;
       }
 
-     
-
-  
-      
+      this.dataSource.filter = "";
      (<HTMLInputElement>document.getElementById("txtBox_EscanSerialEnvio")).value = "";
     }
   
