@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
-import { ClsBundleBoxing } from 'src/app/main/class/Form/Inv/cls-bundle-boxing';
 import { ClsSerialBoxing } from 'src/app/main/class/Form/Inv/Cls-Serial-Boxing';
+import { IBundleBoxing } from 'src/app/main/class/Form/Inv/Interface/i-bundle-boxing';
 import { IEnvio } from 'src/app/main/class/Form/Inv/Interface/i-Envio';
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +32,15 @@ export class BundleBoxingService {
 
 
 
-  Pieza(Boxing : ClsBundleBoxing): Observable<any> {
-       
-    let json = JSON.stringify(Boxing);  
+  Pieza(Boxing : IBundleBoxing): Observable<any> {
+
+    /*var out = "[";
+    for (var indx = 0; indx < Boxing.length - 1; indx++) {
+      out += JSON.stringify(Boxing[indx], null, 4) + ",";
+    }
+    out += JSON.stringify(Boxing[Boxing.length - 1], null, 4) + "]";*/
+
+    let json = JSON.stringify(Boxing);
     return this.http.post<any>(this.Cnx.Url() + "Inventario/BundleBoxing/Pieza" + "?d=" + json,  { 'content-type': 'application/json'});
 
   }

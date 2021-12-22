@@ -51,7 +51,7 @@
 
 
     <div class="Lista-Registro" id="divRegistrosFactorTiempo" >
-        <div class="franja"><p>Tiempos de Tendido</p></div>
+        <div class="franja"><p>{{str_Titulo_Tiempo}}</p></div>
     
         
           <div class="row">
@@ -104,13 +104,7 @@
                 </ng-container>
 
                 
-                <ng-container matColumnDef="TotalFactor">
-                  <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by TotalFactor">
-                    Total Factor.
-                  </th>
-                  <td mat-cell class="myCell" *matCellDef="let element" [ngStyle]="{'font-weight':element.IdProcesoTendido == -1 ? 'bold' : 'normal'}"> {{element.TotalFactor | number : '1.4-4'}} </td>
-              </ng-container>
-
+          
 
               <ng-container matColumnDef="Minutos">
                 <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Minutos">

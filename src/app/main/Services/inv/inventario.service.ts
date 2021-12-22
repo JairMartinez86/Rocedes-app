@@ -56,8 +56,12 @@ export class InventarioService {
         this.change.emit("Open:LinkProcesoTendidoFactor");
         break;
 
-      case "LinkProcesoTendidoTiempo":
-        this.change.emit("Open:LinkProcesoTendidoTiempo");
+      case "LinkProcesoTendidoCapaSencilla":
+        this.change.emit("Open:LinkProcesoTendidoCapaSencilla");
+        break;
+
+      case "LinkProcesoTendidoCapaDoble":
+        this.change.emit("Open:LinkProcesoTendidoCapaDoble");
         break;
         
     }
@@ -103,8 +107,12 @@ export class InventarioService {
         this.change.emit("Close:LinkProcesoTendidoFactor");
         break;
        
-      case "LinkProcesoTendidoTiempo":
-        this.change.emit("Close:LinkProcesoTendidoTiempo");
+      case "LinkProcesoTendidoCapaSencilla":
+        this.change.emit("Close:LinkProcesoTendidoCapaSencilla");
+        break;
+
+      case "LinkProcesoTendidoCapaDoble":
+        this.change.emit("Close:LinkProcesoTendidoCapaDoble");
         break;
 
         
@@ -118,7 +126,8 @@ export class InventarioService {
     this.change.emit("Close:BundleBoxingSerial");
     this.change.emit("Close:LinkBundleBoxingEnvio");
     this.change.emit("Close:LinkProcesoTendidoFactor");
-    this.change.emit("Close:LinkProcesoTendidoTiempo");
+    this.change.emit("Close:LinkProcesoTendidoCapaSencilla");
+    this.change.emit("Close:LinkProcesoTendidoCapaDoble");
     
   }
 

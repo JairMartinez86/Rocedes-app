@@ -78,36 +78,7 @@ export class AccesoLinkComponent implements OnInit {
 
     ELEMENT_DATA_PERFIL.splice(0, ELEMENT_DATA_PERFIL.length);
 
-    ELEMENT_DATA_PERFIL =[
-
-    {EsMenu: true, Esquema : "SIS", NombreEsquema : "Configuracion", Link: "navUsuario", NombreLink : "Usuarios", Activo : false},
-    {EsMenu: false, Esquema : "SIS", NombreEsquema : "Configuracion", Link: "LinkUsuario", NombreLink : "Nuevo Usuario", Activo : false},
-    {EsMenu: false, Esquema : "SIS", NombreEsquema : "Configuracion", Link: "LinkUsuarioPerfil", NombreLink : "Perfil", Activo : false},
-    {EsMenu: false, Esquema : "SIS", NombreEsquema : "Configuracion", Link: "LinkRegistrosUsuario", NombreLink : "Registros Usuario", Activo : false},
-  
-  
-  
-  
-  
-  
-  
-    {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvContabilizacion", NombreLink : "Accounting", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxing", NombreLink : "Bundle Boxing", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingComplemento", NombreLink : "Scanner Complemento", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingEnvio", NombreLink : "Envio", Activo : false},
-  
-    {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvFactor", NombreLink : "Proceso de tendido", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoFactor", NombreLink : "Factores", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoTiempo", NombreLink : "Calculo de Tiempo", Activo : false},
-  
-    {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingSaco", NombreLink : "Lista Saco", Activo : false},
-    {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingSerial", NombreLink : "Lista Serial", Activo : false},
-  
-  
-  
-    ]
+    ELEMENT_DATA_PERFIL = this._LoginService.Perfiles();
 
     this.dataSource = new MatTableDataSource(ELEMENT_DATA_PERFIL);
 

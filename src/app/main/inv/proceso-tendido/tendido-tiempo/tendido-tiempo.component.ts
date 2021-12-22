@@ -41,10 +41,12 @@ export class TendidoTiempoComponent implements OnInit {
   public str_from : string = "";
 
   public TotalYardas : number = 0;
+  public str_Capa = "";
+  public str_Titulo_Tiempo = "";
 
 
   
-  displayedColumns: string[] = ["IdProcesoTendido", "Descripcion",   "TotalFactor", "Minutos"];
+  displayedColumns: string[] = ["IdProcesoTendido", "Descripcion",   "Minutos"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
   clickedRows = new Set<IFactorTendido>();
 
@@ -81,6 +83,12 @@ export class TendidoTiempoComponent implements OnInit {
     ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
     this.dataSource.data.splice(0, this.dataSource.data.length);
     this.str_from = "";
+    this.str_Capa = "";
+    this.str_Titulo_Tiempo = "";
+
+    this.val.ValForm.get("txt_Tendido_Cantidad_Capas")?.setValue("");
+    this.val.ValForm.get("txt_Tendido_Cantidad_Rollos")?.setValue("");
+    this.val.ValForm.get("txt_Tendido_Cantidad_Yardas")?.setValue("");
 
   }
 
@@ -147,6 +155,9 @@ export class TendidoTiempoComponent implements OnInit {
             break
 
           case 5:
+
+          if(this.str_Capa == "Doble")
+          {
             f.Minutos = f.Factor1 * CantidadCapas;
             f.Minutos += f.Factor2 * (CantidadYardas * CantidadCapas);
             f.Minutos += f.Factor3 * CantidadCapas;
@@ -154,14 +165,21 @@ export class TendidoTiempoComponent implements OnInit {
             f.Minutos += f.Factor5 / this.TotalYardas;
             f.Minutos += f.Factor6 * CantidadYardas;
             f.Minutos += f.Factor7 / this.TotalYardas;
+          }
+            
 
             break;
 
           case 6:
+
+            if(this.str_Capa == "Sencilla")
+            {
               f.Minutos = f.Factor1 * CantidadCapas;
               f.Minutos += f.Factor2 * CantidadYardas * CantidadCapas;
               f.Minutos += f.Factor3 * CantidadCapas;
               f.Minutos += f.Factor4 * CantidadCapas * CantidadYardas;
+            }
+              
 
             break;
 
@@ -396,7 +414,7 @@ export class TendidoTiempoComponent implements OnInit {
   let worksheet = workbook.addWorksheet("Factor Tiempo");
 
   //add column name
-  let header=["No",  "Proceso", "Factor", "Tiempo", "Id"]
+  let header=["No",  "Proceso", "Tiempo"]
  
 
   let int_Linea = 6;
@@ -404,7 +422,7 @@ export class TendidoTiempoComponent implements OnInit {
 
   worksheet.addRow([]);
   worksheet.addRow(["Tiempos de Tendido"]);
-  worksheet.mergeCells("A2:D4")
+  worksheet.mergeCells("A2:C4")
   worksheet.getCell("A2").font = {
     name: 'Arial BlackS',
     family: 2,
@@ -426,7 +444,7 @@ export class TendidoTiempoComponent implements OnInit {
 
   worksheet.addRow([]);
   worksheet.addRow(header);
-  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E"],  int_Linea)
+  this.sTyleHeader(worksheet, ["A", "B", "C"],  int_Linea)
 
   
   int_Linea++;
@@ -457,7 +475,7 @@ export class TendidoTiempoComponent implements OnInit {
 
     if(ELEMENT_EXCEL_FACTOR[i].Id == -1)
     {
-      this.sTyleLine(worksheet, ["A", "B", "C", "D", "E"],  int_Linea)
+      this.sTyleLine(worksheet, ["A", "B", "C"],  int_Linea)
     }
     
   }
@@ -487,13 +505,28 @@ export class TendidoTiempoComponent implements OnInit {
   ngOnInit(): void {
     this.InventarioService.change.subscribe(s => {
 
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoTendidoTiempo"){
+      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoTendidoCapaSencilla"){
         this.Limpiar();
         this.str_from = "tiempo";
+        this.str_Capa = "Sencilla";
+        this.str_Titulo_Tiempo = "Tiempos de Tendido (Capa Sencilla)";
         this.LLenarTabla();
       }
 
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoTendidoTiempo"){
+      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoTendidoCapaDoble"){
+        this.Limpiar();
+        this.str_from = "tiempo";
+        this.str_Capa = "Doble";
+        this.str_Titulo_Tiempo = "Tiempos de Tendido (Capa Doble)";
+        this.LLenarTabla();
+      }
+
+
+      if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoTendidoCapaSencilla"){
+        this.Limpiar();
+      }
+
+      if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoTendidoCapaDoble"){
         this.Limpiar();
       }
       

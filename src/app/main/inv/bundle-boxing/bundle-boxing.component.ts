@@ -6,7 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith, Subject, timer } from 'rxjs';
-import { ClsBundleBoxing } from 'src/app/main/class/Form/Inv/cls-bundle-boxing';
 import { ClsSacoEstado } from 'src/app/main/class/Form/Inv/cls-saco-estado';
 import { ClsSerialBoxing } from 'src/app/main/class/Form/Inv/Cls-Serial-Boxing';
 import { IMaterial } from 'src/app/main/class/Form/Inv/Interface/i-Material';
@@ -15,6 +14,7 @@ import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
 import {InventarioService} from 'src/app/main/Services/inv/inventario.service'; 
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
+import { IBundleBoxing } from '../../class/Form/Inv/Interface/i-bundle-boxing';
 import { IReporte } from '../../class/Form/Reporte/i-Reporte';
 import { AlertService } from '../../otro/alert/alert/alert.service';
 import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
@@ -28,6 +28,7 @@ export interface IBoxin {
   cIndex: number;
   cSerial : string;
   cNomPieza : string;
+  cTalla : string;
   cSeccion: number;
   cNoBulto: number;
   cCapaje: string;
@@ -108,7 +109,7 @@ export class BundleBoxingComponent implements OnInit {
   filteredOptions!: Observable<ICorte[]>;
 
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza",  "cSeccion", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cEscaneado"];
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cEscaneado"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_BOXING);
   clickedRows = new Set<IBoxin>();
 
@@ -444,8 +445,8 @@ CrearSerial(): void{
         if(_json["count"] > 0){
 
           let i : number = 1;
-          _json["d"].forEach((b:{Serial : string, Nombre : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, EnSaco : boolean, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
+          _json["d"].forEach((b:{Serial : string, Nombre : string, Talla : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, EnSaco : boolean, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
+            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cTalla : b.Talla, cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });
@@ -546,7 +547,7 @@ CrearSerial(): void{
 
 
     let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == _Serial)
-    let Boxing  : ClsBundleBoxing = new ClsBundleBoxing();
+    let Boxing  : IBundleBoxing =  {} as IBundleBoxing;
 
     if(this.bol_Load) return;
     this.bol_Load = true;
@@ -565,9 +566,9 @@ CrearSerial(): void{
       }
 
 
-
       Boxing.Serial = _Fila.cSerial;
       Boxing.Nombre = _Fila.cNomPieza;
+      Boxing.Talla = _Fila.cTalla;
       Boxing.Seccion = _Fila.cSeccion;
       Boxing.Bulto = _Fila.cNoBulto;
       Boxing.Capaje = _Fila.cCapaje == "" ? 0 : Number(_Fila.cCapaje);
@@ -596,10 +597,26 @@ CrearSerial(): void{
   
             if(_json["count"] > 0)
             {
-              _Fila.cEscaneado =  _json["d"].Escaneado;
-              _Fila.cNoSaco = _Fila.cCapaje == "" ? 0 : _json["d"].Saco;
-              _Fila.cMesa = _Fila.cCapaje == "" ? 0 : _json["d"].Mesa;
-              _Fila.cAccion =  _json["d"].Escaneado == true ? "check" : "uncheck";
+
+              let Filtro : IBoxin[] = this.dataSource.data.filter( f => f.cOper == _Fila.cOper);
+
+              Filtro.forEach(f => {
+
+          
+                let datos : IBundleBoxing[] = _json["d"];
+
+                let index : number = datos.findIndex(f => f.Serial == f.Serial)
+
+                if(index >= 0)
+                {
+                  f.cEscaneado =  datos[index].Escaneado;
+                  f.cNoSaco = _Fila.cCapaje == "" ? "" : datos[index].Saco.toString();
+                  f.cMesa = _Fila.cCapaje == "" ? 0 : datos[index].Mesa;
+                  f.cAccion =  datos[index].Escaneado == true ? "check" : "uncheck";
+                }
+
+              });
+        
               
             }
   

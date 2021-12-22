@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfiguracionService } from './Services/sis/configuracion.service';
 
 
-let ELEMENT_DATA_PERFIL: IUsuarioPerfil[] = [];
+let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
 @Component({
   selector: 'app-main',
@@ -160,8 +160,8 @@ export class MainComponent implements OnInit {
       this.InventarioService.Cerrar("LinkProcesoTendidoFactor");
     }
 
-    if(_Id != "LinkProcesoTendidoTiempo"){
-      this.InventarioService.Cerrar("LinkProcesoTendidoTiempo");
+    if(_Id != "LinkProcesoTendidoCapaSencilla" && _Id != "LinkProcesoTendidoCapaDoble"){
+      this.InventarioService.Cerrar(_Id);
     }
 
     
@@ -238,9 +238,13 @@ export class MainComponent implements OnInit {
               this.InventarioService.Abrir("LinkProcesoTendidoFactor");
               break;
 
-            case "LinkProcesoTendidoTiempo":
-              this.InventarioService.Abrir("LinkProcesoTendidoTiempo");
+            case "LinkProcesoTendidoCapaSencilla":
+              this.InventarioService.Abrir("LinkProcesoTendidoCapaSencilla");
               break;
+
+              case "LinkProcesoTendidoCapaDoble":
+                this.InventarioService.Abrir("LinkProcesoTendidoCapaDoble");
+                break;
             
                   
           case "LinkOtro":
@@ -300,7 +304,8 @@ export class MainComponent implements OnInit {
 
   Perfiles() : void
   {
-    ELEMENT_DATA_PERFIL.splice(0, ELEMENT_DATA_PERFIL.length);
+
+    ELEMENT_DATA_PERFIL_USUARIO.splice(0 , ELEMENT_DATA_PERFIL_USUARIO.length)
     this.loginserv.BuscarAcceso().subscribe( s =>{
     
       let _json = JSON.parse(s);
@@ -312,7 +317,7 @@ export class MainComponent implements OnInit {
 
 
           _json["d"].forEach((j : IUsuarioPerfil) => {
-            ELEMENT_DATA_PERFIL.push(j);
+            ELEMENT_DATA_PERFIL_USUARIO.push(j);
           });
         }
       }
@@ -348,19 +353,22 @@ export class MainComponent implements OnInit {
 
     if(_element.children.length <=1 && _element.id != "")
     {
+    
       document.getElementById(_element.id)?.classList.add("NoVisible");
 
       if(esEscquema)
       {
-        if(ELEMENT_DATA_PERFIL.findIndex( f => f.Esquema == _element.id) != -1)
+        
+        if(ELEMENT_DATA_PERFIL_USUARIO.findIndex( f => f.Esquema == _element.id) != -1)
         {
           document.getElementById(_element.id)?.classList.remove("NoVisible");
         }
       }
       else
       {
+
         
-        if(ELEMENT_DATA_PERFIL.findIndex( f => f.Link == _element.id) != -1)
+        if(ELEMENT_DATA_PERFIL_USUARIO.findIndex( f => f.Link == _element.id) != -1)
         {
           
           document.getElementById(_element.id)?.classList.remove("NoVisible");
