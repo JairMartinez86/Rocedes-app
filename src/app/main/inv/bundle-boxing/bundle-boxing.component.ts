@@ -1,5 +1,6 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -618,11 +619,26 @@ CrearSerial(): void{
               });
         
               
+            this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+            }
+            else
+            {
+              if(_json["count"] == 0)
+              {
+
+                this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-warning text-light', delay: 10000 });
+              }
+
+              if(_json["count"] == -1)
+              {
+
+                this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-secondary text-light', delay: 10000 });
+              }
+
             }
   
             (<HTMLInputElement>document.getElementById("txtBox_EscanSerial")).value = "";
      
-            this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
   
           }
           else
@@ -1069,6 +1085,7 @@ CrearSerial(): void{
       if(s.split(":")[0] == "Open" && (s.split(":")[1] == "BundleBoxing" || s.split(":")[1] == "BundleBoxingComplemento")){
         this.str_from = "BundleBoxing";
         this.str_Label_Mesa = "Mesa #"
+        this.str_Titulo_Saco = "";
         this.EsComplemento = false;
         if(s.split(":")[1] == "BundleBoxingComplemento") 
         {

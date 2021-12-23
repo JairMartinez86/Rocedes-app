@@ -51,7 +51,7 @@ export class FactorTendidoComponent implements OnInit {
   {
 
     ELEMENT_DATA_FACTOR.splice(0, ELEMENT_DATA_FACTOR.length);
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA_FACTOR);
 
     this.TendidoService.Get().subscribe( s =>{
 
@@ -84,7 +84,8 @@ export class FactorTendidoComponent implements OnInit {
   {
     
     ELEMENT_DATA_FACTOR.splice(0, ELEMENT_DATA_FACTOR.length);
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA_FACTOR);
+    this.dataSource.filter = "";
     this.str_from = "";
  
   }

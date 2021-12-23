@@ -89,8 +89,8 @@
 
 
             <!-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
-            <li class="nav-item dropdown" id="navUsuario" *ngIf="Esquema._Esquema=='SIS'" appDropdown>
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
+            <li class="nav-item dropdown" id="navUsuario"  appDropdown>
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='SIS'">Usuarios</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkUsuario" class="dropdown-item" href="#">Nuevo Usuario</a></li>
                 <li><a id="LinkUsuarioPerfil" class="dropdown-item" href="#">Perfil</a></li>
@@ -104,8 +104,8 @@
 
             <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
    
-            <li class="nav-item dropdown" id="navInvContabilizacion" *ngIf="Esquema._Esquema=='INV'" appDropdown>
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false">Accounting</a>
+            <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown>
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Accounting</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
                 <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
@@ -117,8 +117,8 @@
               <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">Proceso de tendido</a>
               <ul class="dropdown-menu" aria-labelledby="">
                 <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores</a></li>
-                <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Calpa Sencilla</a></li>
-                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Calpa Capa Doble</a></li>
+                <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
+                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Capa Capa Doble</a></li>
               </ul>
             </li>
      

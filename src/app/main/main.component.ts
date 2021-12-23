@@ -160,10 +160,13 @@ export class MainComponent implements OnInit {
       this.InventarioService.Cerrar("LinkProcesoTendidoFactor");
     }
 
-    if(_Id != "LinkProcesoTendidoCapaSencilla" && _Id != "LinkProcesoTendidoCapaDoble"){
-      this.InventarioService.Cerrar(_Id);
+    if(_Id != "LinkProcesoTendidoCapaSencilla"){
+      this.InventarioService.Cerrar("LinkProcesoTendidoCapaSencilla");
     }
 
+    if(_Id != "LinkProcesoTendidoCapaDoble"){
+      this.InventarioService.Cerrar("LinkProcesoTendidoCapaDoble");
+    }
     
     
   }

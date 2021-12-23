@@ -22,7 +22,6 @@ let ELEMENT_EXCEL_FACTOR: IExcelFactor[] = [];
 export interface IExcelFactor {
   Index: number;
   Proceso : string;
-  Factor : number;
   Minutos : number;
   Id: number;
 }
@@ -82,6 +81,8 @@ export class TendidoTiempoComponent implements OnInit {
     
     ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
     this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
+    this.dataSource.filter = "";
     this.str_from = "";
     this.str_Capa = "";
     this.str_Titulo_Tiempo = "";
@@ -107,7 +108,9 @@ export class TendidoTiempoComponent implements OnInit {
 
     
 
-    this.TotalYardas = CantidadCapas * CantidadYardas;
+    if(this.str_Capa == "Sencilla") this.TotalYardas = CantidadCapas * CantidadYardas;
+    if(this.str_Capa == "Doble") this.TotalYardas = (CantidadCapas * 2) * CantidadYardas;
+ 
 
 
     
@@ -125,12 +128,12 @@ export class TendidoTiempoComponent implements OnInit {
       switch(f.Orden)
       {
  
-        case 2:
+        case 1:
             f.Minutos = f.Factor1 / this.TotalYardas;
             f.Minutos += f.Factor2 * CantidadRollos;
           break;
 
-          case 3:
+          case 2:
             f.Minutos = f.Factor1 / this.TotalYardas;
             f.Minutos += f.Factor2 * CantidadYardas;
             f.Minutos += f.Factor3 / this.TotalYardas;
@@ -146,7 +149,7 @@ export class TendidoTiempoComponent implements OnInit {
             
           break;
 
-          case 4:
+          case 3:
             f.Minutos = f.Factor1 / this.TotalYardas;
             f.Minutos += f.Factor2 * CantidadYardas;
             f.Minutos += f.Factor3 / this.TotalYardas;
@@ -154,7 +157,7 @@ export class TendidoTiempoComponent implements OnInit {
 
             break
 
-          case 5:
+          case 4:
 
           if(this.str_Capa == "Doble")
           {
@@ -170,7 +173,7 @@ export class TendidoTiempoComponent implements OnInit {
 
             break;
 
-          case 6:
+          case 5:
 
             if(this.str_Capa == "Sencilla")
             {
@@ -183,8 +186,11 @@ export class TendidoTiempoComponent implements OnInit {
 
             break;
 
+          case 6:
+             
+            break;
 
-          case 9:
+          case 7:
               f.Minutos = (f.Factor1 * CantidadYardas) + f.Factor2;
 
             break;
@@ -267,6 +273,7 @@ export class TendidoTiempoComponent implements OnInit {
   
       ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
       this.dataSource.data.splice(0, this.dataSource.data.length);
+      this.dataSource = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
   
       this.TendidoService.Get().subscribe( s =>{
   
@@ -397,7 +404,6 @@ export class TendidoTiempoComponent implements OnInit {
       let excel : IExcelFactor = {} as IExcelFactor;
       excel.Index = i;
       excel.Proceso = f.Descripcion;
-      excel.Factor = f.TotalFactor;
       excel.Minutos = f.Minutos;
       excel.Id = f.IdProcesoTendido;
 
@@ -411,10 +417,10 @@ export class TendidoTiempoComponent implements OnInit {
   let workbook = new Workbook();
 
   //add name to sheet
-  let worksheet = workbook.addWorksheet("Factor Tiempo");
+  let worksheet = workbook.addWorksheet(this.str_Titulo_Tiempo);
 
   //add column name
-  let header=["No",  "Proceso", "Tiempo"]
+  let header=["NO",  "PROCESO", "TIEMPO"]
  
 
   let int_Linea = 6;
@@ -480,7 +486,7 @@ export class TendidoTiempoComponent implements OnInit {
     
   }
 
-  worksheet.spliceColumns(5, 1);
+  worksheet.spliceColumns(4, 1);
   worksheet.properties.defaultColWidth = 20;
 
 
@@ -509,7 +515,7 @@ export class TendidoTiempoComponent implements OnInit {
         this.Limpiar();
         this.str_from = "tiempo";
         this.str_Capa = "Sencilla";
-        this.str_Titulo_Tiempo = "Tiempos de Tendido (Capa Sencilla)";
+        this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA SENCILLA)";
         this.LLenarTabla();
       }
 
@@ -517,7 +523,7 @@ export class TendidoTiempoComponent implements OnInit {
         this.Limpiar();
         this.str_from = "tiempo";
         this.str_Capa = "Doble";
-        this.str_Titulo_Tiempo = "Tiempos de Tendido (Capa Doble)";
+        this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA DOBLE)";
         this.LLenarTabla();
       }
 

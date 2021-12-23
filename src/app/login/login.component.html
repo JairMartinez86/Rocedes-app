@@ -25,7 +25,7 @@
             <input matInput  [type]="bol_HidePass ? 'password' : 'text'" id="txtLoginPass"    formControlName="txtLoginPass" placeholder="Contraseña"  (keydown.enter)="InicioSesion()">
             <mat-icon matSuffix (click)="bol_HidePass = !bol_HidePass">{{bol_HidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
             <mat-icon matPrefix >lock</mat-icon>
-            <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='1'">Usuario es <strong>requerido</strong></mat-error>
+            <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='1'">Contraseña es <strong>requerido</strong></mat-error>
             <mat-error *ngIf="val.ValForm.get('txtLoginPass')?.errors?.Regla=='2'">Debe de contener al menos <strong>6</strong> cáracteres</mat-error>
         </mat-form-field>
         

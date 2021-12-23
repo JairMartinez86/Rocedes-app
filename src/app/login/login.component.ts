@@ -42,13 +42,13 @@ export class LoginComponent implements OnInit {
 
     
 
-   /* this.val.ValForm.get("txtLoginUsuario")?.setValue(this.str_user);
+    this.val.ValForm.get("txtLoginUsuario")?.setValue(this.str_user);
     this.val.ValForm.get("txtLoginPass")?.setValue(this.str_pass);
-    this.val.ValForm.get("check_LogRecordar")?.setValue(this.bol_remenber);*/
+    this.val.ValForm.get("check_LogRecordar")?.setValue(this.bol_remenber);
 
-    this.val.ValForm.get("txtLoginUsuario")?.setValue("JMartinez");
+    /*this.val.ValForm.get("txtLoginUsuario")?.setValue("JMartinez");
     this.val.ValForm.get("txtLoginPass")?.setValue("12345678");
-    this.val.ValForm.get("checkBox_Recordar")?.setValue(true);
+    this.val.ValForm.get("checkBox_Recordar")?.setValue(true);*/
 
   }
 
