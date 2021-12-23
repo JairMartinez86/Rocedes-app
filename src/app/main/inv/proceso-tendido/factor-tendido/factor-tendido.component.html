@@ -26,11 +26,16 @@
         <div class="mat-elevation-z8">
 
 
-              <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+              <table id="tabla-factor-tendido" mat-table [dataSource]="dataSourceFactorTendido" matSort (matSortChange)="announceSortChange($event)">
             
   
-
                 <ng-container matColumnDef="IdProcesoTendido">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element; let j = index"> {{j+1}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Guardar">
                     <th mat-header-cell  *matHeaderCellDef>
 
                     </th>

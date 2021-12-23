@@ -22,21 +22,21 @@ export class FactorTendidoComponent implements OnInit {
 
   str_from : string = "";
   
-  displayedColumns: string[] = ["IdProcesoTendido", "Descripcion", "Factor1",  "Factor2", "Factor3",  "Factor4", "Factor5", "Factor6", "Factor7", "Factor8", "Factor9", "Factor10", "Factor11", "Factor12"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_FACTOR);
+  displayedColumns: string[] = ["IdProcesoTendido",  "Guardar", "Descripcion", "Factor1",  "Factor2", "Factor3",  "Factor4", "Factor5", "Factor6", "Factor7", "Factor8", "Factor9", "Factor10", "Factor11", "Factor12"];
+  dataSourceFactorTendido = new MatTableDataSource(ELEMENT_DATA_FACTOR);
   clickedRows = new Set<IFactorTendido>();
 
  
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceFactorTendido){
+      this.dataSourceFactorTendido.paginator = value;
+      if(this.dataSourceFactorTendido.paginator != null)this.dataSourceFactorTendido.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceFactorTendido.sort = sort;
   }
   
   
@@ -51,7 +51,7 @@ export class FactorTendidoComponent implements OnInit {
   {
 
     ELEMENT_DATA_FACTOR.splice(0, ELEMENT_DATA_FACTOR.length);
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA_FACTOR);
+    this.dataSourceFactorTendido.data.splice(0, this.dataSourceFactorTendido.data.length);
 
     this.TendidoService.Get().subscribe( s =>{
 
@@ -63,7 +63,7 @@ export class FactorTendidoComponent implements OnInit {
         if(_json["count"] > 0)
         {
           _json["d"].forEach((j : IFactorTendido) => {
-            this.dataSource.data.push(j);
+            this.dataSourceFactorTendido.data.push(j);
           });
         }
       }
@@ -74,7 +74,7 @@ export class FactorTendidoComponent implements OnInit {
         })
       }
 
-      this.dataSource.filter = "";
+      this.dataSourceFactorTendido.filter = "";
 
 
     });
@@ -84,8 +84,8 @@ export class FactorTendidoComponent implements OnInit {
   {
     
     ELEMENT_DATA_FACTOR.splice(0, ELEMENT_DATA_FACTOR.length);
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA_FACTOR);
-    this.dataSource.filter = "";
+    this.dataSourceFactorTendido.data.splice(0, this.dataSourceFactorTendido.data.length);
+    this.dataSourceFactorTendido.filter = "";
     this.str_from = "";
  
   }
@@ -106,7 +106,7 @@ export class FactorTendidoComponent implements OnInit {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceFactorTendido.filter = filtro.trim().toLowerCase();
   }  
  
   

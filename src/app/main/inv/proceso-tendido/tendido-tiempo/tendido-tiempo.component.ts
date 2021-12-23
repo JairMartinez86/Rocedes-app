@@ -46,20 +46,20 @@ export class TendidoTiempoComponent implements OnInit {
 
   
   displayedColumns: string[] = ["IdProcesoTendido", "Descripcion",   "Minutos"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
+  dataSourceFactorTendidoTiempo = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
   clickedRows = new Set<IFactorTendido>();
 
  
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceFactorTendidoTiempo){
+      this.dataSourceFactorTendidoTiempo.paginator = value;
+      if(this.dataSourceFactorTendidoTiempo.paginator != null)this.dataSourceFactorTendidoTiempo.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceFactorTendidoTiempo.sort = sort;
   }
   
   
@@ -80,9 +80,8 @@ export class TendidoTiempoComponent implements OnInit {
   {
     
     ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
-    this.dataSource.data.splice(0, this.dataSource.data.length);
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
-    this.dataSource.filter = "";
+    this.dataSourceFactorTendidoTiempo.data.splice(0, this.dataSourceFactorTendidoTiempo.data.length);
+    this.dataSourceFactorTendidoTiempo.filter = "";
     this.str_from = "";
     this.str_Capa = "";
     this.str_Titulo_Tiempo = "";
@@ -114,16 +113,16 @@ export class TendidoTiempoComponent implements OnInit {
 
 
     
-    index = this.dataSource.data.findIndex(f => f.IdProcesoTendido == -1)
+    index = this.dataSourceFactorTendidoTiempo.data.findIndex(f => f.IdProcesoTendido == -1)
 
-    if(index > 0) this.dataSource.data.splice(index, 1);
+    if(index > 0) this.dataSourceFactorTendidoTiempo.data.splice(index, 1);
 
 
     if(this.val.ValForm.invalid)  return
     
 
 
-    this.dataSource.data.forEach( f =>{
+    this.dataSourceFactorTendidoTiempo.data.forEach( f =>{
 
       switch(f.Orden)
       {
@@ -212,8 +211,8 @@ export class TendidoTiempoComponent implements OnInit {
 
 
 
-    this.dataSource.data.push(RegistroTotal);
-    this.dataSource.filter = "";
+    this.dataSourceFactorTendidoTiempo.data.push(RegistroTotal);
+    this.dataSourceFactorTendidoTiempo.filter = "";
     
 
   }
@@ -232,7 +231,7 @@ export class TendidoTiempoComponent implements OnInit {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceFactorTendidoTiempo.filter = filtro.trim().toLowerCase();
   }  
  
   
@@ -272,9 +271,7 @@ export class TendidoTiempoComponent implements OnInit {
     {
   
       ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
-      this.dataSource.data.splice(0, this.dataSource.data.length);
-      this.dataSource = new MatTableDataSource(ELEMENT_DATA_TIEMPO);
-  
+      this.dataSourceFactorTendidoTiempo.data.splice(0, this.dataSourceFactorTendidoTiempo.data.length);
       this.TendidoService.Get().subscribe( s =>{
   
         let _json = JSON.parse(s);
@@ -286,7 +283,7 @@ export class TendidoTiempoComponent implements OnInit {
           {
             
             _json["d"].forEach((j : IFactorTendido) => {
-              this.dataSource.data.push(j);
+              this.dataSourceFactorTendidoTiempo.data.push(j);
             });
 
             this.calcularMinutos();
@@ -299,7 +296,7 @@ export class TendidoTiempoComponent implements OnInit {
           })
         }
   
-        this.dataSource.filter = "";
+        this.dataSourceFactorTendidoTiempo.filter = "";
   
   
 
@@ -399,7 +396,7 @@ export class TendidoTiempoComponent implements OnInit {
 
     
     let i : number = 1;
-    this.dataSource.data.forEach( f =>{
+    this.dataSourceFactorTendidoTiempo.data.forEach( f =>{
 
       let excel : IExcelFactor = {} as IExcelFactor;
       excel.Index = i;

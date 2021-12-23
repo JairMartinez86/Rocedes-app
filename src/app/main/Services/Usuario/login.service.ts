@@ -325,10 +325,13 @@ Cerrar() {
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingEnvio", NombreLink : "Envio", Activo : false},
     
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvFactor", NombreLink : "Proceso de tendido", Activo : false},
-      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoFactor", NombreLink : "Factores", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoFactor", NombreLink : "Factores de Tendido", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaSencilla", NombreLink : "Capa Sencilla", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaDoble", NombreLink : "Capa Doble", Activo : false},
     
+      {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvFactorCorte", NombreLink : "Proceso de Corte", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoCorteFactor", NombreLink : "Factores de Corte", Activo : false},
+
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingSaco", NombreLink : "Lista Saco", Activo : false},

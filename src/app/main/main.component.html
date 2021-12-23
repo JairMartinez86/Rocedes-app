@@ -113,14 +113,23 @@
               </ul>
             </li>
 
-            <li class="nav-item dropdown" id="navInvFactor"  *ngIf="Esquema._Esquema=='INV'" appDropdown>
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">Proceso de tendido</a>
+            <li class="nav-item dropdown" id="navInvFactor" appDropdown>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de tendido</a>
               <ul class="dropdown-menu" aria-labelledby="">
-                <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores</a></li>
+                <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores de Tendido</a></li>
                 <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
                 <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Capa Capa Doble</a></li>
               </ul>
             </li>
+
+
+            <li class="nav-item dropdown" id="navInvFactorCorte"  appDropdown>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de corte</a>
+              <ul class="dropdown-menu" aria-labelledby="">
+                <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Factores de Corte</a></li>
+              </ul>
+            </li>
+     
      
 
 
@@ -181,6 +190,9 @@
   <div class="container"><app-factor-tendido></app-factor-tendido></div>
   <div class="container"><app-tendido-tiempo></app-tendido-tiempo></div>
 
+  <div class="container"><app-factor-corte></app-factor-corte></div>
+
+  
   <!--<div class="container"><app-report-viewer-boxing-serial></app-report-viewer-boxing-serial></div>-->
   <div class="container"><app-report-viewer></app-report-viewer></div>
 

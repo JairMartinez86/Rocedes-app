@@ -168,6 +168,9 @@ export class MainComponent implements OnInit {
       this.InventarioService.Cerrar("LinkProcesoTendidoCapaDoble");
     }
     
+    if(_Id != "LinkProcesoCorteFactor"){
+      this.InventarioService.Cerrar("LinkProcesoCorteFactor");
+    }
     
   }
 
@@ -245,9 +248,13 @@ export class MainComponent implements OnInit {
               this.InventarioService.Abrir("LinkProcesoTendidoCapaSencilla");
               break;
 
-              case "LinkProcesoTendidoCapaDoble":
-                this.InventarioService.Abrir("LinkProcesoTendidoCapaDoble");
-                break;
+            case "LinkProcesoTendidoCapaDoble":
+              this.InventarioService.Abrir("LinkProcesoTendidoCapaDoble");
+              break;
+
+            case "LinkProcesoCorteFactor":
+              this.InventarioService.Abrir("LinkProcesoCorteFactor");
+              break;
             
                   
           case "LinkOtro":

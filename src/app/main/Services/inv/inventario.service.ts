@@ -63,6 +63,10 @@ export class InventarioService {
       case "LinkProcesoTendidoCapaDoble":
         this.change.emit("Open:LinkProcesoTendidoCapaDoble");
         break;
+
+      case "LinkProcesoCorteFactor":
+        this.change.emit("Open:LinkProcesoCorteFactor");
+        break;
         
     }
     
@@ -115,6 +119,10 @@ export class InventarioService {
         this.change.emit("Close:LinkProcesoTendidoCapaDoble");
         break;
 
+      case "LinkProcesoCorteFactor":
+        this.change.emit("Close:LinkProcesoCorteFactor");
+        break;
+
         
     }
   }
@@ -128,6 +136,7 @@ export class InventarioService {
     this.change.emit("Close:LinkProcesoTendidoFactor");
     this.change.emit("Close:LinkProcesoTendidoCapaSencilla");
     this.change.emit("Close:LinkProcesoTendidoCapaDoble");
+    this.change.emit("Close:LinkProcesoCorteFactor");
     
   }
 

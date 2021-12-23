@@ -79,6 +79,7 @@ import { DropdownDirective } from './main/Directive/dropdown.directive';
 import { FactorTendidoComponent } from './main/inv/proceso-tendido/factor-tendido/factor-tendido.component';
 import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
 import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.component';
+import { FactorCorteComponent } from './main/inv/proceso-corte/factor-corte/factor-corte.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.c
     FactorTendidoComponent,
     TendidoTiempoComponent,
     AccesoLinkComponent,
+    FactorCorteComponent,
 
 
     
