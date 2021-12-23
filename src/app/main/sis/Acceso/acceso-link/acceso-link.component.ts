@@ -40,20 +40,20 @@ export class AccesoLinkComponent implements OnInit {
     
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceLink){
+      this.dataSourceLink.paginator = value;
+      if(this.dataSourceLink.paginator != null)this.dataSourceLink.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
 
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceLink.sort = sort;
   }
 
   
   displayedColumns: string[] = ["EsMenu", "NombreEsquema", "NombreLink", "Activo"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_PERFIL);
+  dataSourceLink = new MatTableDataSource(ELEMENT_DATA_PERFIL);
   clickedRows = new Set<IUsuarioPerfil>();
 
   constructor(private dialog : MatDialog, private _LoginService : LoginService, private _ConfiguracionService : ConfiguracionService,
@@ -80,7 +80,7 @@ export class AccesoLinkComponent implements OnInit {
 
     ELEMENT_DATA_PERFIL = this._LoginService.Perfiles();
 
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA_PERFIL);
+    this.dataSourceLink = new MatTableDataSource(ELEMENT_DATA_PERFIL);
 
    }
 
@@ -227,7 +227,7 @@ private _FiltroSeleccion(Login: string): IUsuario[] {
           })
         }
   
-        this.dataSource.filter = "";
+        this.dataSourceLink.filter = "";
   
   
       });
@@ -246,7 +246,7 @@ private _FiltroSeleccion(Login: string): IUsuario[] {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceLink.filter = filtro.trim().toLowerCase();
   }  
  
 

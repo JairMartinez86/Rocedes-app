@@ -35,20 +35,20 @@ export class BundleBoxingSerialComponent implements OnInit {
 
 
   displayedColumns: string[] = ['IdSerialComplemento', 'Serial',  'Pieza', 'PresentacionSerial', "Material", "Cantidad", "Capaje", "EnSaco", "Usuario", "FechaRegistro", "Corte", "Estilo", "Activo", "Imprimir", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_SERIAL);
+  dataSourceSerial = new MatTableDataSource(ELEMENT_DATA_SERIAL);
   clickedRows = new Set<IBoginxSerial>();
 
  
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceSerial){
+      this.dataSourceSerial.paginator = value;
+      if(this.dataSourceSerial.paginator != null)this.dataSourceSerial.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceSerial.sort = sort;
   }
 
 
@@ -64,7 +64,7 @@ export class BundleBoxingSerialComponent implements OnInit {
   LLenarTabla() : void
   {
     this.ReportViewerService.change.emit(["Limpiar", ""])
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSourceSerial.data.splice(0, this.dataSourceSerial.data.length);
 
     this.BundleBoxingSerialService.Get().subscribe( s =>{
 
@@ -76,7 +76,7 @@ export class BundleBoxingSerialComponent implements OnInit {
         if(_json["count"] > 0)
         {
           _json["d"].forEach((j : IBoginxSerial) => {
-            this.dataSource.data.push(j);
+            this.dataSourceSerial.data.push(j);
           });
         }
       }
@@ -87,7 +87,7 @@ export class BundleBoxingSerialComponent implements OnInit {
         })
       }
 
-      this.dataSource.filter = "";
+      this.dataSourceSerial.filter = "";
 
 
     });
@@ -102,7 +102,7 @@ export class BundleBoxingSerialComponent implements OnInit {
     this.bol_OpenDialog = false;
     this.str_from = "";
     this.str_Serial = "";
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSourceSerial.data.splice(0, this.dataSourceSerial.data.length);
     if( this.dialogConfirmar != null)this.dialogConfirmar.close();
     if( this.dialog != null)this.dialog.closeAll();
     this.ReportViewerService.change.emit(["Limpiar", ""]);
@@ -129,7 +129,7 @@ export class BundleBoxingSerialComponent implements OnInit {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceSerial.filter = filtro.trim().toLowerCase();
   }  
  
   Eliminar() : void
@@ -147,7 +147,7 @@ export class BundleBoxingSerialComponent implements OnInit {
         this.bol_OpenDialog = false;
         this.str_from = "";
         this.str_Serial = "";
-        this.dataSource.data.splice(0, this.dataSource.data.length);
+        this.dataSourceSerial.data.splice(0, this.dataSourceSerial.data.length);
         if( this.dialogConfirmar != null)this.dialogConfirmar.close();
         if( this.dialog != null)this.dialog.closeAll();
         

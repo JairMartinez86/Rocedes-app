@@ -45,21 +45,21 @@ export class BundleBoxingEnvioComponent implements OnInit {
   
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceEnvio){
+      this.dataSourceEnvio.paginator = value;
+      if(this.dataSourceEnvio.paginator != null)this.dataSourceEnvio.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
 
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceEnvio.sort = sort;
   }
 
 
 
   displayedColumns: string[] = ["Serial","Polin",  "Fecha", "Login"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_ENVIO);
+  dataSourceEnvio = new MatTableDataSource(ELEMENT_DATA_ENVIO);
   clickedRows = new Set<IEnvio>();
 
 
@@ -242,7 +242,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
 
     LlenarTabla() : void
     {
-      this.dataSource.data.splice(0, this.dataSource.data.length);
+      this.dataSourceEnvio.data.splice(0, this.dataSourceEnvio.data.length);
   
       this.BundleBoxingService.GetEnvio(this.str_Corte).subscribe( s =>{
   
@@ -254,7 +254,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
           if(_json["count"] > 0)
           {
             _json["d"].forEach((j : IEnvio) => {
-              this.dataSource.data.push(j);
+              this.dataSourceEnvio.data.push(j);
             });
           }
         }
@@ -265,7 +265,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
           })
         }
   
-        this.dataSource.filter = "";
+        this.dataSourceEnvio.filter = "";
   
   
       });
@@ -292,7 +292,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
       if(_Serial.length <= 2) return
   
   
-      let _Fila : IEnvio =  <IEnvio>this.dataSource.data.find( f => f.Serial == _Serial)
+      let _Fila : IEnvio =  <IEnvio>this.dataSourceEnvio.data.find( f => f.Serial == _Serial)
 
       if(this.bol_Load) return;
       this.bol_Load = true;
@@ -321,8 +321,8 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
           {
 
             let j : IEnvio = _json["d"];
-            this.dataSource.data.push(j);
-            this.dataSource.filter = "";
+            this.dataSourceEnvio.data.push(j);
+            this.dataSourceEnvio.filter = "";
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
            
           }
@@ -355,7 +355,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
         this.bol_Load = false;
       }
 
-      this.dataSource.filter = "";
+      this.dataSourceEnvio.filter = "";
      (<HTMLInputElement>document.getElementById("txtBox_EscanSerialEnvio")).value = "";
     }
   
@@ -369,7 +369,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceEnvio.filter = filtro.trim().toLowerCase();
   }  
  
 

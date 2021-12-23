@@ -19,7 +19,7 @@
         </div>
     
         <div class="mat-elevation-z8">
-            <table mat-table id="excel-table" [dataSource] = "dataSource" matSort (matSortChange)="SortChange($event)">
+            <table mat-table id="excel-table" [dataSource] = "dataSourceTablaBoxin" matSort (matSortChange)="SortChange($event)">
 
                 <ng-container matColumnDef="cIndex">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cIndex">

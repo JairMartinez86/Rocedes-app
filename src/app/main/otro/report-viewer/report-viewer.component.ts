@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { AnySoaRecord } from 'dns';
 import { Conexion } from '../../class/Cnx/conexion';
 import { ReportViewerService } from './report-viewer.service';
 

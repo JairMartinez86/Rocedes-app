@@ -1,6 +1,5 @@
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -79,15 +78,15 @@ export class BundleBoxingComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceBoxin){
+      this.dataSourceBoxin.paginator = value;
+      if(this.dataSourceBoxin.paginator != null)this.dataSourceBoxin.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
 
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceBoxin.sort = sort;
   }
 
 
@@ -111,7 +110,7 @@ export class BundleBoxingComponent implements OnInit {
 
 
   displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cEscaneado"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_BOXING);
+  dataSourceBoxin = new MatTableDataSource(ELEMENT_DATA_BOXING);
   clickedRows = new Set<IBoxin>();
 
   public valSeleccion = new Validacion();
@@ -435,7 +434,7 @@ CrearSerial(): void{
       seccion = Number.parseInt( this.str_Corte[this.str_Corte.indexOf("-") + 1]);
     } 
 
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSourceBoxin.data.splice(0, this.dataSourceBoxin.data.length);
 
     this.AuditoriaService.GetSerial2(this.str_Corte, this.str_Estilo, this.EsComplemento).subscribe(s=>{
 
@@ -447,7 +446,7 @@ CrearSerial(): void{
 
           let i : number = 1;
           _json["d"].forEach((b:{Serial : string, Nombre : string, Talla : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, EnSaco : boolean, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSource.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cTalla : b.Talla, cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
+            this.dataSourceBoxin.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cTalla : b.Talla, cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });
@@ -472,7 +471,7 @@ CrearSerial(): void{
       }
 
      
-      this.dataSource.filter = "";
+      this.dataSourceBoxin.filter = "";
 
     });
    
@@ -494,7 +493,7 @@ CrearSerial(): void{
     if(filtro == "NO ESCANEADO") filtro = "uncheck"
     if(filtro == "ESCANEADO") filtro = "check"
 
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceBoxin.filter = filtro.trim().toLowerCase();
   }  
  
 
@@ -506,7 +505,7 @@ CrearSerial(): void{
 
         let _json = JSON.parse(s);
 
-        this.dataSource.data.forEach((Fila, IBoxin) => {
+        this.dataSourceBoxin.data.forEach((Fila, IBoxin) => {
           Fila.cEscaneado = false;
           Fila.cNoSaco = "";
           Fila.cAccion = "uncheck";
@@ -547,7 +546,7 @@ CrearSerial(): void{
     if(_Serial.length <= 2) return
 
 
-    let _Fila : IBoxin =  <IBoxin>this.dataSource.data.find( f => f.cSerial == _Serial)
+    let _Fila : IBoxin =  <IBoxin>this.dataSourceBoxin.data.find( f => f.cSerial == _Serial)
     let Boxing  : IBundleBoxing =  {} as IBundleBoxing;
 
     if(this.bol_Load) return;
@@ -599,7 +598,7 @@ CrearSerial(): void{
             if(_json["count"] > 0)
             {
 
-              let Filtro : IBoxin[] = this.dataSource.data.filter( f => f.cOper == _Fila.cOper);
+              let Filtro : IBoxin[] = this.dataSourceBoxin.data.filter( f => f.cOper == _Fila.cOper);
 
               Filtro.forEach(f => {
 
@@ -692,7 +691,7 @@ CrearSerial(): void{
     this.bol_AbrirSaco = false;
     this.bol_TerminarEmpaque = false;
     this.int_Mesa = Number.parseInt( this.val.ValForm.get("txtBox_Mesa")?.value);
-    this.dataSource.filter = "";
+    this.dataSourceBoxin.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.disable();
   }
   
@@ -705,7 +704,7 @@ CrearSerial(): void{
     this.int_Saco = 0;
     this.int_Mesa = 0;
     this.bol_AbrirSaco = false;
-    this.dataSource.filter = "";
+    this.dataSourceBoxin.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.enable();
     document.getElementById("txtBox_Mesa")?.focus();
     

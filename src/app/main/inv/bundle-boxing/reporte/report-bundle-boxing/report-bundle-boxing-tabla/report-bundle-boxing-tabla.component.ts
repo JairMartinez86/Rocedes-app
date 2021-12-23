@@ -68,7 +68,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
+    if (this.dataSourceTablaBoxin){
       if(value != null) value._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
@@ -87,7 +87,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   
 
   displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cUsuario", "cFecha"];
-  dataSource =  ELEMENT_DATA_TABLA;
+  dataSourceTablaBoxin =  ELEMENT_DATA_TABLA;
   int_TotalRegistros = ELEMENT_DATA_TABLA.length;
   clickedRows = new Set<IBoxin>();
 
@@ -310,12 +310,12 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
    */
   buildDataSource(){
 
-    this.dataSource = this.groupBy(this.groupingColumn,this.initialData,this.reducedGroups);
+    this.dataSourceTablaBoxin = this.groupBy(this.groupingColumn,this.initialData,this.reducedGroups);
   }
   
   /**
    * Groups the @param data by distinct values of a @param column
-   * This adds group lines to the dataSource
+   * This adds group lines to the dataSourceTablaBoxin
    * @param reducedGroups is used localy to keep track of the colapsed groups
    */
    groupBy(column:string,data: any[],reducedGroups?: any[]){

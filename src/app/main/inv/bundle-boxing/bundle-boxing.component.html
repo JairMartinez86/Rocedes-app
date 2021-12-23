@@ -138,11 +138,11 @@
             </div>
 
             <div>
-                <button *ngIf="!bol_AbrirSaco && dataSource.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="GuardarSaco('Crear')">Crear Saco</button>
+                <button *ngIf="!bol_AbrirSaco && dataSourceBoxin.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="GuardarSaco('Crear')">Crear Saco</button>
             </div>
 
             <div>
-                <button *ngIf="dataSource.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco()">Abrir Saco</button>
+                <button *ngIf="dataSourceBoxin.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco()">Abrir Saco</button>
             </div>
           </div>
 
@@ -168,7 +168,7 @@
       
 
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource] = "dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+            <table mat-table [dataSource] = "dataSourceBoxin" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
             <ng-container matColumnDef="cIndex">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cIndex">

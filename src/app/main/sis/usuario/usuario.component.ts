@@ -79,20 +79,20 @@ export class UsuarioComponent implements OnInit {
   public val = new Validacion();
 
   displayedColumns: string[] = ['cIndex', 'cUsuario',  'cNombre', 'cApellido', "cActivo", "cAccion1", "cAccion2", "cAccion3"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_USUARIO);
+  dataSourceUsuario = new MatTableDataSource(ELEMENT_DATA_USUARIO);
   clickedRows = new Set<IUsuario>();
 
  
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceUsuario){
+      this.dataSourceUsuario.paginator = value;
+      if(this.dataSourceUsuario.paginator != null)this.dataSourceUsuario.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceUsuario.sort = sort;
   }
 
 
@@ -389,7 +389,7 @@ export class UsuarioComponent implements OnInit {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceUsuario.filter = filtro.trim().toLowerCase();
   }  
  
 
@@ -404,18 +404,18 @@ export class UsuarioComponent implements OnInit {
 
       if(_json["esError"] == 0){
 
-        this.dataSource.data.splice(0, this.dataSource.data.length);
+        this.dataSourceUsuario.data.splice(0, this.dataSourceUsuario.data.length);
 
         _json["d"].forEach((b: {  IdUsuario : number;  Login: string; Pass: string; Nombres: string; Apellidos: string; CodBar : string; Activo : boolean }) => {
 
-          this.dataSource.data.push({cIndex: i, cIdUsuario : b.IdUsuario, cUsuario: b.Login , cPass : b.Pass, cNombre: b.Nombres, cApellido: b.Apellidos, cCodBar : b.CodBar, cActivo : b.Activo})
+          this.dataSourceUsuario.data.push({cIndex: i, cIdUsuario : b.IdUsuario, cUsuario: b.Login , cPass : b.Pass, cNombre: b.Nombres, cApellido: b.Apellidos, cCodBar : b.CodBar, cActivo : b.Activo})
           i+=1;
           
         });
 
 
         
-        this.dataSource.filter = '';
+        this.dataSourceUsuario.filter = '';
 
         
       }
@@ -427,7 +427,7 @@ export class UsuarioComponent implements OnInit {
 
     });
 
-    //this.dataSource.data.push({cIndex: 1, cUsuario: '', cNombre: '', cApellido: ''})
+    //this.dataSourceUsuario.data.push({cIndex: 1, cUsuario: '', cNombre: '', cApellido: ''})
   }
 
   clickRow(evento : string, row : any){

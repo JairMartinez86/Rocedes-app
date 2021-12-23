@@ -39,20 +39,20 @@ export class BundleBoxingSacoComponent implements OnInit {
 
 
   displayedColumns: string[] = ['IdSaco', 'Serial',  'Saco', 'NoMesa',  "Usuario", "UsuarioAbre", "FechaRegistro", "Corte", "Activo", "Imprimir", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_SACO);
+  dataSourceSaco = new MatTableDataSource(ELEMENT_DATA_SACO);
   clickedRows = new Set<IBoginxSerial>();
 
  
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-      if(this.dataSource.paginator != null)this.dataSource.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceSaco){
+      this.dataSourceSaco.paginator = value;
+      if(this.dataSourceSaco.paginator != null)this.dataSourceSaco.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSource.sort = sort;
+     this.dataSourceSaco.sort = sort;
   }
 
 
@@ -70,7 +70,7 @@ export class BundleBoxingSacoComponent implements OnInit {
     this.BundleBoxingSacoService.change.emit(["Limpiar", ""])
     
     ELEMENT_DATA_SACO.splice(0, ELEMENT_DATA_SACO.length);
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSourceSaco.data.splice(0, this.dataSourceSaco.data.length);
 
     this.BundleBoxingSacoService.Get().subscribe( s =>{
 
@@ -82,7 +82,7 @@ export class BundleBoxingSacoComponent implements OnInit {
         if(_json["count"] > 0)
         {
           _json["d"].forEach((j : ISaco) => {
-            this.dataSource.data.push(j);
+            this.dataSourceSaco.data.push(j);
           });
         }
       }
@@ -93,7 +93,7 @@ export class BundleBoxingSacoComponent implements OnInit {
         })
       }
 
-      this.dataSource.filter = "";
+      this.dataSourceSaco.filter = "";
 
 
     });
@@ -103,7 +103,7 @@ export class BundleBoxingSacoComponent implements OnInit {
   {
     
     ELEMENT_DATA_SACO.splice(0, ELEMENT_DATA_SACO.length);
-    this.dataSource.data.splice(0, this.dataSource.data.length);
+    this.dataSourceSaco.data.splice(0, this.dataSourceSaco.data.length);
     document.getElementById("divRegistrosBoginxSaco")?.classList.remove("disabled");
 
     this._Respuesta = null;
@@ -136,7 +136,7 @@ export class BundleBoxingSacoComponent implements OnInit {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
+    this.dataSourceSaco.filter = filtro.trim().toLowerCase();
   }  
  
   Eliminar() : void
@@ -154,7 +154,7 @@ export class BundleBoxingSacoComponent implements OnInit {
         this.bol_OpenDialog = false;
         this.str_from = "";
         this.str_Serial = "";
-        this.dataSource.data.splice(0, this.dataSource.data.length);
+        this.dataSourceSaco.data.splice(0, this.dataSourceSaco.data.length);
         if( this.dialogConfirmar != null)this.dialogConfirmar.close();
         if( this.dialog != null)this.dialog.closeAll();
         
