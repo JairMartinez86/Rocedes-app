@@ -40,8 +40,7 @@ export class FactorTendidoComponent implements OnInit {
   }
   
   
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private TendidoService : TendidoService
-    ,private InventarioService : InventarioService) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private TendidoService : TendidoService) { }
 
 
 
@@ -143,19 +142,9 @@ export class FactorTendidoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.InventarioService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoTendidoFactor"){
-        this.Limpiar();
-        this.str_from = "factores";
-        this.LLenarTabla();
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoTendidoFactor"){
-        this.Limpiar();
-      }
-      
-    });
+    this.Limpiar();
+    this.str_from = "factores";
+    this.LLenarTabla();
   }
 
 }

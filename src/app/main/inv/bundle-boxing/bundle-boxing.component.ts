@@ -209,7 +209,7 @@ export class BundleBoxingComponent implements OnInit {
       this.str_from = "BundleBoxing";
       this.ReportViewerService.change.emit(["Limpiar", ""]);
 
-      this.Timer$Subscription.unsubscribe();
+      if(this.Timer$Subscription != null) this.Timer$Subscription.unsubscribe();
     }
 
 
@@ -746,16 +746,12 @@ CrearSerial(): void{
       this.dialogSaco.componentInstance.int_Mesa = this.int_Mesa;
       
       this.dialogSaco.afterOpened().subscribe( s =>{
-      document.getElementById("divBundleBoxing")?.classList.add("disabled");
-        document.getElementById("divRegistrosUsuario")?.classList.add("disabled");
-        document.getElementById("divBundleBoxing")?.classList.add("disabled");
+        document.getElementById("body")?.classList.add("disabled");
       });
 
       this.dialogSaco.afterClosed().subscribe( s =>{
         
-        document.getElementById("divBundleBoxing")?.classList.remove("disabled");
-        document.getElementById("divRegistrosUsuario")?.classList.remove("disabled");
-        document.getElementById("divBundleBoxing")?.classList.remove("disabled");
+        document.getElementById("body")?.classList.remove("disabled");
         this.int_Saco = this.dialogSaco.componentInstance.int_Saco;
         this.str_Titulo_Saco = this.dialogSaco.componentInstance.str_Titulo_Saco;
         
@@ -1078,8 +1074,33 @@ CrearSerial(): void{
   
     //#endregion FORMULARIO SERIAL
 
+    AbirBundle(): void {
+
+      this.str_from = "BundleBoxing";
+      this.str_Label_Mesa = "Mesa #"
+      this.str_Titulo_Saco = "";
+      this.EsComplemento = false;
+      this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.setValue("");
+  
+
+    }
+
+
+    AbirComplemento(): void {
+      this.str_from = "BundleBoxing";
+        this.str_Label_Mesa = "Mesa #"
+        this.str_Titulo_Saco = "";
+        this.str_Label_Mesa = "Seleccione"
+        this.EsComplemento = true;
+        this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.setValue("");
+    }
+
+    
+
   ngOnInit(): void {
-    this.InventarioService.change.subscribe(s => {
+
+
+    /*this.InventarioService.change.subscribe(s => {
 
       if(s.split(":")[0] == "Open" && (s.split(":")[1] == "BundleBoxing" || s.split(":")[1] == "BundleBoxingComplemento")){
         this.str_from = "BundleBoxing";
@@ -1100,7 +1121,7 @@ CrearSerial(): void{
         this.str_from = "";
       }
       
-    });
+    });*/
 
 
     this.BundleBoxingService.change.subscribe(s => {

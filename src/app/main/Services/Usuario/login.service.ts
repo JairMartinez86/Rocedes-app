@@ -228,18 +228,6 @@ export class LoginService {
 
 /****************************************************************************/
 
-Abrir(m : string) {
-  this.isOpen = true;
-  this.str_Form = m;
-  this.change.emit(this.str_Form);
-}
-
-Cerrar() {
-  this.isOpen = false;
-  this.str_Form = "";
-  this.change.emit(this.str_Form);
-}
-  
 
   //#region TIMEOUT
 

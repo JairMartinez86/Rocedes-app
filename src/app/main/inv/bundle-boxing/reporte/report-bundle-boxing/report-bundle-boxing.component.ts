@@ -34,7 +34,7 @@ export class ReportBundleBoxingComponent implements OnInit {
   dialogRef!: MatDialogRef<DialogoComponent>;
   
  
-  constructor(private InventarioService : InventarioService, private AuditoriaService : AuditoriaService, private BundleBoxingService : BundleBoxingService, private dialog: MatDialog) { 
+  constructor(private AuditoriaService : AuditoriaService, private BundleBoxingService : BundleBoxingService, private dialog: MatDialog) { 
     this.valSeleccion.add("txtReport_Box_Corte", "1", "LEN>", "0");
 
     this.valSeleccion.ValForm.get("txtReport_Box_Corte")?.setValue("");
@@ -163,18 +163,6 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
 
   ngOnInit(): void {
 
-    this.InventarioService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkReportBundleBoxing"){
-        this.str_from = "ReportBundleBoxing";
-
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkReportBundleBoxing"){
-        this.str_from = "";
-      }
-      
-    });
 
   }
 

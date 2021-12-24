@@ -56,7 +56,7 @@ export class BundleBoxingSacoComponent implements OnInit {
   }
 
 
-  constructor(private LoginService : LoginService, private InventarioService : InventarioService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer
+  constructor(private LoginService : LoginService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer
     ,  public datepipe: DatePipe, public toastService: ToastService, private BundleBoxingSacoService : BundleBoxingSacoService, private ReportViewerService : ReportViewerService
     ) {
       this.Limpiar();
@@ -301,19 +301,9 @@ export class BundleBoxingSacoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.InventarioService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkBundleBoxingSaco"){
-        this.Limpiar();
-        this.str_from = "BundleBoxingSaco";
-        this.LLenarTabla();
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkBundleBoxingSaco"){
-        this.Limpiar();
-      }
-      
-    });
+    this.Limpiar();
+    this.str_from = "BundleBoxingSaco";
+    this.LLenarTabla();
   }
 
 }

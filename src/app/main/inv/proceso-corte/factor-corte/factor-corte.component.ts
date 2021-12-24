@@ -50,8 +50,7 @@ export class FactorCorteComponent implements OnInit {
   }
   
   
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _FactorCorteService : FactorCorteService
-    ,private InventarioService : InventarioService) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _FactorCorteService : FactorCorteService) { }
 
 
 
@@ -167,18 +166,8 @@ export class FactorCorteComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.InventarioService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoCorteFactor"){
-        this.Limpiar();
-        this.str_from = "FactorCorte";
-        this.LLenarTabla();
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoCorteFactor"){
-        this.Limpiar();
-      }
-      
-    });
+    this.Limpiar();
+    this.str_from = "FactorCorte";
+    this.LLenarTabla();
   }
 }

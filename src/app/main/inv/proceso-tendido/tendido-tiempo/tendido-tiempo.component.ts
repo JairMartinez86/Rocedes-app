@@ -63,8 +63,7 @@ export class TendidoTiempoComponent implements OnInit {
   }
   
   
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private TendidoService : TendidoService
-    ,private InventarioService : InventarioService) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private TendidoService : TendidoService) {
 
       this.val.add("txt_Tendido_Cantidad_Capas", "1", "NUM>", "0");
       this.val.add("txt_Tendido_Cantidad_Rollos", "1", "NUM>", "0");
@@ -506,33 +505,24 @@ export class TendidoTiempoComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.InventarioService.change.subscribe(s => {
 
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoTendidoCapaSencilla"){
-        this.Limpiar();
-        this.str_from = "tiempo";
-        this.str_Capa = "Sencilla";
-        this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA SENCILLA)";
-        this.LLenarTabla();
-      }
+    
+    if(this.str_from == "LinkProcesoTendidoCapaSencilla"){
+      this.Limpiar();
+      this.str_from = "tiempo";
+      this.str_Capa = "Sencilla";
+      this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA SENCILLA)";
+      this.LLenarTabla();
+    }
 
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkProcesoTendidoCapaDoble"){
-        this.Limpiar();
-        this.str_from = "tiempo";
-        this.str_Capa = "Doble";
-        this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA DOBLE)";
-        this.LLenarTabla();
-      }
+    if(this.str_from == "LinkProcesoTendidoCapaDoble"){
+      this.Limpiar();
+      this.str_from = "tiempo";
+      this.str_Capa = "Doble";
+      this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA DOBLE)";
+      this.LLenarTabla();
+    }
 
 
-      if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoTendidoCapaSencilla"){
-        this.Limpiar();
-      }
-
-      if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkProcesoTendidoCapaDoble"){
-        this.Limpiar();
-      }
-      
-    });
   }
 }

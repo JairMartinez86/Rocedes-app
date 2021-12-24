@@ -52,7 +52,7 @@ export class BundleBoxingSerialComponent implements OnInit {
   }
 
 
-  constructor(private LoginService : LoginService, private InventarioService : InventarioService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer
+  constructor(private LoginService : LoginService, public dialog: MatDialog, private _liveAnnouncer: LiveAnnouncer
     , private BundleBoxingSerialService : BundleBoxingSerialService, public datepipe: DatePipe, public toastService: ToastService, private ReportViewerService : ReportViewerService
     ) {
       this.Limpiar();
@@ -255,19 +255,9 @@ export class BundleBoxingSerialComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.InventarioService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkBundleBoxingSerial"){
-        this.Limpiar();
+    this.Limpiar();
         this.str_from = "BundleBoxingSerial";
         this.LLenarTabla();
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkBundleBoxingSerial"){
-        this.Limpiar();
-      }
-      
-    });
   }
 
 }

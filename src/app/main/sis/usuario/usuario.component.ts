@@ -132,6 +132,10 @@ export class UsuarioComponent implements OnInit {
 
  
   Cerrar(){
+
+    if( this.str_from == "dialog") this.dialog.getDialogById("DialogoUsuario")?.close();
+ 
+
     this.LimpiarForm();
     this.str_from = "";
   }
@@ -152,7 +156,7 @@ export class UsuarioComponent implements OnInit {
 
     
     document?.getElementById("txtCodbar")?.focus();
-    document.getElementById("divRegistrosUsuario")?.classList.remove("disabled");
+    document?.getElementById("body")?.classList.remove("disabled");
 
     if( this.dialogRef != null)this.dialogRef.close();
     if( this.dialogUsuarioRef != null)this.dialogUsuarioRef.close();
@@ -346,12 +350,12 @@ export class UsuarioComponent implements OnInit {
 
 
       this.dialogRef.afterOpened().subscribe(() => {
-         document.getElementById("divRegistrosUsuario")?.classList.add("disabled");
+         document.getElementById("body")?.classList.add("disabled");
       });
 
       this.dialogRef.afterClosed().subscribe(() => {
         this.dialog.getDialogById("DialogoUsuario")?.close();
-        if(evento != "") document.getElementById("divRegistrosUsuario")?.classList.remove("disabled");
+        if(evento != "") document.getElementById("body")?.classList.remove("disabled");
      });
   
       
@@ -434,15 +438,21 @@ export class UsuarioComponent implements OnInit {
 
 
     this.bol_OpenDialog = true;
-    if(this.dialogUsuarioRef != null) this.dialogUsuarioRef.close();
+    //if(this.dialogUsuarioRef != null) this.dialogUsuarioRef.close();
 
-    if(evento == "Editar"){
-      this.dialogUsuarioRef = this.dialog.open(UsuarioComponent, { id: "DialogoUsuario" });
-  
-  
     
+    if(evento == "Editar"){
+
+      if(this.dialog.getDialogById("DialogoUsuario") == null)
+      {
+        this.dialogUsuarioRef = this.dialog.open(UsuarioComponent, { id: "DialogoUsuario" });
+      }
 
 
+
+
+      this.dialogUsuarioRef.componentInstance.str_from = "dialog";
+       
       this.dialogUsuarioRef.componentInstance.int_IdUsuario = row.cIdUsuario;
       this.dialogUsuarioRef.componentInstance.bol_Activo = row.cActivo;
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtCodbar")?.setValue(row.cCodBar);
@@ -450,19 +460,20 @@ export class UsuarioComponent implements OnInit {
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtApellido")?.setValue(row.cApellido);
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtUsuario")?.setValue(row.cUsuario);
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtPass")?.setValue(row.cPass);
-      this.dialogUsuarioRef.componentInstance.str_from = "dialog";
+      
 
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtCodbar")?.disable();
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtNombre")?.disable();
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtApellido")?.disable();
       this.dialogUsuarioRef.componentInstance.val.ValForm.get("txtUsuario")?.disable();
       
+      
       this.dialogUsuarioRef.afterOpened().subscribe( s =>{
-        document.getElementById("divRegistrosUsuario")?.classList.add("disabled");
+        document.getElementById("body")?.classList.add("disabled");
       });
       
       this.dialogUsuarioRef.beforeClosed().subscribe( s =>{
-        document.getElementById("divRegistrosUsuario")?.classList.remove("disabled");
+        document.getElementById("body")?.classList.remove("disabled");
       });
 
 
@@ -499,14 +510,15 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
     
 
-    this.loginserv.change.subscribe(s =>{
-      this.str_from = s
+    if(this.str_from == "frmUsuario"){
       this.LimpiarForm();
+    }
+
+      
 
       if(this.str_from == "frmRegistros"){
         this.llenarTabla();
       }
-    });
 
   }
 

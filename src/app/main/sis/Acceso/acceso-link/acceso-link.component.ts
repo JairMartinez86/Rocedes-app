@@ -290,18 +290,6 @@ private _FiltroSeleccion(Login: string): IUsuario[] {
 
   ngOnInit(): void {
 
-    this._ConfiguracionService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkUsuarioPerfil"){
-        this.Limpiar();
-        this.str_frm = "PerfilUsuario"
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkUsuarioPerfil"){
-        this.Limpiar();
-      }
-      
-    });
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input} from '@angular/core';
+import { Component, OnInit, HostListener, Input, ViewChild, ComponentFactoryResolver, ComponentRef} from '@angular/core';
 
 import { Esquema, Formulario } from 'src/app/main/class/Esquema/esquema';
 import {LoginService,} from './Services/Usuario/login.service'; 
@@ -7,6 +7,17 @@ import { IUsuarioPerfil } from './class/Form/sis/Interface/i-UsuarioPerfil';
 import { DialogoComponent } from './otro/dialogo/dialogo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfiguracionService } from './Services/sis/configuracion.service';
+import { OpenCloseDirective } from './Directive/open-close.directive';
+import { UsuarioComponent } from './sis/usuario/usuario.component';
+import { AccesoLinkComponent } from './sis/Acceso/acceso-link/acceso-link.component';
+import { FactorTendidoComponent } from './inv/proceso-tendido/factor-tendido/factor-tendido.component';
+import { TendidoTiempoComponent } from './inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
+import { FactorCorteComponent } from './inv/proceso-corte/factor-corte/factor-corte.component';
+import { ReportBundleBoxingComponent } from './inv/bundle-boxing/reporte/report-bundle-boxing/report-bundle-boxing.component';
+import { BundleBoxingSacoComponent } from './inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
+import { BundleBoxingSerialComponent } from './inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
+import { BundleBoxingComponent } from './inv/bundle-boxing/bundle-boxing.component';
+import { BundleBoxingEnvioComponent } from './inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -19,6 +30,9 @@ let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 })
 export class MainComponent implements OnInit {
 
+  @ViewChild (OpenCloseDirective) public dinamycHost: OpenCloseDirective = {} as OpenCloseDirective;
+
+  
   private lstEsquema :  Esquema[] = [];
   Esquema !:Esquema; 
   
@@ -54,7 +68,8 @@ export class MainComponent implements OnInit {
   
 
  
-  constructor(private loginserv : LoginService, private InventarioService : InventarioService, private _ConfiguracionService : ConfiguracionService,  private dialog : MatDialog) {
+  constructor(private loginserv : LoginService, private InventarioService : InventarioService, private _ConfiguracionService : ConfiguracionService,  private dialog : MatDialog,
+    private componentFactoryResolver:ComponentFactoryResolver) {
     
 
     this.loginserv.VerificarSession()
@@ -104,6 +119,8 @@ export class MainComponent implements OnInit {
   AbrirForm(_Id : string)
   {
 
+    let component = null;
+
     if(_Id == "") return;
 
     let a = document.getElementsByTagName('a');
@@ -119,14 +136,30 @@ export class MainComponent implements OnInit {
 
   if(this.Esquema._Esquema == "SIS")
   {
-    if(_Id != "LinkUsuario" && _Id != "LinkRegistrosUsuario"){
-      this.loginserv.Cerrar();
-  
+    if(_Id != "LinkUsuario"){
+
+      if(this.Esquema._Nombre != "LinkUsuario")
+      {
+        this.dinamycHost.viewContainerRef!.clear();
+      }
+      
+
     }
 
+    if(_Id != "LinkRegistrosUsuario"){
+      
+      if(this.Esquema._Nombre != "LinkRegistrosUsuario")
+      {
+        this.dinamycHost.viewContainerRef!.clear();
+      }
+      
+    }
+
+
+
     if(_Id != "LinkUsuarioPerfil"){
-      this._ConfiguracionService.Cerrar("LinkUsuarioPerfil");
-  
+      this.dinamycHost.viewContainerRef!.clear();
+
     }
 
   }
@@ -136,40 +169,41 @@ export class MainComponent implements OnInit {
   {
 
     if(_Id != "LinkBundleBoxing" && _Id != "LinkBundleBoxingComplemento"){
-      this.InventarioService.Cerrar("LinkBundleBoxing");
+      this.dinamycHost.viewContainerRef!.clear();
     }
+    
 
     
     if(_Id != "LinkReportBundleBoxing"){
-      this.InventarioService.Cerrar("LinkReportBundleBoxing");
+      this.dinamycHost.viewContainerRef!.clear();
     }
 
     if(_Id != "LinkBundleBoxingSaco"){
-      this.InventarioService.Cerrar("LinkBundleBoxingSaco");
+      this.dinamycHost.viewContainerRef!.clear();
     }
 
     if(_Id != "LinkBundleBoxingSerial"){
-      this.InventarioService.Cerrar("LinkBundleBoxingSerial");
+      this.dinamycHost.viewContainerRef!.clear();
     }
 
     if(_Id != "LinkBundleBoxingEnvio"){
-      this.InventarioService.Cerrar("LinkBundleBoxingEnvio");
+      this.dinamycHost.viewContainerRef!.clear();
     }
 
     if(_Id != "LinkProcesoTendidoFactor"){
-      this.InventarioService.Cerrar("LinkProcesoTendidoFactor");
+      this.dinamycHost.viewContainerRef!.clear();
     }
 
     if(_Id != "LinkProcesoTendidoCapaSencilla"){
-      this.InventarioService.Cerrar("LinkProcesoTendidoCapaSencilla");
+      this.dinamycHost.viewContainerRef!.clear();
     }
 
     if(_Id != "LinkProcesoTendidoCapaDoble"){
-      this.InventarioService.Cerrar("LinkProcesoTendidoCapaDoble");
+      this.dinamycHost.viewContainerRef!.clear();
     }
     
     if(_Id != "LinkProcesoCorteFactor"){
-      this.InventarioService.Cerrar("LinkProcesoCorteFactor");
+      this.dinamycHost.viewContainerRef!.clear();
     }
     
   }
@@ -187,24 +221,40 @@ export class MainComponent implements OnInit {
         switch(_Id)
         {
           case "LinkUsuario":
+            if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
 
-            if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.loginserv.Cerrar();
-              
-            this.loginserv.Abrir("frmUsuario");
 
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
+              let Usuario: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              Usuario.instance.str_from = "frmUsuario";
+            }
+ 
           break;
 
           case "LinkUsuarioPerfil":
 
-            this._ConfiguracionService.Abrir("LinkUsuarioPerfil");
-
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(AccesoLinkComponent);
+              let Acceso: ComponentRef<AccesoLinkComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              Acceso.instance.str_frm = "PerfilUsuario";
+            }
           break;
 
           case "LinkRegistrosUsuario":
 
-            if(this.loginserv.isOpen && this.loginserv.str_Form != "frmRegistros") this.loginserv.Cerrar();
-              
-            this.loginserv.Abrir("frmRegistros");
+            if(this.loginserv.isOpen && this.loginserv.str_Form != "frmRegistros") this.dinamycHost.viewContainerRef.clear();
+
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
+              let UsuarioRegistros: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              UsuarioRegistros.instance.str_from = "frmRegistros";
+            }
+
+            
 
           break;
 
@@ -217,43 +267,122 @@ export class MainComponent implements OnInit {
         {
 
           case "LinkBundleBoxing":
-            this.InventarioService.Abrir("LinkBundleBoxing");
+
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingComponent);
+              let BundleBoxing: ComponentRef<BundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              BundleBoxing.instance.AbirBundle();
+            };
             break;
 
             case "LinkBundleBoxingComplemento":
-              this.InventarioService.Abrir("LinkBundleBoxingComplemento");
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingComponent);
+                let BundleComplemento: ComponentRef<BundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                BundleComplemento.instance.AbirComplemento();
+              }
+
               break;
 
             case "LinkReportBundleBoxing":
-              this.InventarioService.Abrir("LinkReportBundleBoxing");
+
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(ReportBundleBoxingComponent);
+                let ReporBundle: ComponentRef<ReportBundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                ReporBundle.instance.str_from = "ReportBundleBoxing";
+              }
+
+
               break;
 
             case "LinkBundleBoxingSaco":
-              this.InventarioService.Abrir("LinkBundleBoxingSaco");
+
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingSacoComponent);
+                let BundleSaco: ComponentRef<BundleBoxingSacoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                BundleSaco.instance.str_from = "BundleBoxingSaco";
+              }
+
               break;
 
             case "LinkBundleBoxingSerial":
-              this.InventarioService.Abrir("LinkBundleBoxingSerial");
+
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingSerialComponent);
+                let BundleSerial: ComponentRef<BundleBoxingSerialComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                BundleSerial.instance.str_from = "BundleBoxingSerial";
+              }
+
               break;
 
             case "LinkBundleBoxingEnvio":
-              this.InventarioService.Abrir("LinkBundleBoxingEnvio");
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingEnvioComponent);
+                let BundleEnvio: ComponentRef<BundleBoxingEnvioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                BundleEnvio.instance.str_from = "LinkBundleBoxingEnvio";
+              }
+
               break;
 
             case "LinkProcesoTendidoFactor":
-              this.InventarioService.Abrir("LinkProcesoTendidoFactor");
+
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(FactorTendidoComponent);
+                let FactorTendido: ComponentRef<FactorTendidoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                FactorTendido.instance.str_from = "factores";
+              }
+
               break;
 
             case "LinkProcesoTendidoCapaSencilla":
-              this.InventarioService.Abrir("LinkProcesoTendidoCapaSencilla");
+
+            
+
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
+                let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                FactorTendido.instance.str_from = "LinkProcesoTendidoCapaSencilla";
+              }
+
               break;
 
             case "LinkProcesoTendidoCapaDoble":
-              this.InventarioService.Abrir("LinkProcesoTendidoCapaDoble");
+              
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
+                let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                FactorTendido.instance.str_from = "LinkProcesoTendidoCapaDoble";
+              }
+
+    
+
               break;
 
             case "LinkProcesoCorteFactor":
-              this.InventarioService.Abrir("LinkProcesoCorteFactor");
+
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(FactorCorteComponent);
+                let FactorCorte: ComponentRef<FactorCorteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                FactorCorte.instance.str_from = "LinkProcesoCorteFactor";
+              }
+
+
+
               break;
             
                   
@@ -281,18 +410,16 @@ export class MainComponent implements OnInit {
   {
 
     this.Esquema =  <Esquema>this.lstEsquema.find(x => x._Esquema == m);
-    switch(m){
 
-      case "SIS":
-        if(this.InventarioService.isOpen) this.InventarioService.CerrarTodo();
-        this.Esquema._Nombre = "Configuración"
-        break;
+    if(m == "SIS" ) this.Esquema._Nombre = "Configuración"
 
-      case "INV":
-        if(this.loginserv.isOpen) this.loginserv.Cerrar();
-        this.Esquema._Nombre = "Inventario"
-        break;
-    }
+
+    if(m == "INV" ) this.Esquema._Nombre = "Inventario"
+    
+   
+    if(m != this.Esquema._Esquema) this.dinamycHost.viewContainerRef!.clear();
+
+    
 
     this.Perfiles();
 
@@ -393,9 +520,11 @@ export class MainComponent implements OnInit {
 
 
   }
- 
+
+
   ngOnInit(): void {
 
+  
     window.addEventListener("beforeunload", function (e) {
       var confirmationMessage = "\o/";
       e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+

@@ -400,18 +400,8 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
 
   ngOnInit(): void {
 
-    this.InventarioService.change.subscribe(s => {
-
-      if(s.split(":")[0] == "Open" && s.split(":")[1] == "LinkBundleBoxingEnvio"){
-        this.Limpiar();
-        this.str_from = "Envio";
-      }
-
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "LinkBundleBoxingEnvio"){
-        this.Limpiar();
-      }
-      
-    });
+    this.Limpiar();
+    this.str_from = "Envio";
 
   }
 
