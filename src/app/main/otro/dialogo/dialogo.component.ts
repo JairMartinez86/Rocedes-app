@@ -1,6 +1,5 @@
 import { Component, OnInit,Inject, ElementRef, HostListener  } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-;
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialogo',
@@ -39,7 +38,7 @@ export class DialogoComponent implements OnInit {
 
   //#endregion DIALOGO
 
-  constructor(private sanitizer: DomSanitizer, public hostElement: ElementRef, public dialogRef: MatDialogRef<DialogoComponent>,
+  constructor(public hostElement: ElementRef, public dialogRef: MatDialogRef<DialogoComponent>,
     @ Inject(MAT_DIALOG_DATA) public data : any) { 
 
 

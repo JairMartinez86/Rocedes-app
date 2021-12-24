@@ -1,13 +1,12 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IFactorCorte } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte';
 import { IFactorCorteDetalle } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte-Detalle';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
 import { FactorCorteService } from 'src/app/main/Services/inv/ProcesoCorte/factor-corte.service';
 
 let ELEMENT_DATA_CORTE_FACTOR_DETALLE : IFactorCorteDetalle[] = [];
@@ -23,7 +22,6 @@ export class FactorCorteComponent implements OnInit {
 
  
   str_from : string = "";
-
 
 
 
@@ -114,6 +112,52 @@ export class FactorCorteComponent implements OnInit {
   }
 
 
+  AgregarFila() : void
+  {
+
+    if(this.dataSourceFactorCorte.data.length > 0)
+    {
+
+      let index = this.dataSourceDetalleFactorCorte.data.findIndex( f => f.IdFactorDetalleCorte == -1)
+
+      if(index == -1)
+      {
+        let Fila : IFactorCorteDetalle = {} as IFactorCorteDetalle;
+        Fila.IdFactorDetalleCorte = -1;
+        Fila.IdFactorCorte = this.dataSourceFactorCorte.data[0].IdFactorCorte;
+        Fila.Item = "";
+        Fila.Componente = "";
+        Fila.Estilo  = "";
+        Fila.LayLimits = "";
+        Fila.TotalPieces = 0;
+        Fila.StraightPerimeter = 0;
+        Fila.CurvedPerimeter = 0;
+        Fila.TotalPerimeter = 0;
+        Fila.TotalNotches = 0;
+        Fila.TotalCorners = 0;
+        Fila.Segundos = 0;
+        Fila.Minutos_Pza = 0;
+  
+        this.dataSourceDetalleFactorCorte.data.push(Fila);
+        let cloned = this.dataSourceDetalleFactorCorte.data.slice()
+        this.dataSourceDetalleFactorCorte.data = cloned;
+        this.dataSourceDetalleFactorCorte.filter = "";
+  
+        this.dataSourceDetalleFactorCorte.paginator?.lastPage();
+      }
+      else
+      {
+  
+        this.dialog.open(DialogoComponent, {
+          data: "<p>Por favor guarde la nueva fila</p>"
+        })
+
+      }
+
+    }
+
+    
+  }
 
 
     //#region EVENTOS TABLA
@@ -137,7 +181,8 @@ export class FactorCorteComponent implements OnInit {
     this._FactorCorteService.Guardar(row).subscribe( s =>{
 
       let _json = JSON.parse(s);
-                                 
+            
+      
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
       })
@@ -166,6 +211,7 @@ export class FactorCorteComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.Limpiar();
     this.str_from = "FactorCorte";
     this.LLenarTabla();

@@ -512,6 +512,7 @@ export class UsuarioComponent implements OnInit {
 
     if(this.str_from == "frmUsuario"){
       this.LimpiarForm();
+      
     }
 
       

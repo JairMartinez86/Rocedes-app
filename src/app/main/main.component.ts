@@ -417,7 +417,8 @@ export class MainComponent implements OnInit {
     if(m == "INV" ) this.Esquema._Nombre = "Inventario"
     
    
-    if(m != this.Esquema._Esquema) this.dinamycHost.viewContainerRef!.clear();
+    this.dinamycHost.viewContainerRef!.clear();
+    
 
     
 
