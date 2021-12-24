@@ -80,7 +80,6 @@ import { FactorTendidoComponent } from './main/inv/proceso-tendido/factor-tendid
 import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
 import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.component';
 import { FactorCorteComponent } from './main/inv/proceso-corte/factor-corte/factor-corte.component';
-import { OpencloseComponent } from './main/otro/open-close/openclose/openclose.component';
 import { OpenCloseDirective } from './main/Directive/open-close.directive';
 
 @NgModule({
@@ -106,7 +105,6 @@ import { OpenCloseDirective } from './main/Directive/open-close.directive';
     AccesoLinkComponent,
     FactorCorteComponent,
     OpenCloseDirective,
-    OpencloseComponent
 
     
     
@@ -154,7 +152,6 @@ import { OpenCloseDirective } from './main/Directive/open-close.directive';
   ],
   entryComponents: [
     DialogoComponent,
-    OpencloseComponent
   ],
   providers: [
     
