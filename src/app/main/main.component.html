@@ -89,9 +89,9 @@
 
 
             <!-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
-            <li class="nav-item dropdown" id="navUsuario"  appDropdown>
+            <li class="nav-item dropdown" id="navUsuario"  appDropdown #r="appDropDown">
               <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='SIS'">Usuarios</a>
-              <ul class="dropdown-menu" aria-labelledby="">
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r.isOpen}">
                 <li><a id="LinkUsuario" class="dropdown-item" href="#">Nuevo Usuario</a></li>
                 <li><a id="LinkUsuarioPerfil" class="dropdown-item" href="#">Perfil</a></li>
                 <li><a id="LinkRegistrosUsuario" class="dropdown-item" href="#">Registros Usuario</a></li>
@@ -104,18 +104,18 @@
 
             <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
    
-            <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown>
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Accounting</a>
-              <ul class="dropdown-menu" aria-labelledby="">
+            <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown #r2="appDropDown">
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'" >Accounting</a>
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r2.isOpen}">
                 <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
                 <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
                 <li><a id="LinkBundleBoxingEnvio" class="dropdown-item" href="#">Envio</a></li>
               </ul>
             </li>
 
-            <li class="nav-item dropdown" id="navInvFactor" appDropdown>
+            <li class="nav-item dropdown" id="navInvFactor" appDropdown #r3="appDropDown">
               <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de tendido</a>
-              <ul class="dropdown-menu" aria-labelledby="">
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
                 <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores de Tendido</a></li>
                 <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
                 <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Capa Capa Doble</a></li>
@@ -123,9 +123,9 @@
             </li>
 
 
-            <li class="nav-item dropdown" id="navInvFactorCorte"  appDropdown>
+            <li class="nav-item dropdown" id="navInvFactorCorte"  appDropdown #r4="appDropDown">
               <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de corte</a>
-              <ul class="dropdown-menu" aria-labelledby="">
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
                 <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Factores de Corte</a></li>
               </ul>
             </li>
@@ -139,9 +139,9 @@
             </li>-->
 
 
-            <li class="nav-item dropdown" id="navReporte">
+            <li class="nav-item dropdown" id="navReporte" appDropdown #r5="appDropDown">
               <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
-              <ul class="dropdown-menu" aria-labelledby="">
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r5.isOpen}">
                 <li><a id="LinkReportBundleBoxing" class="dropdown-item" href="#">BundleBoxing Report</a></li>
                 <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
                 <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>
