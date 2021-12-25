@@ -114,7 +114,7 @@ export class FactorCorteComponent implements OnInit {
 
   AgregarFila() : void
   {
-
+    
     if(this.dataSourceFactorCorte.data.length > 0)
     {
 
@@ -154,6 +154,12 @@ export class FactorCorteComponent implements OnInit {
 
       }
 
+    }
+    else
+    {
+      this.dialog.open(DialogoComponent, {
+        data: "<p>Factores de corte vacio.</p>"
+      })
     }
 
     
@@ -211,8 +217,7 @@ export class FactorCorteComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
-    this.Limpiar();
+   this.Limpiar();
     this.str_from = "FactorCorte";
     this.LLenarTabla();
   }
