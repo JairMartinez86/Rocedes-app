@@ -57,7 +57,9 @@ export class DialogoComponent implements OnInit {
        }
 
 
-       this.clickoutHandler = this.closeDialogFromClickout;
+        this.dialogRef.afterOpened().subscribe(s =>{
+        this.clickoutHandler = this.closeDialogFromClickout;
+       });
 
      
 
