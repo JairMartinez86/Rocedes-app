@@ -17,7 +17,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
-
+import { ModalModule } from 'ng-modal-lib';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -147,7 +148,9 @@ import { OpenCloseDirective } from './main/Directive/open-close.directive';
     BrowserModule,
     BoldReportViewerModule,
     ReportViewerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    DragDropModule,
+    ModalModule,
     
   ],
   entryComponents: [
