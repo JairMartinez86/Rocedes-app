@@ -10,6 +10,8 @@
 html,
 body {
   height: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 
@@ -92,6 +94,7 @@ body {
 }
 
 
+
 /*****************************************************TABLA*****************************************************/
 .mat-elevation-z8 {    
   overflow-x: auto;
@@ -116,7 +119,13 @@ table tr a{
   border-color: currentColor;
 }
 
-
+.nueva-fila{
+  background-color: #C0C0C0;
+  color: black;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 1.1em;
+}
 /*td:first-child, th:first-child {
   position:sticky;
   left:0;

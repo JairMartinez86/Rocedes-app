@@ -2,7 +2,7 @@ export interface IFactorCorte {
     IdFactorCorte : number;
     Linearecta: number;
     Curva : number;
-    Esquinas: string;
+    Esquinas: number;
     Piquetes: number;
     HacerOrificio: number;
     PonerTape: number;

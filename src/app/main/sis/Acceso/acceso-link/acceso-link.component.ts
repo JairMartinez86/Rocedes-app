@@ -4,7 +4,6 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { map, Observable, startWith } from 'rxjs';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { ConfiguracionService } from 'src/app/main/Services/sis/configuracion.service';
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
@@ -56,7 +55,7 @@ export class AccesoLinkComponent implements OnInit {
   dataSourceLink = new MatTableDataSource(ELEMENT_DATA_PERFIL);
   clickedRows = new Set<IUsuarioPerfil>();
 
-  constructor(private dialog : MatDialog, private _LoginService : LoginService, private _ConfiguracionService : ConfiguracionService,
+  constructor(private dialog : MatDialog, private _LoginService : LoginService,
     private _liveAnnouncer: LiveAnnouncer) {
 
     this.val.add("txt_SIS_AccesoUsuario", "1", "LEN>", "0");

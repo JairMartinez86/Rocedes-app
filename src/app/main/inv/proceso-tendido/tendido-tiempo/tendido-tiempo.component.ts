@@ -7,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IFactorTendido } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Tendido';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
 import { TendidoService } from 'src/app/main/Services/inv/ProcesoTendido/tendido.service';
 
 import { Workbook } from 'exceljs';
@@ -15,6 +14,9 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 
 import * as XLSX from 'xlsx'; 
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
+
 
 let ELEMENT_DATA_TIEMPO : IFactorTendido[] = [];
 let ELEMENT_EXCEL_FACTOR: IExcelFactor[] = [];
@@ -43,6 +45,9 @@ export class TendidoTiempoComponent implements OnInit {
   public str_Capa = "";
   public str_Titulo_Tiempo = "";
 
+  public FechaInicio : Date | undefined;
+  public FechaFinal : Date | undefined;
+
 
   
   displayedColumns: string[] = ["IdProcesoTendido", "Descripcion",   "Minutos"];
@@ -63,11 +68,15 @@ export class TendidoTiempoComponent implements OnInit {
   }
   
   
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private TendidoService : TendidoService) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private TendidoService : TendidoService, private datePipe: DatePipe) {
 
       this.val.add("txt_Tendido_Cantidad_Capas", "1", "NUM>", "0");
       this.val.add("txt_Tendido_Cantidad_Rollos", "1", "NUM>", "0");
       this.val.add("txt_Tendido_Cantidad_Yardas", "1", "NUM>", "0");
+      this.val.add("txt_Tendido_Fecha", "1", "LEN>", "0");
+      this.val.add("txt_Tendido_Fecha_Final", "1", "LEN>=", "0");
+
+      
      }
 
 
@@ -88,23 +97,27 @@ export class TendidoTiempoComponent implements OnInit {
     this.val.ValForm.get("txt_Tendido_Cantidad_Capas")?.setValue("");
     this.val.ValForm.get("txt_Tendido_Cantidad_Rollos")?.setValue("");
     this.val.ValForm.get("txt_Tendido_Cantidad_Yardas")?.setValue("");
+    this.val.ValForm.get("txt_Tendido_Fecha")?.setValue("");
+    this.val.ValForm.get("txt_Tendido_Fecha_Final")?.setValue("");
 
+    
   }
 
 
   calcularMinutos() : void
   {
     
-  
-    
+    this.val.ValForm.get("txt_Tendido_Fecha_Final")?.setValue("");
+
+    if(this.val.ValForm.invalid) return;
+
     let Minutos : number = 0;
     let Factor : number = 0;
     let index : number = 0;
     let CantidadRollos : number = Number(this.val.ValForm.get("txt_Tendido_Cantidad_Rollos")?.value);
     let CantidadCapas : number = Number(this.val.ValForm.get("txt_Tendido_Cantidad_Capas")?.value);
     let CantidadYardas : number = Number(this.val.ValForm.get("txt_Tendido_Cantidad_Yardas")?.value);
-
-    
+ 
 
     if(this.str_Capa == "Sencilla") this.TotalYardas = CantidadCapas * CantidadYardas;
     if(this.str_Capa == "Doble") this.TotalYardas = (CantidadCapas * 2) * CantidadYardas;
@@ -213,6 +226,13 @@ export class TendidoTiempoComponent implements OnInit {
     this.dataSourceFactorTendidoTiempo.data.push(RegistroTotal);
     this.dataSourceFactorTendidoTiempo.filter = "";
     
+
+    
+    let fecha : string = String(this.FechaInicio?.toString());
+
+    var currentDate = new Date(fecha);
+    this.FechaFinal = new Date(currentDate.getTime() + Minutos*60000);
+
 
   }
 
@@ -324,9 +344,13 @@ export class TendidoTiempoComponent implements OnInit {
           document?.getElementById("txt_Tendido_Cantidad_Rollos")?.focus();
           break;
   
-          case "txt_Tendido_Cantidad_Rollos":
-            document?.getElementById("txt_Tendido_Cantidad_Yardas")?.focus();
-          break;
+        case "txt_Tendido_Cantidad_Rollos":
+          document?.getElementById("txt_Tendido_Cantidad_Yardas")?.focus();
+        break;
+
+        case "txt_Tendido_Cantidad_Yardas":
+            document?.getElementById("txt_Tendido_Fecha")?.focus();
+        break;
   
          
       }
@@ -501,9 +525,6 @@ export class TendidoTiempoComponent implements OnInit {
   
 
 
-
-  
-
   ngOnInit(): void {
 
     
@@ -525,4 +546,17 @@ export class TendidoTiempoComponent implements OnInit {
 
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }

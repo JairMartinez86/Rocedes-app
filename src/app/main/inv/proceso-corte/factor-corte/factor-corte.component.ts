@@ -25,12 +25,12 @@ export class FactorCorteComponent implements OnInit {
 
 
 
-  displayedColumnsFactor: string[] = ["IdFactorCorte", "Guardar", "Linearecta", "Curva",  "Esquinas", "Piquetes",  "HacerOrificio", "PonerTape"];
+  displayedColumnsFactor: string[] = ["Guardar", "IdFactorCorte",  "Linearecta", "Curva",  "Esquinas", "Piquetes",  "HacerOrificio", "PonerTape"];
   dataSourceFactorCorte = new MatTableDataSource(ELEMENT_DATA_CORTE_FACTOR);
   clickedRowsFactor = new Set<IFactorCorte>();
 
   
-  displayedColumnsDetalle: string[] = ["IdFactorDetalleCorte", "Guardar", "Eliminar", "Item", "Componente", "Estilo",  "LayLimits", "TotalPieces",  "StraightPerimeter", "CurvedPerimeter", "TotalPerimeter", "TotalNotches", "TotalCorners", "Segundos", "Minutos_Pza"];
+  displayedColumnsDetalle: string[] = ["IdFactorDetalleCorte", "Guardar",   "Item", "Componente", "Estilo",  "LayLimits", "TotalPieces",  "StraightPerimeter", "CurvedPerimeter", "TotalPerimeter", "TotalNotches", "TotalCorners", "Segundos", "Eliminar"];
   dataSourceDetalleFactorCorte = new MatTableDataSource(ELEMENT_DATA_CORTE_FACTOR_DETALLE);
   clickedRowsDetalle = new Set<IFactorCorteDetalle>();
 
@@ -56,7 +56,6 @@ export class FactorCorteComponent implements OnInit {
   
   LLenarTabla() : void
   {
-
     ELEMENT_DATA_CORTE_FACTOR_DETALLE.splice(0, ELEMENT_DATA_CORTE_FACTOR_DETALLE.length);
     this.dataSourceFactorCorte.data.splice(0, this.dataSourceFactorCorte.data.length);
 
@@ -74,11 +73,12 @@ export class FactorCorteComponent implements OnInit {
         if(_json["count"] > 0)
         {
           _json["d"][0].forEach((j : IFactorCorte) => {
-            this.dataSourceFactorCorte.data.push(j);
+            ELEMENT_DATA_CORTE_FACTOR.push(j);
           });
 
           _json["d"][1].forEach((j : IFactorCorteDetalle) => {
-            this.dataSourceDetalleFactorCorte.data.push(j);
+            j = this.Calcular(j);
+            ELEMENT_DATA_CORTE_FACTOR_DETALLE.push(j);
           });
         }
       }
@@ -88,11 +88,13 @@ export class FactorCorteComponent implements OnInit {
           data : _json["msj"]
         })
       }
+  
+      this.dataSourceFactorCorte = new MatTableDataSource(ELEMENT_DATA_CORTE_FACTOR);
+      this.dataSourceDetalleFactorCorte = new MatTableDataSource(ELEMENT_DATA_CORTE_FACTOR_DETALLE);
 
-      this.dataSourceFactorCorte.filter = "";
-      this.dataSourceDetalleFactorCorte.filter = "";
-
+    
     });
+
   }
 
   Limpiar() : void
@@ -166,6 +168,31 @@ export class FactorCorteComponent implements OnInit {
   }
 
 
+  Calcular(row : IFactorCorteDetalle) : IFactorCorteDetalle
+  {
+    let FilaFactor : IFactorCorte = <IFactorCorte>this.dataSourceFactorCorte.data.find( x => x.IdFactorCorte = row.IdFactorCorte);
+    let Segundos : number = 0;
+    if(row.StraightPerimeter == 0)
+    {
+
+      Segundos = (FilaFactor.Linearecta + FilaFactor.Curva) / 2;
+      Segundos *= row.TotalPerimeter;
+      Segundos += FilaFactor.Esquinas * row.TotalCorners;
+      Segundos += row.TotalNotches * FilaFactor.Piquetes;
+    }
+    else
+    {
+
+      Segundos = row.StraightPerimeter * FilaFactor.Linearecta;
+      Segundos += FilaFactor.Curva * row.CurvedPerimeter;
+      Segundos += FilaFactor.Esquinas * row.TotalCorners;
+      Segundos += row.TotalNotches * FilaFactor.Piquetes;
+    }
+
+    row.Segundos = Segundos;
+
+    return row;
+  }
     //#region EVENTOS TABLA
 
 
@@ -182,9 +209,10 @@ export class FactorCorteComponent implements OnInit {
     this.dataSourceDetalleFactorCorte.filter = filtro.trim().toLowerCase();
   }  
  
-  
-  clickRow(row : any){
-    this._FactorCorteService.Guardar(row).subscribe( s =>{
+
+  GuardarFactor(row : any){
+
+    this._FactorCorteService.GuardarFactor(row).subscribe( s =>{
 
       let _json = JSON.parse(s);
             
@@ -193,7 +221,45 @@ export class FactorCorteComponent implements OnInit {
         data : _json["msj"]
       })
 
+      this. LLenarTabla();
+
     });
+
+  }
+
+
+
+  
+  clickRow(row : any, str_Evento : string){
+
+    if(str_Evento == "Guardar")
+    {
+      this._FactorCorteService.GuardarDetalle(row).subscribe( s =>{
+
+        let _json = JSON.parse(s);
+
+        if(_json["count"] > 0) row.IdFactorDetalleCorte = _json["d"].IdFactorDetalleCorte;
+        this.dialog.open(DialogoComponent, {
+          data : _json["msj"]
+        })
+  
+      });
+    }
+
+    else
+    {
+      this._FactorCorteService.EliminarDetalle(row.IdFactorDetalleCorte).subscribe( s =>{
+
+        let _json = JSON.parse(s);
+              
+        
+        this.dialog.open(DialogoComponent, {
+          data : _json["msj"]
+        })
+  
+      });
+    }
+    
   }
 
 

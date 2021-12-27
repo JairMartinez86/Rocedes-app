@@ -319,6 +319,7 @@ export class LoginService {
     
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvFactorCorte", NombreLink : "Proceso de Corte", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoCorteFactor", NombreLink : "Factores de Corte", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoCorteFactorTiempo", NombreLink : "Tiempo de Corte", Activo : false},
 
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},

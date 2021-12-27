@@ -19,7 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
 import { ModalModule } from 'ng-modal-lib';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { NgxMatMomentModule, NgxMatMomentAdapter, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular-material-components/moment-adapter';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NGX_MAT_DATE_FORMATS, NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
 
 
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
@@ -82,6 +84,21 @@ import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiemp
 import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.component';
 import { FactorCorteComponent } from './main/inv/proceso-corte/factor-corte/factor-corte.component';
 import { OpenCloseDirective } from './main/Directive/open-close.directive';
+import { FactorCorteTiempoComponent } from './main/inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
+
+
+export const CUSTOM_MOMENT_FORMATS  = {
+  parse: {
+    dateInput: "l, LT"
+  },
+  display: {
+    dateInput: "l, LT",
+    monthYearLabel: "MMM YYYY",
+    dateA11yLabel: "LL",
+    monthYearA11yLabel: "MMMM YYYY"
+  }
+};
+
 
 @NgModule({
   declarations: [
@@ -106,6 +123,7 @@ import { OpenCloseDirective } from './main/Directive/open-close.directive';
     AccesoLinkComponent,
     FactorCorteComponent,
     OpenCloseDirective,
+    FactorCorteTiempoComponent,
 
     
     
@@ -151,6 +169,11 @@ import { OpenCloseDirective } from './main/Directive/open-close.directive';
     MatProgressSpinnerModule,
     DragDropModule,
     ModalModule,
+    MatSidenavModule,
+
+    NgxMatMomentModule,
+          NgxMatDatetimePickerModule,
+          NgxMatTimepickerModule,
     
   ],
   entryComponents: [
@@ -165,10 +188,15 @@ import { OpenCloseDirective } from './main/Directive/open-close.directive';
       useValue: "legacy",
    },
 
+   /*{ provide: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+   { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_MOMENT_FORMATS },  
+   { provide: NgxMatDateAdapter, useClass: NgxMatMomentAdapter },*/
    
    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
    { provide: MatPaginatorIntl, useValue: CustomPaginator() },
+
+
 
    
    DatePipe,
@@ -202,3 +230,5 @@ export function CustomPaginator() {
 
   return customPaginatorIntl;
 }
+
+

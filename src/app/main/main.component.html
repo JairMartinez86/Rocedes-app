@@ -127,6 +127,7 @@
               <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de corte</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
                 <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Factores de Corte</a></li>
+                <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Tiempo de Corte</a></li>
               </ul>
             </li>
      
@@ -176,8 +177,8 @@
 <!--class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom"-->
 
 
-<div class="justify-content-center  border-top border-bottom">
-  <div class="container"><div appOpenClose></div></div>
+<div class="border-top border-bottom">
+  <div appOpenClose></div>
 </div>
 <div class="container"><app-report-viewer></app-report-viewer></div>
 

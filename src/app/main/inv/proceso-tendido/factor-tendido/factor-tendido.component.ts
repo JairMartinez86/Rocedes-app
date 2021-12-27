@@ -6,7 +6,6 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IFactorTendido } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Tendido';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
 import { TendidoService } from 'src/app/main/Services/inv/ProcesoTendido/tendido.service';
 
 
@@ -22,7 +21,7 @@ export class FactorTendidoComponent implements OnInit {
 
   str_from : string = "";
   
-  displayedColumns: string[] = ["IdProcesoTendido",  "Guardar", "Descripcion", "Factor1",  "Factor2", "Factor3",  "Factor4", "Factor5", "Factor6", "Factor7", "Factor8", "Factor9", "Factor10", "Factor11", "Factor12"];
+  displayedColumns: string[] = ["IdProcesoTendido", "Descripcion", "Factor1",  "Factor2", "Factor3",  "Factor4", "Factor5", "Factor6", "Factor7", "Factor8", "Factor9", "Factor10", "Factor11", "Factor12",  "Guardar"];
   dataSourceFactorTendido = new MatTableDataSource(ELEMENT_DATA_FACTOR);
   clickedRows = new Set<IFactorTendido>();
 
@@ -34,6 +33,8 @@ export class FactorTendidoComponent implements OnInit {
       if(this.dataSourceFactorTendido.paginator != null)this.dataSourceFactorTendido.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
+
+  
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
      this.dataSourceFactorTendido.sort = sort;
@@ -62,7 +63,7 @@ export class FactorTendidoComponent implements OnInit {
         if(_json["count"] > 0)
         {
           _json["d"].forEach((j : IFactorTendido) => {
-            this.dataSourceFactorTendido.data.push(j);
+            ELEMENT_DATA_FACTOR.push(j);
           });
         }
       }
@@ -73,7 +74,7 @@ export class FactorTendidoComponent implements OnInit {
         })
       }
 
-      this.dataSourceFactorTendido.filter = "";
+      this.dataSourceFactorTendido = new MatTableDataSource(ELEMENT_DATA_FACTOR);
 
 
     });

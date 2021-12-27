@@ -3,24 +3,27 @@
     <div class="Lista-Registro" id="divRegistrosFactorTendido" >
         <div class="franja"><p>Factores de Tendido</p></div>
     
-          <div class="row">
+        <div class="container">
+            <div class="row">
 
-            <div class="col-sm-12 col-md-4 col-md-6">
-              <mat-form-field>
-                <mat-label>Buscar</mat-label>
-                <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="buscar">
-              </mat-form-field>
-            </div>
-            
-
-            <div class="col-sm-12 col-md-4 col-md-6">
-              <div class="button-row text-end">
-                <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>Refrescar</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+                <div class="col-sm-12 col-md-4 col-md-6">
+                  <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <input appAutofocus matInput (keyup)="filtrar($event)" placeholder="buscar">
+                  </mat-form-field>
+                </div>
+                
+    
+                <div class="col-sm-12 col-md-4 col-md-6">
+                  <div class="button-row text-end">
+                    <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>Refrescar</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+                  </div>
+                </div>
+    
+    
               </div>
-            </div>
-
-
-          </div>
+        </div>
+         
       
        
         <div class="mat-elevation-z8">
@@ -29,24 +32,16 @@
               <table id="tabla-factor-tendido" mat-table [dataSource]="dataSourceFactorTendido" matSort (matSortChange)="announceSortChange($event)">
             
   
-                <ng-container matColumnDef="IdProcesoTendido">
+                <ng-container matColumnDef="IdProcesoTendido" sticky>
                     <th mat-header-cell *matHeaderCellDef> No. </th>
                     <td mat-cell *matCellDef="let element; let j = index"> {{j+1}} </td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="Guardar">
-                    <th mat-header-cell  *matHeaderCellDef>
-
-                    </th>
-                    <td mat-cell  *matCellDef="let element; let j = index" > 
-                        <a href="#" (click)="clickRow(element)"><fa-icon [icon]="['fas', 'save']" class="fa-2x" style="color:#1B364C"></fa-icon></a>
-                    </td>
-                </ng-container>
 
 
               
-                <ng-container matColumnDef="Descripcion">
+                <ng-container matColumnDef="Descripcion" sticky>
                     <th mat-header-cell class="myHeader" *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Descripcion">
                       Proceso.
                     </th>
@@ -192,10 +187,19 @@
                 </ng-container>
 
       
+                
+                <ng-container matColumnDef="Guardar" stickyEnd >
+                    <th mat-header-cell  *matHeaderCellDef>
+
+                    </th>
+                    <td mat-cell  *matCellDef="let element; let j = index" > 
+                        <a href="#" (click)="clickRow(element)"><fa-icon [icon]="['fas', 'save']" class="fa-2x" style="color:#1B364C"></fa-icon></a>
+                    </td>
+                </ng-container>
 
           
             
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
               <tr
               mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
               

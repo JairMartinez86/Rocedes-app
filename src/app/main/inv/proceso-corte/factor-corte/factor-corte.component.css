@@ -4,9 +4,27 @@
   }
 
 
-  .col-factor-tendido {
+.col-factor-tendido {
     width: 120px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
+.col-factor-decimal {
+  width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+
+.col-factor-corte-num {
+  width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+table a {
+  margin-right: 25px;
+}

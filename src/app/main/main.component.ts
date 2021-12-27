@@ -2,11 +2,9 @@ import { Component, OnInit, HostListener, Input, ViewChild, ComponentFactoryReso
 
 import { Esquema, Formulario } from 'src/app/main/class/Esquema/esquema';
 import {LoginService,} from './Services/Usuario/login.service'; 
-import {InventarioService} from './Services/inv/inventario.service'; 
 import { IUsuarioPerfil } from './class/Form/sis/Interface/i-UsuarioPerfil';
 import { DialogoComponent } from './otro/dialogo/dialogo.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfiguracionService } from './Services/sis/configuracion.service';
 import { OpenCloseDirective } from './Directive/open-close.directive';
 import { UsuarioComponent } from './sis/usuario/usuario.component';
 import { AccesoLinkComponent } from './sis/Acceso/acceso-link/acceso-link.component';
@@ -18,6 +16,7 @@ import { BundleBoxingSacoComponent } from './inv/bundle-boxing-saco/bundle-boxin
 import { BundleBoxingSerialComponent } from './inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
 import { BundleBoxingComponent } from './inv/bundle-boxing/bundle-boxing.component';
 import { BundleBoxingEnvioComponent } from './inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
+import { FactorCorteTiempoComponent } from './inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -68,7 +67,7 @@ export class MainComponent implements OnInit {
   
 
  
-  constructor(private loginserv : LoginService, private InventarioService : InventarioService, private _ConfiguracionService : ConfiguracionService,  private dialog : MatDialog,
+  constructor(private loginserv : LoginService,  private dialog : MatDialog,
     private componentFactoryResolver:ComponentFactoryResolver) {
     
 
@@ -203,6 +202,10 @@ export class MainComponent implements OnInit {
     }
     
     if(_Id != "LinkProcesoCorteFactor"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "LinkProcesoCorteFactorTiempo"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -383,6 +386,20 @@ export class MainComponent implements OnInit {
 
 
 
+              break;
+
+
+            case "LinkProcesoCorteFactorTiempo":
+
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(FactorCorteTiempoComponent);
+                let FactorCorte: ComponentRef<FactorCorteTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              }
+  
+  
+  
               break;
             
                   
