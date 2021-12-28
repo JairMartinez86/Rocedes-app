@@ -600,12 +600,11 @@ CrearSerial(): void{
 
               let Filtro : IBoxin[] = this.dataSourceBoxin.data.filter( f => f.cOper == _Fila.cOper);
 
+              let datos : IBundleBoxing[] = _json["d"];
+
               Filtro.forEach(f => {
 
-          
-                let datos : IBundleBoxing[] = _json["d"];
-
-                let index : number = datos.findIndex(f => f.Serial == f.Serial)
+                let index : number = datos.findIndex(i => i.Serial == f.cSerial)
 
                 if(index >= 0)
                 {

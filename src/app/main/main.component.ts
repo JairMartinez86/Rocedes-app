@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input, ViewChild, ComponentFactoryResolver, ComponentRef} from '@angular/core';
+import { Component, OnInit, HostListener, Input, ViewChild, ComponentFactoryResolver, ComponentRef, ViewContainerRef} from '@angular/core';
 
 import { Esquema, Formulario } from 'src/app/main/class/Esquema/esquema';
 import {LoginService,} from './Services/Usuario/login.service'; 
@@ -30,7 +30,7 @@ let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 export class MainComponent implements OnInit {
 
   @ViewChild (OpenCloseDirective) public dinamycHost: OpenCloseDirective = {} as OpenCloseDirective;
-
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef | undefined;
   
   private lstEsquema :  Esquema[] = [];
   Esquema !:Esquema; 
@@ -38,6 +38,7 @@ export class MainComponent implements OnInit {
   public NomUsuario : string = "";
   searchDrop = false;
  
+  private Index : number = 0;
 
 
 
@@ -233,7 +234,14 @@ export class MainComponent implements OnInit {
               let Usuario: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Usuario.instance.str_from = "frmUsuario";
             }
- 
+
+           /*
+            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
+            const componentRef = this.container!.createComponent(componentFactory);
+            this.Index++;
+            componentRef.instance.IndexModulo = this.Index
+            componentRef.instance.str_from = "frmUsuario";*/
+           
           break;
 
           case "LinkUsuarioPerfil":
@@ -370,8 +378,18 @@ export class MainComponent implements OnInit {
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaDoble";
               }
 
-    
+              break;
 
+            case "LinkProcesoTendidoCapaManual":
+              
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
+                let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                FactorTendido.instance.str_from = "LinkProcesoTendidoCapaManual";
+              }
+  
               break;
 
             case "LinkProcesoCorteFactor":

@@ -52,7 +52,7 @@ let ELEMENT_DATA_USUARIO: IUsuario[] = [
 })
 export class UsuarioComponent implements OnInit {
 
-
+  @Input() IndexModulo: number | undefined;
   @Input() public href: string | undefined;
   @HostListener('click', ['$event']) public onClick(event: Event): void {
     if (!this.href || this.href == '#' || (this.href && this.href.length === 0)) {

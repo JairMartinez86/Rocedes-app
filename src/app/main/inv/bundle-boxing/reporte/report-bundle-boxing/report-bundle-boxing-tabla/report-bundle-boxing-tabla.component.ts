@@ -7,6 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { Workbook } from 'exceljs';
 
 import * as fs from 'file-saver';
+import { ImagenLogo } from 'src/app/main/Base64/logo';
 
 import * as XLSX from 'xlsx'; 
 
@@ -144,7 +145,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       worksheet.getCell(c + line).fill = {
         type: 'pattern',
         pattern:'solid',
-        fgColor:{argb:'1B364C'},
+        fgColor:{argb:'006699'},
       };
   
   
@@ -205,12 +206,18 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   worksheet.getCell("A2").fill = {
     type: 'pattern',
     pattern:'solid',
-    fgColor:{argb:'006699'},
+    fgColor:{argb:'1C394F'},
   };
+  
+  var Imagen = (new ImagenLogo()).Logo();
 
+  var imageId1 = workbook.addImage({ 
+     base64: Imagen,
+     extension: 'png',
+  });
   worksheet.getCell("A2").alignment = { vertical: 'middle', horizontal: 'center' };
 
-
+  worksheet.addImage(imageId1, 'A2:A4');
 
   worksheet.addRow([]);
   worksheet.addRow([]);

@@ -16,6 +16,7 @@ import * as fs from 'file-saver';
 import * as XLSX from 'xlsx'; 
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { ImagenLogo } from 'src/app/main/Base64/logo';
 
 
 let ELEMENT_DATA_TIEMPO : IFactorTendido[] = [];
@@ -119,7 +120,7 @@ export class TendidoTiempoComponent implements OnInit {
     let CantidadYardas : number = Number(this.val.ValForm.get("txt_Tendido_Cantidad_Yardas")?.value);
  
 
-    if(this.str_Capa == "Sencilla") this.TotalYardas = CantidadCapas * CantidadYardas;
+    if(this.str_Capa == "Sencilla" || this.str_Capa == "Manual" ) this.TotalYardas = CantidadCapas * CantidadYardas;
     if(this.str_Capa == "Doble") this.TotalYardas = (CantidadCapas * 2) * CantidadYardas;
  
 
@@ -176,9 +177,7 @@ export class TendidoTiempoComponent implements OnInit {
             f.Minutos += f.Factor2 * (CantidadYardas * CantidadCapas);
             f.Minutos += f.Factor3 * CantidadCapas;
             f.Minutos += f.Factor4 * (CantidadYardas * CantidadCapas);
-            f.Minutos += f.Factor5 / this.TotalYardas;
-            f.Minutos += f.Factor6 * CantidadYardas;
-            f.Minutos += f.Factor7 / this.TotalYardas;
+            
           }
             
 
@@ -198,12 +197,34 @@ export class TendidoTiempoComponent implements OnInit {
             break;
 
           case 6:
-             
-            break;
+            
+            if(this.str_Capa == "Manual")
+            {
+              f.Minutos = (CantidadYardas * CantidadCapas) * f.Factor1;
+              f.Minutos += f.Factor2 * CantidadCapas;
+            }
+            
+
+          break;
 
           case 7:
-              f.Minutos = (f.Factor1 * CantidadYardas) + f.Factor2;
+            if(this.str_Capa == "Manual")
+            {
+              f.Minutos = CantidadRollos * f.Factor1;
+              f.Minutos += CantidadYardas * f.Factor2;
+              f.Minutos += f.Factor3 * CantidadRollos;
+            }
+           
+            break;
 
+          case 8:
+              f.Minutos = (f.Factor1 / this.TotalYardas) ;
+              f.Minutos += (f.Factor2 * CantidadYardas);
+              f.Minutos += (f.Factor3 / this.TotalYardas);
+            break;
+
+          case 9:
+            f.Minutos = (f.Factor1 * CantidadYardas) + f.Factor2;
             break;
 
       }
@@ -378,7 +399,7 @@ export class TendidoTiempoComponent implements OnInit {
       worksheet.getCell(c + line).fill = {
         type: 'pattern',
         pattern:'solid',
-        fgColor:{argb:'1B364C'},
+        fgColor:{argb:'006699'},
       };
   
   
@@ -462,8 +483,18 @@ export class TendidoTiempoComponent implements OnInit {
   worksheet.getCell("A2").fill = {
     type: 'pattern',
     pattern:'solid',
-    fgColor:{argb:'006699'},
+    fgColor:{argb:'1C394F'},
   };
+  
+  var Imagen = (new ImagenLogo()).Logo();
+
+  var imageId1 = workbook.addImage({ 
+     base64: Imagen,
+     extension: 'png',
+  });
+  
+
+  worksheet.addImage(imageId1, 'A2:A4');
 
   worksheet.getCell("A2").alignment = { vertical: 'middle', horizontal: 'center' };
 
@@ -543,6 +574,15 @@ export class TendidoTiempoComponent implements OnInit {
       this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA DOBLE)";
       this.LLenarTabla();
     }
+
+    if(this.str_from == "LinkProcesoTendidoCapaManual"){
+      this.Limpiar();
+      this.str_from = "tiempo";
+      this.str_Capa = "Manual";
+      this.str_Titulo_Tiempo = "SAM TENDIDO (CAPA MANUAL)";
+      this.LLenarTabla();
+    }
+
 
 
   }

@@ -16,6 +16,9 @@ import {LoginService} from '../main/Services/Usuario/login.service';
 
 
 export class LoginComponent implements OnInit {
+
+
+  
   str_user : string = "";
   str_pass : string = "";
   bol_remenber : boolean = false;

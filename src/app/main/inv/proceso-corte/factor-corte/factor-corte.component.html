@@ -1,9 +1,13 @@
 <ng-container *ngIf="str_from=='FactorCorte'">
     <div class="franja"><p>Factores de Corte</p></div>
     
-    <div class="button-row text-end">
-        <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>REFRESCAR</b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+    <div class="container">
+        <div class="button-row text-end">
+            <button type="button" class="btn btn-outline-secondary" (click)="exportar()"><b>EXPORTAR </b><fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon></button>
+            <button type="button" class="btn btn-outline-secondary" (click)="LLenarTabla()"><b>REFRESCAR </b> <fa-icon [icon]="['fas', 'search']" class="fa-2x"></fa-icon></button>
+        </div>
     </div>
+   
 
       <br>
     <div class="Lista-Registro" id="divRegistrosFactorCorte" >
@@ -133,7 +137,7 @@
     
                 <div class="col-sm-12 col-md-4 col-md-6">
                   <div class="button-row text-end">
-                    <button type="button" class="btn btn-outline-secondary" (click)="AgregarFila()"><b>AGREGAR</b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="AgregarFila()"><b>AGREGAR </b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
                   </div>
                 </div>
     

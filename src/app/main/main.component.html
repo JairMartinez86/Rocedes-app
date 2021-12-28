@@ -118,7 +118,8 @@
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
                 <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores de Tendido</a></li>
                 <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
-                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Capa Capa Doble</a></li>
+                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Capa Doble</a></li>
+                <li><a id="LinkProcesoTendidoCapaManual" class="dropdown-item" href="#">Capa Manual</a></li>
               </ul>
             </li>
 
@@ -177,7 +178,7 @@
 <!--class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom"-->
 
 
-<div class="border-top border-bottom">
+<div class="border-top border-bottom" #container>
   <div appOpenClose></div>
 </div>
 <div class="container"><app-report-viewer></app-report-viewer></div>

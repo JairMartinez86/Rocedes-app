@@ -316,6 +316,7 @@ export class LoginService {
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoFactor", NombreLink : "Factores de Tendido", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaSencilla", NombreLink : "Capa Sencilla", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaDoble", NombreLink : "Capa Doble", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaManual", NombreLink : "Capa Manual", Activo : false},
     
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvFactorCorte", NombreLink : "Proceso de Corte", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoCorteFactor", NombreLink : "Factores de Corte", Activo : false},

@@ -1,5 +1,5 @@
 
-<div class="formulario" id="divFactorCorteTiempo">
+<div class="formulario" id="divFactorCorteTiempo" *ngIf="this.Open">
 
     <div class="head-form" id="from-encabezado">
       <div class="from-encabezado-titulo"><p>Envio</p></div>
@@ -67,14 +67,26 @@
                   <mat-error *ngIf="val.ValForm.get('txt_Factor_TiempoFinal')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
                 </mat-form-field>
     
-                 
-             
-                  
-    
+
                 </div>
 
 
 
+                <div class="row">
+
+                  <div class="col-sm-12">
+                    <mat-label><b>MINUTOS: </b><b style="color: blue;">{{num_Minutos}}</b></mat-label>
+                  </div>
+   
+                </div>
+  
+                <div class="row">
+                  <div class="col-12">
+                      <div class="button-row text-end">
+                        <button type="button" class="btn btn-outline-secondary" (click)="exportar()"><b>EXPORTAR </b><fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon></button>
+                      </div>
+                  </div>
+              </div>
 
 
         </form>
