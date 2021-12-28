@@ -236,6 +236,7 @@ export class MainComponent implements OnInit {
             }
 
            /*
+           ABRIR COMPONENTE MAS DE UNA VEZ
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
             const componentRef = this.container!.createComponent(componentFactory);
             this.Index++;
