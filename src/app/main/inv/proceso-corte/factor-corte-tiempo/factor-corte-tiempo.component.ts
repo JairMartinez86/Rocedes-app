@@ -23,6 +23,7 @@ export interface IExcelFactorCorteTiempo {
   Minutos_Pza: number;
   Bultos : number;
   Yardas : number;
+  CantPersonas : number;
   Incio : string;
   Fin : string;
 }
@@ -55,9 +56,11 @@ export class FactorCorteTiempoComponent implements OnInit {
     this.val.add("txt_Factor_Tiempo_Estilo", "1", "LEN>", "0");
     this.val.add("txt_Factor_Tiempo_Bulto", "1", "NUM>", "0");
     this.val.add("txt_Factor_Tiempo_Yarda", "1", "NUM>", "0");
+    this.val.add("txt_Factor_Tiempo_personas", "1", "NUM>", "0");
     this.val.add("txt_Factor_Tiempo_Fecha", "1", "LEN>", "0");
     this.val.add("txt_Factor_TiempoFinal", "1", "LEN>=", "0");
-
+    
+    
     
   }
 
@@ -72,10 +75,11 @@ export class FactorCorteTiempoComponent implements OnInit {
     this.val.ValForm.get("txt_Factor_Tiempo_Estilo")?.setValue("");
     this.val.ValForm.get("txt_Factor_Tiempo_Bulto")?.setValue("1");
     this.val.ValForm.get("txt_Factor_Tiempo_Yarda")?.setValue("1");
+    this.val.ValForm.get("txt_Factor_Tiempo_personas")?.setValue("1");
     this.val.ValForm.get("txt_Factor_Tiempo_Fecha")?.setValue("");
     this.val.ValForm.get("txt_Factor_TiempoFinal")?.setValue("");
     
-
+ 
     this.val.ValForm.reset();
   }
 
@@ -112,6 +116,10 @@ export class FactorCorteTiempoComponent implements OnInit {
       break;
 
       case "txt_Factor_Tiempo_Yarda":
+        document?.getElementById("txt_Factor_Tiempo_personas")?.focus();
+      break;
+
+      case "txt_Factor_Tiempo_personas":
           document?.getElementById("txt_Factor_Tiempo_Fecha")?.focus();
       break;
 
@@ -223,6 +231,7 @@ public calcularMinutos() :void
 
   let Bultos : number = this.val.ValForm.get("txt_Factor_Tiempo_Bulto")?.value;
   let Yardas : number = this.val.ValForm.get("txt_Factor_Tiempo_Yarda")?.value;
+  let CantPersonas : number = this.val.ValForm.get("txt_Factor_Tiempo_personas")?.value;
 
 
 
@@ -256,7 +265,7 @@ public calcularMinutos() :void
           Segundos += this.FactorDetalle.TotalNotches * FilaFactor.Piquetes;
         }
     
- 
+        Segundos *= 4 / CantPersonas;
 
       
         let MinutosPieza = Segundos / 60;
@@ -338,7 +347,7 @@ exportar(): void {
 
   let Bultos : number = this.val.ValForm.get("txt_Factor_Tiempo_Bulto")?.value;
   let Yardas : number = this.val.ValForm.get("txt_Factor_Tiempo_Yarda")?.value;
-
+  let CantPersonas : number = this.val.ValForm.get("txt_Factor_Tiempo_personas")?.value;
 
   ELEMENT_EXCEL_FACTOR_CORTE_TIEMPO.splice(0, ELEMENT_EXCEL_FACTOR_CORTE_TIEMPO.length);
 
@@ -353,6 +362,7 @@ exportar(): void {
   excel.Minutos_Pza = this.FactorDetalle.Minutos_Pza;
   excel.Bultos = Bultos;
   excel.Yardas = Yardas;
+  excel.CantPersonas = CantPersonas;
   excel.Incio = String(datePipe.transform(this.FechaInicio, 'dd/MM/yyyy hh:mm:ss'));
   excel.Fin =  String(datePipe.transform(this.FechaFinal, 'dd/MM/yyyy hh:mm:ss'));
 
@@ -374,13 +384,13 @@ exportar(): void {
 
 
   //add column name
-  let header=["Item", "Componente", "Estilo", "LayLimits", "Minutos_Pza",  "Bultos", "Yardas tendidas", "Inicio", "Fin"]
+  let header=["Item", "Componente", "Estilo", "LayLimits", "Minutos",  "Bultos", "Longitud Marker", "Canridad Personas", "Inicio", "Fin"]
  
 
   worksheet.addRow([]);
   worksheet.addRow(["TIEMPO DE CORTE"]);
 
-  worksheet.mergeCells("A2:I4")
+  worksheet.mergeCells("A2:J4")
   worksheet.getCell("A2").font = {
     name: 'Arial BlackS',
     family: 2,
@@ -411,7 +421,7 @@ exportar(): void {
 
   worksheet.addRow([]);
   worksheet.addRow(header);
-  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I"],  int_Linea)
+  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],  int_Linea)
 
 
   worksheet.getCell("K" + int_Linea).alignment = { vertical: 'middle', horizontal: 'center' };
