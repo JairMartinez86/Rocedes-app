@@ -49,7 +49,7 @@
             <div class="row">
 
             <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-              <mat-label><b>FECHA INICIO</b></mat-label>
+              <mat-label><b>FECHA</b></mat-label>
               <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Tendido_Fecha" formControlName="txt_Tendido_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
               <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
               <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
@@ -58,7 +58,7 @@
 
        
             <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-              <mat-label><b>FECHA FINAL</b></mat-label>
+              <mat-label><b>HORA</b></mat-label>
               <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Tendido_Fecha_Final" formControlName="txt_Tendido_Fecha_Final" style="color:blue;" [disabled]="true">
               <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
               <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
