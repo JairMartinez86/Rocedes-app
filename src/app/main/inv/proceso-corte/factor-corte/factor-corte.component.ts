@@ -262,11 +262,14 @@ export class FactorCorteComponent implements OnInit {
       let _json = JSON.parse(s);
             
       
-      this.dialog.open(DialogoComponent, {
+     let dialogRef = this.dialog.open(DialogoComponent, {
         data : _json["msj"]
       })
 
-      this. LLenarTabla();
+      dialogRef.beforeClosed().subscribe(s =>{
+        this. LLenarTabla();
+      });
+      
 
     });
 
