@@ -321,7 +321,6 @@ sTyleHeader(worksheet : any, cel : string[], line : number) : void
     };
     
     
-
     worksheet.getCell(c + line).alignment = { vertical: 'middle', horizontal: 'center' };
   });
 
