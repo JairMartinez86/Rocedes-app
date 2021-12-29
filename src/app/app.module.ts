@@ -1,6 +1,5 @@
 `<reference types="reports.all" />`
 
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
