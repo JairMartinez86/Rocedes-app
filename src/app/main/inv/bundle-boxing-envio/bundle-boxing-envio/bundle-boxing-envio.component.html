@@ -1,5 +1,5 @@
 <ng-container *ngIf="str_from=='Envio'">
-    <div class="formulario" id="divEnvio">
+    <div class="formulario" id="divEnvio" cdkDrag>
 
         <div class="head-form" id="from-encabezado">
           <div class="from-encabezado-titulo"><p>Envio</p></div>
@@ -7,17 +7,17 @@
         </div>
   
         <div class="container">
-            <form class="form"   [formGroup]="valEnvio.ValForm"  novalidate>
+            <form class="form"   [formGroup]="valEnvio.ValForm" novalidate>
   
 
                 <div class="row">
                     <mat-form-field class="col-sm-12" appearance="fill">
                         <mat-label><b>Corte.</b></mat-label>
                         <input appAutofocus  matInput type="text" id="txtEnvio_Corte" 
-                        formControlName="txtEnvio_Corte"
+                         formControlName="txtEnvio_Corte"
                          placehoder="Ingrese No. Corte" 
-                         [matAutocomplete]="auto"
-                        (input)="txtEnvio_Corte_onSearchChange($event)" (keydown.enter)="txtEnvio_Corte_onKeyEnter($event)">
+                         [matAutocomplete]="auto"                         
+                         (input)="txtEnvio_Corte_onSearchChange($event)" (keydown.enter)="txtEnvio_Corte_onKeyEnter($event)">
                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarCorteSelec">
                             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                               {{option.Corte}}
@@ -106,7 +106,7 @@
     </div>
 
 
-    <div class="Lista-Registro" id="divRegistrosPolin" *ngIf="this.str_Corte != ''">
+    <div class="Lista-Registro" id="divRegistrosPolin" *ngIf="this.str_Corte != ''" cdkDrag>
         <div class="franja"><p>Registros de Piezas Escaneadas</p></div>
 
         <div class="container">

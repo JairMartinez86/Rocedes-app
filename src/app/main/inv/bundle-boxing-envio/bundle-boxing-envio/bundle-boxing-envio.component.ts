@@ -165,7 +165,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
         data: _json["msj"]
       })
 
-
+      
 
     }
 
@@ -185,6 +185,7 @@ txtEnvio_Corte_onKeyEnter(event: any){
   if(event.target.value == "") {
     document?.getElementById(_input)?.focus();
     event.preventDefault();
+    
     return;
   }
 
@@ -321,8 +322,8 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
           {
 
             let j : IEnvio = _json["d"];
-            this.dataSourceEnvio.data.push(j);
-            this.dataSourceEnvio.filter = "";
+            ELEMENT_DATA_ENVIO.push(j);
+
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
            
           }
@@ -330,7 +331,8 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
           {
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-secondary text-light', delay: 10000 });
           }
-  
+
+          this.dataSourceEnvio = new MatTableDataSource(ELEMENT_DATA_ENVIO);
           (<HTMLInputElement>document.getElementById("txtBox_EscanSerialEnvio")).value = "";
   
         }
@@ -355,7 +357,7 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
         this.bol_Load = false;
       }
 
-      this.dataSourceEnvio.filter = "";
+      this.dataSourceEnvio = new MatTableDataSource(ELEMENT_DATA_ENVIO);
      (<HTMLInputElement>document.getElementById("txtBox_EscanSerialEnvio")).value = "";
     }
   
