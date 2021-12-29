@@ -58,7 +58,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ["Serial","Polin",  "Fecha", "Login"];
+  displayedColumns: string[] = ["Polin", "Saco","Serial", "Bulto", "Yarda", "Fecha", "Login"];
   dataSourceEnvio = new MatTableDataSource(ELEMENT_DATA_ENVIO);
   clickedRows = new Set<IEnvio>();
 
