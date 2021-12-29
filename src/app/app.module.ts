@@ -1,10 +1,5 @@
 `<reference types="reports.all" />`
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 8cbeee7ce853c64430d4449557cc1d7eda5b06da
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
