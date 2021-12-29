@@ -30,7 +30,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-row text-end">
-                            <button type="button" id="btnReport_Boxin_Generar" class="btn btn-outline-secondary" (click) = "Generar()">Generar</button>
+                            <button type="button" id="btnReport_Boxin_Generar" class="btn btn-outline-secondary" (click) = "Generar()" *ngIf="!bol_Load else spinBar">Generar 
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -44,6 +45,14 @@
 
 
 
+
+<!-----------------------------------------------------SPINNER---------------------------------------------------------------->
+
+<ng-template #spinBar>
+    <div class="spinner-wrapper">
+        <mat-progress-spinner class="example-margin" style="float: right" color="primary"mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+    </div>
+</ng-template>
 
 
     

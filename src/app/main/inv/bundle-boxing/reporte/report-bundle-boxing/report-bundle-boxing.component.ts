@@ -25,8 +25,10 @@ export class ReportBundleBoxingComponent implements OnInit {
   @ViewChild(ReportBundleBoxingTablaComponent)ReportBundleBoxingTablaComp?: ReportBundleBoxingTablaComponent; 
 
 
-  str_from : string = "";
-  str_Corte : string = "";
+  public str_from : string = "";
+  public str_Corte : string = "";
+
+  public bol_Load : boolean = false;
 
   public valSeleccion = new Validacion();
 
@@ -43,6 +45,7 @@ export class ReportBundleBoxingComponent implements OnInit {
 
 
   Cerrar() : void{
+    this.bol_Load = false;
     this.str_from = "";
     this.valSeleccion.ValForm.reset();
   }
@@ -122,6 +125,8 @@ Generar(){
 
   this.str_Corte = _Opcion.Corte;
 
+  this.bol_Load = true;
+
   this.BundleBoxingService.GetBundleBoxing(this.str_Corte).subscribe( s => {
     let _json = JSON.parse(s);
 
@@ -136,6 +141,8 @@ Generar(){
         data: _json["msj"]
       })
     }
+
+    this.bol_Load = false;
 
   });
 
