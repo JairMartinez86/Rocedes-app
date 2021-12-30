@@ -225,7 +225,7 @@ export class MainComponent implements OnInit {
         switch(_Id)
         {
           case "LinkUsuario":
-            if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
+            /*if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
 
 
             if(this.dinamycHost.viewContainerRef.length == 0)
@@ -233,15 +233,15 @@ export class MainComponent implements OnInit {
               component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
               let Usuario: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Usuario.instance.str_from = "frmUsuario";
-            }
+            }*/
 
-           /*
-           ABRIR COMPONENTE MAS DE UNA VEZ
+           
+           //ABRIR COMPONENTE MAS DE UNA VEZ
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
             const componentRef = this.container!.createComponent(componentFactory);
             this.Index++;
             componentRef.instance.IndexModulo = this.Index
-            componentRef.instance.str_from = "frmUsuario";*/
+            componentRef.instance.str_from = "frmUsuario";
            
           break;
 

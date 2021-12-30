@@ -322,9 +322,17 @@ private _FiltroSeleccion(Corte: string): ICorte[] {
           {
 
             let j : IEnvio = _json["d"];
-            ELEMENT_DATA_ENVIO.push(j);
 
-            this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+            if(j.Activo)
+            {
+              ELEMENT_DATA_ENVIO.push(j);
+
+              this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
+            }
+            else
+            {
+              this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-danger text-light', delay: 10000 });
+            }
            
           }
           else

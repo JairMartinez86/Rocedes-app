@@ -16,10 +16,8 @@ let ELEMENT_EXCEL_FACTOR_CORTE_TIEMPO: IExcelFactorCorteTiempo[] = [];
 
 
 export interface IExcelFactorCorteTiempo {
-  Item : string;
   Componente: string;
   Estilo : string;
-  LayLimits: string;
   Minutos_Pza: number;
   Bultos : number;
   Yardas : number;
@@ -354,10 +352,8 @@ exportar(): void {
 
   
   let excel : IExcelFactorCorteTiempo = {} as IExcelFactorCorteTiempo;
-  excel.Item = this.FactorDetalle.Item;
   excel.Componente = this.FactorDetalle.Componente;
   excel.Estilo = this.FactorDetalle.Estilo;
-  excel.LayLimits = this.FactorDetalle.LayLimits;
   excel.Minutos_Pza = this.FactorDetalle.Minutos_Pza;
   excel.Bultos = Bultos;
   excel.Yardas = Yardas;
@@ -383,13 +379,13 @@ exportar(): void {
 
 
   //add column name
-  let header=["Item", "Componente", "Estilo", "LayLimits", "Minutos",  "Bultos", "Longitud Marker", "Canridad Personas", "Inicio", "Fin"]
+  let header=["Componente", "Estilo", "Minutos",  "Bultos", "Longitud Marker", "Cantidad Personas", "Inicio", "Fin"]
  
 
   worksheet.addRow([]);
   worksheet.addRow(["TIEMPO DE CORTE"]);
 
-  worksheet.mergeCells("A2:J4")
+  worksheet.mergeCells("A2:H4")
   worksheet.getCell("A2").font = {
     name: 'Arial BlackS',
     family: 2,
@@ -420,7 +416,7 @@ exportar(): void {
 
   worksheet.addRow([]);
   worksheet.addRow(header);
-  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],  int_Linea)
+  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H"],  int_Linea)
 
 
   worksheet.getCell("K" + int_Linea).alignment = { vertical: 'middle', horizontal: 'center' };

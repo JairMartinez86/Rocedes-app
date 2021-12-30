@@ -149,6 +149,7 @@ table tr a{
   max-width: 600px !important;
   width: auto !important;
   height: auto!important;
+  background-color: white;
 }
 .mat-mat-dialog-title, .mat-dialog-content, .mat-dialog-actions{
   padding: 0 !important;
