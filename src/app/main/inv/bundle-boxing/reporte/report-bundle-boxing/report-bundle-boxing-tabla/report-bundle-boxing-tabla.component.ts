@@ -41,6 +41,7 @@ export interface IExcel {
   Capaje: string;
   Yarda: string;
   Saco: string;
+  Mesa : string,
   Usuario: string;
   Fecha : any;
   Grupo : string;
@@ -87,7 +88,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   pageSize : number = 50;
   
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cUsuario", "cFecha"];
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cMesa", "cUsuario", "cFecha"];
   dataSourceTablaBoxin =  ELEMENT_DATA_TABLA;
   int_TotalRegistros = ELEMENT_DATA_TABLA.length;
   clickedRows = new Set<IBoxin>();
@@ -116,7 +117,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       ELEMENT_DATA_TABLA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cTalla : j.Talla, cNoBulto : j.Bulto, cCapaje : j.Capaje == "0" ? "" : j.Capaje, cYarda : j.Yarda == "0" ? "" : j.Yarda, cSeccion : j.Seccion, cNoSaco : j.Saco == "0" ? "" : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
     cfiltro : j.Mesa + " "+ j.Serial + " "+ j.Nombre +  "" + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
 
-    ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Talla : j.Talla, Bulto : j.Bulto, Capaje : j.Capaje == "0" ? "" : j.Capaje, Yarda : j.Yarda == "0" ? "" : j.Yarda, Saco : j.Saco == "0" ? "" : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
+    ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Talla : j.Talla, Bulto : j.Bulto, Capaje : j.Capaje == "0" ? "" : j.Capaje, Yarda : j.Yarda == "0" ? "" : j.Yarda, Saco : j.Saco == "0" ? "" : j.Saco, Mesa : j.Mesa == 0 ? "" : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
     filtro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " " + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
       x++;
     });
@@ -179,7 +180,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   let worksheet = workbook.addWorksheet("Employee Data");
 
   //add column name
-  let header=["No",  "Serial", "Pieza", "Talla", "Bulto/Rollo", "Capaje", "Yardaje", "Saco",  "Usuario", "Fecha", "Grupo"]
+  let header=["No",  "Serial", "Pieza", "Talla", "Bulto/Rollo", "Capaje", "Yardaje", "Saco", "Mesa",  "Usuario", "Fecha", "Grupo"]
  
  
   let str_Grupo : string = "";
@@ -192,7 +193,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
 
   worksheet.addRow([]);
   worksheet.addRow(["Bundle Boxing Report"]);
-  worksheet.mergeCells("A2:J4")
+  worksheet.mergeCells("A2:K4")
   worksheet.getCell("A2").font = {
     name: 'Arial BlackS',
     family: 2,
@@ -242,7 +243,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       worksheet.addRow(header,);
       int_Linea++;
 
-      this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],  int_Linea)
+      this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"],  int_Linea)
 
       worksheet.addRow([str_Grupo]);
       int_Linea++;
@@ -258,7 +259,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
       };
 
 
-      worksheet.mergeCells(("A" + int_Linea) + ":J" + (int_Merge_Row + int_Linea - 1))
+      worksheet.mergeCells(("A" + int_Linea) + ":K" + (int_Merge_Row + int_Linea - 1))
       int_Linea += int_Merge_Row - 1;
 
       
@@ -280,7 +281,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   }
 
 
-  worksheet.spliceColumns(11, 2);
+  worksheet.spliceColumns(12, 2);
   worksheet.properties.defaultColWidth = 20;
 
 

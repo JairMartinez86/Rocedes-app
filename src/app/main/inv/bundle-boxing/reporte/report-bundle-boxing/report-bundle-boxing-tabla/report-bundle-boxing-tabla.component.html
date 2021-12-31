@@ -85,6 +85,13 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> {{element.cNoSaco}} </td>
                 </ng-container>
+
+                <ng-container matColumnDef="cMesa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cMesa">
+                    Mesa.
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cMesa}} </td>
+                </ng-container>
     
                 <ng-container matColumnDef="cUsuario">
                     <th mat-header-cell *matHeaderCellDef>
