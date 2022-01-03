@@ -19,23 +19,23 @@ export class FactorFoleoComponent implements OnInit {
 
   str_from : string = "";
   
-  displayedColumns: string[] = ["IdProcesoFoleoDet", "Descripcion", "Factor1",  "Factor2", "Factor3",  "Guardar"];
-  dataSourceFactorTendido = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
+  displayedColumns: string[] = ["IdProcesoFoleo", "Descripcion", "Factor1",  "Factor2", "Factor3",  "Guardar"];
+  dataSourceFactorFoleo = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
   clickedRows = new Set<IFactorFoleo>();
 
  
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSourceFactorTendido){
-      this.dataSourceFactorTendido.paginator = value;
-      if(this.dataSourceFactorTendido.paginator != null)this.dataSourceFactorTendido.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    if (this.dataSourceFactorFoleo){
+      this.dataSourceFactorFoleo.paginator = value;
+      if(this.dataSourceFactorFoleo.paginator != null)this.dataSourceFactorFoleo.paginator._intl.getRangeLabel = this.getRangeDisplayText;
     }
   }
 
   
   @ViewChild(MatSort, {static: false})
   set sort(sort: MatSort) {
-     this.dataSourceFactorTendido.sort = sort;
+     this.dataSourceFactorFoleo.sort = sort;
   }
   
   
@@ -49,7 +49,7 @@ export class FactorFoleoComponent implements OnInit {
   {
 
     ELEMENT_DATA_FACTOR_FOLEO.splice(0, ELEMENT_DATA_FACTOR_FOLEO.length);
-    this.dataSourceFactorTendido.data.splice(0, this.dataSourceFactorTendido.data.length);
+    this.dataSourceFactorFoleo.data.splice(0, this.dataSourceFactorFoleo.data.length);
 
     this._FactorFoleoService.Get().subscribe( s =>{
 
@@ -72,7 +72,7 @@ export class FactorFoleoComponent implements OnInit {
         })
       }
 
-      this.dataSourceFactorTendido = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
+      this.dataSourceFactorFoleo = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
 
 
     });
@@ -82,10 +82,8 @@ export class FactorFoleoComponent implements OnInit {
   {
     
     ELEMENT_DATA_FACTOR_FOLEO.splice(0, ELEMENT_DATA_FACTOR_FOLEO.length);
-    this.dataSourceFactorTendido.data.splice(0, this.dataSourceFactorTendido.data.length);
-    this.dataSourceFactorTendido.filter = "";
+    this.dataSourceFactorFoleo = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
     this.str_from = "";
- 
   }
 
 
@@ -104,7 +102,7 @@ export class FactorFoleoComponent implements OnInit {
 
   filtrar(event: Event) {
     const filtro = (event.target as HTMLInputElement).value;
-    this.dataSourceFactorTendido.filter = filtro.trim().toLowerCase();
+    this.dataSourceFactorFoleo.filter = filtro.trim().toLowerCase();
   }  
  
   
