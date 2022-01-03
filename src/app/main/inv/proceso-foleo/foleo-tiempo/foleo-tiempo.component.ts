@@ -14,6 +14,7 @@ import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { FactorFoleoService } from 'src/app/main/Services/inv/ProcesoFoleo/factor-foleo.service';
 import { FoleoDatosService } from 'src/app/main/Services/inv/ProcesoFoleo/foleo-datos.service';
 import * as fs from 'file-saver';
+import { DatePipe } from '@angular/common';
 
 let ELEMENT_DATA_FACTOR_FOLEO : IFactorFoleo[] = [];
 let ELEMENT_DATA_FACTOR_FOLEO_EXCEL : IFactorFoleoExcel[] = []
@@ -46,6 +47,7 @@ export class FoleoTiempoComponent implements OnInit {
   public Link : string = "";
   public str_Titulo_Tiempo : string = "";
   public str_Capa : string = "";
+  public str_Estilo : string = "";
 
 
 
@@ -93,6 +95,7 @@ export class FoleoTiempoComponent implements OnInit {
 
   private Limpiar() : void
   {
+    this.str_Estilo = "";
     this.num_Horas = 0;
     this.num_Minutos = 0;
     this.FechaInicio = undefined;
@@ -332,6 +335,7 @@ public calcularMinutos() :void
 
   if(this.val.ValForm.invalid) return;
 
+  this.str_Estilo = _Opcion.Estilo;
   let Cant_Bulto : number = Number(this.val.ValForm.get("txt_Foleo_Cant_Bulto")?.value);
   let Cant_Capas : number = Number(this.val.ValForm.get("txt_Foleo_Cant_Capas")?.value);
   let Cant_Personas_Partes_Grande : number = Number(this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Grande")?.value);
@@ -615,7 +619,7 @@ public calcularMinutos() :void
     let header=["NO",  "PROCESO", "TIEMPO"]
    
   
-    let int_Linea = 6;
+   
   
     var Imagen = (new ImagenLogo()).Logo();
   
@@ -654,24 +658,84 @@ public calcularMinutos() :void
       fgColor:{argb:'1C394F'},
     };
 
-  
-  
+
+    var datePipe = new DatePipe("en-GB");
+
+    worksheet.addRow([]);
+    let FILA_EXCEL = worksheet.getCell("B6");
+    FILA_EXCEL!.value = "ESTILO";
+    FILA_EXCEL = worksheet.getCell("C6");
+    FILA_EXCEL!.value = this.str_Estilo;
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B7");
+    FILA_EXCEL!.value = "CANTIIDAD DE PARTES  POR PIEZA";
+    FILA_EXCEL = worksheet.getCell("C7");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Pieza")?.value);
+
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B8");
+    FILA_EXCEL!.value = "CANTIDAD DE PARTES GRANDES";
+    FILA_EXCEL = worksheet.getCell("C8");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Grande")?.value);
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B9");
+    FILA_EXCEL!.value = "CANTIDAD DE PARTES PEQUEÑAS";
+    FILA_EXCEL = worksheet.getCell("C9");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Pequeña")?.value);
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B10");
+    FILA_EXCEL!.value = "CANTIDAD DE BULTOS";
+    FILA_EXCEL = worksheet.getCell("C10");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Bulto")?.value);
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B11");
+    FILA_EXCEL!.value = "CANTIDAD DE CAPAS";
+    FILA_EXCEL = worksheet.getCell("C11");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Capas")?.value);
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B12");
+    FILA_EXCEL!.value = "CANTIDAD DE PIEZAS DOBLES";
+    FILA_EXCEL = worksheet.getCell("C12");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Pieza_Doble")?.value);
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B13");
+    FILA_EXCEL!.value = "CANTIDAD DE PERSONAS EN PARTES PEQUEÑAS";
+    FILA_EXCEL = worksheet.getCell("C13");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Pequeña")?.value);
+
+    worksheet.addRow([]);
+    FILA_EXCEL = worksheet.getCell("B14");
+    FILA_EXCEL!.value = "CANTIDAD DE PERSONAS EN PARTES GRANDES";
+    FILA_EXCEL = worksheet.getCell("C14");
+    FILA_EXCEL!.value = Number(this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Grande")?.value);
+
+    FILA_EXCEL = worksheet.getCell("B15");
+    FILA_EXCEL!.value = "FECHA HORA INICIO";
+    FILA_EXCEL = worksheet.getCell("C15");
+    if(this.val.ValForm.get("txt_Factor_Tiempo_Fecha")?.value != undefined) FILA_EXCEL!.value = String(datePipe.transform(this.val.ValForm.get("txt_Factor_Tiempo_Fecha")?.value, 'dd/MM/yyyy hh:mm:ss'));
+
+    FILA_EXCEL = worksheet.getCell("B16");
+    FILA_EXCEL!.value = "FECHA HORA FINAL";
+    FILA_EXCEL = worksheet.getCell("C16");
+    if(this.val.ValForm.get("txt_Factor_TiempoFinal")?.value != "Invalid Date") FILA_EXCEL!.value = String(datePipe.transform(this.val.ValForm.get("txt_Factor_TiempoFinal")?.value, 'dd/MM/yyyy hh:mm:ss'));
+
+
+    console.log(this.val.ValForm.get("txt_Factor_TiempoFinal")?.value )
+    let int_Linea = 18;
     worksheet.addRow([]);
     worksheet.addRow(header);
     this.sTyleHeader(worksheet, ["A", "B", "C"],  int_Linea)
   
     
-    int_Linea++;
     worksheet.getCell("A" + int_Linea).alignment = { vertical: 'middle', horizontal: 'center' };
-    worksheet.getCell("A" + int_Linea).font = {
-      name: 'Arial BlackS',
-      family: 2,
-      size: 11,
-      underline: false,
-      italic: false,
-      bold: true,
-      color: { argb: '000000' }
-    };
+
   
   
     for (let i = 0; i < ELEMENT_DATA_FACTOR_FOLEO_EXCEL.length; i++)
