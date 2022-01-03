@@ -88,6 +88,7 @@ import { FactorCorteComponent } from './main/inv/proceso-corte/factor-corte/fact
 import { OpenCloseDirective } from './main/Directive/open-close.directive';
 import { FactorCorteTiempoComponent } from './main/inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
 import { FactorFoleoComponent } from './main/inv/proceso-foleo/factor-foleo/factor-foleo.component';
+import { FoleoDatosComponent } from './main/inv/proceso-foleo/foleo-datos/foleo-datos.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -128,6 +129,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     OpenCloseDirective,
     FactorCorteTiempoComponent,
     FactorFoleoComponent,
+    FoleoDatosComponent,
 
     
     
