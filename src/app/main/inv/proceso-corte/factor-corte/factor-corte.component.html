@@ -153,10 +153,10 @@
               <table Id="tabla-factor-corte" mat-table [dataSource]="dataSourceDetalleFactorCorte" matSort (matSortChange)="announceSortChangeDetalle($event)">
             
 
-                <ng-container matColumnDef="IdFactorDetalleCorte" sticky>
+                <!--<ng-container matColumnDef="IdFactorDetalleCorte" sticky>
                     <th mat-header-cell *matHeaderCellDef> No. </th>
                     <td mat-cell *matCellDef="let element; let j = index"  [ngClass]="element.IdFactorDetalleCorte == -1 ? 'nueva-fila' : ''"> {{j+1}} </td>
-                </ng-container>
+                </ng-container>-->
 
                
                 <ng-container matColumnDef="Guardar" sticky>
@@ -318,7 +318,7 @@
               mat-row  [class.demo-row-is-clicked]="clickedRowsDetalle.has(row)" *matRowDef="let row; columns: displayedColumnsDetalle;"></tr>
               
             </table>
-            <mat-paginator [pageSizeOptions]="[25]"  showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[50]"  showFirstLastButtons></mat-paginator>
         </div>
     
             

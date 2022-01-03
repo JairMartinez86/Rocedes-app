@@ -17,6 +17,7 @@ import { BundleBoxingSerialComponent } from './inv/bundle-boxing-serial/bundle-b
 import { BundleBoxingComponent } from './inv/bundle-boxing/bundle-boxing.component';
 import { BundleBoxingEnvioComponent } from './inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
 import { FactorCorteTiempoComponent } from './inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
+import { FactorFoleoComponent } from './inv/proceso-foleo/factor-foleo/factor-foleo.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -88,15 +89,32 @@ export class MainComponent implements OnInit {
     
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));
     this.lstEsquema.push(_Esquema);
-
-
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkReportBundleBoxing", "Reporte Bundle Boxing", false));
     this.lstEsquema.push(_Esquema);
-
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingSerial", "Seriales", false));
     this.lstEsquema.push(_Esquema);
-
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingEnvio", "Envio", false));
+    this.lstEsquema.push(_Esquema);
+
+
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoFactor", "Factores de Tendido", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoCapaSencilla", "Capa Sencilla", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoCapaDoble", "Capa Doble", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoCapaManual", "Capa Manual", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoCorteFactor", "Factores de Corte", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoCorteFactorTiempo", "Tiempo de Corte", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoFactor", "Tiempo de Foleo", false));
     this.lstEsquema.push(_Esquema);
     
     
@@ -207,6 +225,10 @@ export class MainComponent implements OnInit {
     }
 
     if(_Id != "LinkProcesoCorteFactorTiempo"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "LinkProcesoFoleoFactor"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -419,6 +441,21 @@ export class MainComponent implements OnInit {
   
   
   
+              break;
+
+
+            case "LinkProcesoFoleoFactor":
+
+            
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(FactorFoleoComponent);
+               let FactorFoleo: ComponentRef<FactorFoleoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+               FactorFoleo.instance.str_from = "factores";
+              }
+    
+    
+    
               break;
             
                   

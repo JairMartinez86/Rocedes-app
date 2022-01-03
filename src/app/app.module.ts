@@ -87,6 +87,7 @@ import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.c
 import { FactorCorteComponent } from './main/inv/proceso-corte/factor-corte/factor-corte.component';
 import { OpenCloseDirective } from './main/Directive/open-close.directive';
 import { FactorCorteTiempoComponent } from './main/inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
+import { FactorFoleoComponent } from './main/inv/proceso-foleo/factor-foleo/factor-foleo.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -126,6 +127,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     FactorCorteComponent,
     OpenCloseDirective,
     FactorCorteTiempoComponent,
+    FactorFoleoComponent,
 
     
     

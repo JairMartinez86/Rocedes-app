@@ -114,7 +114,7 @@
             </li>
 
             <li class="nav-item dropdown" id="navInvFactor" appDropdown #r3="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de tendido</a>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de Tendido</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
                 <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores de Tendido</a></li>
                 <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
@@ -125,10 +125,17 @@
 
 
             <li class="nav-item dropdown" id="navInvFactorCorte"  appDropdown #r4="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de corte</a>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de Corte</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
                 <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Factores de Corte</a></li>
                 <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Tiempo de Corte</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown" id="navInvFactorFoleo"  appDropdown #r4="appDropDown">
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de Foleo</a>
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
+                <li><a id="LinkProcesoFoleoFactor" class="dropdown-item" href="#">Factores de Foleo</a></li>
               </ul>
             </li>
      

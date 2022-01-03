@@ -75,7 +75,7 @@ export class FactorCorteComponent implements OnInit {
   clickedRowsFactor = new Set<IFactorCorte>();
 
   
-  displayedColumnsDetalle: string[] = ["IdFactorDetalleCorte", "Guardar",   "Item", "Componente", "Estilo",  "LayLimits", "TotalPieces",  "StraightPerimeter", "CurvedPerimeter", "TotalPerimeter", "TotalNotches", "TotalCorners", "Segundos", "Eliminar"];
+  displayedColumnsDetalle: string[] = ["Guardar",   "Item", "Componente", "Estilo",  "LayLimits", "TotalPieces",  "StraightPerimeter", "CurvedPerimeter", "TotalPerimeter", "TotalNotches", "TotalCorners", "Segundos", "Eliminar"];
   dataSourceDetalleFactorCorte = new MatTableDataSource(ELEMENT_DATA_CORTE_FACTOR_DETALLE);
   clickedRowsDetalle = new Set<IFactorCorteDetalle>();
 
