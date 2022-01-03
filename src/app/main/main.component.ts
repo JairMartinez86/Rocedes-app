@@ -18,6 +18,7 @@ import { BundleBoxingComponent } from './inv/bundle-boxing/bundle-boxing.compone
 import { BundleBoxingEnvioComponent } from './inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
 import { FactorCorteTiempoComponent } from './inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
 import { FactorFoleoComponent } from './inv/proceso-foleo/factor-foleo/factor-foleo.component';
+import { FoleoTiempoComponent } from './inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -116,6 +117,11 @@ export class MainComponent implements OnInit {
 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoFactor", "Tiempo de Foleo", false));
     this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Capa Sencilla", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoCapaDoble", "Capa Doble", false));
+    this.lstEsquema.push(_Esquema);
+    
     
     
 
@@ -229,6 +235,14 @@ export class MainComponent implements OnInit {
     }
 
     if(_Id != "LinkProcesoFoleoFactor"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "LinkProcesoFoleoCapaSencilla"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "LinkProcesoFoleoCapaDoble"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -445,17 +459,31 @@ export class MainComponent implements OnInit {
 
 
             case "LinkProcesoFoleoFactor":
-
-            
               if(this.dinamycHost.viewContainerRef.length == 0)
               {
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorFoleoComponent);
                let FactorFoleo: ComponentRef<FactorFoleoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                FactorFoleo.instance.str_from = "factores";
               }
-    
-    
-    
+              break;
+
+            case "LinkProcesoFoleoCapaSencilla":
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
+               let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+               TiempoFole.instance.Link = "LinkProcesoFoleoCapaSencilla";
+              }
+              break;
+
+
+              case "LinkProcesoFoleoCapaDoble":
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
+               let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+               TiempoFole.instance.Link = "LinkProcesoFoleoCapaDoble";
+              }
               break;
             
                   

@@ -19,7 +19,7 @@ export class FactorFoleoComponent implements OnInit {
 
   str_from : string = "";
   
-  displayedColumns: string[] = ["IdProcesoFoleo", "Proceso", "Factor1",  "Factor2", "Factor3",  "Guardar"];
+  displayedColumns: string[] = ["Guardar", "IdProcesoFoleo", "Proceso", "Factor1",  "Factor2", "Factor3"];
   dataSourceFactorFoleo = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
   clickedRows = new Set<IFactorFoleo>();
 

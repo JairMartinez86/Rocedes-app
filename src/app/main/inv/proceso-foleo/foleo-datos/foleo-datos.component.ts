@@ -62,7 +62,7 @@ export class FoleoDatosComponent implements OnInit {
         if(_json["count"] > 0)
         {
 
-          _json["d"][1].forEach((j : IFoleoDatos) => {
+          _json["d"].forEach((j : IFoleoDatos) => {
             ELEMENT_DATA_FOLEO_DATOS.push(j);
           });
         }
@@ -188,6 +188,11 @@ export class FoleoDatosComponent implements OnInit {
   }
 
 
+  Calcular(element : IFoleoDatos) : Number{
+    let total :number =  Number(element.Pieza_grande) + Number(element.Pieza_pequena);
+
+    return total;
+  }
 
   
   getRangeDisplayText = (page: number, pageSize: number, length: number) => {

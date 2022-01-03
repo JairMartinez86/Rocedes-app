@@ -382,11 +382,28 @@ exportar(): void {
   let header=["Componente", "Estilo", "Minutos",  "Bultos", "Longitud Marker", "Cantidad Personas", "Inicio", "Fin"]
  
 
-  worksheet.addRow([]);
-  worksheet.addRow(["TIEMPO DE CORTE"]);
+  var Imagen = (new ImagenLogo()).Logo();
+  
+  var imageId1 = workbook.addImage({ 
+     base64: Imagen,
+     extension: 'png',
+  });
+  
+  worksheet.mergeCells("A2:A4")  
+  worksheet.addImage(imageId1, "A2:A4");
+  worksheet.getCell("A2:A4").fill = {
+    type: 'pattern',
+    pattern:'solid',
+    fgColor:{argb:'1C394F'},
+  };
 
-  worksheet.mergeCells("A2:H4")
-  worksheet.getCell("A2").font = {
+
+
+  worksheet.mergeCells("B2:H4")
+  const Fila_Titulo = worksheet.getCell("B2:H4");
+  Fila_Titulo!.value = "TIEMPOS DE CORTE"
+  Fila_Titulo.alignment = { vertical: 'middle', horizontal: 'center' };
+  Fila_Titulo.font = {
     name: 'Arial BlackS',
     family: 2,
     size: 18,
@@ -396,23 +413,12 @@ exportar(): void {
     color: { argb: 'FFFFFF' }
   };
 
-  worksheet.getCell("A2").fill = {
+  Fila_Titulo.fill = {
     type: 'pattern',
     pattern:'solid',
     fgColor:{argb:'1C394F'},
   };
-  
-  var Imagen = (new ImagenLogo()).Logo();
 
-  var imageId1 = workbook.addImage({ 
-     base64: Imagen,
-     extension: 'png',
-  });
-  
-
-  worksheet.addImage(imageId1, 'A2:A4');
-
-  worksheet.getCell("A2").alignment = { vertical: 'middle', horizontal: 'center' };
 
   worksheet.addRow([]);
   worksheet.addRow(header);

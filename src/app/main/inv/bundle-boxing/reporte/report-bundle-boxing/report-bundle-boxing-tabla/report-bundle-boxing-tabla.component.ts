@@ -190,11 +190,28 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   let int_Merge_Row = 2;
   let int_Linea = 7;
 
+  var Imagen = (new ImagenLogo()).Logo();
+  
+  var imageId1 = workbook.addImage({ 
+     base64: Imagen,
+     extension: 'png',
+  });
+  
+  worksheet.mergeCells("A2:A4")  
+  worksheet.addImage(imageId1, "A2:A4");
+  worksheet.getCell("A2:A4").fill = {
+    type: 'pattern',
+    pattern:'solid',
+    fgColor:{argb:'1C394F'},
+  };
 
-  worksheet.addRow([]);
-  worksheet.addRow(["Bundle Boxing Report"]);
-  worksheet.mergeCells("A2:K4")
-  worksheet.getCell("A2").font = {
+
+
+  worksheet.mergeCells("B2:K4")
+  const Fila_Titulo = worksheet.getCell("B2:K4");
+  Fila_Titulo!.value = "BUNDLE BOXING"
+  Fila_Titulo.alignment = { vertical: 'middle', horizontal: 'center' };
+  Fila_Titulo.font = {
     name: 'Arial BlackS',
     family: 2,
     size: 18,
@@ -204,21 +221,12 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     color: { argb: 'FFFFFF' }
   };
 
-  worksheet.getCell("A2").fill = {
+  Fila_Titulo.fill = {
     type: 'pattern',
     pattern:'solid',
     fgColor:{argb:'1C394F'},
   };
-  
-  var Imagen = (new ImagenLogo()).Logo();
 
-  var imageId1 = workbook.addImage({ 
-     base64: Imagen,
-     extension: 'png',
-  });
-  worksheet.getCell("A2").alignment = { vertical: 'middle', horizontal: 'center' };
-
-  worksheet.addImage(imageId1, 'A2:A4');
 
   worksheet.addRow([]);
   worksheet.addRow([]);

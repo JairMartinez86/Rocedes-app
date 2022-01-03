@@ -19,6 +19,12 @@ export class FoleoDatosService {
     return this.http.get<any>(this.Cnx.Url() + "Inventario/Foleo/GetDato");
   }
 
+  GetEstilo(filtro: string): Observable<any> {
+
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Foleo/GetEstilo" + "?filtro="+filtro);
+
+  }
+
 
   Guardar(d : IFoleoDatos): Observable<any> {
        

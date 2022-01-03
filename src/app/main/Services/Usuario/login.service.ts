@@ -325,7 +325,8 @@ export class LoginService {
 
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvFactorFoleo", NombreLink : "Proceso de Foleo", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoFactor", NombreLink : "Factores de Foleo", Activo : false},
-  
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoCapaSencilla", NombreLink : "Capa Sencilla", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoCapaDoble", NombreLink : "Capa Doble", Activo : false},
 
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},
