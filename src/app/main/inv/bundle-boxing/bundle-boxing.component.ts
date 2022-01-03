@@ -117,6 +117,7 @@ export class BundleBoxingComponent implements OnInit {
   public val = new Validacion();
   public valSaco = new Validacion();
   public valSerial = new Validacion();
+  public valMesa = new Validacion();
 
   str_from : string = "";
   str_Corte :string = "";
@@ -142,6 +143,7 @@ export class BundleBoxingComponent implements OnInit {
   public EsComplemento : boolean = false;
 
 
+
   public IPresentacion : IPresentacionSerial[] = []
   public IMaterial : IMaterial[] = []
 
@@ -157,7 +159,7 @@ export class BundleBoxingComponent implements OnInit {
   clickoutHandler!: Function;
   dialogRef!: MatDialogRef<DialogoComponent>;
 
-  dialogSaco!: MatDialogRef<BundleBoxingComponent>;
+  dialogBundle!: MatDialogRef<BundleBoxingComponent>;
 
 
   //#endregion DIALOGO
@@ -185,6 +187,9 @@ export class BundleBoxingComponent implements OnInit {
     this.valSerial.add("selectBox_Presentacion", "1", "LEN>", "0");
     this.valSerial.add("spinBox_Cantidad", "1", "NUM>=", "1");
     this.valSerial.add("spinBox_Capaje", "1", "NUM>=", "1");
+
+    
+    this.valSaco.add("txtBox_Saco", "1", "NUM>", "0");
 
     
     this.LimpiarForm("");
@@ -737,22 +742,22 @@ CrearSerial(): void{
 
     if(!this.bol_AbrirSaco)
     {
-      this.dialogSaco = this.dialog.open(BundleBoxingComponent, { id: "DialogBundleBoxingComponent" });
-      this.dialogSaco.componentInstance.str_from = "frmBundleBoxing_Saco";
-      this.dialogSaco.componentInstance.str_Corte = this.str_Corte;
-      this.dialogSaco.componentInstance.str_CorteCompleto = this.str_CorteCompleto;
-      this.dialogSaco.componentInstance.int_Seccion = this.int_Seccion;
-      this.dialogSaco.componentInstance.int_Mesa = this.int_Mesa;
+      this.dialogBundle = this.dialog.open(BundleBoxingComponent, { id: "DialogBundleBoxingComponent" });
+      this.dialogBundle.componentInstance.str_from = "frmBundleBoxing_Saco";
+      this.dialogBundle.componentInstance.str_Corte = this.str_Corte;
+      this.dialogBundle.componentInstance.str_CorteCompleto = this.str_CorteCompleto;
+      this.dialogBundle.componentInstance.int_Seccion = this.int_Seccion;
+      this.dialogBundle.componentInstance.int_Mesa = this.int_Mesa;
       
-      this.dialogSaco.afterOpened().subscribe( s =>{
+      this.dialogBundle.afterOpened().subscribe( s =>{
         document.getElementById("body")?.classList.add("disabled");
       });
 
-      this.dialogSaco.afterClosed().subscribe( s =>{
+      this.dialogBundle.afterClosed().subscribe( s =>{
         
         document.getElementById("body")?.classList.remove("disabled");
-        this.int_Saco = this.dialogSaco.componentInstance.int_Saco;
-        this.str_Titulo_Saco = this.dialogSaco.componentInstance.str_Titulo_Saco;
+        this.int_Saco = this.dialogBundle.componentInstance.int_Saco;
+        this.str_Titulo_Saco = this.dialogBundle.componentInstance.str_Titulo_Saco;
         
 
         if(this.int_Saco > 0){
@@ -880,8 +885,8 @@ CrearSerial(): void{
 
   //#region FORMULARIO SERIAL
 
-  
-  
+ 
+
 
  getNumbersInString(cadena : string) {
   var tmp = cadena.split("");
@@ -964,11 +969,44 @@ CrearSerial(): void{
   }
 
 
-    selectBox_select(): void
-    {
+  SeleccionarMesa() :void{
+
+    if(this.valMesa.ValForm.invalid) return;
+    this.str_from = "";
+    this.BundleBoxingService.change.emit("Close:Mesa");
+  }
+
+  CerrarDialogoMesa() :void{
+    this.str_Mesa  = "";
+    this.BundleBoxingService.change.emit("Close:Mesa");
+  }
+
+  selectBox_select(): void
+  {
       this.str_Label_Capaje = "Capaje.";
       if(!this.IPresentacion.find( f => f.IdPresentacionSerial == Number(this.opcion_presentacion))?.EsUnidad) this.str_Label_Capaje = "Yardaje.";
       this.CargarMaterial();
+
+      if(this.str_Label_Capaje == "Capaje.")
+      {
+        this.dialogBundle = this.dialog.open(BundleBoxingComponent, { id: "DialogBundleBoxingComponent" });
+        this.dialogBundle.componentInstance.str_from = "frmBundleBoxing_Mesa";
+
+        this.dialogBundle.afterOpened().subscribe( s =>{
+          document.getElementById("body")?.classList.add("disabled");
+        });
+
+        this.dialogBundle.afterClosed().subscribe( s =>{
+          document.getElementById("body")?.classList.remove("disabled");
+          this.str_Mesa = this.dialogBundle.componentInstance.str_Mesa;
+          if(this.dialogBundle.componentInstance.str_Mesa != "") this.str_Mesa = this.dialogBundle.componentInstance.str_Mesa;
+
+
+        });
+
+
+      }
+      
     }
 
 
@@ -1125,9 +1163,11 @@ CrearSerial(): void{
 
     this.BundleBoxingService.change.subscribe(s => {
 
-       if(s.split(":")[0] == "Close" && s.split(":")[1] == "Saco"){
-        this.dialogSaco?.close();
+       if(s.split(":")[0] == "Close" && (s.split(":")[1] == "Saco" || s.split(":")[1] == "Mesa")){
+        this.dialogBundle?.close();
       }
+
+
       
     });
 
