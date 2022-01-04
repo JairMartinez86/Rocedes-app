@@ -6,6 +6,7 @@ export class ClsSerialBoxing {
     public Estilo : string = "";
     public Pieza : string = "";
     public IdPresentacionSerial : number = 0;
+    public NoMesa : number = 0;
     public IdMaterial : number = 0;
     public Cantidad : number = 0;
     public Capaje : number = 0;

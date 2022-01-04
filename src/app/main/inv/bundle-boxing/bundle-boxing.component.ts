@@ -984,10 +984,8 @@ CrearSerial(): void{
   selectBox_select(): void
   {
       this.str_Label_Capaje = "Capaje.";
-      if(!this.IPresentacion.find( f => f.IdPresentacionSerial == Number(this.opcion_presentacion))?.EsUnidad) this.str_Label_Capaje = "Yardaje.";
-      this.CargarMaterial();
-
-      if(this.str_Label_Capaje == "Capaje.")
+      this.valSerial.ValForm.get("SelectBox_Material")?.disable;
+      if(this.IPresentacion.find( f => f.IdPresentacionSerial == Number(this.opcion_presentacion))?.EsUnidad)
       {
         this.dialogBundle = this.dialog.open(BundleBoxingComponent, { id: "DialogBundleBoxingComponent" });
         this.dialogBundle.componentInstance.str_from = "frmBundleBoxing_Mesa";
@@ -998,14 +996,35 @@ CrearSerial(): void{
 
         this.dialogBundle.afterClosed().subscribe( s =>{
           document.getElementById("body")?.classList.remove("disabled");
-          this.str_Mesa = this.dialogBundle.componentInstance.str_Mesa;
-          if(this.dialogBundle.componentInstance.str_Mesa != "") this.str_Mesa = this.dialogBundle.componentInstance.str_Mesa;
+          if(this.dialogBundle.componentInstance.str_Mesa != "0")
+          {
+            this.int_Mesa = Number(this.dialogBundle.componentInstance.str_Mesa);
+          }
 
+          if(this.int_Mesa > 0)
+          {
+            this.valSerial.ValForm.get("SelectBox_Material")?.enable;
+          }
+          else
+          {
+            this.opcion_presentacion = "-1";
+          }
+
+         
+          this.CargarMaterial();
 
         });
-
-
       }
+      else
+      {
+        this.valSerial.ValForm.get("SelectBox_Material")?.enable;
+        this.int_Mesa = 0;
+        this.str_Label_Capaje = "Yardaje.";
+        this.CargarMaterial();
+      }
+     
+
+     
       
     }
 
@@ -1024,6 +1043,7 @@ CrearSerial(): void{
       Serial.Estilo = this.str_Estilo;
       Serial.Pieza = this.valSerial.ValForm.get("txtBox_Nombre")?.value;
       Serial.IdPresentacionSerial = Number(this.opcion_presentacion);
+      Serial.NoMesa = this.int_Mesa;
       Serial.IdMaterial = Number(this.opcion_material);
       Serial.Cantidad = Number(this.valSerial.ValForm.get("spinBox_Cantidad")?.value);
       Serial.Capaje = Number(this.valSerial.ValForm.get("spinBox_Capaje")?.value);
