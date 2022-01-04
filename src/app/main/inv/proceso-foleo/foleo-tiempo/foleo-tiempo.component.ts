@@ -366,6 +366,7 @@ public calcularMinutos() :void
 
  ELEMENT_DATA_FACTOR_FOLEO.forEach((d : IFactorFoleo) => {
    d.TotalFactor = d.Factor1 + d.Factor2 + d.Factor3;
+   d.Minutos = 0;
 
    switch(d.Orden)
    {
