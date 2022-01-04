@@ -109,7 +109,7 @@ export class BundleBoxingComponent implements OnInit {
   filteredOptions!: Observable<ICorte[]>;
 
 
-  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cEscaneado"];
+  displayedColumns: string[] = ["cIndex", "cSerial","cNomPieza", "cTalla", "cNoBulto", "cCapaje", "cYarda", "cNoSaco", "cAccion"];
   dataSourceBoxin = new MatTableDataSource(ELEMENT_DATA_BOXING);
   clickedRows = new Set<IBoxin>();
 
@@ -140,6 +140,7 @@ export class BundleBoxingComponent implements OnInit {
   bol_TerminarEmpaque : boolean = false;
   private bol_Verificando : boolean = false;
   public bol_Load  : boolean = false;
+  public bol_LoadCorte  : boolean = false;
   public EsComplemento : boolean = false;
 
 
@@ -224,6 +225,7 @@ export class BundleBoxingComponent implements OnInit {
 
   LimpiarForm(form : string) : void{
 
+    this.bol_LoadCorte = false;
     this.bol_Load = false;
     this.bol_IniciarEmpaque = false;
     this.bol_AbrirSaco = false;
@@ -348,6 +350,8 @@ Escanner() : void{
     
   }
 
+
+  this.bol_LoadCorte = true;
   this.str_CorteCompleto = _Opcion.CorteCompleto;
   this.str_Corte = _Opcion.Corte;
   this.str_Estilo = _Opcion.Style;
@@ -432,7 +436,7 @@ CrearSerial(): void{
 
    cargarTabla(){
     
-    
+    this.bol_LoadCorte = true;
     let seccion :number = 0
 
     if(this.str_Corte.indexOf("-") != -1){
@@ -451,7 +455,7 @@ CrearSerial(): void{
 
           let i : number = 1;
           _json["d"].forEach((b:{Serial : string, Nombre : string, Talla : string, Bulto : number, Capaje : string, Yarda : string, Saco : string, Mesa : number, EnSaco : boolean, Corte :  string, CorteCompleto : string, Estilo : string, Oper : string, Escaneado : boolean}) => {
-            this.dataSourceBoxin.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cTalla : b.Talla, cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "check" : "uncheck", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
+            this.dataSourceBoxin.data.push({cIndex: i, cSerial : b.Serial, cNomPieza : b.Nombre , cTalla : b.Talla, cSeccion: seccion , cNoBulto : b.Bulto, cCapaje: b.Capaje == "0" ? "" : b.Capaje, cYarda : b.Yarda == "0" ? "" : b.Yarda, cNoSaco: b.Saco == "0" ? "" : b.Saco, cEstilo : b.Estilo, cMesa : b.Mesa, cEnSaco : b.EnSaco, cEscaneado : b.Escaneado, cAccion : b.Escaneado ? "▲" : "▼", cCorte : b.Corte, cCorteCompleto : b.CorteCompleto, cOper : b.Oper})
           
             i+=1;
           });
@@ -459,9 +463,12 @@ CrearSerial(): void{
 
         }
 
+        this.bol_LoadCorte = false;
+
       }
       else{
 
+        this.bol_LoadCorte = false;
 
         this.dialogRef = this.dialog.open(DialogoComponent, {
           data: _json["msj"]
@@ -495,8 +502,8 @@ CrearSerial(): void{
   filtrar(event: Event) {
     let filtro : string = (event.target as HTMLInputElement).value;
 
-    if(filtro == "NO ESCANEADO") filtro = "uncheck"
-    if(filtro == "ESCANEADO") filtro = "check"
+    if(filtro == "NO ESCANEADO") filtro = "▼"
+    if(filtro == "ESCANEADO") filtro = "▲"
 
     this.dataSourceBoxin.filter = filtro.trim().toLowerCase();
   }  
@@ -505,7 +512,7 @@ CrearSerial(): void{
   VerificarEscanneado() {
     
       if(this.bol_Verificando) return;
-
+      this.bol_Verificando = true;
       this.BundleBoxingService.GetSerialesEscaneado(this.str_Corte, this.str_Estilo).subscribe( s =>{
 
         let _json = JSON.parse(s);
@@ -513,7 +520,7 @@ CrearSerial(): void{
         this.dataSourceBoxin.data.forEach((Fila, IBoxin) => {
           Fila.cEscaneado = false;
           Fila.cNoSaco = "";
-          Fila.cAccion = "uncheck";
+          Fila.cAccion = "▼";
 
           if(_json["count"] > 0){
             _json["d"].forEach((d: { Serial : string, Bulto : number, Saco : string}) => {
@@ -521,7 +528,7 @@ CrearSerial(): void{
               if(Fila.cSerial == d.Serial && Fila.cNoBulto == d.Bulto) {
                 Fila.cNoSaco = d.Saco;
                 Fila.cEscaneado = true;
-                Fila.cAccion = "check";
+                Fila.cAccion = "▲";
                 return;
               }
 
@@ -616,7 +623,7 @@ CrearSerial(): void{
                   f.cEscaneado =  datos[index].Escaneado;
                   f.cNoSaco = _Fila.cCapaje == "" ? "" : datos[index].Saco.toString();
                   f.cMesa = _Fila.cCapaje == "" ? 0 : datos[index].Mesa;
-                  f.cAccion =  datos[index].Escaneado == true ? "check" : "uncheck";
+                  f.cAccion =  datos[index].Escaneado == true ? "▲" : "▼";
                 }
 
               });

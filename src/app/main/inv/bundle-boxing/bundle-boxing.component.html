@@ -117,8 +117,14 @@
                             <button type="button" id="btnBoxin_Empacar" class="btn btn-outline-secondary"  (click)="Empacar()">Iniciar Empaque</button>
                         </div>
                     </div>
+                    <div class="spinner-wrapper" *ngIf="bol_LoadCorte">
+                        <mat-progress-spinner class="example-margin"  color="primary"mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+                    </div>
                 </div>
                 
+                
+                
+
               </form>
           </div>
     </div>
@@ -133,9 +139,9 @@
                     <button type="button" id="btnBoxin_CerrarEmpaque" class="btn btn-outline-secondary"  (click)="CerrarEmpaque()">Cerrar Empaque</button>
                 </div>
     
-                <div>
+                <!--<div>
                     <button *ngIf="!bol_TerminarEmpaque" type="button" id="btnBoxin_TerminarEmpaque" class="btn btn-outline-secondary"  (click)="TerminarEmpaque()">Finalizar</button>
-                </div>
+                </div>-->
     
                 <div>
                     <button *ngIf="!bol_AbrirSaco && dataSourceBoxin.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_Saco" class="btn btn-outline-secondary"  (click)="GuardarSaco('Crear')">Crear Saco</button>
@@ -243,8 +249,8 @@
                 <td mat-cell *matCellDef="let element"> {{element.cMesa}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="cEscaneado">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cEscaneado">
+            <ng-container matColumnDef="cAccion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cAccion">
                 </th>
                 <td mat-cell *matCellDef="let element" >
                   <!--<a href="#"><fa-icon [icon]="['fas', 'minus-square']" class="fa-2x" [ngStyle]="{'color': element.cEscaneado? 'green' : 'red'}"></fa-icon></a>-->
@@ -254,10 +260,6 @@
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="cAccion">
-                <th mat-header-cell *matHeaderCellDef>*</th>
-                <td mat-cell *matCellDef="let element"> {{element.cAccion}} </td>
-              </ng-container>
 
 
               <ng-container matColumnDef="cCorte">
@@ -468,10 +470,12 @@
 <ng-template #spinBar>
     <div style="text-align: right;">
         <div class="spinner-border text-primary" role="status" >
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Cargando...</span>
           </div>
     </div>
 </ng-template>
+
+
 
 
 
