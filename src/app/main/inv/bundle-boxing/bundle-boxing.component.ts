@@ -1069,6 +1069,18 @@ CrearSerial(): void{
             this.toastService.show(_json["msj"]["Mensaje"], { classname: 'bg-Success text-light', delay: 10000 });
 
             this.ReportViewerService.change.emit(["Imprimir", reporte]);
+
+            this.valSerial.ValForm.get("txtBox_Nombre")?.setValue("");
+            this.valSerial.ValForm.get("SelectBox_Material")?.setValue("");
+            this.valSerial.ValForm.get("selectBox_Presentacion")?.setValue("");
+            this.valSerial.ValForm.get("spinBox_Cantidad")?.setValue("");
+            this.valSerial.ValForm.get("spinBox_Capaje")?.setValue("");
+            this.opcion_presentacion = "";
+            this.opcion_material = "";
+
+            this.valSerial.ValForm.reset;
+ 
+
           }
         }
         else
