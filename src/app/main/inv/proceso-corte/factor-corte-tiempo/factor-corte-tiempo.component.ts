@@ -18,10 +18,11 @@ let ELEMENT_EXCEL_FACTOR_CORTE_TIEMPO: IExcelFactorCorteTiempo[] = [];
 export interface IExcelFactorCorteTiempo {
   Componente: string;
   Estilo : string;
-  Minutos_Pza: number;
   Bultos : number;
   Yardas : number;
   CantPersonas : number;
+  Hora : number;
+  Minuto : number;
   Incio : string;
   Fin : string;
 }
@@ -44,6 +45,7 @@ export class FactorCorteTiempoComponent implements OnInit {
   public FechaInicio : Date | undefined;
   public FechaFinal : Date | undefined;
   public num_Minutos : number = 0;
+  public num_Horas : number = 0;
   public FactorDetalle : IFactorCorteDetalle = {} as IFactorCorteDetalle;
 
   public Open : boolean = false;
@@ -64,21 +66,24 @@ export class FactorCorteTiempoComponent implements OnInit {
 
   private Limpiar() : void
   {
+    this.num_Horas = 0;
     this.num_Minutos = 0;
     this.FechaInicio = undefined;
     this.FechaFinal = undefined;
    
 
+    this.val.ValForm.reset();
+    
     this.val.ValForm.get("txt_Factor_Tiempo_Componente")?.setValue("");
     this.val.ValForm.get("txt_Factor_Tiempo_Estilo")?.setValue("");
-    this.val.ValForm.get("txt_Factor_Tiempo_Bulto")?.setValue("1");
-    this.val.ValForm.get("txt_Factor_Tiempo_Yarda")?.setValue("1");
-    this.val.ValForm.get("txt_Factor_Tiempo_personas")?.setValue("1");
+    this.val.ValForm.get("txt_Factor_Tiempo_Bulto")?.setValue("");
+    this.val.ValForm.get("txt_Factor_Tiempo_Yarda")?.setValue("");
+    this.val.ValForm.get("txt_Factor_Tiempo_personas")?.setValue("");
     this.val.ValForm.get("txt_Factor_Tiempo_Fecha")?.setValue("");
     this.val.ValForm.get("txt_Factor_TiempoFinal")?.setValue("");
     
  
-    this.val.ValForm.reset();
+    
   }
 
 
@@ -278,6 +283,7 @@ public calcularMinutos() :void
         var currentDate = new Date(fecha);
         this.FechaFinal = new Date(currentDate.getTime() + TotalMinutos*60000);
         this.num_Minutos = Number(TotalMinutos.toFixed(4));
+        this.num_Horas = Number((this.num_Minutos/60).toFixed(4));
 
       }
      
@@ -354,12 +360,13 @@ exportar(): void {
   let excel : IExcelFactorCorteTiempo = {} as IExcelFactorCorteTiempo;
   excel.Componente = this.FactorDetalle.Componente;
   excel.Estilo = this.FactorDetalle.Estilo;
-  excel.Minutos_Pza = this.FactorDetalle.Minutos_Pza;
   excel.Bultos = Bultos;
   excel.Yardas = Yardas;
   excel.CantPersonas = CantPersonas;
-  excel.Incio = String(datePipe.transform(this.FechaInicio, 'dd/MM/yyyy hh:mm:ss'));
-  excel.Fin =  String(datePipe.transform(this.FechaFinal, 'dd/MM/yyyy hh:mm:ss'));
+  excel.Hora = this.num_Minutos / 60;
+  excel.Minuto = this.num_Minutos;
+  if(this.FechaInicio != undefined ) excel.Incio = String(datePipe.transform(this.FechaInicio, 'dd/MM/yyyy hh:mm:ss'));
+  if(this.FechaInicio != undefined ) excel.Fin =  String(datePipe.transform(this.FechaFinal, 'dd/MM/yyyy hh:mm:ss'));
 
   ELEMENT_EXCEL_FACTOR_CORTE_TIEMPO.push(excel);
 
@@ -379,7 +386,7 @@ exportar(): void {
 
 
   //add column name
-  let header=["Componente", "Estilo", "Minutos",  "Bultos", "Longitud Marker", "Cantidad Personas", "Inicio", "Fin"]
+  let header=["Componente", "Estilo", "Bultos", "Longitud Marker", "Cantidad Personas", "Hora",  "Minutos", "Inicio", "Fin"]
  
 
   var Imagen = (new ImagenLogo()).Logo();
@@ -399,8 +406,8 @@ exportar(): void {
 
 
 
-  worksheet.mergeCells("B2:H4")
-  const Fila_Titulo = worksheet.getCell("B2:H4");
+  worksheet.mergeCells("B2:I4")
+  const Fila_Titulo = worksheet.getCell("B2:I4");
   Fila_Titulo!.value = "TIEMPOS DE CORTE"
   Fila_Titulo.alignment = { vertical: 'middle', horizontal: 'center' };
   Fila_Titulo.font = {
@@ -422,7 +429,7 @@ exportar(): void {
 
   worksheet.addRow([]);
   worksheet.addRow(header);
-  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H"],  int_Linea)
+  this.sTyleHeader(worksheet, ["A", "B", "C", "D", "E", "F", "G", "H", "I"],  int_Linea)
 
 
   worksheet.getCell("K" + int_Linea).alignment = { vertical: 'middle', horizontal: 'center' };

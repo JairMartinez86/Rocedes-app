@@ -19,6 +19,7 @@ import { BundleBoxingEnvioComponent } from './inv/bundle-boxing-envio/bundle-box
 import { FactorCorteTiempoComponent } from './inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
 import { FactorFoleoComponent } from './inv/proceso-foleo/factor-foleo/factor-foleo.component';
 import { FoleoTiempoComponent } from './inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
+import { FlujoCorteComponent } from './inv/flujo/flujo-corte/flujo-corte.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -120,6 +121,10 @@ export class MainComponent implements OnInit {
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Capa Sencilla", false));
     this.lstEsquema.push(_Esquema);
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoCapaDoble", "Capa Doble", false));
+    this.lstEsquema.push(_Esquema);
+    
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkFlujoCorte", "Flujo de Corte", false));
     this.lstEsquema.push(_Esquema);
     
     
@@ -245,9 +250,14 @@ export class MainComponent implements OnInit {
     if(_Id != "LinkProcesoFoleoCapaDoble"){
       this.dinamycHost.viewContainerRef!.clear();
     }
+
+
+    if(_Id != "LinkFlujoCorte"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
     
   }
-
+  
 
   this.Esquema.ActivarForm(_Id);
 
@@ -477,7 +487,7 @@ export class MainComponent implements OnInit {
               break;
 
 
-              case "LinkProcesoFoleoCapaDoble":
+            case "LinkProcesoFoleoCapaDoble":
               if(this.dinamycHost.viewContainerRef.length == 0)
               {
                 component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
@@ -485,6 +495,17 @@ export class MainComponent implements OnInit {
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaDoble";
               }
               break;
+
+
+            case "LinkFlujoCorte":
+                if(this.dinamycHost.viewContainerRef.length == 0)
+                {
+                  component = this.componentFactoryResolver.resolveComponentFactory(FlujoCorteComponent);
+                 let TiempoFole: ComponentRef<FlujoCorteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                 TiempoFole.instance.Link = "LinkFlujoCorte";
+                 TiempoFole.instance.Open = true;
+                }
+                break;
             
                   
           case "LinkOtro":

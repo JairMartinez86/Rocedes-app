@@ -101,12 +101,15 @@ export class FoleoTiempoComponent implements OnInit {
     this.FechaInicio = undefined;
     this.FechaFinal = undefined;
    
+    this.val.ValForm.reset();
+
+
 
     this.val.ValForm.get("txt_foleo_Estilo")?.setValue("");
-    this.val.ValForm.get("txt_Foleo_Cant_Bulto")?.setValue("1");
-    this.val.ValForm.get("txt_Foleo_Cant_Capas")?.setValue("1");
-    this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Pequeña")?.setValue("1");
-    this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Grande")?.setValue("1");
+    this.val.ValForm.get("txt_Foleo_Cant_Bulto")?.setValue("");
+    this.val.ValForm.get("txt_Foleo_Cant_Capas")?.setValue("");
+    this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Pequeña")?.setValue("");
+    this.val.ValForm.get("txt_Foleo_Cant_Personas_Pieza_Grande")?.setValue("");
     this.val.ValForm.get("txt_Foleo_Cant_Grande")?.setValue("");
     this.val.ValForm.get("txt_Foleo_Cant_Pequeña")?.setValue("");
     this.val.ValForm.get("txt_Foleo_Cant_Pieza_Doble")?.setValue("");
@@ -114,8 +117,6 @@ export class FoleoTiempoComponent implements OnInit {
     this.val.ValForm.get("txt_Factor_Tiempo_Fecha")?.setValue("");
     this.val.ValForm.get("txt_Factor_TiempoFinal")?.setValue("");
 
-
-    this.val.ValForm.get("txt_foleo_Estilo")?.setValue("");
 
     this.val.ValForm.get("txt_Foleo_Cant_Grande")?.disable();
     this.val.ValForm.get("txt_Foleo_Cant_Pequeña")?.disable();
@@ -127,7 +128,7 @@ export class FoleoTiempoComponent implements OnInit {
 
     
     
-    this.val.ValForm.reset();
+  
   }
 
 

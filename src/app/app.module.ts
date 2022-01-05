@@ -90,6 +90,7 @@ import { FactorCorteTiempoComponent } from './main/inv/proceso-corte/factor-cort
 import { FactorFoleoComponent } from './main/inv/proceso-foleo/factor-foleo/factor-foleo.component';
 import { FoleoDatosComponent } from './main/inv/proceso-foleo/foleo-datos/foleo-datos.component';
 import { FoleoTiempoComponent } from './main/inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
+import { FlujoCorteComponent } from './main/inv/flujo/flujo-corte/flujo-corte.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -132,6 +133,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     FactorFoleoComponent,
     FoleoDatosComponent,
     FoleoTiempoComponent,
+    FlujoCorteComponent,
 
     
     

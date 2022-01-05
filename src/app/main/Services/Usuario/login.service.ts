@@ -328,6 +328,10 @@ export class LoginService {
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoCapaSencilla", NombreLink : "Capa Sencilla", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoCapaDoble", NombreLink : "Capa Doble", Activo : false},
 
+
+      {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkFlujoCorte", NombreLink : "Flujo de Corte", Activo : false},
+      
+
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingSaco", NombreLink : "Lista Saco", Activo : false},

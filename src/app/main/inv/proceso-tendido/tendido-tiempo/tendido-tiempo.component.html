@@ -64,13 +64,22 @@
               <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
               <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha_Final')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
             </mat-form-field>
-
-             
-         
-              
-
+            
             </div>
 
+
+            
+            <div class="row">
+
+              <div class="col-sm-6">
+                <mat-label><b>HORAS: </b><b style="color: blue;">{{num_Horas}}</b></mat-label>
+              </div>
+
+              <div class="col-sm-6">
+                <mat-label><b>MINUTOS: </b><b style="color: blue;">{{num_Minutos}}</b></mat-label>
+              </div>
+
+            </div>
             
 
             

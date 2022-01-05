@@ -48,7 +48,8 @@ export class TendidoTiempoComponent implements OnInit {
 
   public FechaInicio : Date | undefined;
   public FechaFinal : Date | undefined;
-
+  public num_Minutos : number = 0;
+  public num_Horas : number = 0;
 
   
   displayedColumns: string[] = ["IdProcesoTendido", "Descripcion",   "Minutos"];
@@ -91,6 +92,8 @@ export class TendidoTiempoComponent implements OnInit {
     ELEMENT_DATA_TIEMPO.splice(0, ELEMENT_DATA_TIEMPO.length);
     this.dataSourceFactorTendidoTiempo.data.splice(0, this.dataSourceFactorTendidoTiempo.data.length);
     this.dataSourceFactorTendidoTiempo.filter = "";
+    this.num_Minutos = 0;
+    this.num_Horas = 0;
     this.str_from = "";
     this.str_Capa = "";
     this.str_Titulo_Tiempo = "";
@@ -254,6 +257,8 @@ export class TendidoTiempoComponent implements OnInit {
     var currentDate = new Date(fecha);
     this.FechaFinal = new Date(currentDate.getTime() + Minutos*60000);
 
+    this.num_Minutos = Number(Minutos.toFixed(4));
+    this.num_Horas = Number((this.num_Minutos/60).toFixed(4));
 
   }
 

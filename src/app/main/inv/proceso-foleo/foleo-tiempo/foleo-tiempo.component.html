@@ -34,31 +34,62 @@
             <div class="row">
 
 
-              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                 <mat-label><b>CANTIDAD DE BULTOS</b></mat-label>
                 <input matInput type="text" id="txt_Foleo_Cant_Bulto" formControlName="txt_Foleo_Cant_Bulto"  placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
                 <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Bulto')?.errors?.Regla=='1'">Cantidad de bultos es <strong>requerido</strong></mat-error>
               </mat-form-field>
 
-              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                 <mat-label><b>CANTIDAD DE CAPAS</b></mat-label>
                 <input matInput type="text" id="txt_Foleo_Cant_Capas" formControlName="txt_Foleo_Cant_Capas" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
                 <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Capas')?.errors?.Regla=='1'">Cantidad de capas es <strong>requerido</strong></mat-error>
               </mat-form-field>
 
 
-              
-              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+        
+
+            </div>
+
+
+
+            
+            <div class="row">
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                 <mat-label><b>CANTIDAD DE PERSONAS EN PARTES PEQUEÑAS</b></mat-label>
                 <input matInput type="text" id="txt_Foleo_Cant_Personas_Pieza_Pequeña" formControlName="txt_Foleo_Cant_Personas_Pieza_Pequeña" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
                 <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Personas_Pieza_Pequeña')?.errors?.Regla=='1'">Cantidad personas en partes pequeñas es <strong>requerido</strong></mat-error>
               </mat-form-field>
               
-              <mat-form-field class="col-sm-12 col-md-3 col-lg-3">
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                 <mat-label><b>CANTIDAD DE PERSONAS EN PARTES GRANDES</b></mat-label>
                 <input matInput type="text" id="txt_Foleo_Cant_Personas_Pieza_Grande" formControlName="txt_Foleo_Cant_Personas_Pieza_Grande" placeholder="" (keydown.enter)="onKeyEnter($event)" (keyup)="calcularMinutos();">
                 <mat-error *ngIf="val.ValForm.get('txt_Foleo_Cant_Personas_Pieza_Grande')?.errors?.Regla=='1'">Cantidad personas en partes grandes es <strong>requerido</strong></mat-error>
               </mat-form-field>
+
+            </div>
+
+
+            <div class="row">
+
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA INICIO</b></mat-label>
+                <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Factor_Tiempo_Fecha" formControlName="txt_Factor_Tiempo_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
+  
+         
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA FINAL</b></mat-label>
+                <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Factor_TiempoFinal" formControlName="txt_Factor_TiempoFinal" style="color:blue;" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Factor_TiempoFinal')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
+  
 
             </div>
 
@@ -93,27 +124,7 @@
 
 
 
-            <div class="row">
-
-                <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-                  <mat-label><b>FECHA HORA INICIO</b></mat-label>
-                  <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Factor_Tiempo_Fecha" formControlName="txt_Factor_Tiempo_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
-                  <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-                  <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
-                  <mat-error *ngIf="val.ValForm.get('txt_Factor_Tiempo_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
-                </mat-form-field>
-    
            
-                <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-                  <mat-label><b>FECHA HORA FINAL</b></mat-label>
-                  <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Factor_TiempoFinal" formControlName="txt_Factor_TiempoFinal" style="color:blue;" [disabled]="true">
-                  <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
-                  <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
-                  <mat-error *ngIf="val.ValForm.get('txt_Factor_TiempoFinal')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
-                </mat-form-field>
-    
-
-                </div>
 
 
 
@@ -165,7 +176,7 @@
      
   
    
-    <div class="mat-elevation-z8" id="tbl-foleo-factor-tiempo">
+    <div class="mat-elevation-z8" id="tbl-factor-tiempo">
 
 
           <table  mat-table [dataSource]="dataSourceFactorFoleo" matSort (matSortChange)="announceSortChange($event)">
