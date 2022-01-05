@@ -147,10 +147,10 @@
          
       
        
-        <div class="mat-elevation-z8">
+        <div class="mat-elevation-z8" Id="tabla-factor-corte-detalle">
 
 
-              <table Id="tabla-factor-corte-detalle" mat-table [dataSource]="dataSourceDetalleFactorCorte" matSort (matSortChange)="announceSortChangeDetalle($event)">
+              <table mat-table [dataSource]="dataSourceDetalleFactorCorte" matSort (matSortChange)="announceSortChangeDetalle($event)">
             
 
                 <!--<ng-container matColumnDef="IdFactorDetalleCorte" sticky>
@@ -313,7 +313,7 @@
                 </ng-container>
 
             
-              <tr mat-header-row *matHeaderRowDef="displayedColumnsDetalle"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsDetalle; sticky: true" ></tr>
               <tr
               mat-row  [class.demo-row-is-clicked]="clickedRowsDetalle.has(row)" *matRowDef="let row; columns: displayedColumnsDetalle;"></tr>
               

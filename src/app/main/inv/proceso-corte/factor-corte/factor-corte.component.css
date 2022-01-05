@@ -28,3 +28,8 @@
 table a {
   margin-right: 25px;
 }
+
+#tabla-factor-corte-detalle
+{
+  max-height: 600px;
+}

@@ -9,6 +9,10 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+#tbl-tendido-factor{
+  max-height: 600px;
+}
  /*
 #tabla-factor-tendido td:nth-child(1), #tabla-factor-tendido td:nth-child(2), #tabla-factor-tendido td:nth-child(3)
 {
