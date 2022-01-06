@@ -82,11 +82,11 @@ export class FoleoTiempoComponent implements OnInit {
     this.val.add("txt_Foleo_Cant_Capas", "1", "NUM>", "0");
     this.val.add("txt_Foleo_Cant_Personas_Pieza_Pequeña", "1", "NUM>", "0");
     this.val.add("txt_Foleo_Cant_Personas_Pieza_Grande", "1", "NUM>", "0");
-    this.val.add("txt_Foleo_Cant_Grande", "1", "NUM>=", "0");
-    this.val.add("txt_Foleo_Cant_Pequeña", "1", "NUM>=", "0");
-    this.val.add("txt_Foleo_Cant_Pieza_Doble", "1", "NUM>=", "0");
-    this.val.add("txt_Foleo_Cant_Pieza", "1", "NUM>=", "0");
-    this.val.add("txt_Factor_Tiempo_Fecha", "1", "LEN>", "0");
+    this.val.add("txt_Foleo_Cant_Grande", "1", "LEN>=", "0");
+    this.val.add("txt_Foleo_Cant_Pequeña", "1", "LEN>=", "0");
+    this.val.add("txt_Foleo_Cant_Pieza_Doble", "1", "LEN>=", "0");
+    this.val.add("txt_Foleo_Cant_Pieza", "1", "LEN>=", "0");
+    this.val.add("txt_Factor_Tiempo_Fecha", "1", "LEN>=", "0");
     this.val.add("txt_Factor_TiempoFinal", "1", "LEN>=", "0");
 
     
@@ -319,7 +319,7 @@ LLenarTabla() : void
 }
 
 
-public calcularMinutos() :void
+public calcularMinutos() : number
 {
   let _Opcion : any = this.val.ValForm.get("txt_foleo_Estilo")?.value;
 
@@ -329,12 +329,12 @@ public calcularMinutos() :void
 
     if(_Opcion == null){
       this.val.ValForm.get("txt_foleo_Estilo")?.setValue("");
-      return;
+      return 0;
     }
     
   }
 
-  if(this.val.ValForm.invalid) return;
+  if(this.val.ValForm.invalid) return 0;
 
   this.str_Estilo = _Opcion.Estilo;
   let Cant_Bulto : number = Number(this.val.ValForm.get("txt_Foleo_Cant_Bulto")?.value);
@@ -365,7 +365,7 @@ public calcularMinutos() :void
  let TotalMinutos : number = 0;
 
 
- ELEMENT_DATA_FACTOR_FOLEO.forEach((d : IFactorFoleo) => {
+ this.dataSourceFactorFoleo.data.forEach((d : IFactorFoleo) => {
    d.TotalFactor = d.Factor1 + d.Factor2 + d.Factor3;
    d.Minutos = 0;
 
@@ -412,27 +412,28 @@ public calcularMinutos() :void
         d.Minutos = (d.TotalFactor * Partes_Pieza * Cant_Bulto) / (Cant_Personas_Partes_Grande + Cant_Personas_Partes_Pequeña);
         break;
 
+
       //DOBLE
       case 11:
-        d.Minutos = d.TotalFactor * Cant_Pieza_Doble;
+        if(this.str_Capa == "Doble") d.Minutos = d.TotalFactor * Cant_Pieza_Doble;
         break;
 
       case 12:
-        d.Minutos = (d.TotalFactor * Partes_Grandes * Cant_Capas  * Cant_Bulto) / Cant_Personas_Partes_Grande;
+        if(this.str_Capa == "Doble") d.Minutos = (d.TotalFactor * Partes_Grandes * Cant_Capas  * Cant_Bulto) / Cant_Personas_Partes_Grande;
         break;
 
       case 13:
-        d.Minutos = (d.TotalFactor * Partes_Pequeñas * Cant_Capas * Cant_Bulto) / Cant_Personas_Partes_Pequeña;
+        if(this.str_Capa == "Doble") d.Minutos = (d.TotalFactor * Partes_Pequeñas * Cant_Capas * Cant_Bulto) / Cant_Personas_Partes_Pequeña;
         break;
 
       //SENCILLA
 
       case 14:
-        d.Minutos = (d.TotalFactor * Partes_Grandes * Cant_Capas * Cant_Bulto) / Cant_Personas_Partes_Grande;
+        if(this.str_Capa == "Sencilla") d.Minutos = (d.TotalFactor * Partes_Grandes * Cant_Capas * Cant_Bulto) / Cant_Personas_Partes_Grande;
         break;
 
       case 15:
-        d.Minutos = (d.TotalFactor * Partes_Pequeñas * Cant_Capas * Cant_Bulto) / Cant_Personas_Partes_Pequeña;
+        if(this.str_Capa == "Sencilla") d.Minutos = (d.TotalFactor * Partes_Pequeñas * Cant_Capas * Cant_Bulto) / Cant_Personas_Partes_Pequeña;
         break;
 
       case 16:
@@ -473,9 +474,9 @@ public calcularMinutos() :void
    TotalMinutos += d.Minutos;
  });
 
- let index = ELEMENT_DATA_FACTOR_FOLEO.findIndex(f => f.IdProcesoFoleo == -1);
+ let index = this.dataSourceFactorFoleo.data.findIndex(f => f.IdProcesoFoleo == -1);
 
- if(index != -1) ELEMENT_DATA_FACTOR_FOLEO.splice(index, ELEMENT_DATA_FACTOR_FOLEO.length)
+ if(index != -1) this.dataSourceFactorFoleo.data.splice(index, this.dataSourceFactorFoleo.data.length)
 
  
  let RegistroTotal: IFactorFoleo = {} as IFactorFoleo;
@@ -486,12 +487,10 @@ public calcularMinutos() :void
  RegistroTotal.Proceso = "TOTAL";
  RegistroTotal.TotalFactor = 0;
  RegistroTotal.Minutos = TotalMinutos
- ELEMENT_DATA_FACTOR_FOLEO.push(RegistroTotal);
+ this.dataSourceFactorFoleo.data.push(RegistroTotal);
 
 
 
-  this.dataSourceFactorFoleo = new MatTableDataSource(ELEMENT_DATA_FACTOR_FOLEO);
-  
   let fecha : string = String(this.FechaInicio?.toString());
 
   var currentDate = new Date(fecha);
@@ -499,7 +498,7 @@ public calcularMinutos() :void
   this.num_Minutos = Number(TotalMinutos.toFixed(4));
   this.num_Horas = Number((this.num_Minutos/60).toFixed(4));
 
-  
+  return this.num_Minutos;
 }
 
 
@@ -783,19 +782,20 @@ public calcularMinutos() :void
     if(this.Link == "LinkProcesoFoleoCapaSencilla"){
       this.str_Capa = "Sencilla";
       this.str_Titulo_Tiempo = "FOLEO (CAPA SENCILLA)";
+      this.Limpiar();
+      this.LLenarTabla();
     }
 
 
     if(this.Link == "LinkProcesoFoleoCapaDoble"){
       this.str_Capa = "Doble";
       this.str_Titulo_Tiempo = "FOLEO (CAPA DOBLE)";
+      this.Limpiar();
+      this.LLenarTabla();
     }
 
 
-
-    this.Limpiar();
-    this.LLenarTabla();
-    this.Open = true;
+    
   }
 
 }

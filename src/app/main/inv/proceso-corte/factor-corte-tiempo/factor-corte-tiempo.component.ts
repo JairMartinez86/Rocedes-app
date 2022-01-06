@@ -216,7 +216,7 @@ private _FiltroSeleccion(Componente: string): IFactorCorteDetalle[] {
 //#endregion AUTO COMPLETADO COMPONENTE
 
 
-public calcularMinutos() :void
+public calcularMinutos() : void
 {
   let _Opcion : any = this.val.ValForm.get("txt_Factor_Tiempo_Componente")?.value;
 
@@ -247,8 +247,31 @@ public calcularMinutos() :void
 
       if(_json["count"] > 0){
         
-        let FilaFactor : IFactorCorte = _json["d"][0];
-        this.FactorDetalle  = _json["d"][1] ;
+        this.GetDetalle(_json["d"][0], _json["d"][1], Bultos, Yardas, CantPersonas)
+      }
+
+     
+    }else{
+      this.dialog.open(DialogoComponent, {
+        data: _json["msj"]
+      })
+
+
+
+    }
+
+
+
+  });
+
+
+
+}
+
+public GetDetalle(FactorCorte : IFactorCorte, FactorCorteDetalle : IFactorCorteDetalle, Bultos : number, Yardas :number, CantPersonas : number) : number
+{
+  let FilaFactor  = FactorCorte;
+  this.FactorDetalle = FactorCorteDetalle ;
 
         let Segundos : number = 0;
         if(this.FactorDetalle.StraightPerimeter == 0)
@@ -285,25 +308,9 @@ public calcularMinutos() :void
         this.num_Minutos = Number(TotalMinutos.toFixed(4));
         this.num_Horas = Number((this.num_Minutos/60).toFixed(4));
 
-      }
-     
-    }else{
-      this.dialog.open(DialogoComponent, {
-        data: _json["msj"]
-      })
-
-
-
-    }
-
-
-
-  });
-
- 
-
+        return this.num_Minutos;
+        
 }
-
 
 sTyleHeader(worksheet : any, cel : string[], line : number) : void
 {
@@ -470,7 +477,6 @@ exportar(): void {
 
   ngOnInit(): void {
     this.Limpiar();
-    this.Open = true;
   }
 
 }

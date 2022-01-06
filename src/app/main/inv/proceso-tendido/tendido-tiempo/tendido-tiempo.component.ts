@@ -108,12 +108,12 @@ export class TendidoTiempoComponent implements OnInit {
   }
 
 
-  calcularMinutos() : void
+  calcularMinutos() : number
   {
     
     this.val.ValForm.get("txt_Tendido_Fecha_Final")?.setValue("");
 
-    if(this.val.ValForm.invalid) return;
+    if(this.val.ValForm.invalid) return 0;
 
     let Minutos : number = 0;
     let Factor : number = 0;
@@ -134,12 +134,13 @@ export class TendidoTiempoComponent implements OnInit {
     if(index > 0) this.dataSourceFactorTendidoTiempo.data.splice(index, 1);
 
 
-    if(this.val.ValForm.invalid)  return
+    if(this.val.ValForm.invalid)  return 0;
     
 
 
     this.dataSourceFactorTendidoTiempo.data.forEach( f =>{
 
+      f.Minutos = 0;
       switch(f.Orden)
       {
  
@@ -260,6 +261,7 @@ export class TendidoTiempoComponent implements OnInit {
     this.num_Minutos = Number(Minutos.toFixed(4));
     this.num_Horas = Number((this.num_Minutos/60).toFixed(4));
 
+    return this.num_Minutos;
   }
 
 

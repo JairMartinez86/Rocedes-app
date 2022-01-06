@@ -461,6 +461,7 @@ export class MainComponent implements OnInit {
               {
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorCorteTiempoComponent);
                 let FactorCorte: ComponentRef<FactorCorteTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                FactorCorte.instance.Open = true;
               }
   
   
@@ -483,6 +484,7 @@ export class MainComponent implements OnInit {
                 component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
                let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaSencilla";
+               TiempoFole.instance.Open = true;
               }
               break;
 
@@ -493,6 +495,7 @@ export class MainComponent implements OnInit {
                 component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
                let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaDoble";
+               TiempoFole.instance.Open = true;
               }
               break;
 
