@@ -415,7 +415,14 @@ public calcularMinutos() : number
 
       //DOBLE
       case 11:
-        if(this.str_Capa == "Doble") d.Minutos = d.TotalFactor * Cant_Pieza_Doble;
+        if(this.str_Capa == "Doble")
+        {
+          d.Minutos = d.TotalFactor * Cant_Pieza_Doble;
+        }
+        else
+        {
+          d.TotalFactor = 0;
+        }
         break;
 
       case 12:

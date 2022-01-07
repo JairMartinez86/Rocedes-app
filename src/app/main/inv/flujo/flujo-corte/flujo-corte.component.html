@@ -21,7 +21,7 @@
                         formControlName="txt_flujo_Estilo"
                          placehoder="Ingrese el estilo" 
                          [matAutocomplete]="auto"
-                        (input)="txt_flujo_Estilo_onSearchChange($event)" (keydown.enter)="onKeyEnter($event)">
+                        (input)="txt_flujo_Estilo_onSearchChange($event)" (focusout)="txt_flujo_Estilo_onFocusOutEvent($event)"  (keydown.enter)="onKeyEnter($event)">
                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
                             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                               {{option.Componente}}
@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-row text-end">
-                            <button type="button" class="btn btn-outline-secondary" (click)="Calcular()">Calcular</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="Calcular()"><b>GENERAR </b><fa-icon [icon]="['fas', 'file-excel']" class="fa-2x" style="color:green"></fa-icon></button>
                         </div>
                     </div>
                 </div>
