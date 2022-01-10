@@ -1,0 +1,44 @@
+<div class="container">
+
+    <div class="formulario" id="divOperacion-frm-codigo-gsd" *ngIf="this.Open">
+
+        <div class="head-form">
+          <div class="from-encabezado-titulo"><p>CODIGOS GSD</p></div>
+          <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+        </div>
+    
+        <div class="container">
+            <form class="form"   [formGroup]="val.ValForm"  novalidate>
+    
+
+                <div class="row">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label><b>CODIGO</b></mat-label>
+                        <input matInput type="text" id="txt_operacion_codigo_gsd" formControlName="txt_operacion_codigo_gsd" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="val.ValForm.get('txt_operacion_codigo_gsd')?.errors?.Regla=='1'">Codigo GSD es <strong>requerido</strong></mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                        <mat-label><b>TMU's</b></mat-label>
+                        <input  matInput type="text"  formControlName="txt_operacion_tmu" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="val.ValForm.get('txt_operacion_tmu')?.errors?.Regla=='1'">TMU's es <strong>requerido</strong></mat-error>
+                        <mat-error *ngIf="val.ValForm.get('txt_operacion_tmu')?.errors?.Regla=='2'">Solo se permiten numeros <strong>positivos</strong></mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-row text-end">
+                            <button type="button" [disabled]="this.Editar" id="btnCancelar" class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> Nuevo</button>
+                            <button type="button" [disabled]="val.ValForm.invalid || !this.Editar"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Guardar</button>
+                            <button type="button" id="btnCancelar" class="btn btn-outline-secondary" (click)="Limpiar()"><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+    
+            </form>
+        </div>
+    
+    </div>
+</div>

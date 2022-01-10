@@ -477,6 +477,11 @@ CalcularMinutos(DatosCorte : IFactorCorte, DatosCorteDetalle : IFactorCorteDetal
     ELEMENT_DATA_FLUJO_EXCEL[2].Rate = 0;
     ELEMENT_DATA_FLUJO_EXCEL[2].Pago = 0;
 
+    ELEMENT_DATA_FLUJO_EXCEL[4].Sam = 0;
+    ELEMENT_DATA_FLUJO_EXCEL[4].Rate = 0;
+    ELEMENT_DATA_FLUJO_EXCEL[4].Pago = 0;
+
+
     this.exportar();
     return;
   }
@@ -927,7 +932,7 @@ for(let i = 17 ; i <= 19; i++)
     fgColor:{argb:'1C394F'},
   };
 
-  Fila.numFmt = 'C$ #,##0.0000;[Red]-$#,##0.0000'
+  Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
   
 }
 

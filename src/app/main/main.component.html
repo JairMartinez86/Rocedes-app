@@ -147,15 +147,23 @@
             </li>
 
 
+            <li class="nav-item dropdown" id="navInvFactorFoleo"  appDropdown #r6="appDropDown">
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Operaciones</a>
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r6.isOpen}">
+                <li><a id="Link-Operaciones-codigo-gsd" class="dropdown-item" href="#">Codigos GSD</a></li>
+              </ul>
+            </li>
+     
+            
             
             <!--<li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
               <a id="LinkOtro" class="nav-link" href="#" >Otros</a>
             </li>-->
 
 
-            <li class="nav-item dropdown" id="navReporte" appDropdown #r6="appDropDown">
+            <li class="nav-item dropdown" id="navReporte" appDropdown #r7="appDropDown">
               <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r6.isOpen}">
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r7.isOpen}">
                 <li><a id="LinkReportBundleBoxing" class="dropdown-item" href="#">BundleBoxing Report</a></li>
                 <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
                 <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>

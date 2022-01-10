@@ -20,6 +20,7 @@ import { FactorCorteTiempoComponent } from './inv/proceso-corte/factor-corte-tie
 import { FactorFoleoComponent } from './inv/proceso-foleo/factor-foleo/factor-foleo.component';
 import { FoleoTiempoComponent } from './inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
 import { FlujoCorteComponent } from './inv/flujo/flujo-corte/flujo-corte.component';
+import { CodigoGsdComponent } from './inv/operaciones/datos-gsd/codigo-gsd.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -126,6 +127,10 @@ export class MainComponent implements OnInit {
 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkFlujoCorte", "Flujo de Corte", false));
     this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-codigo-gsd", "Codigos GSD", false));
+    this.lstEsquema.push(_Esquema);
     
     
     
@@ -219,6 +224,10 @@ export class MainComponent implements OnInit {
       this.dinamycHost.viewContainerRef!.clear();
     }
 
+
+
+
+
     if(_Id != "LinkProcesoTendidoFactor"){
       this.dinamycHost.viewContainerRef!.clear();
     }
@@ -230,6 +239,9 @@ export class MainComponent implements OnInit {
     if(_Id != "LinkProcesoTendidoCapaDoble"){
       this.dinamycHost.viewContainerRef!.clear();
     }
+
+
+
     
     if(_Id != "LinkProcesoCorteFactor"){
       this.dinamycHost.viewContainerRef!.clear();
@@ -238,6 +250,10 @@ export class MainComponent implements OnInit {
     if(_Id != "LinkProcesoCorteFactorTiempo"){
       this.dinamycHost.viewContainerRef!.clear();
     }
+
+
+
+
 
     if(_Id != "LinkProcesoFoleoFactor"){
       this.dinamycHost.viewContainerRef!.clear();
@@ -252,10 +268,21 @@ export class MainComponent implements OnInit {
     }
 
 
+
+
+
     if(_Id != "LinkFlujoCorte"){
       this.dinamycHost.viewContainerRef!.clear();
     }
+
+
+
+    if(_Id != "Link-Operaciones-codigo-gsd"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
     
+    
+
   }
   
 
@@ -509,7 +536,23 @@ export class MainComponent implements OnInit {
                  TiempoFole.instance.Open = true;
                 }
                 break;
+
+
+
+            case "Link-Operaciones-codigo-gsd":
+                if(this.dinamycHost.viewContainerRef.length == 0)
+                {
+                  component = this.componentFactoryResolver.resolveComponentFactory(CodigoGsdComponent);
+                 let CodigoGSD: ComponentRef<CodigoGsdComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                 CodigoGSD.instance.Link = "Link-Operaciones-codigo-gsd";
+                 CodigoGSD.instance.Open = true;
+                }
+                break;
             
+
+
+
+                
                   
           case "LinkOtro":
 

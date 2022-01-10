@@ -91,6 +91,7 @@ import { FactorFoleoComponent } from './main/inv/proceso-foleo/factor-foleo/fact
 import { FoleoDatosComponent } from './main/inv/proceso-foleo/foleo-datos/foleo-datos.component';
 import { FoleoTiempoComponent } from './main/inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
 import { FlujoCorteComponent } from './main/inv/flujo/flujo-corte/flujo-corte.component';
+import { CodigoGsdComponent } from './main/inv/operaciones/datos-gsd/codigo-gsd.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -134,6 +135,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     FoleoDatosComponent,
     FoleoTiempoComponent,
     FlujoCorteComponent,
+    CodigoGsdComponent
 
     
     
