@@ -93,6 +93,8 @@ import { FoleoTiempoComponent } from './main/inv/proceso-foleo/foleo-tiempo/fole
 import { FlujoCorteComponent } from './main/inv/flujo/flujo-corte/flujo-corte.component';
 import { CodigoGsdComponent } from './main/inv/operaciones/datos-gsd/codigo-gsd.component';
 import { ConfirmarEliminarComponent } from './main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
+import { PartesComponent } from './main/inv/operaciones/partes/partes/partes.component';
+import { TiposTelaComponent } from './main/inv/operaciones/telas/tipos-tela/tipos-tela.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -137,7 +139,9 @@ export const CUSTOM_MOMENT_FORMATS  = {
     FoleoTiempoComponent,
     FlujoCorteComponent,
     CodigoGsdComponent,
-    ConfirmarEliminarComponent
+    ConfirmarEliminarComponent,
+    PartesComponent,
+    TiposTelaComponent
 
     
     

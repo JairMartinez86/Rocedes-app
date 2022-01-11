@@ -4,21 +4,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ICodigoGSD } from 'src/app/main/class/Form/Inv/Interface/i-Codigo-GSD';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Services/inv/Operaciones/operaciones.service';
+import { IPartes } from 'src/app/main/class/Form/Inv/Interface/i-Partes';
 
-
-
-let ELEMENT_DATA_CODIGO_GSD : ICodigoGSD[] = [];
+let ELEMENT_DATA_PARTES : IPartes[] = [];
 @Component({
-  selector: 'app-codigo-gsd',
-  templateUrl: './codigo-gsd.component.html',
-  styleUrls: ['./codigo-gsd.component.css']
+  selector: 'app-partes',
+  templateUrl: './partes.component.html',
+  styleUrls: ['./partes.component.css']
 })
-export class CodigoGsdComponent implements OnInit {
+export class PartesComponent implements OnInit {
 
   public val = new Validacion();
   
@@ -28,12 +26,12 @@ export class CodigoGsdComponent implements OnInit {
 
   public Editar : boolean = false;
   private Id : number = -1;
-  private _RowDato !: ICodigoGSD;
+  private _RowDato !: IPartes;
 
 
-  displayedColumns: string[] = ["IdCodGSD", "CodigoGSD",   "Tmus", "Editar", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_CODIGO_GSD);
-  clickedRows = new Set<ICodigoGSD>();
+  displayedColumns: string[] = ["IdParte", "Nombre",   "Editar", "Eliminar"];
+  dataSource = new MatTableDataSource(ELEMENT_DATA_PARTES);
+  clickedRows = new Set<IPartes>();
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
@@ -53,9 +51,7 @@ export class CodigoGsdComponent implements OnInit {
 
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
-    this.val.add("txt_operacion_codigo_gsd", "1", "LEN>", "0");
-    this.val.add("txt_operacion_tmu", "1", "LEN>", "0");
-    this.val.add("txt_operacion_tmu", "2", "NUM>", "0");
+    this.val.add("txt_operacion_partes", "1", "LEN>", "0");
   }
 
 
@@ -65,9 +61,8 @@ export class CodigoGsdComponent implements OnInit {
     this.Editar = false;
     this.val.ValForm.reset();
 
-    this.val.ValForm.get("txt_operacion_codigo_gsd")?.disable();
-    this.val.ValForm.get("txt_operacion_tmu")?.disable();
-    document?.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.remove("disabled");
+    this.val.ValForm.get("txt_operacion_partes")?.disable();
+    document?.getElementById("divOperacion-frm-partes-registros")?.classList.remove("disabled");
   }
 
 
@@ -92,16 +87,7 @@ export class CodigoGsdComponent implements OnInit {
     }
 
 
-    switch(_input){
-
-      case "txt_operacion_codigo_gsd":
-        document?.getElementById("txt_operacion_tmu")?.focus();
-        break;
-
-      case "txt_operacion_tmu":
-        this.Guardar();
-        break;
-    }
+    this.Guardar();
 
   }
 
@@ -144,10 +130,9 @@ export class CodigoGsdComponent implements OnInit {
     if(str_Evento == "Editar")
     {
       this.Nuevo();
-      this.Id = row.IdCodGSD;
-      this.val.ValForm.get("txt_operacion_codigo_gsd")?.setValue(row.CodigoGSD);
-      this.val.ValForm.get("txt_operacion_tmu")?.setValue(row.Tmus);
-      document.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.add("disabled");
+      this.Id = row.IdParte;
+      this.val.ValForm.get("txt_operacion_partes")?.setValue(row.Nombre);
+      document.getElementById("divOperacion-frm-partes-registros")?.classList.add("disabled");
     }
     else
     {
@@ -171,20 +156,20 @@ export class CodigoGsdComponent implements OnInit {
   Eliminar() : void
   {
     this._RowDato.Evento = "Eliminar";
-    this._OperacionesService.GuardarCodigoGSD(this._RowDato).subscribe( s =>{
+    this._OperacionesService.GuardarPartes(this._RowDato).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_CODIGO_GSD.findIndex(f =>  Number(f.IdCodGSD) == Number(_json["d"].IdCodGSD));
+        let index : number = ELEMENT_DATA_PARTES.findIndex(f =>  Number(f.IdParte) == Number(_json["d"].IdParte));
 
 
-        if(index >= 0) ELEMENT_DATA_CODIGO_GSD.splice(index, 1);
+        if(index >= 0) ELEMENT_DATA_PARTES.splice(index, 1);
       }
      
 
-      this.dataSource.data = ELEMENT_DATA_CODIGO_GSD;
+      this.dataSource.data = ELEMENT_DATA_PARTES;
       
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
@@ -196,18 +181,18 @@ export class CodigoGsdComponent implements OnInit {
 
   LlenarTabla() :void
   {
-    ELEMENT_DATA_CODIGO_GSD.splice(0, ELEMENT_DATA_CODIGO_GSD.length);
+    ELEMENT_DATA_PARTES.splice(0, ELEMENT_DATA_PARTES.length);
 
-    this._OperacionesService.GetCodigoGSD().subscribe(s =>{
+    this._OperacionesService.GetPartes().subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
       {
-        _json["d"].forEach((d : ICodigoGSD) => {
-          ELEMENT_DATA_CODIGO_GSD.push(d);
+        _json["d"].forEach((d : IPartes) => {
+          ELEMENT_DATA_PARTES.push(d);
         });
 
-        this.dataSource.data = ELEMENT_DATA_CODIGO_GSD;
+        this.dataSource.data = ELEMENT_DATA_PARTES;
 
       }
       else
@@ -228,22 +213,20 @@ export class CodigoGsdComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = true;
-    this.val.ValForm.get("txt_operacion_codigo_gsd")?.enable();
-    this.val.ValForm.get("txt_operacion_tmu")?.enable();
+    this.val.ValForm.get("txt_operacion_partes")?.enable();
 
     document.getElementById("txt_operacion_codigo_gsd")?.focus();
   }
 
   Guardar() : void
   {
-    let datos : ICodigoGSD = {} as ICodigoGSD;
-    datos.IdCodGSD = this.Id;
-    datos.CodigoGSD = String(this.val.ValForm.get("txt_operacion_codigo_gsd")?.value).trimEnd();
-    datos.Tmus = Number(this.val.ValForm.get("txt_operacion_tmu")?.value);
+    let datos : IPartes = {} as IPartes;
+    datos.IdParte = this.Id;
+    datos.Nombre = String(this.val.ValForm.get("txt_operacion_partes")?.value).trimEnd();
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
 
-    this._OperacionesService.GuardarCodigoGSD(datos).subscribe( s =>{
+    this._OperacionesService.GuardarPartes(datos).subscribe( s =>{
   
       let _json = JSON.parse(s);
      let _dialog =  this.dialog.open(DialogoComponent, {
@@ -254,18 +237,17 @@ export class CodigoGsdComponent implements OnInit {
         if(_json["esError"] == 0)
         {
 
-          let index : number = ELEMENT_DATA_CODIGO_GSD.findIndex(f =>  Number(f.IdCodGSD) == Number(_json["d"].IdCodGSD));
+          let index : number = ELEMENT_DATA_PARTES.findIndex(f =>  Number(f.IdParte) == Number(_json["d"].IdParte));
 
           if(index >= 0)
           {
-            ELEMENT_DATA_CODIGO_GSD[index].CodigoGSD = _json["d"].CodigoGSD;
-            ELEMENT_DATA_CODIGO_GSD[index].Tmus = _json["d"].Tmus;
+            ELEMENT_DATA_PARTES[index].Nombre = _json["d"].Nombre;
           }
           else
           {
-            ELEMENT_DATA_CODIGO_GSD.push(_json["d"]);
+            ELEMENT_DATA_PARTES.push(_json["d"]);
           }
-          this.dataSource.data = ELEMENT_DATA_CODIGO_GSD;
+          this.dataSource.data = ELEMENT_DATA_PARTES;
           this.Limpiar();
          
         }

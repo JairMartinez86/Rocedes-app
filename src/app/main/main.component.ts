@@ -21,6 +21,8 @@ import { FactorFoleoComponent } from './inv/proceso-foleo/factor-foleo/factor-fo
 import { FoleoTiempoComponent } from './inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
 import { FlujoCorteComponent } from './inv/flujo/flujo-corte/flujo-corte.component';
 import { CodigoGsdComponent } from './inv/operaciones/datos-gsd/codigo-gsd.component';
+import { PartesComponent } from './inv/operaciones/partes/partes/partes.component';
+import { TiposTelaComponent } from './inv/operaciones/telas/tipos-tela/tipos-tela.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -278,6 +280,14 @@ export class MainComponent implements OnInit {
 
 
     if(_Id != "Link-Operaciones-codigo-gsd"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "Link-Operaciones-tela"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "Link-Operaciones-partes"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -548,6 +558,26 @@ export class MainComponent implements OnInit {
                  CodigoGSD.instance.Open = true;
                 }
                 break;
+
+            case "Link-Operaciones-tela":
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(TiposTelaComponent);
+                let Partes: ComponentRef<TiposTelaComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                Partes.instance.Link = "Link-Operaciones-tela";
+                Partes.instance.Open = true;
+              }
+              break;
+
+            case "Link-Operaciones-partes":
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(PartesComponent);
+                let Partes: ComponentRef<PartesComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                Partes.instance.Link = "Link-Operaciones-partes";
+                Partes.instance.Open = true;
+              }
+              break;
             
 
 

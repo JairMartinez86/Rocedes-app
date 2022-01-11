@@ -333,8 +333,9 @@ export class LoginService {
       
 
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones", NombreLink : "Operaciones", Activo : false},
-      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Codigos GSD", Activo : false},
-      
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Codigos", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-tela", NombreLink : "Tipo de Tela", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-partes", NombreLink : "Partes", Activo : false},
 
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},

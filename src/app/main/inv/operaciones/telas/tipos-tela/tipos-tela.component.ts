@@ -4,21 +4,21 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ICodigoGSD } from 'src/app/main/class/Form/Inv/Interface/i-Codigo-GSD';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Services/inv/Operaciones/operaciones.service';
+import { ITela } from 'src/app/main/class/Form/Inv/Interface/i-Tela';
 
 
+let ELEMENT_DATA_TELA : ITela[] = [];
 
-let ELEMENT_DATA_CODIGO_GSD : ICodigoGSD[] = [];
 @Component({
-  selector: 'app-codigo-gsd',
-  templateUrl: './codigo-gsd.component.html',
-  styleUrls: ['./codigo-gsd.component.css']
+  selector: 'app-tipos-tela',
+  templateUrl: './tipos-tela.component.html',
+  styleUrls: ['./tipos-tela.component.css']
 })
-export class CodigoGsdComponent implements OnInit {
+export class TiposTelaComponent implements OnInit {
 
   public val = new Validacion();
   
@@ -28,12 +28,12 @@ export class CodigoGsdComponent implements OnInit {
 
   public Editar : boolean = false;
   private Id : number = -1;
-  private _RowDato !: ICodigoGSD;
+  private _RowDato !: ITela;
 
 
-  displayedColumns: string[] = ["IdCodGSD", "CodigoGSD",   "Tmus", "Editar", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_CODIGO_GSD);
-  clickedRows = new Set<ICodigoGSD>();
+  displayedColumns: string[] = ["IdTela", "Nombre",   "Editar", "Eliminar"];
+  dataSource = new MatTableDataSource(ELEMENT_DATA_TELA);
+  clickedRows = new Set<ITela>();
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
@@ -53,9 +53,7 @@ export class CodigoGsdComponent implements OnInit {
 
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
-    this.val.add("txt_operacion_codigo_gsd", "1", "LEN>", "0");
-    this.val.add("txt_operacion_tmu", "1", "LEN>", "0");
-    this.val.add("txt_operacion_tmu", "2", "NUM>", "0");
+    this.val.add("txt_operacion_tela", "1", "LEN>", "0");
   }
 
 
@@ -65,9 +63,8 @@ export class CodigoGsdComponent implements OnInit {
     this.Editar = false;
     this.val.ValForm.reset();
 
-    this.val.ValForm.get("txt_operacion_codigo_gsd")?.disable();
-    this.val.ValForm.get("txt_operacion_tmu")?.disable();
-    document?.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.remove("disabled");
+    this.val.ValForm.get("txt_operacion_tela")?.disable();
+    document?.getElementById("divOperacion-frm-tela-registros")?.classList.remove("disabled");
   }
 
 
@@ -92,16 +89,7 @@ export class CodigoGsdComponent implements OnInit {
     }
 
 
-    switch(_input){
-
-      case "txt_operacion_codigo_gsd":
-        document?.getElementById("txt_operacion_tmu")?.focus();
-        break;
-
-      case "txt_operacion_tmu":
-        this.Guardar();
-        break;
-    }
+    this.Guardar();
 
   }
 
@@ -144,10 +132,9 @@ export class CodigoGsdComponent implements OnInit {
     if(str_Evento == "Editar")
     {
       this.Nuevo();
-      this.Id = row.IdCodGSD;
-      this.val.ValForm.get("txt_operacion_codigo_gsd")?.setValue(row.CodigoGSD);
-      this.val.ValForm.get("txt_operacion_tmu")?.setValue(row.Tmus);
-      document.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.add("disabled");
+      this.Id = row.IdTela;
+      this.val.ValForm.get("txt_operacion_tela")?.setValue(row.Nombre);
+      document.getElementById("divOperacion-frm-tela-registros")?.classList.add("disabled");
     }
     else
     {
@@ -171,20 +158,20 @@ export class CodigoGsdComponent implements OnInit {
   Eliminar() : void
   {
     this._RowDato.Evento = "Eliminar";
-    this._OperacionesService.GuardarCodigoGSD(this._RowDato).subscribe( s =>{
+    this._OperacionesService.GuardarTela(this._RowDato).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_CODIGO_GSD.findIndex(f =>  Number(f.IdCodGSD) == Number(_json["d"].IdCodGSD));
+        let index : number = ELEMENT_DATA_TELA.findIndex(f =>  Number(f.IdTela) == Number(_json["d"].IdTela));
 
 
-        if(index >= 0) ELEMENT_DATA_CODIGO_GSD.splice(index, 1);
+        if(index >= 0) ELEMENT_DATA_TELA.splice(index, 1);
       }
      
 
-      this.dataSource.data = ELEMENT_DATA_CODIGO_GSD;
+      this.dataSource.data = ELEMENT_DATA_TELA;
       
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
@@ -196,18 +183,18 @@ export class CodigoGsdComponent implements OnInit {
 
   LlenarTabla() :void
   {
-    ELEMENT_DATA_CODIGO_GSD.splice(0, ELEMENT_DATA_CODIGO_GSD.length);
+    ELEMENT_DATA_TELA.splice(0, ELEMENT_DATA_TELA.length);
 
-    this._OperacionesService.GetCodigoGSD().subscribe(s =>{
+    this._OperacionesService.GetTela().subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
       {
-        _json["d"].forEach((d : ICodigoGSD) => {
-          ELEMENT_DATA_CODIGO_GSD.push(d);
+        _json["d"].forEach((d : ITela) => {
+          ELEMENT_DATA_TELA.push(d);
         });
 
-        this.dataSource.data = ELEMENT_DATA_CODIGO_GSD;
+        this.dataSource.data = ELEMENT_DATA_TELA;
 
       }
       else
@@ -228,22 +215,20 @@ export class CodigoGsdComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = true;
-    this.val.ValForm.get("txt_operacion_codigo_gsd")?.enable();
-    this.val.ValForm.get("txt_operacion_tmu")?.enable();
+    this.val.ValForm.get("txt_operacion_tela")?.enable();
 
     document.getElementById("txt_operacion_codigo_gsd")?.focus();
   }
 
   Guardar() : void
   {
-    let datos : ICodigoGSD = {} as ICodigoGSD;
-    datos.IdCodGSD = this.Id;
-    datos.CodigoGSD = String(this.val.ValForm.get("txt_operacion_codigo_gsd")?.value).trimEnd();
-    datos.Tmus = Number(this.val.ValForm.get("txt_operacion_tmu")?.value);
+    let datos : ITela = {} as ITela;
+    datos.IdTela = this.Id;
+    datos.Nombre = String(this.val.ValForm.get("txt_operacion_tela")?.value).trimEnd();
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
 
-    this._OperacionesService.GuardarCodigoGSD(datos).subscribe( s =>{
+    this._OperacionesService.GuardarTela(datos).subscribe( s =>{
   
       let _json = JSON.parse(s);
      let _dialog =  this.dialog.open(DialogoComponent, {
@@ -254,18 +239,17 @@ export class CodigoGsdComponent implements OnInit {
         if(_json["esError"] == 0)
         {
 
-          let index : number = ELEMENT_DATA_CODIGO_GSD.findIndex(f =>  Number(f.IdCodGSD) == Number(_json["d"].IdCodGSD));
+          let index : number = ELEMENT_DATA_TELA.findIndex(f =>  Number(f.IdTela) == Number(_json["d"].IdTela));
 
           if(index >= 0)
           {
-            ELEMENT_DATA_CODIGO_GSD[index].CodigoGSD = _json["d"].CodigoGSD;
-            ELEMENT_DATA_CODIGO_GSD[index].Tmus = _json["d"].Tmus;
+            ELEMENT_DATA_TELA[index].Nombre = _json["d"].Nombre;
           }
           else
           {
-            ELEMENT_DATA_CODIGO_GSD.push(_json["d"]);
+            ELEMENT_DATA_TELA.push(_json["d"]);
           }
-          this.dataSource.data = ELEMENT_DATA_CODIGO_GSD;
+          this.dataSource.data = ELEMENT_DATA_TELA;
           this.Limpiar();
          
         }
@@ -284,3 +268,4 @@ export class CodigoGsdComponent implements OnInit {
   }
 
 }
+
