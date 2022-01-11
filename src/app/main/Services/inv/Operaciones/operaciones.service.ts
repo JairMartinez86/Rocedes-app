@@ -14,9 +14,9 @@ export class OperacionesService {
   constructor(private http: HttpClient) { }
 
 
-  Get() : Observable<any>
+  GetCodigoGSD() : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Inventario/ProcesoCorte/Get");
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Operaciones/GetCodigoGSD");
   }
 
 
@@ -24,11 +24,6 @@ export class OperacionesService {
   GuardarCodigoGSD(d : ICodigoGSD): Observable<any> { 
     let json = JSON.stringify(d);  
     return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarCodigoGSD" + "?d=" + json,  { 'content-type': 'application/json'});
-  }
-
-  
-  EliminarCodigoGSD(id : number): Observable<any> {  
-    return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/EliminarCodigoGSD" + "?IdCodGSD=" + id,  { 'content-type': 'application/text'});
   }
 
 }
