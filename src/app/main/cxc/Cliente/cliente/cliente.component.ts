@@ -96,16 +96,7 @@ export class ClienteComponent implements OnInit {
     }
 
 
-    switch(_input){
-
-      case "txt_cxc_cliente":
-        document?.getElementById("checkBox_cxc_Cliente_Estado")?.focus();
-        break;
-
-      case "checkBox_cxc_Cliente_Estado":
-        this.Guardar();
-        break;
-    }
+    this.Guardar();
 
   }
 

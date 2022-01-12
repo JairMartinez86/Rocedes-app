@@ -97,6 +97,8 @@ import { PartesComponent } from './main/inv/operaciones/partes/partes/partes.com
 import { TiposTelaComponent } from './main/inv/operaciones/telas/tipos-tela/tipos-tela.component';
 import { ClienteComponent } from './main/cxc/Cliente/cliente/cliente.component';
 import { SewingComponent } from './main/inv/operaciones/Sewing/sewing/sewing.component';
+import { SewingAccuracyComponent } from './main/inv/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
+import { ProductoComponent } from './main/inv/Producto/producto/producto.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -145,7 +147,9 @@ export const CUSTOM_MOMENT_FORMATS  = {
     PartesComponent,
     TiposTelaComponent,
     ClienteComponent,
-    SewingComponent
+    SewingComponent,
+    SewingAccuracyComponent,
+    ProductoComponent
 
     
     

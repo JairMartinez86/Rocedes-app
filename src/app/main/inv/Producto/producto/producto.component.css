@@ -1,15 +1,15 @@
-#divOperacion-frm-sewing{
+#divOperacion-frm-producto{
     width: 600px;
     margin: auto;
     background-color: white;
 }
 
-#divOperacion-frm-sewing-registros{
+#divOperacion-frm-producto-registros{
     width: 600px;
     margin: auto;
     background-color: white;
 }
 
-#tabla-sewing{
+#tabla-producto{
     max-height: 600px;
 }

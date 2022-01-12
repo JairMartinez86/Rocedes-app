@@ -5,6 +5,7 @@ import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ICodigoGSD } from 'src/app/main/class/Form/Inv/Interface/i-Codigo-GSD';
 import { IPartes } from 'src/app/main/class/Form/Inv/Interface/i-Partes';
 import { ISewing } from 'src/app/main/class/Form/Inv/Interface/i-Sewing';
+import { ISewingAccuracy } from 'src/app/main/class/Form/Inv/Interface/i-SewingAccuracy';
 import { ITela } from 'src/app/main/class/Form/Inv/Interface/i-Tela';
 
 @Injectable({
@@ -80,6 +81,23 @@ export class OperacionesService {
     return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarSewing" + "?d=" + json,  { 'content-type': 'application/json'});
    }
 //#endregion SEWING
+
+
+
+  //#region SEWING ACCURACY
+  
+  GetSewingAccuracy() : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Operaciones/GetSewingAccuracy");
+  }
+
+
+
+  GuardarSewingAccuracy(d : ISewingAccuracy): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarSewingAccuracy" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+//#endregion SEWING ACCURACY
 
 
 }

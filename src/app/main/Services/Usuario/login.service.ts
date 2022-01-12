@@ -336,9 +336,10 @@ export class LoginService {
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-cliente", NombreLink : "Customers", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-tela", NombreLink : "Type Of fabic", Activo : false},
-      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-partes", NombreLink : "Componets", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-partes", NombreLink : "Sewing Garment", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-sewing", NombreLink : "Sewing Considerations", Activo : false},
-
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-sewing-accuracy", NombreLink : "Sewing Stop Accuracy", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "Link-Operaciones-producto", NombreLink : "Product Catalogue", Activo : false},
 
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},

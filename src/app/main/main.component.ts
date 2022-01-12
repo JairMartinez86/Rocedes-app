@@ -25,6 +25,8 @@ import { PartesComponent } from './inv/operaciones/partes/partes/partes.componen
 import { TiposTelaComponent } from './inv/operaciones/telas/tipos-tela/tipos-tela.component';
 import { ClienteComponent } from './cxc/Cliente/cliente/cliente.component';
 import { SewingComponent } from './inv/operaciones/Sewing/sewing/sewing.component';
+import { SewingAccuracyComponent } from './inv/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
+import { ProductoComponent } from './inv/Producto/producto/producto.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -133,12 +135,22 @@ export class MainComponent implements OnInit {
     this.lstEsquema.push(_Esquema);
 
 
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-codigo-gsd", "Codigos GSD", false));
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-cliente", "Customers", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-tela", "Type Of fabic", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-producto", "Product Catalogue", false));
     this.lstEsquema.push(_Esquema);
     
-    
-    
-
+ 
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkOtro", "Otro", false));
     this.lstEsquema.push(_Esquema);
   
@@ -297,6 +309,16 @@ export class MainComponent implements OnInit {
     }
 
     if(_Id != "Link-Operaciones-sewing"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+
+    if(_Id != "Link-Operaciones-sewing-accuracy"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+
+    if(_Id != "Link-Operaciones-producto"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -607,6 +629,27 @@ export class MainComponent implements OnInit {
                   Sewing.instance.Open = true;
                 }
                 break;
+
+            case "Link-Operaciones-sewing-accuracy":
+                  if(this.dinamycHost.viewContainerRef.length == 0)
+                  {
+                    component = this.componentFactoryResolver.resolveComponentFactory(SewingAccuracyComponent);
+                    let SewingAccuracy: ComponentRef<SewingAccuracyComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                    SewingAccuracy.instance.Link = "Link-Operaciones-sewing-accuracy";
+                    SewingAccuracy.instance.Open = true;
+                  }
+                  break;
+
+
+            case "Link-Operaciones-producto":
+                    if(this.dinamycHost.viewContainerRef.length == 0)
+                    {
+                      component = this.componentFactoryResolver.resolveComponentFactory(ProductoComponent);
+                      let Producto: ComponentRef<ProductoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                      Producto.instance.Link = "Link-Operaciones-producto";
+                      Producto.instance.Open = true;
+                    }
+                    break;
             
 
 
