@@ -1,9 +1,9 @@
 <div class="container" *ngIf="this.Open">
 
-    <div class="formulario" id="divOperacion-frm-tela">
+    <div class="formulario" id="divOperacion-frm-cliente">
 
         <div class="head-form">
-          <div class="from-encabezado-titulo"><p>TYPE OF FABRIC</p></div>
+          <div class="from-encabezado-titulo"><p>CUSTOMERS</p></div>
           <div class="from-encabezado-salir"><a href="#" (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
         </div>
     
@@ -12,18 +12,25 @@
     
 
                 <div class="row">
-                    <mat-form-field class="col-12">
-                        <mat-label><b>FABRIC</b></mat-label>
-                        <input  matInput type="text" id="txt_operacion_tela"  formControlName="txt_operacion_tela" placeholder="" (keydown.enter)="onKeyEnter($event)">
-                        <mat-error *ngIf="val.ValForm.get('txt_operacion_tela')?.errors?.Regla=='1'">Fabric it is <strong>required</strong></mat-error>
+                    <mat-form-field class="col-sm-12 col-md-8 col-lg-8">
+                        <mat-label><b>CUSTOMERS</b></mat-label>
+                        <input  matInput type="text" id="txt_cxc_cliente"  formControlName="txt_cxc_cliente" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                        <mat-error *ngIf="val.ValForm.get('txt_cxc_cliente')?.errors?.Regla=='1'">Customers it is <strong>required</strong></mat-error>
                     </mat-form-field>
+
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <mat-checkbox [disabled]="disabled" formControlName="checkBox_cxc_Cliente_Estado" [(ngModel)]="Estado" (click)="CheckChange();"   color="accent">
+                            <b>Active </b>
+                         </mat-checkbox>
+                    </div>
+
                 </div>
 
 
                 <div class="row">
                     <div class="col-12">
                         <div class="button-row text-end">
-                            <button type="button" [disabled]="this.Editar"  class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> New</button>
+                            <button type="button" [disabled]="this.Editar" class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> New</button>
                             <button type="button" [disabled]="val.ValForm.invalid || !this.Editar"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Save</button>
                             <button type="button"  class="btn btn-outline-secondary" (click)="Limpiar()"><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Cancel</button>
                         </div>
@@ -37,7 +44,7 @@
 
 
 
-    <div class="Lista-Registro" id="divOperacion-frm-tela-registros">
+    <div class="Lista-Registro" id="divOperacion-frm-cliente-registros">
         <div class="franja"><p>Records</p></div>
     
         <div class="container">
@@ -63,25 +70,34 @@
           
       
        
-        <div class="mat-elevation-z8" Id="tabla-tela" >
+        <div class="mat-elevation-z8" Id="tabla-cliente" >
 
 
               <table mat-table  [dataSource]="dataSource"  matSort (matSortChange)="announceSort($event)" >
             
   
-              <ng-container matColumnDef="IdTela">
+              <ng-container matColumnDef="IdCliente">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
                 <td mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}} </td>
               </ng-container>
 
 
-              <ng-container matColumnDef="Nombre">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Nombre">
-                  Fabric.
+              <ng-container matColumnDef="Cliente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cliente">
+                    Customers.
                 </th>
-                <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.Cliente}} </td>
               </ng-container>
     
+
+              <ng-container matColumnDef="Estado">
+                <th mat-header-cell *matHeaderCellDef>
+                  Active
+                </th>
+                <td mat-cell *matCellDef="let element" >
+                  <fa-icon *ngIf="element.Estado" [icon]="['fas', 'check']"  class="fa-2x" ></fa-icon>
+                </td>
+              </ng-container>
       
        
 
@@ -89,19 +105,11 @@
                 <th mat-header-cell *matHeaderCellDef>
                 </th>
                 <td mat-cell *matCellDef="let element" >
-                  <a href="#" (click)="clickRow(element, 'Editar')"><fa-icon [icon]="['fas', 'edit']" class="fa-2x" style="color:#1b364c"></fa-icon></a>
+                  <a href="#" (click)="clickRow(element)"><fa-icon [icon]="['fas', 'edit']" class="fa-2x" style="color:#1b364c"></fa-icon></a>
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="Eliminar">
-                <th mat-header-cell *matHeaderCellDef>
-                </th>
-                <td mat-cell *matCellDef="let element" >
-                  <a href="#" (click)="clickRow(element, 'Eliminar')"><fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:maroon"></fa-icon></a>
-                </td>
-              </ng-container>
-
-
+       
   
           
             
@@ -122,7 +130,5 @@
 
 
 </div>
-
-
 
 

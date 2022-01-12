@@ -23,6 +23,8 @@ import { FlujoCorteComponent } from './inv/flujo/flujo-corte/flujo-corte.compone
 import { CodigoGsdComponent } from './inv/operaciones/datos-gsd/codigo-gsd.component';
 import { PartesComponent } from './inv/operaciones/partes/partes/partes.component';
 import { TiposTelaComponent } from './inv/operaciones/telas/tipos-tela/tipos-tela.component';
+import { ClienteComponent } from './cxc/Cliente/cliente/cliente.component';
+import { SewingComponent } from './inv/operaciones/Sewing/sewing/sewing.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -278,6 +280,9 @@ export class MainComponent implements OnInit {
     }
 
 
+    if(_Id != "Link-Operaciones-cliente"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
 
     if(_Id != "Link-Operaciones-codigo-gsd"){
       this.dinamycHost.viewContainerRef!.clear();
@@ -288,6 +293,10 @@ export class MainComponent implements OnInit {
     }
 
     if(_Id != "Link-Operaciones-partes"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "Link-Operaciones-sewing"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -547,6 +556,15 @@ export class MainComponent implements OnInit {
                 }
                 break;
 
+            case "Link-Operaciones-cliente":
+                if(this.dinamycHost.viewContainerRef.length == 0)
+                {
+                  component = this.componentFactoryResolver.resolveComponentFactory(ClienteComponent);
+                  let OperCliente: ComponentRef<ClienteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                  OperCliente.instance.Link = "Link-Operaciones-cliente";
+                  OperCliente.instance.Open = true;
+                }
+                break;
 
 
             case "Link-Operaciones-codigo-gsd":
@@ -578,6 +596,17 @@ export class MainComponent implements OnInit {
                 Partes.instance.Open = true;
               }
               break;
+
+
+            case "Link-Operaciones-sewing":
+                if(this.dinamycHost.viewContainerRef.length == 0)
+                {
+                  component = this.componentFactoryResolver.resolveComponentFactory(SewingComponent);
+                  let Sewing: ComponentRef<SewingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                  Sewing.instance.Link = "Link-Operaciones-sewing";
+                  Sewing.instance.Open = true;
+                }
+                break;
             
 
 

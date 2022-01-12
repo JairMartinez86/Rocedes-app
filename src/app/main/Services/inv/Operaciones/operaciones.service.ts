@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ICodigoGSD } from 'src/app/main/class/Form/Inv/Interface/i-Codigo-GSD';
 import { IPartes } from 'src/app/main/class/Form/Inv/Interface/i-Partes';
+import { ISewing } from 'src/app/main/class/Form/Inv/Interface/i-Sewing';
 import { ITela } from 'src/app/main/class/Form/Inv/Interface/i-Tela';
 
 @Injectable({
@@ -63,5 +64,22 @@ export class OperacionesService {
      }
   //#endregion TELA
   
+
+
+  //#region SEWING
+  
+  GetSewing() : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Operaciones/GetSewing");
+  }
+
+
+
+  GuardarSewing(d : ISewing): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarSewing" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+//#endregion SEWING
+
 
 }
