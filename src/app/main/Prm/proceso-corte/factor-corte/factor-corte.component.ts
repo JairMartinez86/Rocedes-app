@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IFactorCorte } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte';
 import { IFactorCorteDetalle } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte-Detalle';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { FactorCorteService } from 'src/app/main/Services/inv/ProcesoCorte/factor-corte.service';
+import { FactorCorteService } from 'src/app/main/Services/Prm/ProcesoCorte/factor-corte.service';
 
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';

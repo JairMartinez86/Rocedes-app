@@ -8,27 +8,27 @@ import { MatDialog } from '@angular/material/dialog';
 import { OpenCloseDirective } from './Directive/open-close.directive';
 import { UsuarioComponent } from './sis/usuario/usuario.component';
 import { AccesoLinkComponent } from './sis/Acceso/acceso-link/acceso-link.component';
-import { FactorTendidoComponent } from './inv/proceso-tendido/factor-tendido/factor-tendido.component';
-import { TendidoTiempoComponent } from './inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
-import { FactorCorteComponent } from './inv/proceso-corte/factor-corte/factor-corte.component';
+import { FactorTendidoComponent } from './Prm/proceso-tendido/factor-tendido/factor-tendido.component';
+import { TendidoTiempoComponent } from './Prm/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
+import { FactorCorteComponent } from './Prm/proceso-corte/factor-corte/factor-corte.component';
 import { ReportBundleBoxingComponent } from './inv/bundle-boxing/reporte/report-bundle-boxing/report-bundle-boxing.component';
 import { BundleBoxingSacoComponent } from './inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
 import { BundleBoxingSerialComponent } from './inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
 import { BundleBoxingComponent } from './inv/bundle-boxing/bundle-boxing.component';
 import { BundleBoxingEnvioComponent } from './inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
-import { FactorCorteTiempoComponent } from './inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
-import { FactorFoleoComponent } from './inv/proceso-foleo/factor-foleo/factor-foleo.component';
-import { FoleoTiempoComponent } from './inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
-import { FlujoCorteComponent } from './inv/flujo/flujo-corte/flujo-corte.component';
-import { CodigoGsdComponent } from './inv/operaciones/datos-gsd/codigo-gsd.component';
-import { PartesComponent } from './inv/operaciones/partes/partes/partes.component';
-import { TiposTelaComponent } from './inv/operaciones/telas/tipos-tela/tipos-tela.component';
+import { FactorCorteTiempoComponent } from './Prm/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
+import { FactorFoleoComponent } from './Prm/proceso-foleo/factor-foleo/factor-foleo.component';
+import { FoleoTiempoComponent } from './Prm/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
+import { FlujoCorteComponent } from './Prm/flujo/flujo-corte/flujo-corte.component';
+import { CodigoGsdComponent } from './Prm/operaciones/datos-gsd/codigo-gsd.component';
+import { PartesComponent } from './Prm/operaciones/partes/partes/partes.component';
+import { TiposTelaComponent } from './Prm/operaciones/telas/tipos-tela/tipos-tela.component';
 import { ClienteComponent } from './cxc/Cliente/cliente/cliente.component';
-import { SewingComponent } from './inv/operaciones/Sewing/sewing/sewing.component';
-import { SewingAccuracyComponent } from './inv/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
+import { SewingComponent } from './Prm/operaciones/Sewing/sewing/sewing.component';
+import { SewingAccuracyComponent } from './Prm/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './inv/Producto/producto/producto.component';
-import { FabricOunceComponent } from './inv/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
-import { DataMachineComponent } from './inv/operaciones/data-machine/data-machine/data-machine.component';
+import { FabricOunceComponent } from './Prm/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
+import { DataMachineComponent } from './Prm/operaciones/data-machine/data-machine/data-machine.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -96,6 +96,49 @@ export class MainComponent implements OnInit {
   
 
 
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoFactor", "Factores de Tendido", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoCapaSencilla", "Capa Sencilla", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoCapaDoble", "Capa Doble", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoCapaManual", "Capa Manual", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoCorteFactor", "Factores de Corte", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoCorteFactorTiempo", "Tiempo de Corte", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoFoleoFactor", "Tiempo de Foleo", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Capa Sencilla", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoFoleoCapaDoble", "Capa Doble", false));
+    this.lstEsquema.push(_Esquema);
+    
+
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkFlujoCorte", "Flujo de Corte", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-cliente", "Customers", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-tela", "Type Of fabic", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-producto", "Product Catalogue", false));
+    this.lstEsquema.push(_Esquema);
+
 
     
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));
@@ -108,50 +151,6 @@ export class MainComponent implements OnInit {
     this.lstEsquema.push(_Esquema);
 
 
-
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoFactor", "Factores de Tendido", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoCapaSencilla", "Capa Sencilla", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoCapaDoble", "Capa Doble", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoTendidoCapaManual", "Capa Manual", false));
-    this.lstEsquema.push(_Esquema);
-
-
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoCorteFactor", "Factores de Corte", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoCorteFactorTiempo", "Tiempo de Corte", false));
-    this.lstEsquema.push(_Esquema);
-
-
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoFactor", "Tiempo de Foleo", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Capa Sencilla", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkProcesoFoleoCapaDoble", "Capa Doble", false));
-    this.lstEsquema.push(_Esquema);
-    
-
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkFlujoCorte", "Flujo de Corte", false));
-    this.lstEsquema.push(_Esquema);
-
-
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-cliente", "Customers", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-tela", "Type Of fabic", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("Link-Operaciones-producto", "Product Catalogue", false));
-    this.lstEsquema.push(_Esquema);
-    
  
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkOtro", "Otro", false));
     this.lstEsquema.push(_Esquema);
@@ -219,7 +218,6 @@ export class MainComponent implements OnInit {
 
   if(this.Esquema._Esquema == "INV")
   {
-
     if(_Id != "LinkBundleBoxing" && _Id != "LinkBundleBoxingComplemento"){
       this.dinamycHost.viewContainerRef!.clear();
     }
@@ -242,7 +240,11 @@ export class MainComponent implements OnInit {
       this.dinamycHost.viewContainerRef!.clear();
     }
 
+  }
 
+
+  if(this.Esquema._Esquema == "PRM")
+  {
 
 
 
@@ -398,11 +400,9 @@ export class MainComponent implements OnInit {
         }
         break;
 
-   
       case "INV":
         switch(_Id)
         {
-
           case "LinkBundleBoxing":
 
             if(this.dinamycHost.viewContainerRef.length == 0)
@@ -468,6 +468,13 @@ export class MainComponent implements OnInit {
               }
 
               break;
+        }
+      break;
+
+   
+      case "PRM":
+        switch(_Id)
+        {
 
             case "LinkProcesoTendidoFactor":
 
@@ -714,6 +721,8 @@ export class MainComponent implements OnInit {
 
     if(m == "SIS" ) this.Esquema._Nombre = "Configuración"
 
+
+    if(m == "PRM" ) this.Esquema._Nombre = "Rocedes Premium"
 
     if(m == "INV" ) this.Esquema._Nombre = "Inventario"
     

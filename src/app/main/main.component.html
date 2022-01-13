@@ -48,6 +48,12 @@
               </a>
             </li>
             <li>
+              <a href="#" class="nav-link text-white" (click)="Modulo('PRM')" id="PRM">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
+                Rocedes Premium
+              </a>
+            </li>
+            <li>
               <a href="#" class="nav-link text-white" (click)="Modulo('INV')" id="INV">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
                 Inventario
@@ -102,19 +108,10 @@
               <a id="LinkUsuario" class="nav-link" href="#" >Usuario</a>
             </li>-->
 
-            <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
-   
-            <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown #r2="appDropDown">
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'" >Accounting</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r2.isOpen}">
-                <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
-                <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
-                <li><a id="LinkBundleBoxingEnvio" class="dropdown-item" href="#">Envio</a></li>
-              </ul>
-            </li>
+            <!-----------------------------PREMIUM------------------------------------------------------------------------------------------------------------->
 
             <li class="nav-item dropdown" id="navInvFactor" appDropdown #r3="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de Tendido</a>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Proceso de Tendido</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
                 <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores de Tendido</a></li>
                 <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
@@ -125,7 +122,7 @@
 
 
             <li class="nav-item dropdown" id="navInvFactorCorte"  appDropdown #r4="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de Corte</a>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Proceso de Corte</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
                 <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Factores de Corte</a></li>
                 <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Tiempo de Corte</a></li>
@@ -133,7 +130,7 @@
             </li>
 
             <li class="nav-item dropdown" id="navInvFactorFoleo"  appDropdown #r5="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Proceso de Foleo</a>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Proceso de Foleo</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r5.isOpen}">
                 <li><a id="LinkProcesoFoleoFactor" class="dropdown-item" href="#">Factores de Foleo</a></li>
                 <li><a id="LinkProcesoFoleoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
@@ -142,13 +139,13 @@
             </li>
      
      
-            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
+            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PRM'">
               <a id="LinkFlujoCorte" class="nav-link" href="#" >Flujo de Corte</a>
             </li>
 
 
             <li class="nav-item dropdown" id="navInvFactorFoleo"  appDropdown #r6="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Operaciones</a>
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Parametros</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r6.isOpen}">
                 <li><a id="Link-Operaciones-cliente" class="dropdown-item" href="#">Customers</a></li>
                 <li><a id="Link-Operaciones-producto" class="dropdown-item" href="#">Product Catalogue</a></li>
@@ -161,6 +158,20 @@
                 <li><a id="Link-Operaciones-data-machine" class="dropdown-item" href="#">Machine general Data</a></li>
               </ul>
             </li>
+            
+
+
+            <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
+   
+            <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown #r2="appDropDown">
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'" >Accounting</a>
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r2.isOpen}">
+                <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
+                <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
+                <li><a id="LinkBundleBoxingEnvio" class="dropdown-item" href="#">Envio</a></li>
+              </ul>
+            </li>
+
             
             
             

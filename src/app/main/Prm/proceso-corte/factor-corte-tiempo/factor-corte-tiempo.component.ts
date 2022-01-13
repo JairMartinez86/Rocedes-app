@@ -5,7 +5,7 @@ import { IFactorCorte } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Cor
 import { IFactorCorteDetalle } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte-Detalle';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { FactorCorteService } from 'src/app/main/Services/inv/ProcesoCorte/factor-corte.service';
+import { FactorCorteService } from 'src/app/main/Services/Prm/ProcesoCorte/factor-corte.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { DatePipe } from '@angular/common';

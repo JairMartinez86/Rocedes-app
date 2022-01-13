@@ -81,26 +81,26 @@ import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
 import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
 import { DropdownDirective } from './main/Directive/dropdown.directive';
-import { FactorTendidoComponent } from './main/inv/proceso-tendido/factor-tendido/factor-tendido.component';
-import { TendidoTiempoComponent } from './main/inv/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
+import { FactorTendidoComponent } from './main/Prm/proceso-tendido/factor-tendido/factor-tendido.component';
+import { TendidoTiempoComponent } from './main/Prm/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
 import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.component';
-import { FactorCorteComponent } from './main/inv/proceso-corte/factor-corte/factor-corte.component';
+import { FactorCorteComponent } from './main/Prm/proceso-corte/factor-corte/factor-corte.component';
 import { OpenCloseDirective } from './main/Directive/open-close.directive';
-import { FactorCorteTiempoComponent } from './main/inv/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
-import { FactorFoleoComponent } from './main/inv/proceso-foleo/factor-foleo/factor-foleo.component';
-import { FoleoDatosComponent } from './main/inv/proceso-foleo/foleo-datos/foleo-datos.component';
-import { FoleoTiempoComponent } from './main/inv/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
-import { FlujoCorteComponent } from './main/inv/flujo/flujo-corte/flujo-corte.component';
-import { CodigoGsdComponent } from './main/inv/operaciones/datos-gsd/codigo-gsd.component';
+import { FactorCorteTiempoComponent } from './main/Prm/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
+import { FactorFoleoComponent } from './main/Prm/proceso-foleo/factor-foleo/factor-foleo.component';
+import { FoleoDatosComponent } from './main/Prm/proceso-foleo/foleo-datos/foleo-datos.component';
+import { FoleoTiempoComponent } from './main/Prm/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
+import { FlujoCorteComponent } from './main/Prm/flujo/flujo-corte/flujo-corte.component';
+import { CodigoGsdComponent } from './main/Prm/operaciones/datos-gsd/codigo-gsd.component';
 import { ConfirmarEliminarComponent } from './main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
-import { PartesComponent } from './main/inv/operaciones/partes/partes/partes.component';
-import { TiposTelaComponent } from './main/inv/operaciones/telas/tipos-tela/tipos-tela.component';
+import { PartesComponent } from './main/Prm/operaciones/partes/partes/partes.component';
+import { TiposTelaComponent } from './main/Prm/operaciones/telas/tipos-tela/tipos-tela.component';
 import { ClienteComponent } from './main/cxc/Cliente/cliente/cliente.component';
-import { SewingComponent } from './main/inv/operaciones/Sewing/sewing/sewing.component';
-import { SewingAccuracyComponent } from './main/inv/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
+import { SewingComponent } from './main/Prm/operaciones/Sewing/sewing/sewing.component';
+import { SewingAccuracyComponent } from './main/Prm/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './main/inv/Producto/producto/producto.component';
-import { FabricOunceComponent } from './main/inv/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
-import { DataMachineComponent } from './main/inv/operaciones/data-machine/data-machine/data-machine.component';
+import { FabricOunceComponent } from './main/Prm/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
+import { DataMachineComponent } from './main/Prm/operaciones/data-machine/data-machine/data-machine.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {

@@ -11,7 +11,7 @@ import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { OpenCloseDirective } from 'src/app/main/Directive/open-close.directive';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { FlujoCorteService } from 'src/app/main/Services/inv/Flujo/flujo-corte.service';
-import { FactorCorteService } from 'src/app/main/Services/inv/ProcesoCorte/factor-corte.service';
+import { FactorCorteService } from 'src/app/main/Services/Prm/ProcesoCorte/factor-corte.service';
 import { FactorCorteTiempoComponent } from '../../proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
 import { FoleoTiempoComponent } from '../../proceso-foleo/foleo-tiempo/foleo-tiempo.component';
 import { TendidoTiempoComponent } from '../../proceso-tendido/tendido-tiempo/tendido-tiempo.component';
