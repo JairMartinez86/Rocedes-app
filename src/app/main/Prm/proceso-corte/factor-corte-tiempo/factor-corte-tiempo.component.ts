@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
-import { IFactorCorte } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte';
-import { IFactorCorteDetalle } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte-Detalle';
+import { IFactorCorte } from 'src/app/main/class/Form/PRM/i-Factor-Corte';
+import { IFactorCorteDetalle } from 'src/app/main/class/Form/PRM/i-Factor-Corte-Detalle';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { FactorCorteService } from 'src/app/main/Services/Prm/ProcesoCorte/factor-corte.service';

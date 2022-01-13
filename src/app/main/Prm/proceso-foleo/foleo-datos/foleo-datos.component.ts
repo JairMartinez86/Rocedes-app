@@ -4,9 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IFoleoDatos } from 'src/app/main/class/Form/Inv/Interface/i-Foleo-Datos';
+import { IFoleoDatos } from 'src/app/main/class/Form/PRM/i-Foleo-Datos';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { FoleoDatosService } from 'src/app/main/Services/inv/ProcesoFoleo/foleo-datos.service';
+import { FoleoDatosService } from 'src/app/main/Services/Prm/ProcesoFoleo/foleo-datos.service';
 
 
 

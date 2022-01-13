@@ -15,7 +15,7 @@ export class FlujoCorteService {
 
   Get(IdFactorDetalleCorte : number, Estilo : string) : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Inventario/Flujo/Get" + "?IdFactorDetalleCorte="+IdFactorDetalleCorte + "&Estilo=" + Estilo);
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Flujo/Get" + "?IdFactorDetalleCorte="+IdFactorDetalleCorte + "&Estilo=" + Estilo);
   }
 
 }

@@ -7,8 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { OperacionesService } from 'src/app/main/Services/inv/Operaciones/operaciones.service';
-import { ITela } from 'src/app/main/class/Form/Inv/Interface/i-Tela';
+import { OperacionesService } from 'src/app/main/Services/Prm/Operaciones/operaciones.service';
+import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
 
 
 let ELEMENT_DATA_TELA : ITela[] = [];

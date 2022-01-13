@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
-import { IFoleoDatos } from 'src/app/main/class/Form/Inv/Interface/i-Foleo-Datos';
+import { IFoleoDatos } from 'src/app/main/class/Form/PRM/i-Foleo-Datos';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,12 @@ export class FoleoDatosService {
 
   Get() : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Inventario/Foleo/GetDato");
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Foleo/GetDato");
   }
 
   GetEstilo(filtro: string): Observable<any> {
 
-    return this.http.get<any>(this.Cnx.Url() + "Inventario/Foleo/GetEstilo" + "?filtro="+filtro);
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Foleo/GetEstilo" + "?filtro="+filtro);
 
   }
 
@@ -29,14 +29,14 @@ export class FoleoDatosService {
   Guardar(d : IFoleoDatos): Observable<any> {
        
     let json = JSON.stringify(d);  
-    return this.http.post<any>(this.Cnx.Url() + "Inventario/Foleo/GuardarDato" + "?d=" + json,  { 'content-type': 'application/json'});
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Foleo/GuardarDato" + "?d=" + json,  { 'content-type': 'application/json'});
     
 
   }
 
   EliminarDetalle(id : number): Observable<any> {
        
-    return this.http.post<any>(this.Cnx.Url() + "Inventario/Foleo/EliminarDato" + "?id=" + id,  { 'content-type': 'application/text'});
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Foleo/EliminarDato" + "?id=" + id,  { 'content-type': 'application/text'});
     
 
   }

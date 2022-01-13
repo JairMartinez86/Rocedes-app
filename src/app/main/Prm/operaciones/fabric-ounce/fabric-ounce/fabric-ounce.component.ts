@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IOunce } from 'src/app/main/class/Form/Inv/Interface/i-Ounce';
+import { IOunce } from 'src/app/main/class/Form/PRM/i-Ounce';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { OperacionesService } from 'src/app/main/Services/inv/Operaciones/operaciones.service';
+import { OperacionesService } from 'src/app/main/Services/Prm/Operaciones/operaciones.service';
 
 let ELEMENT_DATA_OUNCE : IOunce[] = [];
 

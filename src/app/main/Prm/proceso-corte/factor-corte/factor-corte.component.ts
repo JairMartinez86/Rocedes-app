@@ -4,8 +4,8 @@ import { MatDialog} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IFactorCorte } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte';
-import { IFactorCorteDetalle } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Corte-Detalle';
+import { IFactorCorte } from 'src/app/main/class/Form/PRM/i-Factor-Corte';
+import { IFactorCorteDetalle } from 'src/app/main/class/Form/PRM/i-Factor-Corte-Detalle';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { FactorCorteService } from 'src/app/main/Services/Prm/ProcesoCorte/factor-corte.service';
 

@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IFactorTendido } from 'src/app/main/class/Form/Inv/Interface/i-Factor-Tendido';
+import { IFactorTendido } from 'src/app/main/class/Form/PRM/i-Factor-Tendido';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { TendidoService } from 'src/app/main/Services/inv/ProcesoTendido/tendido.service';
+import { TendidoService } from 'src/app/main/Services/Prm/ProcesoTendido/tendido.service';
 
 import { Workbook } from 'exceljs';
 
