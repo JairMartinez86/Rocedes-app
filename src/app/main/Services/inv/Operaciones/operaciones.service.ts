@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ICodigoGSD } from 'src/app/main/class/Form/Inv/Interface/i-Codigo-GSD';
+import { IDataMachine } from 'src/app/main/class/Form/Inv/Interface/i-data-machine';
+import { IOunce } from 'src/app/main/class/Form/Inv/Interface/i-Ounce';
 import { IPartes } from 'src/app/main/class/Form/Inv/Interface/i-Partes';
 import { ISewing } from 'src/app/main/class/Form/Inv/Interface/i-Sewing';
 import { ISewingAccuracy } from 'src/app/main/class/Form/Inv/Interface/i-SewingAccuracy';
@@ -98,6 +100,39 @@ export class OperacionesService {
     return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarSewingAccuracy" + "?d=" + json,  { 'content-type': 'application/json'});
    }
 //#endregion SEWING ACCURACY
+
+
+
+  //#region OUNCE
+  
+  GetOunce() : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Operaciones/GetOunce");
+  }
+
+
+
+  GuardarOunce(d : IOunce): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarOunce" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+  //#endregion OUNCE
+
+
+  //#region DATA MACHINE
+  
+  GetDataMachine() : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Operaciones/GetDataMachine");
+  }
+
+
+
+  GuardarDataMachine(d : IDataMachine): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Inventario/Operaciones/GuardarDataMachine" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+  //#endregion DATA MACHINE
 
 
 }

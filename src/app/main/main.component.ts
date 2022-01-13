@@ -27,6 +27,8 @@ import { ClienteComponent } from './cxc/Cliente/cliente/cliente.component';
 import { SewingComponent } from './inv/operaciones/Sewing/sewing/sewing.component';
 import { SewingAccuracyComponent } from './inv/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './inv/Producto/producto/producto.component';
+import { FabricOunceComponent } from './inv/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
+import { DataMachineComponent } from './inv/operaciones/data-machine/data-machine/data-machine.component';
 
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
@@ -319,6 +321,15 @@ export class MainComponent implements OnInit {
 
 
     if(_Id != "Link-Operaciones-producto"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "Link-Operaciones-ounce"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+
+    if(_Id != "Link-Operaciones-data-machine"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -621,35 +632,55 @@ export class MainComponent implements OnInit {
 
 
             case "Link-Operaciones-sewing":
-                if(this.dinamycHost.viewContainerRef.length == 0)
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(SewingComponent);
+                let Sewing: ComponentRef<SewingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                Sewing.instance.Link = "Link-Operaciones-sewing";
+                Sewing.instance.Open = true;
+              }
+              break;
+
+          case "Link-Operaciones-sewing-accuracy":
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(SewingAccuracyComponent);
+              let SewingAccuracy: ComponentRef<SewingAccuracyComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              SewingAccuracy.instance.Link = "Link-Operaciones-sewing-accuracy";
+              SewingAccuracy.instance.Open = true;
+              }
+            break;
+
+
+          case "Link-Operaciones-producto":
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(ProductoComponent);
+              let Producto: ComponentRef<ProductoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              Producto.instance.Link = "Link-Operaciones-producto";
+              Producto.instance.Open = true;
+            }
+            break;
+
+          case "Link-Operaciones-ounce":
+              if(this.dinamycHost.viewContainerRef.length == 0)
                 {
-                  component = this.componentFactoryResolver.resolveComponentFactory(SewingComponent);
-                  let Sewing: ComponentRef<SewingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
-                  Sewing.instance.Link = "Link-Operaciones-sewing";
-                  Sewing.instance.Open = true;
+                component = this.componentFactoryResolver.resolveComponentFactory(FabricOunceComponent);
+                let Ounce: ComponentRef<FabricOunceComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                Ounce.instance.Link = "Link-Operaciones-ounce";
+                Ounce.instance.Open = true;
                 }
-                break;
+              break;
 
-            case "Link-Operaciones-sewing-accuracy":
-                  if(this.dinamycHost.viewContainerRef.length == 0)
-                  {
-                    component = this.componentFactoryResolver.resolveComponentFactory(SewingAccuracyComponent);
-                    let SewingAccuracy: ComponentRef<SewingAccuracyComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
-                    SewingAccuracy.instance.Link = "Link-Operaciones-sewing-accuracy";
-                    SewingAccuracy.instance.Open = true;
-                  }
-                  break;
-
-
-            case "Link-Operaciones-producto":
-                    if(this.dinamycHost.viewContainerRef.length == 0)
-                    {
-                      component = this.componentFactoryResolver.resolveComponentFactory(ProductoComponent);
-                      let Producto: ComponentRef<ProductoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
-                      Producto.instance.Link = "Link-Operaciones-producto";
-                      Producto.instance.Open = true;
-                    }
-                    break;
+          case "Link-Operaciones-data-machine":
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(DataMachineComponent);
+                let DataMachine: ComponentRef<DataMachineComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                DataMachine.instance.Link = "Link-Operaciones-data-machine";
+                DataMachine.instance.Open = true;
+                }
+            break;
             
 
 

@@ -99,6 +99,8 @@ import { ClienteComponent } from './main/cxc/Cliente/cliente/cliente.component';
 import { SewingComponent } from './main/inv/operaciones/Sewing/sewing/sewing.component';
 import { SewingAccuracyComponent } from './main/inv/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './main/inv/Producto/producto/producto.component';
+import { FabricOunceComponent } from './main/inv/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
+import { DataMachineComponent } from './main/inv/operaciones/data-machine/data-machine/data-machine.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -149,7 +151,9 @@ export const CUSTOM_MOMENT_FORMATS  = {
     ClienteComponent,
     SewingComponent,
     SewingAccuracyComponent,
-    ProductoComponent
+    ProductoComponent,
+    FabricOunceComponent,
+    DataMachineComponent
 
     
     
