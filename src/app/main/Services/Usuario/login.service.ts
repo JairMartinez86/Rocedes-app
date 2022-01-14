@@ -307,41 +307,49 @@ export class LoginService {
     
     
     
-      {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navInvContabilizacion", NombreLink : "Accounting", Activo : false},
-      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxing", NombreLink : "Bundle Boxing", Activo : false},
-      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingComplemento", NombreLink : "Scanner Complemento", Activo : false},
-      {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingEnvio", NombreLink : "Envio", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmFactor", NombreLink : "Spreading Process", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoTendidoFactor", NombreLink : "Spreading Factors", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoTendidoCapaSencilla", NombreLink : "Single Ply", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoTendidoCapaDoble", NombreLink : "Double Ply", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoTendidoCapaManual", NombreLink : "Manual Spreading", Activo : false},
     
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Inventario", Link: "navInvFactor", NombreLink : "Proceso de tendido", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoFactor", NombreLink : "Factores de Tendido", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaSencilla", NombreLink : "Capa Sencilla", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaDoble", NombreLink : "Capa Doble", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoTendidoCapaManual", NombreLink : "Capa Manual", Activo : false},
-    
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Inventario", Link: "navInvFactorCorte", NombreLink : "Proceso de Corte", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoCorteFactor", NombreLink : "Factores de Corte", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoCorteFactorTiempo", NombreLink : "Tiempo de Corte", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmFactorCorte", NombreLink : "Cutting Process", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoCorteFactor", NombreLink : "Cutting Factors", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoCorteFactorTiempo", NombreLink : "Cutting Time", Activo : false},
 
 
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Inventario", Link: "navInvFactorFoleo", NombreLink : "Proceso de Foleo", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoFactor", NombreLink : "Factores de Foleo", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoCapaSencilla", NombreLink : "Capa Sencilla", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkProcesoFoleoCapaDoble", NombreLink : "Capa Doble", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navRpmFactorFoleo", NombreLink : "Layer Marking Process", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoFoleoFactor", NombreLink : "Layer Marking Factors", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoFoleoCapaSencilla", NombreLink : "Single Ply", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoFoleoCapaDoble", NombreLink : "Double Ply", Activo : false},
 
 
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Inventario", Link: "LinkFlujoCorte", NombreLink : "Flujo de Corte", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkFlujoCorte", NombreLink : "Cutting Flow", Activo : false},
       
 
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones", NombreLink : "Prametros", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-cliente", NombreLink : "Customers", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-producto", NombreLink : "Product Catalogue", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-tela", NombreLink : "Type Of fabic", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-partes", NombreLink : "Sewing Garment", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-sewing", NombreLink : "Sewing Considerations", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-sewing-accuracy", NombreLink : "Sewing Stop Accuracy", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-ounce", NombreLink : "Fabric Classification By Ounce", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Inventario", Link: "Link-Operaciones-data-machine", NombreLink : "Machine General Data", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmParametros", NombreLink : "Prametros", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-cliente", NombreLink : "Customers", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-producto", NombreLink : "Product Catalog", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-tela", NombreLink : "Type of Fabic", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-partes", NombreLink : "Sewing Garment", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-sewing", NombreLink : "Sewing Considerations", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-sewing-accuracy", NombreLink : "Sewing Stop Accuracy", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-ounce", NombreLink : "Fabric Rating", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-data-machine", NombreLink : "Machine General Data", Activo : false},
+      
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmOperDev", NombreLink : "New Operation", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-Development-Methos-Analisys", NombreLink : "Method Analysis", Activo : false},
+
+
+
+
+      
+      {EsMenu: true, Esquema : "INV", NombreEsquema : "Iventario", Link: "navInvContabilizacion", NombreLink : "Accounting", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Iventario", Link: "LinkBundleBoxing", NombreLink : "Bundle Boxing", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Iventario", Link: "LinkBundleBoxingComplemento", NombreLink : "Scanner Complemento", Activo : false},
+      {EsMenu: false, Esquema : "INV", NombreEsquema : "Iventario", Link: "LinkBundleBoxingEnvio", NombreLink : "Envio", Activo : false},
+    
       
       {EsMenu: true, Esquema : "INV", NombreEsquema : "Inventario", Link: "navReporte", NombreLink : "Reportes", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkReportBundleBoxing", NombreLink : "BundleBoxing Report", Activo : false},

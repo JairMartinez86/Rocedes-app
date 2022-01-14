@@ -50,7 +50,7 @@
             <li>
               <a href="#" class="nav-link text-white" (click)="Modulo('PRM')" id="PRM">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
-                Rocedes Premium
+                Manufacturing Solution System
               </a>
             </li>
             <li>
@@ -76,7 +76,7 @@
 
   </header>
 
-  <div class="container">
+  <div >
     <nav class="navbar custom-navbar navbar-expand-lg navbar-light bg-light rounded">
 
       <div class="container-fluid">
@@ -110,57 +110,63 @@
 
             <!-----------------------------PREMIUM------------------------------------------------------------------------------------------------------------->
 
-            <li class="nav-item dropdown" id="navInvFactor" appDropdown #r3="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Proceso de Tendido</a>
+            <li class="nav-item dropdown" id="navPrmFactor" appDropdown #r3="appDropDown">
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Spreading Process</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
-                <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Factores de Tendido</a></li>
-                <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
-                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Capa Doble</a></li>
-                <li><a id="LinkProcesoTendidoCapaManual" class="dropdown-item" href="#">Capa Manual</a></li>
+                <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Spreading Factors</a></li>
+                <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Single Ply</a></li>
+                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Double Ply</a></li>
+                <li><a id="LinkProcesoTendidoCapaManual" class="dropdown-item" href="#">Manual Spreading</a></li>
               </ul>
             </li>
 
 
-            <li class="nav-item dropdown" id="navInvFactorCorte"  appDropdown #r4="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Proceso de Corte</a>
+            <li class="nav-item dropdown" id="navPrmFactorCorte"  appDropdown #r4="appDropDown">
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Cutting Process</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
-                <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Factores de Corte</a></li>
-                <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Tiempo de Corte</a></li>
+                <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Cutting Factors</a></li>
+                <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Cutting Time</a></li>
               </ul>
             </li>
 
-            <li class="nav-item dropdown" id="navInvFactorFoleo"  appDropdown #r5="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Proceso de Foleo</a>
+            <li class="nav-item dropdown" id="navPrmFactorFoleo"  appDropdown #r5="appDropDown">
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Layer Marking Process</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r5.isOpen}">
-                <li><a id="LinkProcesoFoleoFactor" class="dropdown-item" href="#">Factores de Foleo</a></li>
-                <li><a id="LinkProcesoFoleoCapaSencilla" class="dropdown-item" href="#">Capa Sencilla</a></li>
-                <li><a id="LinkProcesoFoleoCapaDoble" class="dropdown-item" href="#">Capa Doble</a></li>
+                <li><a id="LinkProcesoFoleoFactor" class="dropdown-item" href="#">Layer Marking Factors</a></li>
+                <li><a id="LinkProcesoFoleoCapaSencilla" class="dropdown-item" href="#">Single Ply</a></li>
+                <li><a id="LinkProcesoFoleoCapaDoble" class="dropdown-item" href="#">Double Ply</a></li>
               </ul>
             </li>
      
      
             <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PRM'">
-              <a id="LinkFlujoCorte" class="nav-link" href="#" >Flujo de Corte</a>
+              <a id="LinkFlujoCorte" class="nav-link" href="#" >Cutting Flow</a>
             </li>
 
 
-            <li class="nav-item dropdown" id="navInvFactorFoleo"  appDropdown #r6="appDropDown">
+            <li class="nav-item dropdown" id="navPrmParametros"  appDropdown #r6="appDropDown">
               <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Parametros</a>
               <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r6.isOpen}">
                 <li><a id="Link-Operaciones-cliente" class="dropdown-item" href="#">Customers</a></li>
-                <li><a id="Link-Operaciones-producto" class="dropdown-item" href="#">Product Catalogue</a></li>
+                <li><a id="Link-Operaciones-producto" class="dropdown-item" href="#">Product Catalog</a></li>
                 <li><a id="Link-Operaciones-codigo-gsd" class="dropdown-item" href="#">Manufacturing Codes</a></li>
-                <li><a id="Link-Operaciones-tela" class="dropdown-item" href="#">Type Of fabic</a></li>
+                <li><a id="Link-Operaciones-tela" class="dropdown-item" href="#">Type of Fabic</a></li>
                 <li><a id="Link-Operaciones-partes" class="dropdown-item" href="#">Sewing Garment</a></li>
                 <li><a id="Link-Operaciones-sewing" class="dropdown-item" href="#">Sewing Considerations</a></li>
                 <li><a id="Link-Operaciones-sewing-accuracy" class="dropdown-item" href="#">Sewing Stop Accuracy</a></li>
-                <li><a id="Link-Operaciones-ounce" class="dropdown-item" href="#">Fabric Classification By Ounce</a></li>
-                <li><a id="Link-Operaciones-data-machine" class="dropdown-item" href="#">Machine general Data</a></li>
+                <li><a id="Link-Operaciones-ounce" class="dropdown-item" href="#">Fabric Rating</a></li>
+                <li><a id="Link-Operaciones-data-machine" class="dropdown-item" href="#">Machine General Data</a></li>
               </ul>
             </li>
             
+            <li class="nav-item dropdown" id="navPrmOperDev"  appDropdown #r8="appDropDown">
+              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">New Operation</a>
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r8.isOpen}">
+                <li><a id="Link-Operaciones-Development-Methos-Analisys" class="dropdown-item" href="#">Method Analysis</a></li>
+              </ul>
+            </li>
 
-
+    
             <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
    
             <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown #r2="appDropDown">

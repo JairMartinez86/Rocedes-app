@@ -29,7 +29,7 @@ import { SewingAccuracyComponent } from './Prm/operaciones/SewingAccuracy/sewing
 import { ProductoComponent } from './inv/Producto/producto/producto.component';
 import { FabricOunceComponent } from './Prm/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
 import { DataMachineComponent } from './Prm/operaciones/data-machine/data-machine/data-machine.component';
-
+import { MethodAnalysisComponent } from './Prm/operaciones/Method-Analysis/method-analysis/method-analysis.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -137,6 +137,8 @@ export class MainComponent implements OnInit {
     _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
     this.lstEsquema.push(_Esquema);
     _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-producto", "Product Catalogue", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
     this.lstEsquema.push(_Esquema);
 
 
@@ -332,6 +334,10 @@ export class MainComponent implements OnInit {
 
 
     if(_Id != "Link-Operaciones-data-machine"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "Link-Operaciones-Development-Methos-Analisys"){
       this.dinamycHost.viewContainerRef!.clear();
     }
     
@@ -688,6 +694,17 @@ export class MainComponent implements OnInit {
                 DataMachine.instance.Open = true;
                 }
             break;
+
+
+          case "Link-Operaciones-Development-Methos-Analisys":
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(MethodAnalysisComponent);
+              let MethodAnalysis: ComponentRef<MethodAnalysisComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              MethodAnalysis.instance.Link = "Link-Operaciones-Development-Methos-Analisys";
+              MethodAnalysis.instance.Open = true;
+              }
+          break;
             
 
 
@@ -722,7 +739,7 @@ export class MainComponent implements OnInit {
     if(m == "SIS" ) this.Esquema._Nombre = "Configuración"
 
 
-    if(m == "PRM" ) this.Esquema._Nombre = "Rocedes Premium"
+    if(m == "PRM" ) this.Esquema._Nombre = "Manufacturing Solution System"
 
     if(m == "INV" ) this.Esquema._Nombre = "Inventario"
     
