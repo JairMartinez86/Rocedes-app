@@ -280,10 +280,9 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
           element.Tmus = 0;
           if(_json["count"] > 0)
           {
-            element.Tmus = this._RowMaquina.Rpm * (1.0/1667.0)
-            element.Tmus =  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor / element.Tmus
+            element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor / (this._RowMaquina.Rpm * (1.0/1667.0));
             element.Tmus =  (element.Tmus * Number(_json["d"][0].Factor)) * Number(Codigo2);
-            element.Tmus =  element.Tmus + (this._RowMaquina.Rpm / 1000.0) + (this._RowMaquina.Fatigue / 100.0);
+            element.Tmus =  element.Tmus + (this._RowMaquina.Rpm / 1000.0) + 17;
 
 
             this._OperacionesService.GetSewing(Codigo3).subscribe( s2 =>{
