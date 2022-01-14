@@ -22,9 +22,9 @@ export class OperacionesService {
 
 
   //#region CODIGO GSD
-  GetCodigoGSD() : Observable<any>
+  GetCodigoGSD(codigo : string) : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetCodigoGSD");
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetCodigoGSD" + "?codigo=" + codigo );
   }
 
 
@@ -71,9 +71,9 @@ export class OperacionesService {
 
   //#region SEWING
   
-  GetSewing() : Observable<any>
+  GetSewing(codigo : string) : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSewing");
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSewing" + "?codigo=" + codigo);
   }
 
 
@@ -88,9 +88,9 @@ export class OperacionesService {
 
   //#region SEWING ACCURACY
   
-  GetSewingAccuracy() : Observable<any>
+  GetSewingAccuracy(level : string) : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSewingAccuracy");
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSewingAccuracy" + "?level=" + level);
   }
 
 
@@ -124,6 +124,11 @@ export class OperacionesService {
   GetDataMachine() : Observable<any>
   {
     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetDataMachine");
+  }
+
+  GetDataMachineAuto(nombre : string) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetDataMachineAuto" + "?nombre=" + nombre);
   }
 
 

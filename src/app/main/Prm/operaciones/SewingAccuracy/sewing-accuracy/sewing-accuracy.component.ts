@@ -196,7 +196,7 @@ export class SewingAccuracyComponent implements OnInit {
   {
     ELEMENT_DATA_SEWING_ACCURACY.splice(0, ELEMENT_DATA_SEWING_ACCURACY.length);
 
-    this._OperacionesService.GetSewingAccuracy().subscribe(s =>{
+    this._OperacionesService.GetSewingAccuracy("").subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)

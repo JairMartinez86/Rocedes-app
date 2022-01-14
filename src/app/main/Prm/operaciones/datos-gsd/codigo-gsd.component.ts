@@ -198,7 +198,7 @@ export class CodigoGsdComponent implements OnInit {
   {
     ELEMENT_DATA_CODIGO_GSD.splice(0, ELEMENT_DATA_CODIGO_GSD.length);
 
-    this._OperacionesService.GetCodigoGSD().subscribe(s =>{
+    this._OperacionesService.GetCodigoGSD("").subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)

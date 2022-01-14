@@ -206,7 +206,7 @@ export class SewingComponent implements OnInit {
   {
     ELEMENT_DATA_SEWING.splice(0, ELEMENT_DATA_SEWING.length);
 
-    this._OperacionesService.GetSewing().subscribe(s =>{
+    this._OperacionesService.GetSewing("").subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
