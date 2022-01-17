@@ -2,7 +2,7 @@
 
 	<div class="row col-12" id="from-method-analisys">
 		<div class="col-sm-12 col-md-4 col-lg-4">
-			<p><b>Campos marcados con (<b style="color: red;">*</b>) son requeridos.</b></p>
+			<div class="franja"><p>CODIGO #{{str_Codigo}}</p></div>
             
 			<div class="mat-elevation-z8" Id="tabla-parametros-method-analisys">
 
@@ -87,7 +87,9 @@
 
 				</table>
             </form>
+			
 			</div>
+			<p><b>Campos marcados con (<b style="color: red;">*</b>) son requeridos.</b></p>
 		</div>
 
 		<div class="col-sm-12 col-md-8 col-lg-8">
@@ -106,7 +108,7 @@
                         
                             <div class="col-sm-12 col-md-4 col-md-6">
                                 <div class="button-row text-end">
-                                    <button [disabled]="val.ValForm.invalid" type="button" class="btn btn-outline-secondary" (click)="AgregarFila()"><b>NEW FILE</b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
+                                    <button [disabled]="val.ValForm.invalid" type="button" class="btn btn-outline-secondary" (click)="AgregarFila(false)"><b>NEW FILE</b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
                                 </div>
                             </div>
                      
@@ -125,7 +127,7 @@
 				<table mat-table [dataSource]="dataSource_method_analisys">
 
 
-					<ng-container matColumnDef="IdMethodAnalysis">
+					<ng-container matColumnDef="IdDetMethodAnalysis">
 						<th mat-header-cell *matHeaderCellDef> No. </th>
 						<td mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> <b *ngIf="!element.EsTotal">{{j+1}} </b></td>
 					</ng-container>

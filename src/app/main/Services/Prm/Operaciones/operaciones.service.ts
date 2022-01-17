@@ -10,6 +10,7 @@ import { IPartes } from 'src/app/main/class/Form/PRM/i-Partes';
 import { ISewing } from 'src/app/main/class/Form/PRM/i-Sewing';
 import { ISewingAccuracy } from 'src/app/main/class/Form/PRM/i-SewingAccuracy';
 import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
+import { IDetMethodAnalysis } from 'src/app/main/class/Form/PRM/IDetMethod-Analysis';
 
 @Injectable({
   providedIn: 'root'
@@ -157,12 +158,22 @@ export class OperacionesService {
      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysisAuto" + "?nombre=" + nombre);
    }
  
+   NuevoMethodAnalysis(d : IMethodAnalysis): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/NuevoMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+
  
- 
-   GuardarMethodAnalysis(d : IMethodAnalysis): Observable<any> { 
+   GuardarDetMethodAnalysis(d : IDetMethodAnalysis): Observable<any> { 
      let json = JSON.stringify(d);  
-     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
+     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarDetMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
     }
+
+
+    GuardarMethodAnalysis(d : any): Observable<any> { 
+      let json = JSON.stringify(d);  
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
+     }
  
     EliminarMethodAnalysis(IdMethodAnalysis : number): Observable<any> { 
       return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?IdMethodAnalysis=" + IdMethodAnalysis,  { 'content-type': 'application/text'});
