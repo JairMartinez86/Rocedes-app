@@ -4,7 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith } from 'rxjs';
 import { IDataMachine } from 'src/app/main/class/Form/PRM/i-data-machine';
 import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
+import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
+import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Services/Prm/Operaciones/operaciones.service';
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
@@ -15,6 +17,7 @@ let ELEMENT_DATA_METHOD_ANALISIS : IMethodAnalysis[] = []
 
 export interface IParametroMethodAnalysis {
   Index : number;
+  Requerido : string;
   Parametro : string;
   Valor : any;
 }
@@ -30,10 +33,11 @@ export class MethodAnalysisComponent implements OnInit {
   
   public Open : boolean = false;
   public Link : string = "";
+  public Editar : boolean = false;
 
   private _RowMaquina !: IDataMachine;
 
-  displayedColumns_parametros_method_analisys: string[] = ["Index", "Parametro",   "Valor"];
+  displayedColumns_parametros_method_analisys: string[] = ["Requerido", "Index", "Parametro",   "Valor"];
   dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
 
 
@@ -43,49 +47,60 @@ export class MethodAnalysisComponent implements OnInit {
 
   constructor(private _LoginService : LoginService, private _OperacionesService : OperacionesService, private dialog : MatDialog) {
     this.val.add("txt_method_analisys_parametro1", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro2", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_parametro2", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_Maquina", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro4", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro5", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro6", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro7", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro8", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro9", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_parametro4", "1", "NUM>", "0");
+    this.val.add("txt_method_analisys_parametro5", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro6", "1", "NUM>", "0");
+    this.val.add("txt_method_analisys_parametro7", "1", "NUM>", "0");
+    this.val.add("txt_method_analisys_Tela", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro9", "1", "NUM>", "0");
     this.val.add("txt_method_analisys_parametro10", "", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro11", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro12", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro13", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro14", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro15", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro16", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro17", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_parametro16", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro17", "1", "LEN>", "0");
    }
 
    
 
    Limpiar(): void
    {
+
+    this.Editar = false;
+    this.val.ValForm.reset();
+    this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
+    document.getElementById("from-method-analisys")?.classList.add("disabled");
+    
+
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS = [
-      {Index : 1, Parametro : "ANALISTA", Valor : this._LoginService.str_user},
-      {Index : 2, Parametro : "NOMBRE DE LA OPERACION", Valor : null},
-      {Index : 3, Parametro : "TIPO DE MAQUINA", Valor : null},
-      {Index : 4, Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
-      {Index : 5, Parametro : "MANEJO DE PAQUETE", Valor : null},
-      {Index : 6, Parametro : "RATE C$", Valor : 0},
-      {Index : 7, Parametro : "JORNADA LABORAL", Valor : 0},
-      {Index : 8, Parametro : "TIPO DE TELA", Valor : null},
-      {Index : 9, Parametro : "ONZAJE DE TELA", Valor : null},
-      {Index : 10, Parametro : "MATERIA PRIMA 1", Valor : null},
-      {Index : 11, Parametro : "MATERIA PRIMA 2", Valor : null},
-      {Index : 12, Parametro : "MATERIA PRIMA 3", Valor : null},
-      {Index : 13, Parametro : "MATERIA PRIMA 4", Valor : null},
-      {Index : 14, Parametro : "MATERIA PRIMA 5", Valor : null},
-      {Index : 15, Parametro : "MATERIA PRIMA 7", Valor : null},
-      {Index : 16, Parametro : "PARTE DE SECCION", Valor : null},
-      {Index : 17, Parametro : "TIPO DE CONSTRUCCION", Valor : null}
+      {Index : 1, Requerido : "*", Parametro : "ANALISTA", Valor : this._LoginService.str_user},
+      {Index : 2, Requerido : "*", Parametro : "NOMBRE DE LA OPERACION", Valor : null},
+      {Index : 3, Requerido : "*", Parametro : "TIPO DE MAQUINA", Valor : null},
+      {Index : 4, Requerido : "*", Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
+      {Index : 5, Requerido : "*", Parametro : "MANEJO DE PAQUETE", Valor : null},
+      {Index : 6, Requerido : "*", Parametro : "RATE C$", Valor : 0},
+      {Index : 7, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : 0},
+      {Index : 8, Requerido : "*", Parametro : "TIPO DE TELA", Valor : null},
+      {Index : 9, Requerido : "*", Parametro : "ONZAJE DE TELA", Valor : 0},
+      {Index : 10, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : null},
+      {Index : 11, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : null},
+      {Index : 12, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : null},
+      {Index : 13, Requerido : "", Parametro : "MATERIA PRIMA 4", Valor : null},
+      {Index : 14, Requerido : "", Parametro : "MATERIA PRIMA 5", Valor : null},
+      {Index : 15, Requerido : "", Parametro : "MATERIA PRIMA 7", Valor : null},
+      {Index : 16, Requerido : "*", Parametro : "PARTE DE SECCION", Valor : null},
+      {Index : 17, Requerido : "*", Parametro : "TIPO DE CONSTRUCCION", Valor : null}
     ];
 
     this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
+
+    ELEMENT_DATA_METHOD_ANALISIS.splice(0, ELEMENT_DATA_METHOD_ANALISIS.length);
+    this.dataSource_method_analisys = new MatTableDataSource(ELEMENT_DATA_METHOD_ANALISIS);
+
    }
  
 
@@ -95,6 +110,7 @@ export class MethodAnalysisComponent implements OnInit {
      this.Limpiar();
      this.Link = "";
      this.Open = false;
+     
    }
  
 
@@ -108,7 +124,7 @@ export class MethodAnalysisComponent implements OnInit {
 
 
   
-  //#region AUTO COMPLETADO COMPONENTE
+  //#region AUTO COMPLETADO MAQUINA
 	
   optionSeleccion : IDataMachine[] = [];
   filteredOptions!: Observable<IDataMachine[]>;
@@ -157,7 +173,6 @@ export class MethodAnalysisComponent implements OnInit {
   });
 
 
-
 }
 
 
@@ -172,12 +187,14 @@ txt_method_analisys_Maquina_onFocusOutEvent(event: any) :void
 
     if(_Opcion == null){
       this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue("");
+      this.txt_method_analisys_onSearchChange(null);
       return;
     }
     
   }
 
   this._RowMaquina = _Opcion;
+  this.txt_method_analisys_onSearchChange(event);
 }
 
 
@@ -198,12 +215,121 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
 
 
-//#endregion AUTO COMPLETADO COMPONENTE
+//#endregion AUTO COMPLETADO MAQUINA
 
 
+
+
+
+  //#region AUTO COMPLETADO TELA
+	
+  optionSeleccionTela : ITela[] = [];
+  filteredOptionsTela!: Observable<ITela[]>;
+
+  txt_method_analisys_Tela_onSearchChange(event : any) :void{
+
+  
+  let value : string = event.target.value;
+
+
+  if(value.length <= 2) return;
+
+  this.optionSeleccionTela.splice(0, this.optionSeleccionTela.length);
+
+
+  this._OperacionesService.GetTelaAuto(value).subscribe( s => {
+    let _json = JSON.parse(s);
+
+
+    if(_json["esError"] == 0){
+
+
+      if(_json["count"] > 0){
+        
+        _json["d"].forEach((j : ITela) => {
+          this.optionSeleccionTela.push(j);
+        });
+
+        this.filteredOptionsTela = this.val.ValForm.valueChanges.pipe(
+          startWith(''),
+          map(value => (typeof value === 'string' ? value : value.Nombre)),
+          map(Nombre => (Nombre ? this._FiltroSeleccionTela(Nombre) : this.optionSeleccionTela.slice())),
+        );
+       
+      }
+     
+    }else{
+      this.dialog.open(DialogoComponent, {
+        data: _json["msj"]
+      })
+
+
+
+    }
+
+  });
+
+
+}
+
+txt_method_analisys_Tela_onFocusOutEvent(event: any) :void
+{
+
+  let _Opcion : any = (<HTMLInputElement>document.getElementById("txt_method_analisys_Tela")).value;
+
+  if( typeof(_Opcion) == 'string' ) {
+
+    _Opcion = this.optionSeleccionTela.filter( f => f.Nombre == _Opcion)[0]
+
+    if(_Opcion == null){
+      this.val.ValForm.get("txt_method_analisys_Tela")?.setValue("");
+      return;
+    }
+    
+  }
+
+}
+
+
+
+MostrarSelecTela(Registro: ITela): string {
+  if(Registro == null) return "";
+  return Registro.Nombre;
+}
+
+private _FiltroSeleccionTela(Nombre: string): ITela[] {
+  const filterValue = Nombre.toLowerCase();
+  
+  return this.optionSeleccionTela.filter(option => option.Nombre.toLowerCase().startsWith(filterValue));
+}
+
+
+
+
+
+
+//#endregion AUTO COMPLETADO TELA
+
+
+
+
+
+
+
+txt_method_analisys_onSearchChange(event : any) :void{
+
+  this.dataSource_method_analisys.data.forEach(element => {
+    this.onKeyEnter(event, element, "");
+  });
+}
 
   AgregarFila() : void
   {
+    
+    let index = this.dataSource_method_analisys.data.findIndex(f => f.EsTotal)
+
+    if(index > 0) this.dataSource_method_analisys.data.splice(index, 1);
+
 
     let Min = Math.min.apply(Math, this.dataSource_method_analisys.data.map(function(o) { return o.IdMethodAnalysis; }))
     
@@ -227,24 +353,40 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
     Fila.Tmus = 0;
     Fila.Sec = 0;
     Fila.Sam = 0;
+    Fila.EsTotal = false;
 
     this.dataSource_method_analisys.data.push(Fila);
-    let cloned = this.dataSource_method_analisys.data.slice()
-    this.dataSource_method_analisys.data = cloned;
-    this.dataSource_method_analisys.filter = "";
 
-    this.dataSource_method_analisys.paginator?.lastPage();
+    this.AgregarTotal();
 
-    
 
   }
 
   onKeyEnter(event : any, element : IMethodAnalysis, columna : string) : void
   {
+
+   
+
+
+    
+    let index = this.dataSource_method_analisys.data.findIndex(f => f.EsTotal)
+
+    if(index > 0) this.dataSource_method_analisys.data.splice(index, 1);
+
+
+
+    if(event == null)
+    {
+      element.Tmus = 0;
+      element.Sec = 0;
+      element.Sam = 0;
+      return;
+    }
+
+
     let _value : string = event.target.value;
 
-    if(_value == undefined) return
-
+    if(_value == undefined) return;
     let Codigo1 : string = element.Codigo1;
     let Codigo2 : string = element.Codigo2;
     let Codigo3 : string = element.Codigo3;
@@ -267,6 +409,8 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
     }
 
 
+
+
     if(Codigo1 == "S")
     {
 
@@ -285,19 +429,26 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
             element.Tmus =  element.Tmus + (this._RowMaquina.Rpm / 1000.0) + 17;
 
 
-            this._OperacionesService.GetSewing(Codigo3).subscribe( s2 =>{
+            this._OperacionesService.GetSewingAccuracy(Codigo3).subscribe( s2 =>{
+
+              let _json = JSON.parse(s2);
 
               if(_json["esError"] == 0)
               {
-                if(_json["count"] > 0)
-                {
-                  
-                  element.Tmus =  element.Tmus + _json["d"][0].Factor;
-                }
-                
+                if(_json["count"] > 0) element.Tmus =  element.Tmus + _json["d"][0].Factor;
+
+                element.Tmus =  element.Tmus * element.Freq;
+                element.Sec = element.Tmus / (1667.0/60.0);
+                element.Sam = element.Tmus / 1667.0;
+
+                this.AgregarTotal();
               }
               else
               {
+                element.Tmus = 0;
+                element.Sec = 0;
+                element.Sam = 0;
+                this.AgregarTotal()
                 this.dialog.open(DialogoComponent, {
                   data : _json["msj"]
                 })
@@ -315,6 +466,10 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
         }
         else
         {
+          element.Tmus = 0;
+          element.Sec = 0;
+          element.Sam = 0;
+          this.AgregarTotal();
           this.dialog.open(DialogoComponent, {
             data : _json["msj"]
           })
@@ -339,6 +494,7 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
             element.Tmus = Number(_json["d"][0].Tmus) * element.Freq;
             element.Sec = element.Tmus / (1667.0/60.0);
             element.Sam = element.Tmus / 1667.0;
+            this.AgregarTotal();
           }
 
 
@@ -346,6 +502,10 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
         }
         else
         {
+          element.Tmus = 0;
+          element.Sec = 0;
+          element.Sam = 0;
+          this.AgregarTotal();
           this.dialog.open(DialogoComponent, {
             data : _json["msj"]
           })
@@ -357,6 +517,35 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
   }
 
+  AgregarTotal() : void
+  {
+    let Min = Math.min.apply(Math, this.dataSource_method_analisys.data.map(function(o) { return o.IdMethodAnalysis; }))
+    
+    if(this.dataSource_method_analisys.data.length > 0){
+      Min -= 1
+    }
+    else
+    {
+      Min = -1
+    }
+
+    let RegistroTotal: IMethodAnalysis = {} as IMethodAnalysis;
+
+    RegistroTotal.IdMethodAnalysis = Min;
+    RegistroTotal.EsTotal = true;
+    RegistroTotal.Descripcion = "TOTAL";
+    RegistroTotal.Tmus = this.dataSource_method_analisys.data.reduce((Tmus, cur) => Tmus + cur.Tmus, 0);
+    RegistroTotal.Sec = this.dataSource_method_analisys.data.reduce((Sec, cur) => Sec + cur.Sec, 0);
+    RegistroTotal.Sam = this.dataSource_method_analisys.data.reduce((Sam, cur) => Sam + cur.Sam, 0);
+    this.dataSource_method_analisys.data.push(RegistroTotal);
+   
+    let cloned = this.dataSource_method_analisys.data.slice()
+    this.dataSource_method_analisys.data = cloned;
+    this.dataSource_method_analisys.filter = "";
+
+    this.dataSource_method_analisys.paginator?.lastPage();
+
+  }
 
   cellChanged(element : IMethodAnalysis, columna : string) : void
    {
@@ -383,9 +572,51 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
    }
 
 
-   clickRow(element : any) : void
+   clickRow(element : IMethodAnalysis) : void
    {
 
+    let index : number = 0;
+
+    if(element.IdMethodAnalysis < 0)
+    {
+      index = this.dataSource_method_analisys.data.findIndex(f => f.IdMethodAnalysis == element.IdMethodAnalysis);
+      this.dataSource_method_analisys.data.splice(index, 1);
+      this.dataSource_method_analisys.filter = "";
+
+      if(this.dataSource_method_analisys.data.length == 0) this.val.ValForm.get("txt_method_analisys_Maquina")?.enable();
+      return;
+    }
+
+    let _dialog = this.dialog.open(ConfirmarEliminarComponent)
+    document.getElementById("body")?.classList.add("disabled");
+
+    _dialog.afterClosed().subscribe( s =>{
+      document?.getElementById("body")?.classList.remove("disabled");
+      if(_dialog.componentInstance.Retorno == "1")
+      {
+        this._OperacionesService.EliminarMethodAnalysis(element.IdMethodAnalysis).subscribe( s =>{
+  
+          let _json = JSON.parse(s);
+                
+          if(_json["esError"] == 0)
+          {
+            index  = this.dataSource_method_analisys.data.findIndex(f =>  Number(f.IdMethodAnalysis) == Number(_json["d"].IdMethodAnalysis));
+    
+    
+            if(index >= 0) this.dataSource_method_analisys.data.splice(index, 1);
+          }
+         
+          
+          this.dataSource_method_analisys.data = this.dataSource_method_analisys.data;
+          if(this.dataSource_method_analisys.data.length == 0) this.val.ValForm.get("txt_method_analisys_Maquina")?.enable();
+          
+          this.dialog.open(DialogoComponent, {
+            data : _json["msj"]
+          })
+      
+        });
+      }
+    });
    }
 
 
@@ -395,6 +626,17 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
   
 
+  Nuevo() : void
+  {
+    this.Editar = true;
+    document.getElementById("from-method-analisys")?.classList.remove("disabled");
+    
+  }
+
+  Guardar() : void
+  {
+
+  }
 
   ngOnInit(): void {
     this.Limpiar();

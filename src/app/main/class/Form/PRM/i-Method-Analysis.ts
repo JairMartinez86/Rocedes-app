@@ -9,4 +9,5 @@ export interface IMethodAnalysis {
     Tmus: number;
     Sec: number;
     Sam: number;
+    EsTotal : boolean;
   }

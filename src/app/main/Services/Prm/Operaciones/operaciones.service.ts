@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ICodigoGSD } from 'src/app/main/class/Form/PRM/i-Codigo-GSD';
 import { IDataMachine } from 'src/app/main/class/Form/PRM/i-data-machine';
+import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
 import { IOunce } from 'src/app/main/class/Form/PRM/i-Ounce';
 import { IPartes } from 'src/app/main/class/Form/PRM/i-Partes';
 import { ISewing } from 'src/app/main/class/Form/PRM/i-Sewing';
@@ -59,7 +60,10 @@ export class OperacionesService {
       return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetTela");
     }
 
-
+    GetTelaAuto(nombre : string) : Observable<any>
+    {
+      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetTelaAuto" + "?nombre=" + nombre);
+    }
 
     GuardarTela(d : ITela): Observable<any> { 
       let json = JSON.stringify(d);  
@@ -140,4 +144,31 @@ export class OperacionesService {
   //#endregion DATA MACHINE
 
 
+
+   //#region METHOD ANALISIS
+  
+   GetMethodAnalysis() : Observable<any>
+   {
+     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysis");
+   }
+ 
+   GetMethodAnalysisAuto(nombre : string) : Observable<any>
+   {
+     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysisAuto" + "?nombre=" + nombre);
+   }
+ 
+ 
+ 
+   GuardarMethodAnalysis(d : IMethodAnalysis): Observable<any> { 
+     let json = JSON.stringify(d);  
+     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
+    }
+ 
+    EliminarMethodAnalysis(IdMethodAnalysis : number): Observable<any> { 
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?IdMethodAnalysis=" + IdMethodAnalysis,  { 'content-type': 'application/text'});
+     }
+   //#endregion METHOD ANALISIS
+
+
+  
 }

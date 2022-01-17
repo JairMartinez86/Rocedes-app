@@ -318,7 +318,7 @@ export class LoginService {
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoCorteFactorTiempo", NombreLink : "Cutting Time", Activo : false},
 
 
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navRpmFactorFoleo", NombreLink : "Layer Marking Process", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmFactorFoleo", NombreLink : "Layer Marking Process", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoFoleoFactor", NombreLink : "Layer Marking Factors", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoFoleoCapaSencilla", NombreLink : "Single Ply", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkProcesoFoleoCapaDoble", NombreLink : "Double Ply", Activo : false},
@@ -327,7 +327,7 @@ export class LoginService {
       {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "LinkFlujoCorte", NombreLink : "Cutting Flow", Activo : false},
       
 
-      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmParametros", NombreLink : "Prametros", Activo : false},
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmParametros", NombreLink : "Parameters", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-cliente", NombreLink : "Customers", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-producto", NombreLink : "Product Catalog", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},

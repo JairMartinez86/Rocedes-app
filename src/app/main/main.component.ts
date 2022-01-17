@@ -96,51 +96,56 @@ export class MainComponent implements OnInit {
   
 
 
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoFactor", "Factores de Tendido", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoFactor", "Spreading Factors", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoCapaSencilla", "Capa Sencilla", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoCapaSencilla", "Single Ply", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoCapaDoble", "Capa Doble", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoCapaDoble", "Double Ply", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoTendidoCapaManual", "Capa Manual", false));
-    this.lstEsquema.push(_Esquema);
-
-
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoCorteFactor", "Factores de Corte", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoCorteFactorTiempo", "Tiempo de Corte", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoCapaManual", "Manual Spreading", false));
     this.lstEsquema.push(_Esquema);
 
 
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoFoleoFactor", "Tiempo de Foleo", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoCorteFactor", "Cutting Factors", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Capa Sencilla", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoCorteFactorTiempo", "Cutting Time", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkProcesoFoleoCapaDoble", "Capa Doble", false));
+
+
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoFoleoFactor", "Layer Marking Factors", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Single Ply", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoFoleoCapaDoble", "Double Ply", false));
     this.lstEsquema.push(_Esquema);
     
 
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("LinkFlujoCorte", "Flujo de Corte", false));
+
+
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkFlujoCorte", "Cutting Flow", false));
     this.lstEsquema.push(_Esquema);
 
 
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-cliente", "Customers", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-cliente", "Customers", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-producto", "Product Catalog", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-tela", "Type Of fabic", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-tela", "Type of Fabic", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-producto", "Product Catalogue", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Rocedes Premium", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
     this.lstEsquema.push(_Esquema);
 
+
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
+    this.lstEsquema.push(_Esquema);
 
     
     _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));

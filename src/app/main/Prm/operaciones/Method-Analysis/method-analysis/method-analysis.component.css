@@ -16,11 +16,11 @@
 
 
   .col-method-analisys-maquina {
-    width: 300px;
+    width: 350px;
   }
 
 .col-method-analisys-codigo {
-    width: 100px;
+    width: 80px;
     padding-left: 2.5px;
     padding-right: 2.5px;
     margin-left: 2.5px;
@@ -30,7 +30,7 @@
   
 
   .col-method-analisys-descripcion {
-    width: 400px;
+    width: 500px;
     padding-left: 2.5px;
     padding-right: 2.5px;
     margin-left: 5px;
@@ -39,7 +39,7 @@
   }
 
   .col-method-analisys-num {
-    width: 50px;
+    max-width: 50px;
     padding-left: 2.5px;
     padding-right: 2.5px;
     margin-left: 2.5px;
@@ -48,7 +48,7 @@
   }
 
   .myHeader2, .col-method-analisys-resultado {
-    width: 100px;
+    max-width: 100px;
     padding-left: 2.5px;
     padding-right: 2.5px;
     margin-left: 5px;
