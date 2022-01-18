@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith } from 'rxjs';
 import { IDataMachine } from 'src/app/main/class/Form/PRM/i-data-machine';
 import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
+import { IMethodAnalysisData } from 'src/app/main/class/Form/PRM/i-MethodAnalysisData';
 import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
 import { IDetMethodAnalysis } from 'src/app/main/class/Form/PRM/IDetMethod-Analysis';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
@@ -15,8 +16,6 @@ import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
 let ELEMENT_DATA_METHOD_ANALISIS : IDetMethodAnalysis[] = []
-
-
 export interface IParametroMethodAnalysis {
   Index : number;
   Requerido : string;
@@ -107,9 +106,12 @@ export class MethodAnalysisComponent implements OnInit {
 
     this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
 
-    ELEMENT_DATA_METHOD_ANALISIS.splice(0, ELEMENT_DATA_METHOD_ANALISIS.length);
-    this.dataSource_method_analisys = new MatTableDataSource(ELEMENT_DATA_METHOD_ANALISIS);
+    this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
 
+    let cloned = this.dataSource_method_analisys.data.slice()
+    this.dataSource_method_analisys.data = cloned;
+
+    this.dataSource_method_analisys.paginator?.lastPage();
    }
  
 
@@ -334,84 +336,10 @@ txt_method_analisys_onSearchChange(event : any) :void{
   });
 }
 
-  AgregarFila(guardado : boolean) : void
+  AgregarFila() : void
   {
 
-    if(!guardado && this.IdMethodAnalysis == -1)
-    {
-
-
-      let _dialog = this.dialog.open(ConfirmarContinuarComponent)
-      document.getElementById("body")?.classList.add("disabled");
-  
-      _dialog.afterClosed().subscribe( s =>{
-        document?.getElementById("body")?.classList.remove("disabled");
-        if(_dialog.componentInstance.Retorno == "1")
-        {
-
-
-          let Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
-          Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
-          Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
-          Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
-          Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
-          Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
-          Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
-          Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
-          Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
-          Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
-          Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
-          Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
-          Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
-          Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
-          Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
-          Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
-          Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
-          Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
-          Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
-          Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
-
-
-
-          this._OperacionesService.NuevoMethodAnalysis(Fila_MethodAnalysis).subscribe(s =>{
-
-            let _json = JSON.parse(s);
-      
-            if(_json["esError"] == 0)
-            {
-      
-              if(_json["count"]  > 0)
-              {
-                this.IdMethodAnalysis = Number(_json["d"].IdMethodAnalysis);
-                this.str_Codigo = String(Number(_json["d"].Codigo));
-                this.AgregarFila(true);
-              }
-      
-            }
-            else
-            {
-              this.dialog.open(DialogoComponent, {
-                data : _json["msj"]
-              })
-            }
-      
-          });
-        }
-      });
-
-
-
-     
-    }
    
-
-
-   
-    let index = this.dataSource_method_analisys.data.findIndex(f => f.EsTotal)
-
-    if(index > 0) this.dataSource_method_analisys.data.splice(index, 1);
-
-
     let Min = Math.min.apply(Math, this.dataSource_method_analisys.data.map(function(o) { return o.IdDetMethodAnalysis; }))
     
     if(this.dataSource_method_analisys.data.length > 0){
@@ -437,38 +365,9 @@ txt_method_analisys_onSearchChange(event : any) :void{
     Fila.Sam = 0;
     Fila.EsTotal = false;
 
-    this._OperacionesService.GuardarDetMethodAnalysis(Fila).subscribe(s =>{
+    this.dataSource_method_analisys.data.push(Fila);
 
-      let _json = JSON.parse(s);
-
-      if(_json["esError"] == 0)
-      {
-
-        if(_json["count"]  > 0)
-        {
-          Fila.IdDetMethodAnalysis = Number(_json["count"].IdDetMethodAnalysis);
-          this.dataSource_method_analisys.data.push(Fila);
-
-          this.AgregarTotal();
-        }
-       
-
-      }
-      else
-      {
-        this.dialog.open(DialogoComponent, {
-          data : _json["msj"]
-        })
-      }
-
-     
-
-
-    });
-    
-
-  
-
+    this.AgregarTotal();
 
   }
 
@@ -623,6 +522,12 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
   AgregarTotal() : void
   {
+    let index = this.dataSource_method_analisys.data.findIndex(f => f.EsTotal)
+
+    if(index >= 0) this.dataSource_method_analisys.data.splice(index, 1);
+
+
+
     let Min = Math.min.apply(Math, this.dataSource_method_analisys.data.map(function(o) { return o.IdDetMethodAnalysis; }))
     
     if(this.dataSource_method_analisys.data.length > 0){
@@ -645,7 +550,6 @@ txt_method_analisys_onSearchChange(event : any) :void{
    
     let cloned = this.dataSource_method_analisys.data.slice()
     this.dataSource_method_analisys.data = cloned;
-    this.dataSource_method_analisys.filter = "";
 
     this.dataSource_method_analisys.paginator?.lastPage();
 
@@ -679,6 +583,15 @@ txt_method_analisys_onSearchChange(event : any) :void{
    clickRow(element : IDetMethodAnalysis) : void
    {
 
+    let index : number = 0;
+    if(element.IdDetMethodAnalysis < 0 )
+    {
+      index  = this.dataSource_method_analisys.data.findIndex(f =>  Number(f.IdDetMethodAnalysis) == element.IdDetMethodAnalysis);
+      if(index >= 0) this.dataSource_method_analisys.data.splice(index, 1);
+      this.AgregarTotal();
+      return;
+    }
+
     let _dialog = this.dialog.open(ConfirmarEliminarComponent)
     document.getElementById("body")?.classList.add("disabled");
 
@@ -692,14 +605,14 @@ txt_method_analisys_onSearchChange(event : any) :void{
                 
           if(_json["esError"] == 0)
           {
-            let index  = this.dataSource_method_analisys.data.findIndex(f =>  Number(f.IdDetMethodAnalysis) == Number(_json["d"].IdDetMethodAnalysis));
+            index  = this.dataSource_method_analisys.data.findIndex(f =>  Number(f.IdDetMethodAnalysis) == Number(_json["d"].IdDetMethodAnalysis));
     
     
             if(index >= 0) this.dataSource_method_analisys.data.splice(index, 1);
           }
          
           
-          this.dataSource_method_analisys.data = this.dataSource_method_analisys.data;
+          this.AgregarTotal();
 
           this.dialog.open(DialogoComponent, {
             data : _json["msj"]
@@ -728,8 +641,87 @@ txt_method_analisys_onSearchChange(event : any) :void{
   Guardar() : void
   {
 
+    let _dialog = this.dialog.open(ConfirmarContinuarComponent)
+    document.getElementById("body")?.classList.add("disabled");
+
+    _dialog.afterClosed().subscribe( s =>{
+      document?.getElementById("body")?.classList.remove("disabled");
+      if(_dialog.componentInstance.Retorno == "1")
+      {
+
+        let Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
+        Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
+        Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
+        Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
+        Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
+        Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
+        Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
+        Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
+        Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
+        Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
+        Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
+        Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
+        Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
+        Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
+        Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
+        Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
+        Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
+        Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
+        Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
+        Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
+        Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
+
+        let datos : IMethodAnalysisData  = {} as IMethodAnalysisData;
+        datos.d = Fila_MethodAnalysis;
+        datos.d2 = this.dataSource_method_analisys.data.filter(f => !f.EsTotal && (f.Codigo1 + f.Codigo2 + f.Codigo3 + f.Codigo4).trimEnd().length > 0 );
+
+
+        if(datos.d2.length == 0 )
+        {
+          this.dialog.open(DialogoComponent, {
+            data : "Por favor verifique si las celdas no se encuentren vacias."
+          })
+          return;
+        }
+
+        this._OperacionesService.GuardarMethodAnalysis(datos).subscribe(s =>{
+
+          let _json = JSON.parse(s);
+    
+          if(_json["esError"] == 0)
+          {
+    
+            if(_json["count"]  > 0)
+            {
+              this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
+              
+              this.IdMethodAnalysis = Number(_json["d"][0].IdMethodAnalysis);
+              this.str_Codigo = String(Number(_json["d"][0].Codigo));
+
+              _json["d"][1].forEach((d : IDetMethodAnalysis )  => {
+                this.dataSource_method_analisys.data.push(d);
+              });
+            }
+            this.AgregarTotal();
+    
+          }
+          else
+          {
+            this.dialog.open(DialogoComponent, {
+              data : _json["msj"]
+            })
+          }
+    
+        });
+      }
+    });
   }
 
+  Exportar() : void
+  {
+
+  }
+  
   ngOnInit(): void {
     this.Limpiar();
   }

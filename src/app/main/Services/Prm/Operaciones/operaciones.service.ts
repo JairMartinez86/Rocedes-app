@@ -1,16 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ICodigoGSD } from 'src/app/main/class/Form/PRM/i-Codigo-GSD';
 import { IDataMachine } from 'src/app/main/class/Form/PRM/i-data-machine';
-import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
+import { IMethodAnalysisData } from 'src/app/main/class/Form/PRM/i-MethodAnalysisData';
 import { IOunce } from 'src/app/main/class/Form/PRM/i-Ounce';
 import { IPartes } from 'src/app/main/class/Form/PRM/i-Partes';
 import { ISewing } from 'src/app/main/class/Form/PRM/i-Sewing';
 import { ISewingAccuracy } from 'src/app/main/class/Form/PRM/i-SewingAccuracy';
 import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
-import { IDetMethodAnalysis } from 'src/app/main/class/Form/PRM/IDetMethod-Analysis';
 
 @Injectable({
   providedIn: 'root'
@@ -158,25 +157,14 @@ export class OperacionesService {
      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysisAuto" + "?nombre=" + nombre);
    }
  
-   NuevoMethodAnalysis(d : IMethodAnalysis): Observable<any> { 
-    let json = JSON.stringify(d);  
-    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/NuevoMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
+   GuardarMethodAnalysis(d : IMethodAnalysisData): Observable<any> { 
+     console.log(JSON.stringify(d));
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis", JSON.stringify(d), { headers: {'content-type' : 'application/json'}});
    }
 
  
-   GuardarDetMethodAnalysis(d : IDetMethodAnalysis): Observable<any> { 
-     let json = JSON.stringify(d);  
-     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarDetMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
-    }
-
-
-    GuardarMethodAnalysis(d : any): Observable<any> { 
-      let json = JSON.stringify(d);  
-      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?d=" + json,  { 'content-type': 'application/json'});
-     }
- 
     EliminarMethodAnalysis(IdMethodAnalysis : number): Observable<any> { 
-      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis" + "?IdMethodAnalysis=" + IdMethodAnalysis,  { 'content-type': 'application/text'});
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/EliminarMethodAnalysis" + "?IdMethodAnalysis=" + IdMethodAnalysis,  { 'content-type': 'application/text'});
      }
    //#endregion METHOD ANALISIS
 
