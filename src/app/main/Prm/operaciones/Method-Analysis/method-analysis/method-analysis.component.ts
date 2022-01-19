@@ -5,6 +5,8 @@ import { map, Observable, startWith } from 'rxjs';
 import { IDataMachine } from 'src/app/main/class/Form/PRM/i-data-machine';
 import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
 import { IMethodAnalysisData } from 'src/app/main/class/Form/PRM/i-MethodAnalysisData';
+import { ISewing } from 'src/app/main/class/Form/PRM/i-Sewing';
+import { ISewingAccuracy } from 'src/app/main/class/Form/PRM/i-SewingAccuracy';
 import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
 import { IDetMethodAnalysis } from 'src/app/main/class/Form/PRM/IDetMethod-Analysis';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
@@ -13,6 +15,11 @@ import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Services/Prm/Operaciones/operaciones.service';
 import { LoginService } from 'src/app/main/Services/Usuario/login.service';
+
+
+import { Workbook, Worksheet } from 'exceljs';
+import * as fs from 'file-saver';
+import { ImagenLogo } from 'src/app/main/Base64/logo';
 
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
 let ELEMENT_DATA_METHOD_ANALISIS : IDetMethodAnalysis[] = []
@@ -40,6 +47,7 @@ export class MethodAnalysisComponent implements OnInit {
 
   private _RowMaquina !: IDataMachine;
   private _RowTela !: ITela;
+  private Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
 
   displayedColumns_parametros_method_analisys: string[] = ["Requerido", "Index", "Parametro",   "Valor"];
   dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
@@ -339,11 +347,11 @@ txt_method_analisys_onSearchChange(event : any) :void{
   AgregarFila() : void
   {
 
-   
     let Min = Math.min.apply(Math, this.dataSource_method_analisys.data.map(function(o) { return o.IdDetMethodAnalysis; }))
     
     if(this.dataSource_method_analisys.data.length > 0){
-      Min -= 1
+      Min -= 1;
+      if(Min >= 0 ) Min = -1;
     }
     else
     {
@@ -383,9 +391,6 @@ txt_method_analisys_onSearchChange(event : any) :void{
     if(index > 0) this.dataSource_method_analisys.data.splice(index, 1);
 
 
-    element.Rpm = 0;
-    element.FactorSewing = 0;
-    element.FactorSewingAccuracy = 0;
     element.Tmus = 0;
     element.Sec = 0;
     element.Sam = 0;
@@ -430,8 +435,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
             element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor / (this._RowMaquina.Rpm * (1.0/1667.0));
             element.Tmus =  (element.Tmus * Number(_json["d"][0].Factor)) * Number(Codigo2);
             element.Tmus =  element.Tmus + (this._RowMaquina.Rpm / 1000.0) + 17;
-            element.Rpm = this._RowMaquina.Rpm;
-            element.FactorSewing = Number(_json["d"][0].Factor);
+           
+            this.Fila_MethodAnalysis.FactorSewing = Number(_json["d"][0].Factor);
 
             this._OperacionesService.GetSewingAccuracy(Codigo3).subscribe( s2 =>{
 
@@ -442,7 +447,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
                 if(_json["count"] > 0)
                 {
                   element.Tmus =  element.Tmus + Number(_json["d"][0].Factor);
-                  element.FactorSewingAccuracy = Number( _json["d"][0].Factor);
+                  this.Fila_MethodAnalysis.FactorSewingAccuracy = Number( _json["d"][0].Factor);
                 }
 
                 
@@ -649,30 +654,45 @@ txt_method_analisys_onSearchChange(event : any) :void{
       if(_dialog.componentInstance.Retorno == "1")
       {
 
-        let Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
-        Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
-        Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
-        Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
-        Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
-        Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
-        Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
-        Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
-        Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
-        Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
-        Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
-        Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
-        Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
-        Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
-        Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
-        Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
-        Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
-        Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
-        Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
-        Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
-        Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
+       
+        this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
+        this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
+        this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
+        this.Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
+        this.Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
+        this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
+        this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
+        this.Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
+        this.Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
+        this.Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
+        this.Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
+        this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
+        this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
+        this.Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
+        this.Fila_MethodAnalysis.Stitch = this._RowMaquina.Stitch;
+        this.Fila_MethodAnalysis.Rpm = this._RowMaquina.Rpm;
+        this.Fila_MethodAnalysis.Delay = this._RowMaquina.Delay;
+        this.Fila_MethodAnalysis.Personal = this._RowMaquina.Personal;
+        this.Fila_MethodAnalysis.Fatigue = this._RowMaquina.Fatigue;
+        this.Fila_MethodAnalysis.Sewing = this.dataSource_method_analisys.data.filter(item => !isNaN(Number(item.Codigo2))).reduce((sum, current) => sum + Number(current.Codigo2), 0);
+        this.Fila_MethodAnalysis.Tmus_Mac = this.dataSource_method_analisys.data.filter(item => item.Codigo1 == "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
+        this.Fila_MethodAnalysis.Tmus_MinL = this.dataSource_method_analisys.data.filter(item => item.Codigo1 != "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
+        this.Fila_MethodAnalysis.Min_Mac = this.Fila_MethodAnalysis.Tmus_Mac / 1667.00;
+        this.Fila_MethodAnalysis.Min_NML = this.Fila_MethodAnalysis.Tmus_MinL / 1667.00;
+        this.Fila_MethodAnalysis.Min_Mac_CC = this.Fila_MethodAnalysis.Min_Mac + this.Fila_MethodAnalysis.Min_NML;
+        this.Fila_MethodAnalysis.Min_NML_CC = (this.Fila_MethodAnalysis.Min_Mac *  (this._RowMaquina.Delay / 100.0)) + (this.Fila_MethodAnalysis.Min_Mac_CC * ((this._RowMaquina.Personal + this._RowMaquina.Fatigue)  / 100.0));
+        this.Fila_MethodAnalysis.Sam = this.Fila_MethodAnalysis.Min_Mac_CC + this.Fila_MethodAnalysis.Min_NML_CC;
+        this.Fila_MethodAnalysis.ProducJL = Number((this.Fila_MethodAnalysis.JornadaLaboral / this.Fila_MethodAnalysis.Sam).toFixed(2));
+        this.Fila_MethodAnalysis.Precio = this.Fila_MethodAnalysis.Rate / this.Fila_MethodAnalysis.ProducJL;
 
         let datos : IMethodAnalysisData  = {} as IMethodAnalysisData;
-        datos.d = Fila_MethodAnalysis;
+        datos.d = this.Fila_MethodAnalysis;
         datos.d2 = this.dataSource_method_analisys.data.filter(f => !f.EsTotal && (f.Codigo1 + f.Codigo2 + f.Codigo3 + f.Codigo4).trimEnd().length > 0 );
 
 
@@ -704,6 +724,10 @@ txt_method_analisys_onSearchChange(event : any) :void{
             }
             this.AgregarTotal();
     
+            this.dialog.open(DialogoComponent, {
+              data : _json["msj"]
+            })
+
           }
           else
           {
@@ -719,9 +743,77 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
   Exportar() : void
   {
+    let workbook = new Workbook();
+
+    let worksheet = workbook.addWorksheet("FILE");
+
+    var Imagen = (new ImagenLogo()).Logo();
+
+    let headerImage = workbook.addImage({
+      base64: Imagen,
+      extension: 'png',
+    });
+    worksheet.addImage( headerImage, {
+      tl: { col: 0, row: 0 },
+      ext: { width: 96.88, height: 60.85 }
+    });
+    
+
+
+    worksheet.mergeCells("A1:B3")
+
+    let Fila = worksheet.getCell("A1:B3");
+    Fila.alignment = {  vertical: 'middle', horizontal: 'center'};
+    Fila.font = {
+      name: 'Calibri',
+      family: 2,
+      size: 11,
+      underline: false,
+      italic: false,
+      bold: true,
+      color: { argb: 'FFFFFF' }
+    };
+
+    Fila.fill = {
+      type: 'pattern',
+      pattern:'solid',
+      fgColor:{argb:'1C394F'},
+    };
+
+    worksheet.mergeCells("C1:M3")
+
+    Fila = worksheet.getCell("C1:BM");
+    Fila.alignment = {  vertical: 'middle', horizontal: 'center'};
+    Fila.value = "METHOD ANALYSIS";
+    Fila.font = {
+      name: 'Calibri',
+      family: 2,
+      size: 20,
+      underline: false,
+      italic: false,
+      bold: true,
+      color: { argb: 'FFFFFF' }
+    };
+
+    Fila.fill = {
+      type: 'pattern',
+      pattern:'solid',
+      fgColor:{argb:'1C394F'},
+    };
+
+
+
+    
+  let fname="methos-analysis";
+
+  workbook.xlsx.writeBuffer().then((data) => {
+    let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    fs.saveAs(blob, fname+'-'+new Date().valueOf()+'.xlsx');
+  });
+
 
   }
-  
+
   ngOnInit(): void {
     this.Limpiar();
   }

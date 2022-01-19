@@ -4,6 +4,12 @@ export interface IMethodAnalysis {
   Operacion : string;
   IdDataMachine : number;
   DataMachine : string;
+  Stitch : string;
+  Delay :  number;
+  Personal : number;
+  Fatigue : number;
+  Rpm: number;
+  Sewing : number;
   Puntadas : number;
   ManejoPaquete: string;
   Rate: number;
@@ -22,4 +28,15 @@ export interface IMethodAnalysis {
   FechaRegistro : Date;
   IdUsuario : number;
   Usuario : string;
+  FactorSewing : number;
+  FactorSewingAccuracy : number;
+  Tmus_Mac : number;
+  Tmus_MinL : number;
+  Min_Mac : number;
+  Min_NML : number;
+  Min_Mac_CC : number;
+  Min_NML_CC : number;
+  Sam : number;
+  ProducJL : number;
+  Precio : number;
   }

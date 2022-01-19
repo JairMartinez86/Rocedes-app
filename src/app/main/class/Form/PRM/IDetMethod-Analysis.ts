@@ -10,8 +10,5 @@ export interface IDetMethodAnalysis {
     Tmus: number;
     Sec: number;
     Sam: number;
-    Rpm: number;
-    FactorSewing : number;
-    FactorSewingAccuracy : number;
     EsTotal : boolean;
   }
