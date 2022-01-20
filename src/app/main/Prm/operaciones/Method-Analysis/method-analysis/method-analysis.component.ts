@@ -394,10 +394,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
   onKeyEnter(event : any, element : IDetMethodAnalysis, columna : string) : void
   {
 
-   
-
-
-    
+  
     let index = this.dataSource_method_analisys.data.findIndex(f => f.EsTotal)
 
     if(index > 0) this.dataSource_method_analisys.data.splice(index, 1);
@@ -431,7 +428,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
 
 
-    if(Codigo1 == "S")
+    if(Codigo1 === "S")
     {
 
 
@@ -502,6 +499,16 @@ txt_method_analisys_onSearchChange(event : any) :void{
     }
     else
     {
+      Codigo2 = "";
+      Codigo3 = "";
+      Codigo4 = "";
+      element.Codigo2 = "";
+      element.Codigo3 = "";
+      element.Codigo4 = "";
+      if(columna == "Codigo2") event.target.value = "";
+      if(columna == "Codigo3") event.target.value = "";
+      if(columna == "Codigo4") event.target.value = "";
+
       this._OperacionesService.GetCodigoGSD(Codigo1).subscribe(s =>{
         let _json = JSON.parse(s);
   

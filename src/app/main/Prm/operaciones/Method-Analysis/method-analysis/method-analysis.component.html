@@ -1,6 +1,6 @@
 
 
-	<div class="row">
+	<div class="container">
 		<div class="col-12">
 			<div class="button-row text-center">
 				<button type="button" [disabled]="this.Editar" class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> New</button>
@@ -14,9 +14,9 @@
 	<div class="row col-12" id="from-method-analisys">
 		<div class="col-sm-12 col-md-4 col-lg-4">
 			<div class="franja"><p>CODIGO #{{str_Codigo}}</p></div>
-            
+			<p><b>Campos marcados con (<b style="color: red;">*</b>) son requeridos.</b></p>
 			<div class="mat-elevation-z8" Id="tabla-parametros-method-analisys">
-
+				
                 <form class="form"  [formGroup]="val.ValForm" novalidate>
 				<table mat-table [dataSource]="dataSource_parametros_method_analisys">
 
@@ -104,7 +104,7 @@
             </form>
 			
 			</div>
-			<p><b>Campos marcados con (<b style="color: red;">*</b>) son requeridos.</b></p>
+			
 		</div>
 
 		<div class="col-sm-12 col-md-8 col-lg-8">
@@ -152,7 +152,7 @@
 						<th mat-header-cell *matHeaderCellDef><b>Codigos.</b></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo1')" (keydown)="onKeyEnter($event, element, 'Codigo1')" matInput placeholder="" [value]="element.Codigo1" [(ngModel)]="element.Codigo1">
+								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo1')" (change)="onKeyEnter($event, element, 'Codigo1')" matInput placeholder="" [value]="element.Codigo1" [(ngModel)]="element.Codigo1">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -161,7 +161,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo2')" (keydown)="onKeyEnter($event, element, 'Codigo2')" matInput placeholder="" [value]="element.Codigo2" [(ngModel)]="element.Codigo2">
+								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo2')" (change)="onKeyEnter($event, element, 'Codigo2')" matInput placeholder="" [value]="element.Codigo2" [(ngModel)]="element.Codigo2">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -170,7 +170,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo3')" (keydown)="onKeyEnter($event, element, 'Codigo3')" matInput placeholder="" [value]="element.Codigo3" [(ngModel)]="element.Codigo3">
+								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo3')" (change)="onKeyEnter($event, element, 'Codigo3')" matInput placeholder="" [value]="element.Codigo3" [(ngModel)]="element.Codigo3">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -179,7 +179,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo4')" (keydown)="onKeyEnter($event, element, 'Codigo4')" matInput placeholder="" [value]="element.Codigo4" [(ngModel)]="element.Codigo4">
+								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo4')" (change)="onKeyEnter($event, element, 'Codigo4')" matInput placeholder="" [value]="element.Codigo4" [(ngModel)]="element.Codigo4">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -199,7 +199,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"><b>Freq.</b></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-num">
 							<mat-form-field floatLabel="never"  class="col-method-analisys-num" *ngIf="!element.EsTotal">
-								<input matInput (keydown.enter)="cellChanged(element, 'Freq')" (keydown)="onKeyEnter($event, element, 'Freq')" [value]="element.Freq" [(ngModel)]="element.Freq">
+								<input matInput (keydown.enter)="cellChanged(element, 'Freq')" (change)="onKeyEnter($event, element, 'Freq')" [value]="element.Freq" [(ngModel)]="element.Freq">
 							</mat-form-field>
 						</td>
 					</ng-container>
