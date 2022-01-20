@@ -5,8 +5,6 @@ import { map, Observable, startWith } from 'rxjs';
 import { IDataMachine } from 'src/app/main/class/Form/PRM/i-data-machine';
 import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
 import { IMethodAnalysisData } from 'src/app/main/class/Form/PRM/i-MethodAnalysisData';
-import { ISewing } from 'src/app/main/class/Form/PRM/i-Sewing';
-import { ISewingAccuracy } from 'src/app/main/class/Form/PRM/i-SewingAccuracy';
 import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
 import { IDetMethodAnalysis } from 'src/app/main/class/Form/PRM/IDetMethod-Analysis';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
@@ -21,8 +19,14 @@ import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 import { ImagenLogo } from 'src/app/main/Base64/logo';
 
+
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
 let ELEMENT_DATA_METHOD_ANALISIS : IDetMethodAnalysis[] = []
+
+
+
+
+
 export interface IParametroMethodAnalysis {
   Index : number;
   Requerido : string;
@@ -326,7 +330,15 @@ private _FiltroSeleccionTela(Nombre: string): ITela[] {
 
 
 
+cellChanged_Param(index : number) : void
+{
+ let myTable : any = document.getElementById("tabla-parametros-method-analisys");
 
+ let inputs = myTable.querySelectorAll('input')
+
+ if(inputs.length >= index + 1) inputs[index].focus();
+
+}
 
 
 //#endregion AUTO COMPLETADO TELA
@@ -643,6 +655,45 @@ txt_method_analisys_onSearchChange(event : any) :void{
     
   }
 
+  CarpturarDatos() : void
+  {
+    this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
+    this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
+    this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
+    this.Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
+    this.Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
+    this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
+    this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
+    this.Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
+    this.Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
+    this.Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
+    this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
+    this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
+    this.Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
+    this.Fila_MethodAnalysis.Stitch = this._RowMaquina.Stitch;
+    this.Fila_MethodAnalysis.Rpm = this._RowMaquina.Rpm;
+    this.Fila_MethodAnalysis.Delay = this._RowMaquina.Delay;
+    this.Fila_MethodAnalysis.Personal = this._RowMaquina.Personal;
+    this.Fila_MethodAnalysis.Fatigue = this._RowMaquina.Fatigue;
+    this.Fila_MethodAnalysis.Sewing = this.dataSource_method_analisys.data.filter(item => !isNaN(Number(item.Codigo2))).reduce((sum, current) => sum + Number(current.Codigo2), 0);
+    this.Fila_MethodAnalysis.Tmus_Mac = this.dataSource_method_analisys.data.filter(item => item.Codigo1 == "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
+    this.Fila_MethodAnalysis.Tmus_MinL = this.dataSource_method_analisys.data.filter(item => item.Codigo1 != "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
+    this.Fila_MethodAnalysis.Min_Mac = this.Fila_MethodAnalysis.Tmus_Mac / 1667.00;
+    this.Fila_MethodAnalysis.Min_NML = this.Fila_MethodAnalysis.Tmus_MinL / 1667.00;
+    this.Fila_MethodAnalysis.Min_Mac_CC = this.Fila_MethodAnalysis.Min_Mac + this.Fila_MethodAnalysis.Min_NML;
+    this.Fila_MethodAnalysis.Min_NML_CC = (this.Fila_MethodAnalysis.Min_Mac *  (this._RowMaquina.Delay / 100.0)) + (this.Fila_MethodAnalysis.Min_Mac_CC * ((this._RowMaquina.Personal + this._RowMaquina.Fatigue)  / 100.0));
+    this.Fila_MethodAnalysis.Sam = this.Fila_MethodAnalysis.Min_Mac_CC + this.Fila_MethodAnalysis.Min_NML_CC;
+    this.Fila_MethodAnalysis.ProducJL = Number((this.Fila_MethodAnalysis.JornadaLaboral / this.Fila_MethodAnalysis.Sam).toFixed(2));
+    this.Fila_MethodAnalysis.Precio = this.Fila_MethodAnalysis.Rate / this.Fila_MethodAnalysis.ProducJL;
+
+  }
   Guardar() : void
   {
 
@@ -654,43 +705,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
       if(_dialog.componentInstance.Retorno == "1")
       {
 
+        this.CarpturarDatos();
        
-        this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
-        this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
-        this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
-        this.Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
-        this.Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
-        this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
-        this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
-        this.Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
-        this.Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
-        this.Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
-        this.Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
-        this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
-        this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
-        this.Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
-        this.Fila_MethodAnalysis.Stitch = this._RowMaquina.Stitch;
-        this.Fila_MethodAnalysis.Rpm = this._RowMaquina.Rpm;
-        this.Fila_MethodAnalysis.Delay = this._RowMaquina.Delay;
-        this.Fila_MethodAnalysis.Personal = this._RowMaquina.Personal;
-        this.Fila_MethodAnalysis.Fatigue = this._RowMaquina.Fatigue;
-        this.Fila_MethodAnalysis.Sewing = this.dataSource_method_analisys.data.filter(item => !isNaN(Number(item.Codigo2))).reduce((sum, current) => sum + Number(current.Codigo2), 0);
-        this.Fila_MethodAnalysis.Tmus_Mac = this.dataSource_method_analisys.data.filter(item => item.Codigo1 == "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
-        this.Fila_MethodAnalysis.Tmus_MinL = this.dataSource_method_analisys.data.filter(item => item.Codigo1 != "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
-        this.Fila_MethodAnalysis.Min_Mac = this.Fila_MethodAnalysis.Tmus_Mac / 1667.00;
-        this.Fila_MethodAnalysis.Min_NML = this.Fila_MethodAnalysis.Tmus_MinL / 1667.00;
-        this.Fila_MethodAnalysis.Min_Mac_CC = this.Fila_MethodAnalysis.Min_Mac + this.Fila_MethodAnalysis.Min_NML;
-        this.Fila_MethodAnalysis.Min_NML_CC = (this.Fila_MethodAnalysis.Min_Mac *  (this._RowMaquina.Delay / 100.0)) + (this.Fila_MethodAnalysis.Min_Mac_CC * ((this._RowMaquina.Personal + this._RowMaquina.Fatigue)  / 100.0));
-        this.Fila_MethodAnalysis.Sam = this.Fila_MethodAnalysis.Min_Mac_CC + this.Fila_MethodAnalysis.Min_NML_CC;
-        this.Fila_MethodAnalysis.ProducJL = Number((this.Fila_MethodAnalysis.JornadaLaboral / this.Fila_MethodAnalysis.Sam).toFixed(2));
-        this.Fila_MethodAnalysis.Precio = this.Fila_MethodAnalysis.Rate / this.Fila_MethodAnalysis.ProducJL;
-
         let datos : IMethodAnalysisData  = {} as IMethodAnalysisData;
         datos.d = this.Fila_MethodAnalysis;
         datos.d2 = this.dataSource_method_analisys.data.filter(f => !f.EsTotal && (f.Codigo1 + f.Codigo2 + f.Codigo3 + f.Codigo4).trimEnd().length > 0 );
@@ -741,8 +757,41 @@ txt_method_analisys_onSearchChange(event : any) :void{
     });
   }
 
+  Merge(col : string, Texto : string, isbold : boolean, Alignment : string,  Size : number, Color : string, ColorFill : string, worksheet : Worksheet) : void
+  {
+    worksheet.mergeCells(col);
+    let Fila = worksheet.getCell(col);
+    Fila.value = Texto;
+    if(Alignment == "middle:center") Fila.alignment = {  vertical: 'middle', horizontal: 'center'};
+    if(Alignment == "middle:right") Fila.alignment = {  vertical: 'middle', horizontal: 'right'};
+    if(Alignment == "right") Fila.alignment = {  horizontal: 'right'};
+    Fila.font = {
+      name: 'Calibri',
+      family: 2,
+      size: Size,
+      underline: false,
+      italic: false,
+      bold: isbold,
+      color: { argb: Color }
+    };
+
+    if(ColorFill != "")
+    {
+      Fila.fill = {
+        type: 'pattern',
+        pattern:'solid',
+        fgColor:{argb: ColorFill},
+      };
+    }
+
+  }
+  
+
   Exportar() : void
   {
+
+    this.CarpturarDatos();
+
     let workbook = new Workbook();
 
     let worksheet = workbook.addWorksheet("FILE");
@@ -759,57 +808,212 @@ txt_method_analisys_onSearchChange(event : any) :void{
     });
     
 
+    let dobCol = worksheet.getColumn(6);
+    dobCol.width = 14;
+    dobCol = worksheet.getColumn(7);
+    dobCol.width = 14;
+    dobCol = worksheet.getColumn(8);
+    dobCol.width = 14;
+    dobCol = worksheet.getColumn(9);
+    dobCol.width = 14;
 
-    worksheet.mergeCells("A1:B3")
 
-    let Fila = worksheet.getCell("A1:B3");
-    Fila.alignment = {  vertical: 'middle', horizontal: 'center'};
-    Fila.font = {
-      name: 'Calibri',
-      family: 2,
-      size: 11,
-      underline: false,
-      italic: false,
-      bold: true,
-      color: { argb: 'FFFFFF' }
-    };
-
-    Fila.fill = {
-      type: 'pattern',
-      pattern:'solid',
-      fgColor:{argb:'1C394F'},
-    };
-
-    worksheet.mergeCells("C1:M3")
-
-    Fila = worksheet.getCell("C1:BM");
-    Fila.alignment = {  vertical: 'middle', horizontal: 'center'};
-    Fila.value = "METHOD ANALYSIS";
-    Fila.font = {
-      name: 'Calibri',
-      family: 2,
-      size: 20,
-      underline: false,
-      italic: false,
-      bold: true,
-      color: { argb: 'FFFFFF' }
-    };
-
-    Fila.fill = {
-      type: 'pattern',
-      pattern:'solid',
-      fgColor:{argb:'1C394F'},
-    };
+    this.Merge("A1:B3", "", false, "middle:center", 11, "FFFFFF", "1C394F", worksheet);
+    this.Merge("C1:M3", "METHOD ANALYSIS", true, "middle:center", 20, "FFFFFF", "1C394F", worksheet);
 
 
 
+
+    this.Merge("B5:E5", "OPERACION :", true,"right", 11, "#000000", "", worksheet);
+    this.Merge("F5:I5", "", false,"middle:center", 11, "#000000", "", worksheet);
+    let Fila = worksheet.getCell("F5");
+    Fila.value = this.Fila_MethodAnalysis.Operacion;
+    this.Merge("J5:L5", "STITCH TYPE :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M5");
+    Fila.value = Number(this.Fila_MethodAnalysis.Stitch);
+    Fila.numFmt = '#,##0;[Red]-$#,##0'
+
+
+    this.Merge("B6:E6", "", true,"right", 11, "#000000", "", worksheet);
+    this.Merge("F6:I6", "", false,"middle:center", 11, "#000000", "", worksheet);
+    this.Merge("J6:L6", "SPI/SPO :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M6");
+    Fila.value = Number(this.Fila_MethodAnalysis.Puntadas);
+    Fila.numFmt = '#,##0.00;[Red]-$#,##0.00'
+
+    this.Merge("B7:E7", "MAQUINA :", true,"right", 11, "#000000", "", worksheet);
+    this.Merge("F7:I7", "", false,"middle:center", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("F7");
+    Fila.value = this.Fila_MethodAnalysis.DataMachine;
+    this.Merge("J7:L7", "RPM :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M7");
+    Fila.value = this.Fila_MethodAnalysis.Rpm;
+    Fila.numFmt = '#,##0;[Red]-$#,##0'
+
+
+    this.Merge("B8:E8", "RATE C$ :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("F8");
+    Fila.value = Number(this.Fila_MethodAnalysis.Rate);
+    Fila.numFmt = '#,##0.00;[Red]-$#,##0.00'
+    this.Merge("G8:I8", "", false,"middle:center", 11, "#000000", "", worksheet);
+    this.Merge("J8:L8", "", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M8");
+    Fila.value = "";
+
+
+    this.Merge("B9:E9", "PRECIO :", true,"right", 11, "#000000", "", worksheet);
+    this.Merge("F9", "", true,"right", 11, "FFFFFF", "1C394F", worksheet);
+    Fila = worksheet.getCell("F9");
+    Fila.value = this.Fila_MethodAnalysis.Precio;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    this.Merge("G9:I9", "", false,"middle:center", 11, "#000000", "", worksheet);
+    this.Merge("J9:L9", "", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M9");
+    Fila.value = "";
+
+    this.Merge("B10:E10", "TMU'S/MAC. :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("F10");
+    Fila.value = this.Fila_MethodAnalysis.Tmus_Mac;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    this.Merge("G10", "MIN/MAC", false,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("H10");
+    Fila.value = this.Fila_MethodAnalysis.Min_Mac;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    Fila = worksheet.getCell("I10");
+    Fila.value = (this.Fila_MethodAnalysis.Min_Mac *  (this._RowMaquina.Delay / 100.0));
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    this.Merge("J10:L10", "", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M10");
+    Fila.value = "";
+
+    this.Merge("B11:E11", "TMU'S/MNL :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("F11");
+    Fila.value = this.Fila_MethodAnalysis.Tmus_MinL;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    this.Merge("G11", "MIN/MNL", false,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("H11");
+    Fila.value = this.Fila_MethodAnalysis.Min_NML;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    Fila = worksheet.getCell("I11");
+    Fila.value =  (this.Fila_MethodAnalysis.Min_Mac_CC * ((this._RowMaquina.Personal + this._RowMaquina.Fatigue)  / 100.0));
+    this.Merge("J11:L11", "", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M11");
+    Fila.value = "";
+
+
+    this.Merge("B12:E12", "SAM/C :", true,"right", 11, "#000000", "", worksheet);
+    this.Merge("F12", "", true,"right", 11, "FFFFFF", "1C394F", worksheet);
+    Fila = worksheet.getCell("F12");
+    Fila.value = this.Fila_MethodAnalysis.Sam;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    this.Merge("G12", "C.C :", false,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("H12");
+    Fila.value = this.Fila_MethodAnalysis.Min_Mac_CC;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    Fila = worksheet.getCell("I12");
+    Fila.value = this.Fila_MethodAnalysis.Min_NML_CC;
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+    this.Merge("J12:L12", "", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M12");
+    Fila.value = "";
+
+
+    this.Merge("B13:E13", "PRODUCCION/J.L :", true,"right", 11, "#000000", "", worksheet);
+    this.Merge("F13", "", true,"right", 11, "FFFFFF", "1C394F", worksheet);
+    Fila = worksheet.getCell("F13");
+    Fila.value = this.Fila_MethodAnalysis.ProducJL;
+    Fila.numFmt = '#,##0.00;[Red]-$#,##0.00'
+    this.Merge("G13:I13", "", false,"middle:center", 11, "#000000", "", worksheet);
+    this.Merge("J13:L13", "TOL MAQUINA %: ", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M13");
+    Fila.value = (this.Fila_MethodAnalysis.Delay / 100.0);
+    Fila.numFmt = '#,##0.00 %;[Red]-$#,##0.00 %'
+
+
+    this.Merge("B14:E14", "COSTURA :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("F14");
+    Fila.value = this.Fila_MethodAnalysis.Sewing;
+    Fila.numFmt = '#,##0.00;[Red]-$#,##0.00'
+    this.Merge("G14:I14", "", false,"middle:center", 11, "#000000", "", worksheet);
+    this.Merge("J14:L14", "PERSONAL % :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M14");
+    Fila.value = (this.Fila_MethodAnalysis.Personal / 100.0);
+    Fila.numFmt = '#,##0.00 %;[Red]-$#,##0.00 %'
+
+    this.Merge("B15:E15", "JORNADA LABORAL :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("F15");
+    Fila.value = Number(this.Fila_MethodAnalysis.JornadaLaboral);
+    Fila.numFmt = '#,##0.00;[Red]-$#,##0.00'
+    this.Merge("G15:I15", "", false,"middle:center", 11, "#000000", "", worksheet);
+    this.Merge("J15:L15", "FATIGA %  :", true,"right", 11, "#000000", "", worksheet);
+    Fila = worksheet.getCell("M15");
+    Fila.value = (this.Fila_MethodAnalysis.Fatigue / 100.0);
+    Fila.numFmt = '#,##0.00 %;[Red]-$#,##0.00 %'
+
+    this.Merge("A16", "", true,"middle:center", 13, "FFFFFF", "1C394F", worksheet);
+    this.Merge("B16:E16", "CODIGOS", true,"middle:center", 13, "FFFFFF", "1C394F", worksheet);
+    this.Merge("F16:I16", "DESCRIPCION DE ELEMENTOS", true,"middle:center", 16, "FFFFFF", "1C394F", worksheet);
+    this.Merge("J16", "FREQ.", true,"middle:center", 13, "FFFFFF", "1C394F", worksheet);
+    this.Merge("K16", "TMU's", true,"middle:center", 13, "FFFFFF", "1C394F", worksheet);
+    this.Merge("L16", "SEC.", true,"middle:center", 13, "FFFFFF", "1C394F", worksheet);
+    this.Merge("M16", "SAM", true,"middle:center", 13, "FFFFFF", "1C394F", worksheet);
+  
+
+    let index : number = 16;
+    for (let i = 0; i < this.dataSource_method_analisys.data.filter(f => !f.EsTotal).length; i++)
+    {
     
-  let fname="methos-analysis";
+      let x2  = Object.values(this.dataSource_method_analisys.data[i]);
+      let temp=[];
+      for(let y = 2; y < x2.length - 1; y++)
+      {
+        if( y == 2) temp.push("");
+        if( y == 6) 
+        {
+          temp.push(x2[y]);
+          temp.push("");
+          temp.push("");
+          temp.push("");
+        }
+        else
+        {
+          temp.push(x2[y]);
+        }
+        
+      }
 
-  workbook.xlsx.writeBuffer().then((data) => {
-    let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    fs.saveAs(blob, fname+'-'+new Date().valueOf()+'.xlsx');
-  });
+      
+      worksheet.addRow(temp);
+      index++;
+      worksheet.mergeCells("F" + index + ":I" + index);
+    }
+
+    index++;
+
+    this.Merge("A" + index + ":J" + index, "TOTALS ", true,"right", 11, "#000000", "", worksheet);
+
+    this.Merge("K"+ index, "", true,"right", 11, "FFFFFF", "1C394F", worksheet);
+    Fila = worksheet.getCell("K"+ index);
+    Fila.value = this.dataSource_method_analisys.data.filter(item =>!item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+
+    this.Merge("L"+ index, "", true,"right", 11, "FFFFFF", "1C394F", worksheet);
+    Fila = worksheet.getCell("L"+ index);
+    Fila.value = this.dataSource_method_analisys.data.filter(item => !item.EsTotal ).reduce((sum, current) => sum + current.Sec, 0);
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+
+    this.Merge("M"+ index, "", true,"right", 11, "FFFFFF", "1C394F", worksheet);
+    Fila = worksheet.getCell("M"+ index);
+    Fila.value = this.dataSource_method_analisys.data.filter(item => !item.EsTotal ).reduce((sum, current) => sum + current.Sec, 0);
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
+
+
+    let fname="methos-analysis";
+
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, fname+'-'+new Date().valueOf()+'.xlsx');
+    });
 
 
   }

@@ -4,8 +4,8 @@
 		<div class="col-12">
 			<div class="button-row text-center">
 				<button type="button" [disabled]="this.Editar" class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> New</button>
-				<button type="button"  class="btn btn-outline-success" (click)="Exportar()"><fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:green"></fa-icon> Exportar</button>
-				<button type="button" [disabled]="val.ValForm.invalid || !this.Editar"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Save</button>
+				<button type="button"  [disabled]="val.ValForm.invalid || !this.Editar" class="btn btn-outline-success" (click)="Exportar()"><fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:green"></fa-icon> Exportar</button>
+				<button type="button" [disabled]="true"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Save</button>
 				<button type="button"  class="btn btn-outline-secondary" (click)="Limpiar()"><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Cancel</button>
 			</div>
 		</div>
@@ -40,6 +40,7 @@
 							<mat-form-field floatLabel="never" *ngIf="element.Index != 3 && element.Index != 8">
 								<input matInput formControlName="{{'txt_method_analisys_parametro' + (i+1)}}"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
 								(input)="txt_method_analisys_onSearchChange($event)"
+								(keydown.enter)="cellChanged_Param(element.Index)"
 								[disabled]="element.Index == 1">
 							</mat-form-field>
 
@@ -47,7 +48,8 @@
 
 							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 3">
 								<input matInput type="text" id="txt_method_analisys_Maquina" formControlName="txt_method_analisys_Maquina" [matAutocomplete]="auto" (input)="txt_method_analisys_Maquina_onSearchChange($event)" 
-								(focusout)="txt_method_analisys_Maquina_onFocusOutEvent($event)" class="col-method-analisys-maquina">
+								(focusout)="txt_method_analisys_Maquina_onFocusOutEvent($event)" class="col-method-analisys-maquina"
+								(keydown.enter)="cellChanged_Param(element.Index)">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
 									<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
 										{{option.Name}}
@@ -64,7 +66,9 @@
 							
 							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 8">
 								<input matInput type="text" id="txt_method_analisys_Tela" formControlName="txt_method_analisys_Tela" [matAutocomplete]="auto" (input)="txt_method_analisys_Tela_onSearchChange($event)" 
-								(focusout)="txt_method_analisys_Tela_onFocusOutEvent($event)"  class="col-method-analisys-maquina">
+								(focusout)="txt_method_analisys_Tela_onFocusOutEvent($event)"
+								(keydown.enter)="cellChanged_Param(element.Index)"
+								class="col-method-analisys-maquina">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelecTela">
 									<mat-option *ngFor="let option of filteredOptionsTela | async" [value]="option">
 										{{option.Nombre}}
