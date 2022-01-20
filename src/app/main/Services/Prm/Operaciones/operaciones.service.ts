@@ -147,9 +147,9 @@ export class OperacionesService {
 
    //#region METHOD ANALISIS
   
-   GetMethodAnalysis() : Observable<any>
+   GetMethodAnalysis(FechaInicio : string, FechaFinal : string) : Observable<any>
    {
-     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysis");
+     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysis" + "?FechaInicio=" + FechaInicio  + "&FechaFin=" + FechaFinal);
    }
  
    GetMethodAnalysisAuto(nombre : string) : Observable<any>

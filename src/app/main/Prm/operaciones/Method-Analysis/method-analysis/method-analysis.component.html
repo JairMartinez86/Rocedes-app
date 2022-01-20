@@ -4,8 +4,8 @@
 		<div class="col-12">
 			<div class="button-row text-center">
 				<button type="button" [disabled]="this.Editar" class="btn btn-outline-primary" (click)="Nuevo()"><fa-icon [icon]="['fas', 'plus']" class="fa-lg"></fa-icon> New</button>
-				<button type="button"  [disabled]="val.ValForm.invalid || !this.Editar" class="btn btn-outline-success" (click)="Exportar()"><fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:green"></fa-icon> Exportar</button>
-				<button type="button" [disabled]="true"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Save</button>
+				<button type="button" [disabled]="val.ValForm.invalid || !this.Editar" class="btn btn-outline-success" (click)="Exportar()"><fa-icon [icon]="['fas', 'file-excel']" class="fa-lg" style="color:green"></fa-icon> Exportar</button>
+				<button type="button" [disabled]="val.ValForm.invalid || !this.Editar"  class="btn btn-outline-success"  (click)="Guardar()" ><fa-icon [icon]="['fas', 'save']" class="fa-lg"></fa-icon> Save</button>
 				<button type="button"  class="btn btn-outline-secondary" (click)="Limpiar()"><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Cancel</button>
 			</div>
 		</div>

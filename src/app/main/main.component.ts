@@ -30,6 +30,7 @@ import { ProductoComponent } from './inv/Producto/producto/producto.component';
 import { FabricOunceComponent } from './Prm/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
 import { DataMachineComponent } from './Prm/operaciones/data-machine/data-machine/data-machine.component';
 import { MethodAnalysisComponent } from './Prm/operaciones/Method-Analysis/method-analysis/method-analysis.component';
+import { MatrizOperacionComponent } from './Prm/operaciones/Method-Analysis/matriz-operacion/matriz-operacion.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -145,6 +146,10 @@ export class MainComponent implements OnInit {
 
 
     _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Matriz-Data", "Operation Matrix Data", false));
     this.lstEsquema.push(_Esquema);
 
     
@@ -345,6 +350,11 @@ export class MainComponent implements OnInit {
     if(_Id != "Link-Operaciones-Development-Methos-Analisys"){
       this.dinamycHost.viewContainerRef!.clear();
     }
+
+    if(_Id != "Link-Operaciones-Matriz-Data"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+    
     
     
 
@@ -710,10 +720,21 @@ export class MainComponent implements OnInit {
               MethodAnalysis.instance.Open = true;
               }
           break;
+
+
+          case "Link-Operaciones-Matriz-Data":
+            if(this.dinamycHost.viewContainerRef.length == 0)
+            {
+              component = this.componentFactoryResolver.resolveComponentFactory(MatrizOperacionComponent);
+              let MatrizData: ComponentRef<MatrizOperacionComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              MatrizData.instance.Link = "Link-Operaciones-Matriz-Data";
+              MatrizData.instance.Open = true;
+              }
+          break;
             
 
 
-
+          
                 
                   
           case "LinkOtro":

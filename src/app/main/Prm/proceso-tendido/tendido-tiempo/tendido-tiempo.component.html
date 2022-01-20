@@ -48,22 +48,22 @@
 
             <div class="row">
 
-            <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-              <mat-label><b>FECHA HORA INICIO</b></mat-label>
-              <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Tendido_Fecha" formControlName="txt_Tendido_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
-              <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
-              <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
-            </mat-form-field>
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA INICIO</b></mat-label>
+                <input [(ngModel)]="FechaInicio" matInput [ngxMatDatetimePicker]="picker" id="txt_Tendido_Fecha" formControlName="txt_Tendido_Fecha" (dateChange)="calcularMinutos();" (keyup)="calcularMinutos();">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
 
-       
-            <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
-              <mat-label><b>FECHA HORA FINAL</b></mat-label>
-              <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Tendido_Fecha_Final" formControlName="txt_Tendido_Fecha_Final" style="color:blue;" [disabled]="true">
-              <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
-              <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha_Final')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
-            </mat-form-field>
+        
+              <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                <mat-label><b>FECHA HORA FINAL</b></mat-label>
+                <input [(ngModel)]="FechaFinal" matInput [ngxMatDatetimePicker]="picker2" id="txt_Tendido_Fecha_Final" formControlName="txt_Tendido_Fecha_Final" style="color:blue;" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 ></ngx-mat-datetime-picker>
+                <mat-error *ngIf="val.ValForm.get('txt_Tendido_Fecha_Final')?.errors?.Regla=='1'">Fecha <strong>requerido</strong></mat-error>
+              </mat-form-field>
             
             </div>
 

@@ -103,6 +103,7 @@ import { FabricOunceComponent } from './main/Prm/operaciones/fabric-ounce/fabric
 import { DataMachineComponent } from './main/Prm/operaciones/data-machine/data-machine/data-machine.component';
 import { MethodAnalysisComponent } from './main/Prm/operaciones/Method-Analysis/method-analysis/method-analysis.component';
 import { ConfirmarContinuarComponent } from './main/otro/dialogo/confirmar-continuar/confirmar-continuar.component';
+import { MatrizOperacionComponent } from './main/Prm/operaciones/Method-Analysis/matriz-operacion/matriz-operacion.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -157,7 +158,8 @@ export const CUSTOM_MOMENT_FORMATS  = {
     FabricOunceComponent,
     DataMachineComponent,
     MethodAnalysisComponent,
-    ConfirmarContinuarComponent
+    ConfirmarContinuarComponent,
+    MatrizOperacionComponent
 
     
     

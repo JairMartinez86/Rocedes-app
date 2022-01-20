@@ -342,6 +342,7 @@ export class LoginService {
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-Development-Methos-Analisys", NombreLink : "Method Analysis", Activo : false},
 
 
+      {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-Matriz-Data", NombreLink : "Operation Matrix Data", Activo : false},
 
 
       

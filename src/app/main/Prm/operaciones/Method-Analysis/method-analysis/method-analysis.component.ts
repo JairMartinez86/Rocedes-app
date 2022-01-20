@@ -975,6 +975,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
       for(let y = 2; y < x2.length - 1; y++)
       {
         if( y == 2) temp.push("");
+       
         if( y == 6) 
         {
           temp.push(x2[y]);
@@ -984,7 +985,15 @@ txt_method_analisys_onSearchChange(event : any) :void{
         }
         else
         {
-          temp.push(x2[y]);
+          if( y == 3 && !isNaN(Number(x2[y])))
+          {
+            temp.push(Number(x2[y]));
+          }
+          else
+          {
+            temp.push(x2[y]);
+          }
+         
         }
         
       }
