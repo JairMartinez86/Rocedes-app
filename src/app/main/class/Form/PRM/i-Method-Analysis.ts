@@ -1,6 +1,8 @@
 export interface IMethodAnalysis {
   IdMethodAnalysis: number
   Codigo : string;
+  ProcesoManufact : string;
+  TipoProducto : string;
   Operacion : string;
   IdDataMachine : number;
   DataMachine : string;
@@ -23,7 +25,7 @@ export interface IMethodAnalysis {
   MateriaPrima_5 : string;
   MateriaPrima_6 : string;
   MateriaPrima_7 : string;
-  ParteSeccion : string;
+  Familia : string;
   TipoConstruccion : string;
   FechaRegistro : Date;
   IdUsuario : number;
@@ -39,4 +41,7 @@ export interface IMethodAnalysis {
   Sam : number;
   ProducJL : number;
   Precio : number;
+  IdUsuarioModifica : number;
+  UsuarioModifica : string;
+  FechaModifica : Date;
   }

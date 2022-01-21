@@ -1,3 +1,75 @@
 #tabla-operation-matrix-data{
     max-height: 600px;
+    /*overflow-x:scroll;overflow-y:scroll;width:200%*/
 }
+
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.mat-header-cell{
+    color: #1C394F;
+    font-weight: bold;
+}
+
+
+
+
+tr td{
+    flex: 0 0 25% !important;
+    min-width: 150px !important;
+    text-align: center;
+}
+
+.mat-column-Operacion  {
+    flex: 0 0 25% !important;
+    min-width: 300px !important;
+}
+
+.mat-column-TipoProducto  {
+    flex: 0 0 25% !important;
+    min-width: 300px !important;
+}
+
+
+.mat-column-DataMachine  {
+    flex: 0 0 25% !important;
+    min-width: 300px !important;
+}
+
+
+
+
+
+  /* button */
+  .dt-button {
+    background-color: #1b364c;
+    border: none;
+    color: white;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    outline: 0;
+  }
+  .dt-green {background-color: #4CAF50;} /* Green */
+  .dt-blue {background-color: #008CBA;} /* Blue */
+  .dt-red {background-color: #f44336;} /* Red */
+  .dt-orange {background-color: #ff9800;} /* Orange */
+  .dt-rocedes {background-color: #1b364c;} 
+  
+  /* PanelDemoComponent */
+  .panel-demo1 .ui-modal-header { background-color: red !important; }
+  
+  /* NestedModalDemoComponent */
+  .nested-modal-demo1 .ui-modal {
+    width: 37.5rem;
+  }
+  .nested-modal-demo2 .ui-modal {
+    width: 34.375rem;
+  }
+  .nested-modal-demo3 .ui-modal {
+    width: 31.25rem;
+  }

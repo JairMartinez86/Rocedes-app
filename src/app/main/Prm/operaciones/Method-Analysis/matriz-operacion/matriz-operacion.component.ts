@@ -7,6 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IMethodAnalysis } from 'src/app/main/class/Form/PRM/i-Method-Analysis';
 import { Validacion } from 'src/app/main/class/Validacion/validacion';
+import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Services/Prm/Operaciones/operaciones.service';
 
@@ -23,8 +24,12 @@ export class MatrizOperacionComponent implements OnInit {
   
   public Open : boolean = false;
   public Link : string = "";
+  private _RowDato !: IMethodAnalysis;
 
-  displayedColumns: string[] = ["IdMethodAnalysis", "Codigo", "Operacion", "Usuario", "Editar", "Eliminar"];
+  displayedColumns: string[] = ["IdMethodAnalysis", "Codigo", "Sam", "Precio", "ProcesoManufact", "TipoProducto", "Familia", "Operacion",
+   "UbicacionSecuencia", "Puntadas", "DataMachine", "Machine", "Stitch", "Rpm", "Tela", "Onza", "Needle", "Caliber", "FeedDog",
+   "CodPrensatela", "TipoFolder", "MateriaPrima_1", "MateriaPrima_2", "MateriaPrima_3", "Usuario", "FechaRegistro",
+   "UsuarioModifica", "FechaModifica", "Editar", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_OPERATION_MATIX_DATA);
   clickedRows = new Set<IMethodAnalysis>();
 
@@ -42,7 +47,7 @@ export class MatrizOperacionComponent implements OnInit {
   }
 
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService, private datePipe: DatePipe) { 
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService, public datePipe: DatePipe) { 
     this.val.add("txt_Matriz_Data_Fecha_Inicio", "1", "LEN>=", "0");
     this.val.add("txt_Matriz_Data_Fecha_Final", "1", "LEN>=", "0");
   }
@@ -83,22 +88,9 @@ export class MatrizOperacionComponent implements OnInit {
   
   clickRow(row : IMethodAnalysis, str_Evento : string){
 
-    /*if(str_Evento == "Editar")
+    if(str_Evento == "Editar")
     {
-      this.Nuevo();
-      this.Id = row.IdDataMachine;
-
-      this.val.ValForm.get("txt_Operacion_data_name")?.setValue(row.Name);
-      this.val.ValForm.get("txt_Operacion_data_stitch")?.setValue(row.Stitch);
-      this.val.ValForm.get("txt_Operacion_data_nomenclature")?.setValue(row.Nomenclature);
-      this.val.ValForm.get("txt_Operacion_data_rpm")?.setValue(row.Rpm);
-      this.val.ValForm.get("txt_Operacion_data_machine_delay")?.setValue(row.Delay);
-      this.val.ValForm.get("txt_Operacion_data_personal")?.setValue(row.Personal);
-      this.val.ValForm.get("txt_Operacion_data_fatigue")?.setValue(row.Fatigue);
-      this.val.ValForm.get("txt_Operacion_data_machine")?.setValue(row.Machine);
-      this.val.ValForm.get("txt_Operacion_data_description")?.setValue(row.Description);
-      this.val.ValForm.get("txt_Operacion_data_needle")?.setValue(row.Needle);
-      document.getElementById("divOperacion-frm-data-machine-registros")?.classList.add("disabled");
+      this._OperacionesService.change.emit(["Open", row] );
     }
     else
     {
@@ -113,7 +105,7 @@ export class MatrizOperacionComponent implements OnInit {
           this.Eliminar();
         }
       });
-    }*/
+    }
    
 
   }
@@ -157,14 +149,14 @@ export class MatrizOperacionComponent implements OnInit {
       let Fecha_Inicio : string = "";
       let Fecha_Final : string = "";
       
-
-      if(this.val.ValForm.get("txt_Matriz_Data_Fecha_Inicio")?.value != "")
+ 
+      if(this.val.ValForm.get("txt_Matriz_Data_Fecha_Inicio")?.value != "" && this.val.ValForm.get("txt_Matriz_Data_Fecha_Inicio")?.value != null)
       {
         let date = new Date(this.val.ValForm.get("txt_Matriz_Data_Fecha_Inicio")?.value);
         Fecha_Inicio = String(this.datePipe.transform(date,"yyyy-MM-dd"));
       }
 
-      if(this.val.ValForm.get("txt_Matriz_Data_Fecha_Final")?.value != "")
+      if(this.val.ValForm.get("txt_Matriz_Data_Fecha_Final")?.value != "" && this.val.ValForm.get("txt_Matriz_Data_Fecha_Final")?.value != null)
       {
         let date = new Date(this.val.ValForm.get("txt_Matriz_Data_Fecha_Final")?.value);
         Fecha_Final = String(this.datePipe.transform(date,"yyyy-MM-dd"));
@@ -194,6 +186,10 @@ export class MatrizOperacionComponent implements OnInit {
     }
   
 
+  Cerrar() : void
+  {
+    this._OperacionesService.change.emit(["Close", null] );
+  }
 
   Limpiar() : void
   {
@@ -202,6 +198,7 @@ export class MatrizOperacionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
   }
 
 }

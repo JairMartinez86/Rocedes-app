@@ -45,6 +45,7 @@ export class MethodAnalysisComponent implements OnInit {
   
   public Open : boolean = false;
   public Link : string = "";
+  public Cargando : boolean = false;
   public Editar : boolean = false;
   private IdMethodAnalysis : number = -1;
   public str_Codigo : string = "";
@@ -62,24 +63,26 @@ export class MethodAnalysisComponent implements OnInit {
   clickedRows = new Set<IDetMethodAnalysis>();
 
   constructor(private _LoginService : LoginService, private _OperacionesService : OperacionesService, private dialog : MatDialog) {
-    this.val.add("txt_method_analisys_parametro1", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro2", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro1", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_manufactura", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro3", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro4", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_Maquina", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro4", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_parametro5", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_parametro6", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_parametro7", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_Tela", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro7", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_parametro8", "1", "NUM>", "0");
     this.val.add("txt_method_analisys_parametro9", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_parametro10", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro11", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_Tela", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro11", "1", "NUM>", "0");
     this.val.add("txt_method_analisys_parametro12", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro13", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro14", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro15", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro16", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro17", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro18", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro17", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_parametro18", "1", "LEN>=", "0");
+    this.val.add("txt_method_analisys_parametro19", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_parametro20", "1", "LEN>", "0");
    }
 
    
@@ -87,9 +90,11 @@ export class MethodAnalysisComponent implements OnInit {
    Limpiar(): void
    {
 
+    this.Editar = false;
+
+    if(this.Cargando) return;
     this.str_Codigo = "";
     this.IdMethodAnalysis = -1;
-    this.Editar = false;
     this.val.ValForm.reset();
     this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
     document.getElementById("from-method-analisys")?.classList.add("disabled");
@@ -97,23 +102,25 @@ export class MethodAnalysisComponent implements OnInit {
 
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS = [
       {Index : 1, Requerido : "*", Parametro : "ANALISTA", Valor : this._LoginService.str_user},
-      {Index : 2, Requerido : "*", Parametro : "NOMBRE DE LA OPERACION", Valor : ""},
-      {Index : 3, Requerido : "*", Parametro : "TIPO DE MAQUINA", Valor : ""},
-      {Index : 4, Requerido : "*", Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
-      {Index : 5, Requerido : "*", Parametro : "MANEJO DE PAQUETE", Valor : ""},
-      {Index : 6, Requerido : "*", Parametro : "RATE C$", Valor : 0},
-      {Index : 7, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : 0},
-      {Index : 8, Requerido : "*", Parametro : "TIPO DE TELA", Valor : ""},
-      {Index : 9, Requerido : "*", Parametro : "ONZAJE DE TELA", Valor : 0},
-      {Index : 10, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : ""},
-      {Index : 11, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : ""},
-      {Index : 12, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : ""},
-      {Index : 13, Requerido : "", Parametro : "MATERIA PRIMA 4", Valor : ""},
-      {Index : 14, Requerido : "", Parametro : "MATERIA PRIMA 5", Valor : ""},
-      {Index : 15, Requerido : "", Parametro : "MATERIA PRIMA 6", Valor : ""},
-      {Index : 16, Requerido : "", Parametro : "MATERIA PRIMA 7", Valor : ""},
-      {Index : 17, Requerido : "*", Parametro : "PARTE DE SECCION", Valor : ""},
-      {Index : 18, Requerido : "*", Parametro : "TIPO DE CONSTRUCCION", Valor : ""}
+      {Index : 2, Requerido : "*", Parametro : "PROCESO DE MANUFACTURA", Valor : ""},
+      {Index : 3, Requerido : "*", Parametro : "TIPO DE PRODUCTO", Valor : ""},
+      {Index : 4, Requerido : "*", Parametro : "NOMBRE DE LA OPERACION", Valor : ""},
+      {Index : 5, Requerido : "*", Parametro : "TIPO DE MAQUINA", Valor : ""},
+      {Index : 6, Requerido : "*", Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
+      {Index : 7, Requerido : "", Parametro : "MANEJO DE PAQUETE", Valor : ""},
+      {Index : 8, Requerido : "*", Parametro : "RATE C$", Valor : 0},
+      {Index : 9, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : 0},
+      {Index : 10, Requerido : "*", Parametro : "TIPO DE TELA", Valor : ""},
+      {Index : 11, Requerido : "*", Parametro : "ONZAJE DE TELA", Valor : 0},
+      {Index : 12, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : ""},
+      {Index : 13, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : ""},
+      {Index : 14, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : ""},
+      {Index : 15, Requerido : "", Parametro : "MATERIA PRIMA 4", Valor : ""},
+      {Index : 16, Requerido : "", Parametro : "MATERIA PRIMA 5", Valor : ""},
+      {Index : 17, Requerido : "", Parametro : "MATERIA PRIMA 6", Valor : ""},
+      {Index : 18, Requerido : "", Parametro : "MATERIA PRIMA 7", Valor : ""},
+      {Index : 19, Requerido : "*", Parametro : "FAMILIA", Valor : ""},
+      {Index : 20, Requerido : "*", Parametro : "TIPO DE CONSTRUCCION", Valor : ""}
     ];
 
     this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
@@ -124,18 +131,12 @@ export class MethodAnalysisComponent implements OnInit {
     this.dataSource_method_analisys.data = cloned;
 
     this.dataSource_method_analisys.paginator?.lastPage();
+
+    
    }
  
 
-   
-   Cerrar() :void
-   {
-     this.Limpiar();
-     this.Link = "";
-     this.Open = false;
-     
-   }
- 
+  
 
  
   //#region EVENTOS TABLA 2
@@ -330,13 +331,25 @@ private _FiltroSeleccionTela(Nombre: string): ITela[] {
 
 
 
-cellChanged_Param(index : number) : void
+cellChanged_Param(event : any, index : number) : void
 {
  let myTable : any = document.getElementById("tabla-parametros-method-analisys");
 
  let inputs = myTable.querySelectorAll('input')
+ 
 
- if(inputs.length >= index + 1) inputs[index].focus();
+ if(event.keyCode == 13 || event.keyCode == 40) // ENTER Y ABAJO
+ {
+  if(inputs.length >= index + 1) inputs[index-1].focus();
+ }
+
+
+if(event.keyCode == 38) // Arriba
+{
+  if(inputs.length >= index - 3) inputs[index-3].focus();
+}
+
+   
 
 }
 
@@ -441,7 +454,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
           element.Tmus = 0;
           if(_json["count"] > 0)
           {
-            element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor / (this._RowMaquina.Rpm * (1.0/1667.0));
+            element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor / (this._RowMaquina.Rpm * (1.0/1667.0));
             element.Tmus =  (element.Tmus * Number(_json["d"][0].Factor)) * Number(Codigo2);
             element.Tmus =  element.Tmus + (this._RowMaquina.Rpm / 1000.0) + 17;
            
@@ -579,7 +592,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
   }
 
-  cellChanged(element : IDetMethodAnalysis, columna : string) : void
+  cellChanged(event : any,element : IDetMethodAnalysis, columna : string,) : void
    {
     let myTable : any = document.getElementById("tabla-method-analisys");
 
@@ -587,19 +600,56 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
     let index_Fila =  this.dataSource_method_analisys.data.findIndex(f => f.IdDetMethodAnalysis == element.IdDetMethodAnalysis);
     let index =  0;
+
+    if(columna == "Codigo1") index = 1
+    if(columna == "Codigo2") index =  2
+    if(columna == "Codigo3") index = 3
+    if(columna == "Codigo4") index =  4
+    if(columna == "Descripcion") index =  5
+    if(columna == "Freq") index =  6
+
+
+    if(event.keyCode == 13 || event.keyCode == 39) // ENTER Y DERECHA
+    {
+      index = ((index_Fila + 1) * 6)  + (index - 6);
+
+      if(inputs.length >= index + 1) inputs[index].focus();
+  
+    }
+
+    if(event.keyCode == 37) // Izquierda
+    {
+
+      if(index_Fila > 0)
+      {
+        index = ((index_Fila - 1) * 6)  + ((index + 6) - 2);
+      }
+      else
+      {
+        index -= 2;
+      }
+
+      if(inputs.length >= index) inputs[index].focus();
+  
+    }
     
 
-    if(columna == "Codigo1") index = index + 1
-    if(columna == "Codigo2") index = index + 2
-    if(columna == "Codigo3") index = index + 3
-    if(columna == "Codigo4") index = index + 4
-    if(columna == "Descripcion") index = index + 5
-    if(columna == "Freq") index = index + 6
-
-    index = ((index_Fila + 1) * 6)  + (index - 6);
-
+    if(event.keyCode == 38) // Arriba
+    {
+      index -= 1;
+      if((index_Fila - 1) > 0) index = (index_Fila * 6) + (index - 6);
+      if(inputs.length >= index) inputs[index].focus();
+    }
+    //7
     
-    if(inputs.length >= index + 1) inputs[index].focus();
+    if(event.keyCode == 40) // Abajo
+    {
+      index -= 1;
+      index = index +  ((index_Fila + 1) * 6);
+      if(inputs.length >= index) inputs[index].focus();
+    }
+    
+   
 
    }
 
@@ -623,7 +673,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
       document?.getElementById("body")?.classList.remove("disabled");
       if(_dialog.componentInstance.Retorno == "1")
       {
-        this._OperacionesService.EliminarMethodAnalysis(element.IdDetMethodAnalysis).subscribe( s =>{
+        this._OperacionesService.EliminarMethodAnalysis(element.IdDetMethodAnalysis, this._LoginService.str_user).subscribe( s =>{
   
           let _json = JSON.parse(s);
                 
@@ -664,24 +714,28 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
   CarpturarDatos() : void
   {
-    this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
+
+    this.Fila_MethodAnalysis.Codigo = this.str_Codigo;
+    this.Fila_MethodAnalysis.ProcesoManufact = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
+    this.Fila_MethodAnalysis.TipoProducto = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
+    this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
     this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
-    this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
-    this.Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
-    this.Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
-    this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
-    this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
+    this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
+    this.Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
+    this.Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
+    this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor;
+    this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
     this.Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
-    this.Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
-    this.Fila_MethodAnalysis.ParteSeccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
-    this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
+    this.Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
+    this.Fila_MethodAnalysis.Familia = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor;
+    this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[19].Valor;
     this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
     this.Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
     this.Fila_MethodAnalysis.Stitch = this._RowMaquina.Stitch;
@@ -903,6 +957,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
     Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
     Fila = worksheet.getCell("I11");
     Fila.value =  (this.Fila_MethodAnalysis.Min_Mac_CC * ((this._RowMaquina.Personal + this._RowMaquina.Fatigue)  / 100.0));
+    Fila.numFmt = '#,##0.0000;[Red]-$#,##0.0000'
     this.Merge("J11:L11", "", true,"right", 11, "#000000", "", worksheet);
     Fila = worksheet.getCell("M11");
     Fila.value = "";
@@ -974,27 +1029,32 @@ txt_method_analisys_onSearchChange(event : any) :void{
       let temp=[];
       for(let y = 2; y < x2.length - 1; y++)
       {
-        if( y == 2) temp.push("");
+
+        if( y < 11)
+        {
+          if( y == 2) temp.push("");
        
-        if( y == 6) 
-        {
-          temp.push(x2[y]);
-          temp.push("");
-          temp.push("");
-          temp.push("");
-        }
-        else
-        {
-          if( y == 3 && !isNaN(Number(x2[y])))
+          if( y == 6) 
           {
-            temp.push(Number(x2[y]));
+            temp.push(x2[y]);
+            temp.push("");
+            temp.push("");
+            temp.push("");
           }
           else
           {
-            temp.push(x2[y]);
+            if( y == 3 && !isNaN(Number(x2[y])))
+            {
+               if(x2[y] != "") temp.push(Number(x2[y]));
+            }
+            else
+            {
+              temp.push(x2[y]);
+            }
+           
           }
-         
         }
+        
         
       }
 
@@ -1034,8 +1094,121 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void
+  {
+
     this.Limpiar();
+    this._OperacionesService.change.subscribe(s => {
+
+      if(s[0] == "Open")
+      {
+        this.Cargando = true;
+        this.Limpiar();
+        this.Editar = true;
+        document.getElementById("from-method-analisys")?.classList.remove("disabled");
+        let Datos : any = s[1];
+
+        this._RowMaquina = {} as IDataMachine;
+        this._RowTela = {} as ITela;
+  
+        this.str_Codigo = Datos.Codigo;
+        this.IdMethodAnalysis = Datos.IdMethodAnalysis;
+        this._RowMaquina.IdDataMachine = Datos.IdDataMachine;
+        this._RowMaquina.Name = Datos.DataMachine;
+        this._RowMaquina.Stitch = Datos.Stitch;
+        this._RowMaquina.Rpm = Datos.Rpm;
+        this._RowMaquina.Delay = Datos.Delay;
+        this._RowMaquina.Personal = Datos.Personal;
+        this._RowMaquina.Fatigue = Datos.Fatigue;
+        this._RowTela.IdTela = Datos.IdTela;
+        this._RowTela.Nombre = Datos.Tela;
+
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor = Datos.Usuario;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor = Datos.ProcesoManufact;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = Datos.TipoProducto;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor = Datos.Operacion;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = Datos.DataMachine;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor = Datos.Puntadas;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor = Datos.ManejoPaquete;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor = Datos.Rate;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = Datos.JornadaLaboral;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor = Datos.Onza;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor = Datos.MateriaPrima_1;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor = Datos.MateriaPrima_2;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor = Datos.MateriaPrima_3;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor = Datos.MateriaPrima_4;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor = Datos.MateriaPrima_5;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor = Datos.MateriaPrima_6;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor = Datos.MateriaPrima_7;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor = Datos.Familia;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[19].Valor = Datos.TipoConstruccion;
+        
+
+        this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(Datos.Usuario);
+        this.val.ValForm.get("txt_method_analisys_manufactura")?.setValue(Datos.ProcesoManufact);
+        this.val.ValForm.get("txt_method_analisys_parametro3")?.setValue(Datos.TipoProducto);
+        this.val.ValForm.get("txt_method_analisys_parametro4")?.setValue(Datos.Operacion);
+        this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue(this._RowMaquina);
+        this.val.ValForm.get("txt_method_analisys_parametro6")?.setValue(Datos.Puntadas);
+        this.val.ValForm.get("txt_method_analisys_parametro7")?.setValue(Datos.ManejoPaquete);
+        this.val.ValForm.get("txt_method_analisys_parametro8")?.setValue(Datos.Rate);
+        this.val.ValForm.get("txt_method_analisys_parametro9")?.setValue(Datos.JornadaLaboral);
+        this.val.ValForm.get("txt_method_analisys_Tela")?.setValue(this._RowTela);
+        this.val.ValForm.get("txt_method_analisys_parametro11")?.setValue(Datos.Onza);
+        this.val.ValForm.get("txt_method_analisys_parametro12")?.setValue(Datos.MateriaPrima_1);
+        this.val.ValForm.get("txt_method_analisys_parametro13")?.setValue(Datos.MateriaPrima_2);
+        this.val.ValForm.get("txt_method_analisys_parametro14")?.setValue(Datos.MateriaPrima_3);
+        this.val.ValForm.get("txt_method_analisys_parametro15")?.setValue(Datos.MateriaPrima_4);
+        this.val.ValForm.get("txt_method_analisys_parametro16")?.setValue(Datos.MateriaPrima_5);
+        this.val.ValForm.get("txt_method_analisys_parametro17")?.setValue(Datos.MateriaPrima_6);
+        this.val.ValForm.get("txt_method_analisys_parametro18")?.setValue(Datos.MateriaPrima_7);
+        this.val.ValForm.get("txt_method_analisys_parametro19")?.setValue(Datos.Familia);
+        this.val.ValForm.get("txt_method_analisys_parametro20")?.setValue(Datos.TipoConstruccion);
+       
+        this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
+        this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
+
+        this._OperacionesService.GetDetMethodAnalysis(this.IdMethodAnalysis).subscribe(s =>{
+          let _json = JSON.parse(s);
+    
+          if(_json["esError"] == 0)
+          {
+            _json["d"].forEach((d : IDetMethodAnalysis) => {
+              this.dataSource_method_analisys.data.push(d);
+            });
+    
+           this.AgregarTotal();
+
+            this.Open = true;
+            this.Cargando = false;
+    
+          }
+          else
+          {
+            this.dialog.open(DialogoComponent, {
+              data : _json["msj"]
+            })
+          }
+    
+        });
+      
+  
+        
+      }
+      else
+      {
+        this.Cargando = false;
+        this.Limpiar();
+        this.Open = false;
+        this.Link = "";
+      }
+
+      
+      
+    });
+  }
+
+  ngOnInit(): void {
   }
 
 }

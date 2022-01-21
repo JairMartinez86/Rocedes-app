@@ -1,5 +1,5 @@
 import { HttpClient} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from 'src/app/main/class/Cnx/conexion';
 import { ICodigoGSD } from 'src/app/main/class/Form/PRM/i-Codigo-GSD';
@@ -15,8 +15,11 @@ import { ITela } from 'src/app/main/class/Form/PRM/i-Tela';
   providedIn: 'root'
 })
 export class OperacionesService {
+  
 
   private Cnx : Conexion = new Conexion();
+
+  @Output() change: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -147,9 +150,15 @@ export class OperacionesService {
 
    //#region METHOD ANALISIS
   
+
    GetMethodAnalysis(FechaInicio : string, FechaFinal : string) : Observable<any>
    {
      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetMethodAnalysis" + "?FechaInicio=" + FechaInicio  + "&FechaFin=" + FechaFinal);
+   }
+
+   GetDetMethodAnalysis(IdMethodAnalysis : number) : Observable<any>
+   {
+     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetDetMethodAnalysis" + "?IdMethodAnalysis=" + IdMethodAnalysis);
    }
  
    GetMethodAnalysisAuto(nombre : string) : Observable<any>
@@ -163,8 +172,8 @@ export class OperacionesService {
    }
 
  
-    EliminarMethodAnalysis(IdMethodAnalysis : number): Observable<any> { 
-      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/EliminarMethodAnalysis" + "?IdMethodAnalysis=" + IdMethodAnalysis,  { 'content-type': 'application/text'});
+    EliminarMethodAnalysis(IdDetMethodAnalysis : number, user : string): Observable<any> { 
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/EliminarMethodAnalysis" + "?IdMethodAnalysis=" + IdDetMethodAnalysis + "&user=" + user,  { 'content-type': 'application/text'});
      }
    //#endregion METHOD ANALISIS
 

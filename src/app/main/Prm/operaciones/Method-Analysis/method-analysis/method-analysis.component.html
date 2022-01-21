@@ -1,5 +1,6 @@
 
 
+<div *ngIf="Open">
 	<div class="container">
 		<div class="col-12">
 			<div class="button-row text-center">
@@ -37,19 +38,30 @@
 
 						<td mat-cell *matCellDef="let element; let i = index">
 
-							<mat-form-field floatLabel="never" *ngIf="element.Index != 3 && element.Index != 8">
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 2">
+							<mat-select formControlName="txt_method_analisys_manufactura"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
+								(keydown)="cellChanged_Param($event, element.Index)"
+								[disabled]="element.Index == 1">
+								<mat-option  value="CORTE">CORTE</mat-option>
+								<mat-option  value="COSTURA">COSTURA</mat-option>
+								<mat-option  value="ACABADO">ACABADO</mat-option>
+							</mat-select>
+							<mat-error *ngIf="val.ValForm.get('txt_method_analisys_manufactura')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+							</mat-form-field>
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index != 2 && element.Index != 5 && element.Index != 10">
 								<input matInput formControlName="{{'txt_method_analisys_parametro' + (i+1)}}"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
 								(input)="txt_method_analisys_onSearchChange($event)"
-								(keydown.enter)="cellChanged_Param(element.Index)"
+								(keydown)="cellChanged_Param($event, element.Index)"
 								[disabled]="element.Index == 1">
 							</mat-form-field>
 
 
 
-							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 3">
+							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 5">
 								<input matInput type="text" id="txt_method_analisys_Maquina" formControlName="txt_method_analisys_Maquina" [matAutocomplete]="auto" (input)="txt_method_analisys_Maquina_onSearchChange($event)" 
 								(focusout)="txt_method_analisys_Maquina_onFocusOutEvent($event)" class="col-method-analisys-maquina"
-								(keydown.enter)="cellChanged_Param(element.Index)">
+								(keydown)="cellChanged_Param($event, element.Index)">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
 									<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
 										{{option.Name}}
@@ -64,10 +76,10 @@
 							</mat-form-field>
 
 							
-							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 8">
+							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 10">
 								<input matInput type="text" id="txt_method_analisys_Tela" formControlName="txt_method_analisys_Tela" [matAutocomplete]="auto" (input)="txt_method_analisys_Tela_onSearchChange($event)" 
 								(focusout)="txt_method_analisys_Tela_onFocusOutEvent($event)"
-								(keydown.enter)="cellChanged_Param(element.Index)"
+								(keydown)="cellChanged_Param($event, element.Index)"
 								class="col-method-analisys-maquina">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelecTela">
 									<mat-option *ngFor="let option of filteredOptionsTela | async" [value]="option">
@@ -152,7 +164,9 @@
 						<th mat-header-cell *matHeaderCellDef><b>Codigos.</b></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo1')" (change)="onKeyEnter($event, element, 'Codigo1')" matInput placeholder="" [value]="element.Codigo1" [(ngModel)]="element.Codigo1">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo1')" 
+								(change)="onKeyEnter($event, element, 'Codigo1')" 
+								matInput placeholder="" [value]="element.Codigo1" [(ngModel)]="element.Codigo1">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -161,7 +175,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo2')" (change)="onKeyEnter($event, element, 'Codigo2')" matInput placeholder="" [value]="element.Codigo2" [(ngModel)]="element.Codigo2">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo2')" (change)="onKeyEnter($event, element, 'Codigo2')" matInput placeholder="" [value]="element.Codigo2" [(ngModel)]="element.Codigo2">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -170,7 +184,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo3')" (change)="onKeyEnter($event, element, 'Codigo3')" matInput placeholder="" [value]="element.Codigo3" [(ngModel)]="element.Codigo3">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo3')" (change)="onKeyEnter($event, element, 'Codigo3')" matInput placeholder="" [value]="element.Codigo3" [(ngModel)]="element.Codigo3">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -179,7 +193,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-codigo">
 							<mat-form-field floatLabel="never" class="col-method-analisys-codigo" *ngIf="!element.EsTotal">
-								<input contenteditable="true" (keydown.enter)="cellChanged(element, 'Codigo4')" (change)="onKeyEnter($event, element, 'Codigo4')" matInput placeholder="" [value]="element.Codigo4" [(ngModel)]="element.Codigo4">
+								<input contenteditable="true" (keydown)="cellChanged($event, element, 'Codigo4')" (change)="onKeyEnter($event, element, 'Codigo4')" matInput placeholder="" [value]="element.Codigo4" [(ngModel)]="element.Codigo4">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -188,7 +202,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"><b>Descripcion de Elementos.</b></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-descripcion" >
 							<mat-form-field floatLabel="never"  class="col-method-analisys-descripcion" *ngIf="!element.EsTotal">
-								<input matInput (keydown.enter)="cellChanged(element, 'Descripcion')" [value]="element.Descripcion" [(ngModel)]="element.Descripcion">
+								<input matInput (keydown)="cellChanged($event, element, 'Descripcion')" [value]="element.Descripcion" [(ngModel)]="element.Descripcion">
 							</mat-form-field>
 							<b *ngIf="element.EsTotal"> {{element.Descripcion}} </b>
 						</td>
@@ -199,7 +213,7 @@
 						<th mat-header-cell *matHeaderCellDef class="myHeader"><b>Freq.</b></th>
 						<td mat-cell *matCellDef="let element" class="col-method-analisys-num">
 							<mat-form-field floatLabel="never"  class="col-method-analisys-num" *ngIf="!element.EsTotal">
-								<input matInput (keydown.enter)="cellChanged(element, 'Freq')" (change)="onKeyEnter($event, element, 'Freq')" [value]="element.Freq" [(ngModel)]="element.Freq">
+								<input matInput (keydown)="cellChanged($event, element, 'Freq')" (change)="onKeyEnter($event, element, 'Freq')" [value]="element.Freq" [(ngModel)]="element.Freq">
 							</mat-form-field>
 						</td>
 					</ng-container>
@@ -244,3 +258,9 @@
 		</div>
 	</div>
 
+
+
+	
+</div>
+
+	

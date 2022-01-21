@@ -729,6 +729,7 @@ export class MainComponent implements OnInit {
               let MatrizData: ComponentRef<MatrizOperacionComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               MatrizData.instance.Link = "Link-Operaciones-Matriz-Data";
               MatrizData.instance.Open = true;
+             
               }
           break;
             

@@ -150,7 +150,6 @@ export class LoginService {
     this.str_Fecha = str_Fecha;
     this.bol_remenber = bol_remenber;
 
-
     if(bol_remenber)
     {
       localStorage.setItem('Nombre', str_Nombre);
