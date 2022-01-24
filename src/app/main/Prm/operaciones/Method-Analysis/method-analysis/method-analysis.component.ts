@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ReflectiveInjector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith } from 'rxjs';
@@ -68,7 +68,7 @@ export class MethodAnalysisComponent implements OnInit {
   constructor(private _LoginService : LoginService, private _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
     this.val.add("txt_method_analisys_parametro1", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_manufactura", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_Producto", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_producto", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_parametro4", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_Maquina", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_parametro6", "1", "NUM>", "0");
@@ -158,11 +158,13 @@ export class MethodAnalysisComponent implements OnInit {
 
   txt_method_analisys_Maquina_onSearchChange(event : any) :void{
 
+  this.optionSeleccion.splice(0, this.optionSeleccion.length);
+
+  if(event == null) return;
   
   let value : string = event.target.value;
 
-  this.optionSeleccion.splice(0, this.optionSeleccion.length);
-
+ 
   if(value.length <= 2) return;
 
 
@@ -256,46 +258,49 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
   txt_method_analisys_producto_onSearchChange(event : any) :void{
 
+    this.optionSeleccionProducto.splice(0, this.optionSeleccionProducto.length);
+
+      if(event == null) return
+    
+    let value : string = event.target.value;
+
   
-  let value : string = event.target.value;
-
-  this.optionSeleccionProducto.splice(0, this.optionSeleccionProducto.length);
 
 
-  if(value.length <= 2) return;
+    if(value.length <= 2) return;
 
 
-  this._ProductoService.GetAuto(value).subscribe( s => {
-    let _json = JSON.parse(s);
+    this._ProductoService.GetAuto(value).subscribe( s => {
+      let _json = JSON.parse(s);
 
 
-    if(_json["esError"] == 0){
+      if(_json["esError"] == 0){
 
 
-      if(_json["count"] > 0){
+        if(_json["count"] > 0){
+          
+          _json["d"].forEach((j : IProducto) => {
+            this.optionSeleccionProducto.push(j);
+          });
+
+          this.filteredOptionsProducto = this.val.ValForm.valueChanges.pipe(
+            startWith(''),
+            map(value => (typeof value === 'string' ? value : value.Nombre)),
+            map(Nombre => (Nombre ? this._FiltroSeleccionProducto(Nombre) : this.optionSeleccionProducto.slice())),
+          );
         
-        _json["d"].forEach((j : IProducto) => {
-          this.optionSeleccionProducto.push(j);
-        });
+        }
+      
+      }else{
+        this.dialog.open(DialogoComponent, {
+          data: _json["msj"]
+        })
 
-        this.filteredOptionsProducto = this.val.ValForm.valueChanges.pipe(
-          startWith(''),
-          map(value => (typeof value === 'string' ? value : value.Nombre)),
-          map(Nombre => (Nombre ? this._FiltroSeleccionProducto(Nombre) : this.optionSeleccionProducto.slice())),
-        );
-       
+
+
       }
-     
-    }else{
-      this.dialog.open(DialogoComponent, {
-        data: _json["msj"]
-      })
 
-
-
-    }
-
-  });
+    });
 
 
 }
@@ -341,7 +346,7 @@ private _FiltroSeleccionProducto(Nombre: string): IProducto[] {
 
 
 
-//#endregion AUTO COMPLETADO MAQUINA
+//#endregion AUTO COMPLETADO PRODUCTO
 
 
 

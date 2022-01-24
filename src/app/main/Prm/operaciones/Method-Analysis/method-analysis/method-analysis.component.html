@@ -70,7 +70,7 @@
 
 
 							<mat-form-field floatLabel="never" *ngIf="element.Index != 2 && element.Index != 3 && element.Index != 5 && element.Index != 10">
-								<input matInput formControlName="{{'txt_method_analisys_parametro' + (i+1)}}"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
+								<input matInput formControlName="{{'txt_method_analisys_parametro' + element.Index}}"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
 								(input)="txt_method_analisys_onSearchChange($event)"
 								(keydown)="cellChanged_Param($event, element.Index)"
 								[disabled]="element.Index == 1">
