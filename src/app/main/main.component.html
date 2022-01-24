@@ -1,4 +1,4 @@
-<body id="body">
+<body class="full-width" id="body">
 
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -76,154 +76,151 @@
 
   </header>
 
-  <div class="full-width">
-    <nav class="navbar custom-navbar navbar-expand-lg navbar-light bg-light rounded">
+  <nav class="navbar custom-navbar navbar-expand-lg navbar-light bg-light rounded">
 
-      <div class="container-fluid">
- 
-    
+    <div class="container-fluid">
 
-        <a class="navbar-brand" id="navModulo"  href="#">{{Esquema._Nombre}}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#NavControl" aria-controls="NavControl" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  
 
+      <a class="navbar-brand" id="navModulo"  href="#">{{Esquema._Nombre}}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#NavControl" aria-controls="NavControl" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
 
-        <div class="collapse navbar-collapse" id="NavControl">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      <div class="collapse navbar-collapse" id="NavControl">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 
-            <!-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
-            <li class="nav-item dropdown" id="navUsuario"  appDropdown #r="appDropDown">
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='SIS'">Usuarios</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r.isOpen}">
-                <li><a id="LinkUsuario" class="dropdown-item" href="#">Nuevo Usuario</a></li>
-                <li><a id="LinkUsuarioPerfil" class="dropdown-item" href="#">Perfil</a></li>
-                <li><a id="LinkRegistrosUsuario" class="dropdown-item" href="#">Registros Usuario</a></li>
-              </ul>
-            </li>
+          <!-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
+          <li class="nav-item dropdown" id="navUsuario"  appDropdown #r="appDropDown">
+            <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='SIS'">Usuarios</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r.isOpen}">
+              <li><a id="LinkUsuario" class="dropdown-item" href="#">Nuevo Usuario</a></li>
+              <li><a id="LinkUsuarioPerfil" class="dropdown-item" href="#">Perfil</a></li>
+              <li><a id="LinkRegistrosUsuario" class="dropdown-item" href="#">Registros Usuario</a></li>
+            </ul>
+          </li>
 
-            <!--<li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='SIS'">
-              <a id="LinkUsuario" class="nav-link" href="#" >Usuario</a>
-            </li>-->
+          <!--<li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='SIS'">
+            <a id="LinkUsuario" class="nav-link" href="#" >Usuario</a>
+          </li>-->
 
-            <!-----------------------------PREMIUM------------------------------------------------------------------------------------------------------------->
+          <!-----------------------------PREMIUM------------------------------------------------------------------------------------------------------------->
 
-            <li class="nav-item dropdown" id="navPrmFactor" appDropdown #r3="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Spreading Process</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
-                <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Spreading Factors</a></li>
-                <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Single Ply</a></li>
-                <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Double Ply</a></li>
-                <li><a id="LinkProcesoTendidoCapaManual" class="dropdown-item" href="#">Manual Spreading</a></li>
-              </ul>
-            </li>
-
-
-            <li class="nav-item dropdown" id="navPrmFactorCorte"  appDropdown #r4="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Cutting Process</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
-                <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Cutting Factors</a></li>
-                <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Cutting Time</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown" id="navPrmFactorFoleo"  appDropdown #r5="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Layer Marking Process</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r5.isOpen}">
-                <li><a id="LinkProcesoFoleoFactor" class="dropdown-item" href="#">Layer Marking Factors</a></li>
-                <li><a id="LinkProcesoFoleoCapaSencilla" class="dropdown-item" href="#">Single Ply</a></li>
-                <li><a id="LinkProcesoFoleoCapaDoble" class="dropdown-item" href="#">Double Ply</a></li>
-              </ul>
-            </li>
-     
-     
-            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PRM'">
-              <a id="LinkFlujoCorte" class="nav-link" href="#" >Cutting Flow</a>
-            </li>
+          <li class="nav-item dropdown" id="navPrmFactor" appDropdown #r3="appDropDown">
+            <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Spreading Process</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r3.isOpen}">
+              <li><a id="LinkProcesoTendidoFactor" class="dropdown-item" href="#">Spreading Factors</a></li>
+              <li><a id="LinkProcesoTendidoCapaSencilla" class="dropdown-item" href="#">Single Ply</a></li>
+              <li><a id="LinkProcesoTendidoCapaDoble" class="dropdown-item" href="#">Double Ply</a></li>
+              <li><a id="LinkProcesoTendidoCapaManual" class="dropdown-item" href="#">Manual Spreading</a></li>
+            </ul>
+          </li>
 
 
-            <li class="nav-item dropdown" id="navPrmParametros"  appDropdown #r6="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Parameters</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r6.isOpen}">
-                <li><a id="Link-Operaciones-cliente" class="dropdown-item" href="#">Customers</a></li>
-                <li><a id="Link-Operaciones-producto" class="dropdown-item" href="#">Product Catalog</a></li>
-                <li><a id="Link-Operaciones-codigo-gsd" class="dropdown-item" href="#">Manufacturing Codes</a></li>
-                <li><a id="Link-Operaciones-tela" class="dropdown-item" href="#">Type of Fabic</a></li>
-                <li><a id="Link-Operaciones-partes" class="dropdown-item" href="#">Sewing Garment</a></li>
-                <li><a id="Link-Operaciones-sewing" class="dropdown-item" href="#">Sewing Considerations</a></li>
-                <li><a id="Link-Operaciones-sewing-accuracy" class="dropdown-item" href="#">Sewing Stop Accuracy</a></li>
-                <li><a id="Link-Operaciones-ounce" class="dropdown-item" href="#">Fabric Rating</a></li>
-                <li><a id="Link-Operaciones-data-machine" class="dropdown-item" href="#">Machine General Data</a></li>
-              </ul>
-            </li>
-            
-            <li class="nav-item dropdown" id="navPrmOperDev"  appDropdown #r8="appDropDown">
-              <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">New Operation</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r8.isOpen}">
-                <li><a id="Link-Operaciones-Development-Methos-Analisys" class="dropdown-item" href="#">Method Analysis</a></li>
-              </ul>
-            </li>
+          <li class="nav-item dropdown" id="navPrmFactorCorte"  appDropdown #r4="appDropDown">
+            <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Cutting Process</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r4.isOpen}">
+              <li><a id="LinkProcesoCorteFactor" class="dropdown-item" href="#">Cutting Factors</a></li>
+              <li><a id="LinkProcesoCorteFactorTiempo" class="dropdown-item" href="#">Cutting Time</a></li>
+            </ul>
+          </li>
 
-            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PRM'">
-              <a id="Link-Operaciones-Matriz-Data" class="nav-link" href="#" >Operation Matrix Data</a>
-            </li>
-    
-            <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
+          <li class="nav-item dropdown" id="navPrmFactorFoleo"  appDropdown #r5="appDropDown">
+            <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Layer Marking Process</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r5.isOpen}">
+              <li><a id="LinkProcesoFoleoFactor" class="dropdown-item" href="#">Layer Marking Factors</a></li>
+              <li><a id="LinkProcesoFoleoCapaSencilla" class="dropdown-item" href="#">Single Ply</a></li>
+              <li><a id="LinkProcesoFoleoCapaDoble" class="dropdown-item" href="#">Double Ply</a></li>
+            </ul>
+          </li>
    
-            <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown #r2="appDropDown">
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'" >Accounting</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r2.isOpen}">
-                <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
-                <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
-                <li><a id="LinkBundleBoxingEnvio" class="dropdown-item" href="#">Envio</a></li>
-              </ul>
-            </li>
-
-            
-            
-            
-            <!--<li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
-              <a id="LinkOtro" class="nav-link" href="#" >Otros</a>
-            </li>-->
+   
+          <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PRM'">
+            <a id="LinkFlujoCorte" class="nav-link" href="#" >Cutting Flow</a>
+          </li>
 
 
-            <li class="nav-item dropdown" id="navReporte" appDropdown #r7="appDropDown">
-              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
-              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r7.isOpen}">
-                <li><a id="LinkReportBundleBoxing" class="dropdown-item" href="#">BundleBoxing Report</a></li>
-                <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
-                <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>
-              </ul>
-            </li>
+          <li class="nav-item dropdown" id="navPrmParametros"  appDropdown #r6="appDropDown">
+            <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">Parameters</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r6.isOpen}">
+              <li><a id="Link-Operaciones-cliente" class="dropdown-item" href="#">Customers</a></li>
+              <li><a id="Link-Operaciones-producto" class="dropdown-item" href="#">Product Catalog</a></li>
+              <li><a id="Link-Operaciones-codigo-gsd" class="dropdown-item" href="#">Manufacturing Codes</a></li>
+              <li><a id="Link-Operaciones-tela" class="dropdown-item" href="#">Type of Fabic</a></li>
+              <li><a id="Link-Operaciones-partes" class="dropdown-item" href="#">Sewing Garment</a></li>
+              <li><a id="Link-Operaciones-sewing" class="dropdown-item" href="#">Sewing Considerations</a></li>
+              <li><a id="Link-Operaciones-sewing-accuracy" class="dropdown-item" href="#">Sewing Stop Accuracy</a></li>
+              <li><a id="Link-Operaciones-ounce" class="dropdown-item" href="#">Fabric Rating</a></li>
+              <li><a id="Link-Operaciones-data-machine" class="dropdown-item" href="#">Machine General Data</a></li>
+            </ul>
+          </li>
+          
+          <li class="nav-item dropdown" id="navPrmOperDev"  appDropdown #r8="appDropDown">
+            <a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PRM'">New Operation</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r8.isOpen}">
+              <li><a id="Link-Operaciones-Development-Methos-Analisys" class="dropdown-item" href="#">Method Analysis</a></li>
+            </ul>
+          </li>
 
-           
+          <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PRM'">
+            <a id="Link-Operaciones-Matriz-Data" class="nav-link" href="#" >Operation Matrix Data</a>
+          </li>
+  
+          <!-----------------------------INVENTARIO------------------------------------------------------------------------------------------------------------->
+ 
+          <li class="nav-item dropdown" id="navInvContabilizacion"  appDropdown #r2="appDropDown">
+            <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'" >Accounting</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r2.isOpen}">
+              <li><a id="LinkBundleBoxing" class="dropdown-item" href="#">Bundle Boxing</a></li>
+              <li><a id="LinkBundleBoxingComplemento" class="dropdown-item" href="#">Scanner Complemento</a></li>
+              <li><a id="LinkBundleBoxingEnvio" class="dropdown-item" href="#">Envio</a></li>
+            </ul>
+          </li>
 
-            <!--<li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown09">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>-->
-          </ul>
-          <div class="text-end">
-            <!--<button type="button" class="btn btn-light text-dark me-2">Login</button>-->
-            <button (click)="Salir()" type="button" class="btn btn-danger">Desconectar</button>
-          </div>
+          
+          
+          
+          <!--<li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='INV'">
+            <a id="LinkOtro" class="nav-link" href="#" >Otros</a>
+          </li>-->
+
+
+          <li class="nav-item dropdown" id="navReporte" appDropdown #r7="appDropDown">
+            <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='INV'">Reportes</a>
+            <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r7.isOpen}">
+              <li><a id="LinkReportBundleBoxing" class="dropdown-item" href="#">BundleBoxing Report</a></li>
+              <li><a id="LinkBundleBoxingSaco" class="dropdown-item" href="#">Lista Saco</a></li>
+              <li><a id="LinkBundleBoxingSerial" class="dropdown-item" href="#">Lista Serial</a></li>
+            </ul>
+          </li>
+
+         
+
+          <!--<li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown09">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>-->
+        </ul>
+        <div class="text-end">
+          <!--<button type="button" class="btn btn-light text-dark me-2">Login</button>-->
+          <button (click)="Salir()" type="button" class="btn btn-danger">Desconectar</button>
         </div>
       </div>
-    </nav>
-  </div>
-  
+    </div>
+  </nav>
 <!--class="d-flex flex-wrap justify-content-center py-3 mb-4 border-top border-bottom"-->
 
 
