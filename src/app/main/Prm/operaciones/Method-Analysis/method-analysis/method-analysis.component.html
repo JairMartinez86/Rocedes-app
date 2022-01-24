@@ -49,7 +49,27 @@
 							<mat-error *ngIf="val.ValForm.get('txt_method_analisys_manufactura')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 							</mat-form-field>
 
-							<mat-form-field floatLabel="never" *ngIf="element.Index != 2 && element.Index != 5 && element.Index != 10">
+							
+							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 3">
+								<input matInput type="text" id="txt_method_analisys_producto" formControlName="txt_method_analisys_producto" [matAutocomplete]="auto" (input)="txt_method_analisys_producto_onSearchChange($event)" 
+								(focusout)="txt_method_analisys_producto_onFocusOutEvent($event)" class="col-method-analisys-maquina"
+								(keydown)="cellChanged_Param($event, element.Index)">
+								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelecProducto">
+									<mat-option *ngFor="let option of filteredOptionsProducto | async" [value]="option">
+										{{option.Nombre}}
+									</mat-option>
+								</mat-autocomplete>
+
+								<mat-icon matSuffix>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+								</mat-icon>
+								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_producto')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
+
+							</mat-form-field>
+
+
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index != 2 && element.Index != 3 && element.Index != 5 && element.Index != 10">
 								<input matInput formControlName="{{'txt_method_analisys_parametro' + (i+1)}}"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
 								(input)="txt_method_analisys_onSearchChange($event)"
 								(keydown)="cellChanged_Param($event, element.Index)"

@@ -18,6 +18,8 @@ import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 import { ImagenLogo } from 'src/app/main/Base64/logo';
+import { IProducto } from 'src/app/main/class/Form/Inv/Interface/i-Producto';
+import { ProductoService } from 'src/app/main/Services/inv/Producto/producto.service';
 
 
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
@@ -52,6 +54,7 @@ export class MethodAnalysisComponent implements OnInit {
 
   private _RowMaquina !: IDataMachine;
   private _RowTela !: ITela;
+  private _RowProducto !: IProducto;
   private Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
 
   displayedColumns_parametros_method_analisys: string[] = ["Requerido", "Index", "Parametro",   "Valor"];
@@ -62,10 +65,10 @@ export class MethodAnalysisComponent implements OnInit {
   dataSource_method_analisys = new MatTableDataSource(ELEMENT_DATA_METHOD_ANALISIS);
   clickedRows = new Set<IDetMethodAnalysis>();
 
-  constructor(private _LoginService : LoginService, private _OperacionesService : OperacionesService, private dialog : MatDialog) {
+  constructor(private _LoginService : LoginService, private _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
     this.val.add("txt_method_analisys_parametro1", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_manufactura", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro3", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_Producto", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_parametro4", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_Maquina", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_parametro6", "1", "NUM>", "0");
@@ -158,10 +161,9 @@ export class MethodAnalysisComponent implements OnInit {
   
   let value : string = event.target.value;
 
+  this.optionSeleccion.splice(0, this.optionSeleccion.length);
 
   if(value.length <= 2) return;
-
-  this.optionSeleccion.splice(0, this.optionSeleccion.length);
 
 
   this._OperacionesService.GetDataMachineAuto(value).subscribe( s => {
@@ -218,7 +220,7 @@ txt_method_analisys_Maquina_onFocusOutEvent(event: any) :void
   }
 
   this._RowMaquina = _Opcion;
-  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = _Opcion.Name;
+  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Name;
   this.txt_method_analisys_onSearchChange(event);
 }
 
@@ -246,6 +248,103 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
 
 
+  
+  //#region AUTO COMPLETADO PRODUCTO
+	
+  optionSeleccionProducto : IProducto[] = [];
+  filteredOptionsProducto!: Observable<IProducto[]>;
+
+  txt_method_analisys_producto_onSearchChange(event : any) :void{
+
+  
+  let value : string = event.target.value;
+
+  this.optionSeleccionProducto.splice(0, this.optionSeleccionProducto.length);
+
+
+  if(value.length <= 2) return;
+
+
+  this._ProductoService.GetAuto(value).subscribe( s => {
+    let _json = JSON.parse(s);
+
+
+    if(_json["esError"] == 0){
+
+
+      if(_json["count"] > 0){
+        
+        _json["d"].forEach((j : IProducto) => {
+          this.optionSeleccionProducto.push(j);
+        });
+
+        this.filteredOptionsProducto = this.val.ValForm.valueChanges.pipe(
+          startWith(''),
+          map(value => (typeof value === 'string' ? value : value.Nombre)),
+          map(Nombre => (Nombre ? this._FiltroSeleccionProducto(Nombre) : this.optionSeleccionProducto.slice())),
+        );
+       
+      }
+     
+    }else{
+      this.dialog.open(DialogoComponent, {
+        data: _json["msj"]
+      })
+
+
+
+    }
+
+  });
+
+
+}
+
+
+txt_method_analisys_producto_onFocusOutEvent(event: any) :void
+{
+
+  let _Opcion : any = (<HTMLInputElement>document.getElementById("txt_method_analisys_producto")).value;
+
+  if( typeof(_Opcion) == 'string' ) {
+
+    _Opcion = this.optionSeleccionProducto.filter( f => f.Nombre == _Opcion)[0]
+
+    if(_Opcion == null){
+      this.val.ValForm.get("txt_method_analisys_producto")?.setValue("");
+      this.txt_method_analisys_producto_onSearchChange(null);
+      return;
+    }
+    
+  }
+
+  this._RowMaquina = _Opcion;
+  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = _Opcion.Nombre;
+  this.txt_method_analisys_producto_onSearchChange(event);
+}
+
+
+
+MostrarSelecProducto(Registro: IProducto): string {
+  if(Registro == null) return "";
+  return Registro.Nombre;
+}
+
+private _FiltroSeleccionProducto(Nombre: string): IProducto[] {
+  const filterValue = Nombre.toLowerCase();
+  
+  return this.optionSeleccionProducto.filter(option => option.Nombre.toLowerCase().startsWith(filterValue));
+}
+
+
+
+
+
+
+//#endregion AUTO COMPLETADO MAQUINA
+
+
+
   //#region AUTO COMPLETADO TELA
 	
   optionSeleccionTela : ITela[] = [];
@@ -256,11 +355,9 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
   
   let value : string = event.target.value;
 
-
-  if(value.length <= 2) return;
-
   this.optionSeleccionTela.splice(0, this.optionSeleccionTela.length);
 
+  if(value.length <= 2) return;
 
   this._OperacionesService.GetTelaAuto(value).subscribe( s => {
     let _json = JSON.parse(s);
@@ -717,7 +814,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
     this.Fila_MethodAnalysis.Codigo = this.str_Codigo;
     this.Fila_MethodAnalysis.ProcesoManufact = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
-    this.Fila_MethodAnalysis.TipoProducto = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
+    this.Fila_MethodAnalysis.IdProducto = this._RowProducto.IdProducto;
+    this.Fila_MethodAnalysis.TipoProducto = this._RowProducto.Nombre;
     this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
     this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
     this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
@@ -1122,6 +1220,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
         this._RowMaquina.Fatigue = Datos.Fatigue;
         this._RowTela.IdTela = Datos.IdTela;
         this._RowTela.Nombre = Datos.Tela;
+        this._RowProducto = Datos.IdProducto;
 
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor = Datos.Usuario;
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor = Datos.ProcesoManufact;
@@ -1146,7 +1245,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
         this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(Datos.Usuario);
         this.val.ValForm.get("txt_method_analisys_manufactura")?.setValue(Datos.ProcesoManufact);
-        this.val.ValForm.get("txt_method_analisys_parametro3")?.setValue(Datos.TipoProducto);
+        this.val.ValForm.get("txt_method_analisys_Producto")?.setValue(this._RowProducto);
         this.val.ValForm.get("txt_method_analisys_parametro4")?.setValue(Datos.Operacion);
         this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue(this._RowMaquina);
         this.val.ValForm.get("txt_method_analisys_parametro6")?.setValue(Datos.Puntadas);

@@ -19,6 +19,11 @@ export class ProductoService {
     return this.http.get<any>(this.Cnx.Url() + "Inventario/Producto/Get");
   }
 
+  GetAuto(nombre : string) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Producto/GetAuto" + "?nombre=" + nombre);
+  }
+
 
 
   Guardar(d : IProducto): Observable<any> { 

@@ -2,6 +2,7 @@ export interface IMethodAnalysis {
   IdMethodAnalysis: number
   Codigo : string;
   ProcesoManufact : string;
+  IdProducto : number;
   TipoProducto : string;
   Operacion : string;
   IdDataMachine : number;
