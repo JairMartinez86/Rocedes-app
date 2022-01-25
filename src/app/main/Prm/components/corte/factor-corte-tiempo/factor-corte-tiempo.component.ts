@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { FactorCorteService } from 'src/app/main/Prm/service/factor-corte.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { DatePipe } from '@angular/common';
-import { ImagenLogo } from 'src/app/main/Base64/logo';
+import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
 import { IFactorCorteDetalle } from '../../../interface/i-Factor-Corte-Detalle';
 import { IFactorCorte } from '../../../interface/i-Factor-Corte';
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Conexion } from 'src/app/main/class/Cnx/conexion';
+import { Conexion } from 'src/app/main/shared/class/Cnx/conexion';
 import { ClsSacoEstado } from 'src/app/main/inv/bundle-boxing/class/cls-saco-estado';
 
 @Injectable({

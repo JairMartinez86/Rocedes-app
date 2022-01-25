@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Conexion } from 'src/app/main/class/Cnx/conexion';
-import { IProducto } from 'src/app/main/class/Form/Inv/Interface/i-Producto';
+import { Conexion } from 'src/app/main/shared/class/Cnx/conexion';
+import { IProducto } from 'src/app/main/shared/class/Form/Inv/Interface/i-Producto';
 
 @Injectable({
   providedIn: 'root'

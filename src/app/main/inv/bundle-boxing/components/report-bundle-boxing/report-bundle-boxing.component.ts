@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
 import { BundleBoxingService } from 'src/app/main/inv/bundle-boxing/service/bundle-boxing.service';
 import { InventarioService } from 'src/app/main/Services/inv/inventario.service';

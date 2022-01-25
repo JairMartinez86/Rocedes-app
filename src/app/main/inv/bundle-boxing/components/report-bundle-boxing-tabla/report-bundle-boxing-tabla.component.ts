@@ -7,7 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { Workbook } from 'exceljs';
 
 import * as fs from 'file-saver';
-import { ImagenLogo } from 'src/app/main/Base64/logo';
+import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
 
 import * as XLSX from 'xlsx'; 
 

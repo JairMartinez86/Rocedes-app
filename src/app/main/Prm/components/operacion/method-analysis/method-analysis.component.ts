@@ -2,18 +2,18 @@ import { Component, OnInit, ReflectiveInjector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith } from 'rxjs';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { ConfirmarContinuarComponent } from 'src/app/main/otro/dialogo/confirmar-continuar/confirmar-continuar.component';
-import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { ConfirmarContinuarComponent } from 'src/app/main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
+import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Prm/service/operaciones.service';
 import { LoginService } from 'src/app/main/sis/service/login.service';
 
 
 import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
-import { ImagenLogo } from 'src/app/main/Base64/logo';
-import { IProducto } from 'src/app/main/class/Form/Inv/Interface/i-Producto';
+import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
+import { IProducto } from 'src/app/main/shared/class/Form/Inv/Interface/i-Producto';
 import { ProductoService } from 'src/app/main/Services/inv/Producto/producto.service';
 import { IDetMethodAnalysis } from '../../../interface/IDetMethod-Analysis';
 import { IMethodAnalysis } from '../../../interface/i-Method-Analysis';
@@ -160,8 +160,6 @@ export class MethodAnalysisComponent implements OnInit {
 
   this.optionSeleccion.splice(0, this.optionSeleccion.length);
 
-  if(event == null) return;
-  
   let value : string = event.target.value;
 
  
@@ -214,8 +212,7 @@ txt_method_analisys_Maquina_onFocusOutEvent(event: any) :void
     _Opcion = this.optionSeleccion.filter( f => f.Name == _Opcion)[0]
 
     if(_Opcion == null){
-      this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue("");
-      this.txt_method_analisys_onSearchChange(null);
+      this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue(undefined);
       return;
     }
     
@@ -223,7 +220,13 @@ txt_method_analisys_Maquina_onFocusOutEvent(event: any) :void
 
   this._RowMaquina = _Opcion;
   ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Name;
-  this.txt_method_analisys_onSearchChange(event);
+
+}
+
+txt_method_analisys_Maquina_onSelectionChange(_Opcion: IDataMachine) :void
+{
+  this._RowMaquina = _Opcion;
+  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Name;
 }
 
 
@@ -260,11 +263,7 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
     this.optionSeleccionProducto.splice(0, this.optionSeleccionProducto.length);
 
-      if(event == null) return
-    
     let value : string = event.target.value;
-
-  
 
 
     if(value.length <= 2) return;
@@ -308,7 +307,6 @@ private _FiltroSeleccion(Name: string): IDataMachine[] {
 
 txt_method_analisys_producto_onFocusOutEvent(event: any) :void
 {
-
   let _Opcion : any = (<HTMLInputElement>document.getElementById("txt_method_analisys_producto")).value;
 
   if( typeof(_Opcion) == 'string' ) {
@@ -316,8 +314,7 @@ txt_method_analisys_producto_onFocusOutEvent(event: any) :void
     _Opcion = this.optionSeleccionProducto.filter( f => f.Nombre == _Opcion)[0]
 
     if(_Opcion == null){
-      this.val.ValForm.get("txt_method_analisys_producto")?.setValue("");
-      this.txt_method_analisys_producto_onSearchChange(null);
+      this.val.ValForm.get("txt_method_analisys_producto")?.setValue(undefined);
       return;
     }
     
@@ -325,7 +322,13 @@ txt_method_analisys_producto_onFocusOutEvent(event: any) :void
 
   this._RowMaquina = _Opcion;
   ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = _Opcion.Nombre;
-  this.txt_method_analisys_producto_onSearchChange(event);
+}
+
+
+txt_method_analisys_producto_onSelectionChange(_Opcion: IProducto) :void
+{
+  this._RowProducto = _Opcion;
+  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = _Opcion.Nombre;
 }
 
 
@@ -409,7 +412,7 @@ txt_method_analisys_Tela_onFocusOutEvent(event: any) :void
     _Opcion = this.optionSeleccionTela.filter( f => f.Nombre == _Opcion)[0]
 
     if(_Opcion == null){
-      this.val.ValForm.get("txt_method_analisys_Tela")?.setValue("");
+      this.val.ValForm.get("txt_method_analisys_Tela")?.setValue(undefined);
       return;
     }
     
@@ -418,6 +421,10 @@ txt_method_analisys_Tela_onFocusOutEvent(event: any) :void
   this._RowTela = _Opcion;
 }
 
+txt_method_analisys_Tela_onSelectionChange(_Opcion: ITela) :void
+{
+  this._RowTela = _Opcion;
+}
 
 
 MostrarSelecTela(Registro: ITela): string {

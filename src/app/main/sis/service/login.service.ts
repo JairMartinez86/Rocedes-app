@@ -4,12 +4,12 @@ import {Router} from "@angular/router"
 
 import { Observable } from 'rxjs';
 
-import { Conexion } from '../../class/Cnx/conexion';
+import { Conexion } from '../../shared/class/Cnx/conexion';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DialogoComponent } from '../../otro/dialogo/dialogo.component';
-import { ClsUsuario } from '../../class/Form/sis/cls-usuario';
-import { IUsuarioPerfil } from '../../class/Form/sis/Interface/i-UsuarioPerfil';
+import { DialogoComponent } from '../../shared/dialogo/dialogo.component';
+import { ClsUsuario } from '../interface/cls-usuario';
+import { IUsuarioPerfil } from '../interface/i-UsuarioPerfil';
 
 
 

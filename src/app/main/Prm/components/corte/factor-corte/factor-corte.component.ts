@@ -4,12 +4,12 @@ import { MatDialog} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { FactorCorteService } from 'src/app/main/Prm/service/factor-corte.service';
 
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
-import { ImagenLogo } from 'src/app/main/Base64/logo';
+import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
 import { IFactorCorte } from '../../../interface/i-Factor-Corte';
 import { IFactorCorteDetalle } from '../../../interface/i-Factor-Corte-Detalle';
 

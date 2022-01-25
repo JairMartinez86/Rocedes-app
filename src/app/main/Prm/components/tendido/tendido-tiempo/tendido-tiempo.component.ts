@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { TendidoService } from 'src/app/main/Prm/service/tendido.service';
 
 import { Workbook } from 'exceljs';
@@ -15,7 +15,7 @@ import * as fs from 'file-saver';
 import * as XLSX from 'xlsx'; 
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
-import { ImagenLogo } from 'src/app/main/Base64/logo';
+import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
 import { IFactorTendido } from '../../../interface/i-Factor-Tendido';
 
 

@@ -5,9 +5,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ICodigoGSD } from 'src/app/main/Prm/interface/i-Codigo-GSD';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Prm/service/operaciones.service';
 
 

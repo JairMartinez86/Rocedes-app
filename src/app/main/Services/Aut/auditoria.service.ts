@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Conexion } from '../../class/Cnx/conexion';
+import { Conexion } from '../../shared/class/Cnx/conexion';
 
 
 @Injectable({

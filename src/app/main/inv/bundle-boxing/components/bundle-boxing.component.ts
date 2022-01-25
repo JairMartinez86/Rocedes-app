@@ -10,16 +10,16 @@ import { ClsSacoEstado } from 'src/app/main/inv/bundle-boxing/class/cls-saco-est
 import { ClsSerialBoxing } from 'src/app/main/inv/bundle-boxing/class/Cls-Serial-Boxing';
 import { IMaterial } from 'src/app/main/inv/bundle-boxing/interface/i-Material';
 import { IPresentacionSerial } from 'src/app/main/inv/bundle-boxing/interface/i-Presentacion';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
 import {InventarioService} from 'src/app/main/Services/inv/inventario.service'; 
 import { LoginService } from 'src/app/main/sis/service/login.service';
 import { IBundleBoxing } from '../interface/i-bundle-boxing';
-import { IReporte } from '../../../class/Form/Reporte/i-Reporte';
-import { AlertService } from '../../../otro/alert/alert/alert.service';
-import { DialogoComponent } from '../../../otro/dialogo/dialogo.component';
-import { ReportViewerService } from '../../../otro/report-viewer/report-viewer.service';
-import { ToastService } from '../../../otro/toast/toast.service';
+import { IReporte } from '../../../shared/class/Form/Reporte/i-Reporte';
+import { AlertService } from '../../../shared/alert/alert/alert.service';
+import { DialogoComponent } from '../../../shared/dialogo/dialogo.component';
+import { ReportViewerService } from '../../../shared/report-viewer/report-viewer.service';
+import { ToastService } from '../../../shared/toast/toast.service';
 import { BundleBoxingService } from '../service/bundle-boxing.service';
 import { BundleBoxingSacoService } from '../service/bundle-boxing-saco.service';
 

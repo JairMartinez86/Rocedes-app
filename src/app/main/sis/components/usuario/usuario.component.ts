@@ -1,16 +1,15 @@
 import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { DialogoComponent } from '../../../otro/dialogo/dialogo.component';
-import { Validacion } from '../../../class/Validacion/validacion';
-
+import { DialogoComponent } from '../../../shared/dialogo/dialogo.component';
+import { Validacion } from '../../../shared/class/Validacion/validacion';
 import { LiveAnnouncer} from '@angular/cdk/a11y';
 import { MatSort, Sort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ClsUsuario } from '../../../class/Form/sis/cls-usuario';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { _Schedule } from '@angular/cdk/table';
+import { ClsUsuario } from '../../interface/cls-usuario';
 
 
 

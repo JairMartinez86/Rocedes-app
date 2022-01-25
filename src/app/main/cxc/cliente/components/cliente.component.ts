@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ICliente } from 'src/app/main/class/Form/CXC/i-Cliente';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { ClienteService } from 'src/app/main/Services/cxc/Cliente/cliente.service';
+import { ICliente } from 'src/app/main/shared/class/Form/CXC/i-Cliente';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
+import { ClienteService } from 'src/app/main/cxc/cliente/service/cliente.service';
 
 let ELEMENT_DATA_CLIENTE : ICliente[] = [];
 

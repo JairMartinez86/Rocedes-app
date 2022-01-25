@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Conexion } from 'src/app/main/class/Cnx/conexion';
-import { ICliente } from 'src/app/main/class/Form/CXC/i-Cliente';
+import { Conexion } from 'src/app/main/shared/class/Cnx/conexion';
+import { ICliente } from 'src/app/main/shared/class/Form/CXC/i-Cliente';
 
 @Injectable({
   providedIn: 'root'

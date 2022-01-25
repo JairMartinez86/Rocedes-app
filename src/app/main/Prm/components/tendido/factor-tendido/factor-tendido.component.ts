@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { TendidoService } from 'src/app/main/Prm/service/tendido.service';
 import { IFactorTendido } from '../../../interface/i-Factor-Tendido';
 

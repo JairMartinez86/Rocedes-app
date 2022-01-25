@@ -2,9 +2,9 @@ import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, V
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith } from 'rxjs';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { OpenCloseDirective } from 'src/app/main/Directive/open-close.directive';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { OpenCloseDirective } from 'src/app/main/shared/Directive/open-close.directive';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { FlujoCorteService } from 'src/app/main/Prm/service/flujo-corte.service';
 import { FactorCorteService } from 'src/app/main/Prm/service/factor-corte.service';
 import { FactorCorteTiempoComponent } from '../corte/factor-corte-tiempo/factor-corte-tiempo.component';
@@ -13,7 +13,7 @@ import { TendidoTiempoComponent } from '../tendido/tendido-tiempo/tendido-tiempo
 
 import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
-import { ImagenLogo } from 'src/app/main/Base64/logo';
+import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
 import { IFactorTendido } from '../../interface/i-Factor-Tendido';
 import { IFactorFoleo } from '../../interface/i-Factor-Foleo';
 import { IFactorCorteDetalle } from '../../interface/i-Factor-Corte-Detalle';

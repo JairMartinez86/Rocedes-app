@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IProducto } from 'src/app/main/class/Form/Inv/Interface/i-Producto';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { IProducto } from 'src/app/main/shared/class/Form/Inv/Interface/i-Producto';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { ProductoService } from 'src/app/main/Services/inv/Producto/producto.service';
 
 

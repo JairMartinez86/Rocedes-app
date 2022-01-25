@@ -8,13 +8,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ClsSacoEstado } from 'src/app/main/inv/bundle-boxing/class/cls-saco-estado';
 import { ISaco } from 'src/app/main/inv/bundle-boxing/interface/I-Saco';
 import { IBoginxSerial } from 'src/app/main/inv/bundle-boxing/interface/IBoxingSerial';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
-import { ToastService } from 'src/app/main/otro/toast/toast.service';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
+import { ToastService } from 'src/app/main/shared/toast/toast.service';
 import { BundleBoxingSacoService } from 'src/app/main/inv/bundle-boxing/service/bundle-boxing-saco.service';
 import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
-import { ReportViewerService } from 'src/app/main/otro/report-viewer/report-viewer.service';
+import { ReportViewerService } from 'src/app/main/shared/report-viewer/report-viewer.service';
 import { LoginService } from 'src/app/main/sis/service/login.service';
-import { IReporte } from 'src/app/main/class/Form/Reporte/i-Reporte';
+import { IReporte } from 'src/app/main/shared/class/Form/Reporte/i-Reporte';
 import { ISacoSerial } from 'src/app/main/inv/bundle-boxing/class/i-SacoSerial';
 
 

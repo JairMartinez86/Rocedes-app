@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Conexion } from '../../class/Cnx/conexion';
+import { Conexion } from '../class/Cnx/conexion';
 import { ReportViewerService } from './report-viewer.service';
 
 @Component({

@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { map, Observable, startWith } from 'rxjs';
-import { Validacion } from 'src/app/main/class/Validacion/validacion';
-import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
+import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { LoginService } from 'src/app/main/sis/service/login.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
-import { IUsuarioPerfil } from 'src/app/main/class/Form/sis/Interface/i-UsuarioPerfil';
+import { IUsuarioPerfil } from 'src/app/main/sis/interface/i-UsuarioPerfil';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface IUsuario {

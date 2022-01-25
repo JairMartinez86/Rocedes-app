@@ -55,7 +55,7 @@
 								(focusout)="txt_method_analisys_producto_onFocusOutEvent($event)" class="col-method-analisys-maquina"
 								(keydown)="cellChanged_Param($event, element.Index)">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelecProducto">
-									<mat-option *ngFor="let option of filteredOptionsProducto | async" [value]="option">
+									<mat-option *ngFor="let option of filteredOptionsProducto | async" (onSelectionChange)="txt_method_analisys_producto_onSelectionChange(option)" [value]="option">
 										{{option.Nombre}}
 									</mat-option>
 								</mat-autocomplete>
@@ -83,7 +83,7 @@
 								(focusout)="txt_method_analisys_Maquina_onFocusOutEvent($event)" class="col-method-analisys-maquina"
 								(keydown)="cellChanged_Param($event, element.Index)">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
-									<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="txt_method_analisys_Maquina_onSelectionChange(option)" [value]="option">
 										{{option.Name}}
 									</mat-option>
 								</mat-autocomplete>
@@ -102,7 +102,7 @@
 								(keydown)="cellChanged_Param($event, element.Index)"
 								class="col-method-analisys-maquina">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelecTela">
-									<mat-option *ngFor="let option of filteredOptionsTela | async" [value]="option">
+									<mat-option *ngFor="let option of filteredOptionsTela | async" (onSelectionChange)="txt_method_analisys_Tela_onSelectionChange(option)" [value]="option">
 										{{option.Nombre}}
 									</mat-option>
 								</mat-autocomplete>

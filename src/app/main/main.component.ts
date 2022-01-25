@@ -1,11 +1,10 @@
 import { Component, OnInit, HostListener, Input, ViewChild, ComponentFactoryResolver, ComponentRef, ViewContainerRef} from '@angular/core';
 
-import { Esquema, Formulario } from 'src/app/main/class/Esquema/esquema';
+import { Esquema, Formulario } from 'src/app/main/shared/class/Esquema/esquema';
 import {LoginService,} from './sis/service/login.service'; 
-import { IUsuarioPerfil } from './class/Form/sis/Interface/i-UsuarioPerfil';
-import { DialogoComponent } from './otro/dialogo/dialogo.component';
+import { IUsuarioPerfil } from './sis/interface/i-UsuarioPerfil';
+import { DialogoComponent } from './shared/dialogo/dialogo.component';
 import { MatDialog } from '@angular/material/dialog';
-import { OpenCloseDirective } from './Directive/open-close.directive';
 import { UsuarioComponent } from './sis/components/usuario/usuario.component';
 import { AccesoLinkComponent } from './sis/components/acceso-link/acceso-link.component';
 import { FactorTendidoComponent } from './Prm/components/tendido/factor-tendido/factor-tendido.component';
@@ -23,7 +22,6 @@ import { FlujoCorteComponent } from './Prm/components/flujo/flujo-corte.componen
 import { CodigoGsdComponent } from './Prm/components/operacion/datos-gsd/codigo-gsd.component';
 import { PartesComponent } from './Prm/components/operacion/partes/partes.component';
 import { TiposTelaComponent } from './Prm/components/tipos-tela/tipos-tela.component';
-import { ClienteComponent } from './cxc/Cliente/cliente/cliente.component';
 import { SewingComponent } from './Prm/components/operacion/sewing/sewing.component';
 import { SewingAccuracyComponent } from './Prm/components/operacion/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './inv/Producto/producto/producto.component';
@@ -31,6 +29,8 @@ import { FabricOunceComponent } from './Prm/components/operacion/fabric-ounce/fa
 import { DataMachineComponent } from './Prm/components/operacion/data-machine/data-machine.component';
 import { MethodAnalysisComponent } from './Prm/components/operacion/method-analysis/method-analysis.component';
 import { MatrizOperacionComponent } from './Prm/components/operacion/matriz-operacion/matriz-operacion.component';
+import { ClienteComponent } from './cxc/cliente/components/cliente.component';
+import { OpenCloseDirective } from './shared/Directive/open-close.directive';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 

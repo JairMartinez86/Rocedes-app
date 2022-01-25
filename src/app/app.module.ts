@@ -38,7 +38,7 @@ import { MainComponent } from './main/main.component';
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
   faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser, faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-  import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
+  import { DialogoComponent } from './main/shared/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
   import { BundleBoxingComponent } from './main/inv/bundle-boxing/components/bundle-boxing.component';
   import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -52,9 +52,9 @@ import { InventarioService } from './main/Services/inv/inventario.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 
 
-import { AutofocusDirective } from './main/Directive/autofocus.directive';
-import { AlertComponent } from './main/otro/alert/alert/alert.component';
-import { ToastComponent } from './main/otro/toast/toast.component';
+import { AutofocusDirective } from './main/shared/Directive/autofocus.directive';
+import { AlertComponent } from './main/shared/alert/alert/alert.component';
+import { ToastComponent } from './main/shared/toast/toast.component';
 import { NgbToastModule } from  'ngb-toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReportBundleBoxingComponent } from './main/inv/bundle-boxing/components/report-bundle-boxing/report-bundle-boxing.component';
@@ -62,7 +62,7 @@ import { ReportBundleBoxingTablaComponent } from './main/inv/bundle-boxing/compo
 import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxBarcodeModule } from 'ngx-barcode';
-import { ReportViewerComponent } from './main/otro/report-viewer/report-viewer.component';
+import { ReportViewerComponent } from './main/shared/report-viewer/report-viewer.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { BoldReportViewerModule } from '@boldreports/angular-reporting-components';
@@ -80,30 +80,30 @@ import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing/components
 import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing/components/bundle-boxing-saco/bundle-boxing-saco.component';
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
 import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing/components/bundle-boxing-envio/bundle-boxing-envio.component';
-import { DropdownDirective } from './main/Directive/dropdown.directive';
+import { DropdownDirective } from './main/shared/Directive/dropdown.directive';
 import { FactorTendidoComponent } from './main/Prm/components/tendido/factor-tendido/factor-tendido.component';
 import { TendidoTiempoComponent } from './main/Prm/components/tendido/tendido-tiempo/tendido-tiempo.component';
 import { AccesoLinkComponent } from './main/sis/components/acceso-link/acceso-link.component';
 import { FactorCorteComponent } from './main/Prm/components/corte/factor-corte/factor-corte.component';
-import { OpenCloseDirective } from './main/Directive/open-close.directive';
+import { OpenCloseDirective } from './main/shared/Directive/open-close.directive';
 import { FactorCorteTiempoComponent } from './main/Prm/components/corte/factor-corte-tiempo/factor-corte-tiempo.component';
 import { FactorFoleoComponent } from './main/Prm/components/foleo/factor-foleo/factor-foleo.component';
 import { FoleoDatosComponent } from './main/Prm/components/foleo/foleo-datos/foleo-datos.component';
 import { FoleoTiempoComponent } from './main/Prm/components/foleo/foleo-tiempo/foleo-tiempo.component';
 import { FlujoCorteComponent } from './main/Prm/components/flujo/flujo-corte.component';
 import { CodigoGsdComponent } from './main/Prm/components/operacion/datos-gsd/codigo-gsd.component';
-import { ConfirmarEliminarComponent } from './main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
+import { ConfirmarEliminarComponent } from './main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { PartesComponent } from './main/Prm/components/operacion/partes/partes.component';
 import { TiposTelaComponent } from './main/Prm/components/tipos-tela/tipos-tela.component';
-import { ClienteComponent } from './main/cxc/Cliente/cliente/cliente.component';
 import { SewingComponent } from './main/Prm/components/operacion/sewing/sewing.component';
 import { SewingAccuracyComponent } from './main/Prm/components/operacion/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './main/inv/Producto/producto/producto.component';
 import { FabricOunceComponent } from './main/Prm/components/operacion/fabric-ounce/fabric-ounce.component';
 import { DataMachineComponent } from './main/Prm/components/operacion/data-machine/data-machine.component';
 import { MethodAnalysisComponent } from './main/Prm/components/operacion/method-analysis/method-analysis.component';
-import { ConfirmarContinuarComponent } from './main/otro/dialogo/confirmar-continuar/confirmar-continuar.component';
+import { ConfirmarContinuarComponent } from './main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
 import { MatrizOperacionComponent } from './main/Prm/components/operacion/matriz-operacion/matriz-operacion.component';
+import { ClienteComponent } from './main/cxc/cliente/components/cliente.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
