@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Validacion } from '../main/class/Validacion/validacion';
 import { DialogoComponent } from '../main/otro/dialogo/dialogo.component';
-import {LoginService} from '../main/Services/Usuario/login.service'; 
+import {LoginService} from '../main/sis/service/login.service'; 
 
 
 

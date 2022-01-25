@@ -40,14 +40,14 @@ import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faC
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/otro/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-  import { BundleBoxingComponent } from './main/inv/bundle-boxing/bundle-boxing.component';
+  import { BundleBoxingComponent } from './main/inv/bundle-boxing/components/bundle-boxing.component';
   import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
-  import { UsuarioComponent } from './main/sis/usuario/usuario.component';
+  import { UsuarioComponent } from './main/sis/components/usuario/usuario.component';
   import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   
 
-import { LoginService } from './main/Services/Usuario/login.service';
+import { LoginService } from './main/sis/service/login.service';
 import { InventarioService } from './main/Services/inv/inventario.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 
@@ -57,8 +57,8 @@ import { AlertComponent } from './main/otro/alert/alert/alert.component';
 import { ToastComponent } from './main/otro/toast/toast.component';
 import { NgbToastModule } from  'ngb-toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReportBundleBoxingComponent } from './main/inv/bundle-boxing/reporte/report-bundle-boxing/report-bundle-boxing.component';
-import { ReportBundleBoxingTablaComponent } from './main/inv/bundle-boxing/reporte/report-bundle-boxing/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
+import { ReportBundleBoxingComponent } from './main/inv/bundle-boxing/components/report-bundle-boxing/report-bundle-boxing.component';
+import { ReportBundleBoxingTablaComponent } from './main/inv/bundle-boxing/components/report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 import { DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxBarcodeModule } from 'ngx-barcode';
@@ -76,34 +76,34 @@ import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej
 
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing-serial/bundle-boxing-serial/bundle-boxing-serial.component';
-import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing-saco/bundle-boxing-saco/bundle-boxing-saco.component';
+import { BundleBoxingSerialComponent } from './main/inv/bundle-boxing/components/bundle-boxing-serial/bundle-boxing-serial.component';
+import { BundleBoxingSacoComponent } from './main/inv/bundle-boxing/components/bundle-boxing-saco/bundle-boxing-saco.component';
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
-import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing-envio/bundle-boxing-envio/bundle-boxing-envio.component';
+import { BundleBoxingEnvioComponent } from './main/inv/bundle-boxing/components/bundle-boxing-envio/bundle-boxing-envio.component';
 import { DropdownDirective } from './main/Directive/dropdown.directive';
-import { FactorTendidoComponent } from './main/Prm/proceso-tendido/factor-tendido/factor-tendido.component';
-import { TendidoTiempoComponent } from './main/Prm/proceso-tendido/tendido-tiempo/tendido-tiempo.component';
-import { AccesoLinkComponent } from './main/sis/Acceso/acceso-link/acceso-link.component';
-import { FactorCorteComponent } from './main/Prm/proceso-corte/factor-corte/factor-corte.component';
+import { FactorTendidoComponent } from './main/Prm/components/tendido/factor-tendido/factor-tendido.component';
+import { TendidoTiempoComponent } from './main/Prm/components/tendido/tendido-tiempo/tendido-tiempo.component';
+import { AccesoLinkComponent } from './main/sis/components/acceso-link/acceso-link.component';
+import { FactorCorteComponent } from './main/Prm/components/corte/factor-corte/factor-corte.component';
 import { OpenCloseDirective } from './main/Directive/open-close.directive';
-import { FactorCorteTiempoComponent } from './main/Prm/proceso-corte/factor-corte-tiempo/factor-corte-tiempo.component';
-import { FactorFoleoComponent } from './main/Prm/proceso-foleo/factor-foleo/factor-foleo.component';
-import { FoleoDatosComponent } from './main/Prm/proceso-foleo/foleo-datos/foleo-datos.component';
-import { FoleoTiempoComponent } from './main/Prm/proceso-foleo/foleo-tiempo/foleo-tiempo.component';
-import { FlujoCorteComponent } from './main/Prm/flujo/flujo-corte/flujo-corte.component';
-import { CodigoGsdComponent } from './main/Prm/operaciones/datos-gsd/codigo-gsd.component';
+import { FactorCorteTiempoComponent } from './main/Prm/components/corte/factor-corte-tiempo/factor-corte-tiempo.component';
+import { FactorFoleoComponent } from './main/Prm/components/foleo/factor-foleo/factor-foleo.component';
+import { FoleoDatosComponent } from './main/Prm/components/foleo/foleo-datos/foleo-datos.component';
+import { FoleoTiempoComponent } from './main/Prm/components/foleo/foleo-tiempo/foleo-tiempo.component';
+import { FlujoCorteComponent } from './main/Prm/components/flujo/flujo-corte.component';
+import { CodigoGsdComponent } from './main/Prm/components/operacion/datos-gsd/codigo-gsd.component';
 import { ConfirmarEliminarComponent } from './main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
-import { PartesComponent } from './main/Prm/operaciones/partes/partes/partes.component';
-import { TiposTelaComponent } from './main/Prm/operaciones/telas/tipos-tela/tipos-tela.component';
+import { PartesComponent } from './main/Prm/components/operacion/partes/partes.component';
+import { TiposTelaComponent } from './main/Prm/components/tipos-tela/tipos-tela.component';
 import { ClienteComponent } from './main/cxc/Cliente/cliente/cliente.component';
-import { SewingComponent } from './main/Prm/operaciones/Sewing/sewing/sewing.component';
-import { SewingAccuracyComponent } from './main/Prm/operaciones/SewingAccuracy/sewing-accuracy/sewing-accuracy.component';
+import { SewingComponent } from './main/Prm/components/operacion/sewing/sewing.component';
+import { SewingAccuracyComponent } from './main/Prm/components/operacion/sewing-accuracy/sewing-accuracy.component';
 import { ProductoComponent } from './main/inv/Producto/producto/producto.component';
-import { FabricOunceComponent } from './main/Prm/operaciones/fabric-ounce/fabric-ounce/fabric-ounce.component';
-import { DataMachineComponent } from './main/Prm/operaciones/data-machine/data-machine/data-machine.component';
-import { MethodAnalysisComponent } from './main/Prm/operaciones/Method-Analysis/method-analysis/method-analysis.component';
+import { FabricOunceComponent } from './main/Prm/components/operacion/fabric-ounce/fabric-ounce.component';
+import { DataMachineComponent } from './main/Prm/components/operacion/data-machine/data-machine.component';
+import { MethodAnalysisComponent } from './main/Prm/components/operacion/method-analysis/method-analysis.component';
 import { ConfirmarContinuarComponent } from './main/otro/dialogo/confirmar-continuar/confirmar-continuar.component';
-import { MatrizOperacionComponent } from './main/Prm/operaciones/Method-Analysis/matriz-operacion/matriz-operacion.component';
+import { MatrizOperacionComponent } from './main/Prm/components/operacion/matriz-operacion/matriz-operacion.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
