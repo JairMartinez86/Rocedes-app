@@ -10,6 +10,7 @@ import { Validacion } from 'src/app/main/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/otro/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/otro/dialogo/dialogo.component';
 import { OperacionesService } from 'src/app/main/Services/Prm/Operaciones/operaciones.service';
+import { LoginService } from 'src/app/main/Services/Usuario/login.service';
 
 let ELEMENT_DATA_OPERATION_MATIX_DATA : IMethodAnalysis[] = [];
 
@@ -24,7 +25,6 @@ export class MatrizOperacionComponent implements OnInit {
   
   public Open : boolean = false;
   public Link : string = "";
-  private _RowDato !: IMethodAnalysis;
 
   displayedColumns: string[] = ["IdMethodAnalysis", "Codigo", "Sam", "Precio", "ProcesoManufact", "TipoProducto", "Familia", "Operacion",
    "UbicacionSecuencia", "Puntadas", "DataMachine", "Machine", "Stitch", "Rpm", "Tela", "Onza", "Needle", "Caliber", "FeedDog",
@@ -47,7 +47,7 @@ export class MatrizOperacionComponent implements OnInit {
   }
 
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService, public datePipe: DatePipe) { 
+  constructor(private _LoginService : LoginService, private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService, public datePipe: DatePipe) { 
     this.val.add("txt_Matriz_Data_Fecha_Inicio", "1", "LEN>=", "0");
     this.val.add("txt_Matriz_Data_Fecha_Final", "1", "LEN>=", "0");
   }
@@ -101,8 +101,7 @@ export class MatrizOperacionComponent implements OnInit {
         document?.getElementById("body")?.classList.remove("disabled");
         if(_dialog.componentInstance.Retorno == "1")
         {
-          this._RowDato = row;
-          this.Eliminar();
+          this.Eliminar(row.IdDataMachine);
         }
       });
     }
@@ -111,29 +110,28 @@ export class MatrizOperacionComponent implements OnInit {
   }
 
 
-  Eliminar() : void
+  Eliminar(IdDataMachine : number) : void
   {
-   /* this._RowDato.Evento = "Eliminar";
-    this._OperacionesService.GuardarDataMachine(this._RowDato).subscribe( s =>{
+    this._OperacionesService.EliminarMatrixOperacion(IdDataMachine, this._LoginService.str_user).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_MACHINE.findIndex(f =>  Number(f.IdDataMachine) == Number(_json["d"].IdDataMachine));
+        let index : number = ELEMENT_DATA_OPERATION_MATIX_DATA.findIndex(f =>  Number(f.IdDataMachine) == Number(_json["d"].IdDataMachine));
 
 
-        if(index >= 0) ELEMENT_DATA_MACHINE.splice(index, 1);
+        if(index >= 0) ELEMENT_DATA_OPERATION_MATIX_DATA.splice(index, 1);
       }
      
 
-      this.dataSource.data = ELEMENT_DATA_MACHINE;
+      this.dataSource.data = ELEMENT_DATA_OPERATION_MATIX_DATA;
       
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
       })
   
-    });*/
+    });
   }
 
 

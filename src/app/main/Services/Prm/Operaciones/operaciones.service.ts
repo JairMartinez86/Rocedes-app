@@ -173,7 +173,11 @@ export class OperacionesService {
 
  
     EliminarMethodAnalysis(IdDetMethodAnalysis : number, user : string): Observable<any> { 
-      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/EliminarMethodAnalysis" + "?IdMethodAnalysis=" + IdDetMethodAnalysis + "&user=" + user,  { 'content-type': 'application/text'});
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/EliminarMethodAnalysis" + "?IdDetMethodAnalysis=" + IdDetMethodAnalysis + "&user=" + user,  { 'content-type': 'application/text'});
+     }
+
+     EliminarMatrixOperacion(IdMethodAnalysis : number, user : string): Observable<any> { 
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/EliminarMatrixOperacion" + "?IdMethodAnalysis=" + IdMethodAnalysis + "&user=" + user,  { 'content-type': 'application/text'});
      }
    //#endregion METHOD ANALISIS
 
