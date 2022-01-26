@@ -5,7 +5,7 @@ import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
 import { BundleBoxingService } from 'src/app/main/inv/bundle-boxing/service/bundle-boxing.service';
-import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
+import { InventarioService } from 'src/app/main/inv/service/inventario.service';
 import { ReportBundleBoxingTablaComponent } from '../report-bundle-boxing-tabla/report-bundle-boxing-tabla.component';
 
 

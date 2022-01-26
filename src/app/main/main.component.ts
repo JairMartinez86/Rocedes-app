@@ -24,7 +24,7 @@ import { PartesComponent } from './Prm/components/operacion/partes/partes.compon
 import { TiposTelaComponent } from './Prm/components/tipos-tela/tipos-tela.component';
 import { SewingComponent } from './Prm/components/operacion/sewing/sewing.component';
 import { SewingAccuracyComponent } from './Prm/components/operacion/sewing-accuracy/sewing-accuracy.component';
-import { ProductoComponent } from './inv/Producto/producto/producto.component';
+import { ProductoComponent } from './inv/producto/producto.component';
 import { FabricOunceComponent } from './Prm/components/operacion/fabric-ounce/fabric-ounce.component';
 import { DataMachineComponent } from './Prm/components/operacion/data-machine/data-machine.component';
 import { MethodAnalysisComponent } from './Prm/components/operacion/method-analysis/method-analysis.component';

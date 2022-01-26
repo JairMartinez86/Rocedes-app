@@ -12,7 +12,7 @@ import { IMaterial } from 'src/app/main/inv/bundle-boxing/interface/i-Material';
 import { IPresentacionSerial } from 'src/app/main/inv/bundle-boxing/interface/i-Presentacion';
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
-import {InventarioService} from 'src/app/main/Services/inv/inventario.service'; 
+import {InventarioService} from 'src/app/main/inv/service/inventario.service'; 
 import { LoginService } from 'src/app/main/sis/service/login.service';
 import { IBundleBoxing } from '../interface/i-bundle-boxing';
 import { IReporte } from '../../../shared/class/Form/Reporte/i-Reporte';

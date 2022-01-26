@@ -14,7 +14,7 @@ import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 import { ImagenLogo } from 'src/app/main/shared/Base64/logo';
 import { IProducto } from 'src/app/main/shared/class/Form/Inv/Interface/i-Producto';
-import { ProductoService } from 'src/app/main/Services/inv/Producto/producto.service';
+import { ProductoService } from 'src/app/main/inv/service/producto.service';
 import { IDetMethodAnalysis } from '../../../interface/IDetMethod-Analysis';
 import { IMethodAnalysis } from '../../../interface/i-Method-Analysis';
 import { IDataMachine } from '../../../interface/i-data-machine';

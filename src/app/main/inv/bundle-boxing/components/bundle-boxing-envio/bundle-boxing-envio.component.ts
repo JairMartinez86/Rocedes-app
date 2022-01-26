@@ -12,7 +12,7 @@ import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component'
 import { ToastService } from 'src/app/main/shared/toast/toast.service';
 import { AuditoriaService } from 'src/app/main/Services/Aut/auditoria.service';
 import { BundleBoxingService } from 'src/app/main/inv/bundle-boxing/service/bundle-boxing.service';
-import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
+import { InventarioService } from 'src/app/main/inv/service/inventario.service';
 import { LoginService } from 'src/app/main/sis/service/login.service';
 
 

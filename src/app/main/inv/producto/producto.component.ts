@@ -8,7 +8,7 @@ import { IProducto } from 'src/app/main/shared/class/Form/Inv/Interface/i-Produc
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
-import { ProductoService } from 'src/app/main/Services/inv/Producto/producto.service';
+import { ProductoService } from 'src/app/main/inv/service/producto.service';
 
 
 let ELEMENT_DATA_PRODUCTO : IProducto[] = [];

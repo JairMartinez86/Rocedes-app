@@ -48,7 +48,7 @@ import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faC
   
 
 import { LoginService } from './main/sis/service/login.service';
-import { InventarioService } from './main/Services/inv/inventario.service';
+import { InventarioService } from './main/inv/service/inventario.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 
 
@@ -97,7 +97,7 @@ import { PartesComponent } from './main/Prm/components/operacion/partes/partes.c
 import { TiposTelaComponent } from './main/Prm/components/tipos-tela/tipos-tela.component';
 import { SewingComponent } from './main/Prm/components/operacion/sewing/sewing.component';
 import { SewingAccuracyComponent } from './main/Prm/components/operacion/sewing-accuracy/sewing-accuracy.component';
-import { ProductoComponent } from './main/inv/Producto/producto/producto.component';
+import { ProductoComponent } from './main/inv/producto/producto.component';
 import { FabricOunceComponent } from './main/Prm/components/operacion/fabric-ounce/fabric-ounce.component';
 import { DataMachineComponent } from './main/Prm/components/operacion/data-machine/data-machine.component';
 import { MethodAnalysisComponent } from './main/Prm/components/operacion/method-analysis/method-analysis.component';

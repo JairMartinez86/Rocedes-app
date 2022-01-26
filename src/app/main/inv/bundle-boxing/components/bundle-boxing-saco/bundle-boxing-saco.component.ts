@@ -11,7 +11,7 @@ import { IBoginxSerial } from 'src/app/main/inv/bundle-boxing/interface/IBoxingS
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { ToastService } from 'src/app/main/shared/toast/toast.service';
 import { BundleBoxingSacoService } from 'src/app/main/inv/bundle-boxing/service/bundle-boxing-saco.service';
-import { InventarioService } from 'src/app/main/Services/inv/inventario.service';
+import { InventarioService } from 'src/app/main/inv/service/inventario.service';
 import { ReportViewerService } from 'src/app/main/shared/report-viewer/report-viewer.service';
 import { LoginService } from 'src/app/main/sis/service/login.service';
 import { IReporte } from 'src/app/main/shared/class/Form/Reporte/i-Reporte';
