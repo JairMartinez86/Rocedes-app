@@ -182,7 +182,7 @@ export class MainComponent implements OnInit {
   AbrirForm(_Id : string)
   {
 
-    let component = null;
+    let component = null;           
 
     if(_Id == "") return;
 
