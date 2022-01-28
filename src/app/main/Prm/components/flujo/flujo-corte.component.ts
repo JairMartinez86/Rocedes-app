@@ -1092,7 +1092,7 @@ private AdjustColumnWidth_Hoja1(worksheet : Worksheet) {
     
   ngOnInit(): void {
     this.Limpiar();
-    this.Open = true;
+    this.Open = true; 
 
   }
 

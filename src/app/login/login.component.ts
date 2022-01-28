@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private loginserv : LoginService, public dialog: MatDialog) { 
+  constructor(private loginserv : LoginService, private dialog: MatDialog) { 
     this.loginserv.VerificarSession();
     this.str_user = this.loginserv.str_user;
     this.str_pass = this.loginserv.str_pass;
