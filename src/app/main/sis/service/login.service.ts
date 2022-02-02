@@ -356,8 +356,14 @@ export class LoginService {
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingSaco", NombreLink : "Lista Saco", Activo : false},
       {EsMenu: false, Esquema : "INV", NombreEsquema : "Inventario", Link: "LinkBundleBoxingSerial", NombreLink : "Lista Serial", Activo : false},
     
+
+
+      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planing", Link: "pln-planing-subir-archivos", NombreLink : "Subir Archivos", Activo : false},
+      {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planing", Link: "Link-Pln-datos-planing", NombreLink : "Datos Planing", Activo : false},
     
+      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planing", Link: "Link-Planing", NombreLink : "Planing", Activo : false},
     
+      
       ]
   }
 

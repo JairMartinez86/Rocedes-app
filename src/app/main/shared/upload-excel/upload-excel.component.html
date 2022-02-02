@@ -1,0 +1,24 @@
+
+
+<div class="formulario" >
+
+   
+    <div class="head-form">
+      <div class="from-encabezado-titulo"><p>SUBIR ARCHIVO</p></div>
+      <div class="from-encabezado-salir"><a  (click)="Cerrar()"><fa-icon [icon]="['fas', 'sign-out-alt']" class="fa-lg" style="color:white"></fa-icon></a></div>
+    </div>
+
+    <div id="div-subir-excel">
+        <div id="file-upload-excel">
+            <angular-file-uploader 
+            [config]="afuConfig"
+            (fileSelected)="fileSelected($event)"
+            (ApiResponse)="docUpload($event)">
+            </angular-file-uploader>
+        </div>
+    </div>
+    
+</div>
+
+
+

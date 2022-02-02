@@ -65,7 +65,7 @@ export class BundleBoxingEnvioComponent implements OnInit {
 
   
 
-  constructor(private LoginService : LoginService, private InventarioService : InventarioService, private AuditoriaService : AuditoriaService,
+  constructor(private LoginService : LoginService, private AuditoriaService : AuditoriaService,
     private dialog: MatDialog, public datepipe: DatePipe, private _liveAnnouncer: LiveAnnouncer, public toastService: ToastService,
     private BundleBoxingService : BundleBoxingService) { 
     this.Limpiar();

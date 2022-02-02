@@ -1,0 +1,33 @@
+#tabla-plaing{
+    max-height: 600px;
+}
+
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.mat-header-cell{
+    color: #1C394F;
+    font-weight: bold;
+}
+
+
+
+tr td{
+    flex: 0 0 25% !important;
+    min-width: 150px !important;
+    text-align: center;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-column-Field   {
+    flex: 0 0 25% !important;
+    min-width: 100px !important;
+}
+

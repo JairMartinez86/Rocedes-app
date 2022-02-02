@@ -31,6 +31,9 @@ import { MethodAnalysisComponent } from './Prm/components/operacion/method-analy
 import { MatrizOperacionComponent } from './Prm/components/operacion/matriz-operacion/matriz-operacion.component';
 import { ClienteComponent } from './cxc/cliente/components/cliente.component';
 import { OpenCloseDirective } from './shared/Directive/open-close.directive';
+import { PlaningComponent } from './Pln/components/planing/planing.component';
+import { UploadExcelComponent } from './shared/upload-excel/upload-excel.component';
+import { DatosPlaningComponent } from './Pln/components/subir-archivos/datos-planing/datos-planing.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -66,7 +69,7 @@ export class MainComponent implements OnInit {
       var element = <HTMLElement>event.target;
 
 
-      if(element.tagName  == "A" && element.getAttribute("href") == "#"){
+      if(element.tagName.toLocaleLowerCase()  == "a" && element.getAttribute("href") == "#"){
         this.AbrirForm(element.id);   
       }  
       
@@ -97,79 +100,80 @@ export class MainComponent implements OnInit {
   
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoFactor", "Spreading Factors", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoFactor", "Spreading Factors", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoCapaSencilla", "Single Ply", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoCapaSencilla", "Single Ply", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoCapaDoble", "Double Ply", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoCapaDoble", "Double Ply", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoTendidoCapaManual", "Manual Spreading", false));
-    this.lstEsquema.push(_Esquema);
-
-
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoCorteFactor", "Cutting Factors", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoCorteFactorTiempo", "Cutting Time", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoCapaManual", "Manual Spreading", false));
     this.lstEsquema.push(_Esquema);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoFoleoFactor", "Layer Marking Factors", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoCorteFactor", "Cutting Factors", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoFoleoCapaSencilla", "Single Ply", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoCorteFactorTiempo", "Cutting Time", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkProcesoFoleoCapaDoble", "Double Ply", false));
+
+
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoFoleoFactor", "Layer Marking Factors", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoFoleoCapaSencilla", "Single Ply", false));
+    this.lstEsquema.push(_Esquema);
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoFoleoCapaDoble", "Double Ply", false));
     this.lstEsquema.push(_Esquema);
     
 
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("LinkFlujoCorte", "Cutting Flow", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkFlujoCorte", "Cutting Flow", false));
     this.lstEsquema.push(_Esquema);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-cliente", "Customers", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-cliente", "Customers", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-producto", "Product Catalog", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-producto", "Product Catalog", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-tela", "Type of Fabic", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-tela", "Type of Fabic", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
-    this.lstEsquema.push(_Esquema);
-
-
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
     this.lstEsquema.push(_Esquema);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", true, new Formulario("Link-Operaciones-Matriz-Data", "Operation Matrix Data", false));
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
+    this.lstEsquema.push(_Esquema);
+
+
+    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-Matriz-Data", "Operation Matrix Data", false));
     this.lstEsquema.push(_Esquema);
 
     
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));
+    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkReportBundleBoxing", "Reporte Bundle Boxing", false));
+    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkReportBundleBoxing", "Reporte Bundle Boxing", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingSerial", "Seriales", false));
+    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkBundleBoxingSerial", "Seriales", false));
     this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkBundleBoxingEnvio", "Envio", false));
+    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkBundleBoxingEnvio", "Envio", false));
     this.lstEsquema.push(_Esquema);
 
 
- 
-    _Esquema = new Esquema("INV", "Inventario", true, new Formulario("LinkOtro", "Otro", false));
+    _Esquema = new Esquema("PLN", "Planing", false, new Formulario("Link-Pln-datos-planing", "Datos Planing", false));
     this.lstEsquema.push(_Esquema);
-  
+
+    _Esquema = new Esquema("PLN", "Planing", false, new Formulario("Link-Planing", "Planing", false));
+    this.lstEsquema.push(_Esquema);
     
 
-    this.Esquema = _Esquema;
+    this.Esquema = new Esquema("", "", false, new Formulario("", "", false));;
     this.Esquema._Esquema = "";
     this.Esquema._Activo = false;
     this.Esquema._Nombre = "";
@@ -356,9 +360,42 @@ export class MainComponent implements OnInit {
     }
     
     
-    
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if(this.Esquema._Esquema == "PLN")
+  {
+
+    if(_Id != "Link-Pln-datos-planing"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+    if(_Id != "Link-Planing"){
+      this.dinamycHost.viewContainerRef!.clear();
+    }
+
+
+  }
+  
   
 
   this.Esquema.ActivarForm(_Id);
@@ -734,14 +771,36 @@ export class MainComponent implements OnInit {
           break;
             
 
-
-          
-                
-                  
-          case "LinkOtro":
-
-          break;
         }
+        break;
+ 
+      case "PLN":
+        switch(_Id)
+        {
+
+          case "Link-Pln-datos-planing":
+  
+              
+            this.dialog.open(UploadExcelComponent);
+
+     
+
+            break;
+
+  
+            case "Link-Planing":
+  
+              
+              if(this.dinamycHost.viewContainerRef.length == 0)
+              {
+                component = this.componentFactoryResolver.resolveComponentFactory(PlaningComponent);
+                let Planing: ComponentRef<PlaningComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                Planing.instance.Link = _Id;
+                 Planing.instance.Open = true;
+              }
+  
+              break;
+          }
         break;
     }
 
@@ -769,6 +828,8 @@ export class MainComponent implements OnInit {
     if(m == "PRM" ) this.Esquema._Nombre = "Manufacturing Solution System"
 
     if(m == "INV" ) this.Esquema._Nombre = "Inventario"
+
+    if(m == "PLN" ) this.Esquema._Nombre = "Planing"
     
    
     this.dinamycHost.viewContainerRef!.clear();

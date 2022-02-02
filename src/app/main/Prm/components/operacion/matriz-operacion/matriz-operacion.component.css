@@ -1,6 +1,5 @@
 #tabla-operation-matrix-data{
     max-height: 600px;
-    /*overflow-x:scroll;overflow-y:scroll;width:200%*/
 }
 
 
@@ -29,16 +28,6 @@ tr td{
     min-width: 300px !important;
 }
 
-.mat-column-TipoProducto  {
-    flex: 0 0 25% !important;
-    min-width: 300px !important;
-}
-
-
-.mat-column-DataMachine  {
-    flex: 0 0 25% !important;
-    min-width: 300px !important;
-}
 
 
 

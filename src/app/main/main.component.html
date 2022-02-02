@@ -61,6 +61,13 @@
             </li>
 
             <li>
+              <a href="#" class="nav-link text-white" (click)="Modulo('PLN')" id="PLN">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#"/></svg>
+                Planing
+              </a>
+            </li>
+
+            <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
                 {{NomUsuario}}
@@ -197,6 +204,22 @@
             </ul>
           </li>
 
+
+            <!-----------------------------PLANING---------------------------------------------------------------------------------------------------------------->
+     
+ 
+            <li class="nav-item dropdown" id="pln-planing-subir-archivos" appDropdown #r9="appDropDown">
+              <a class="nav-link dropdown-toggle"   data-bs-toggle="dropdown" aria-expanded="false" *ngIf="Esquema._Esquema=='PLN'">Subir Archivos</a>
+              <ul class="dropdown-menu" aria-labelledby="" [ngClass]="{'show':r9.isOpen}">
+                <li><a id="Link-Pln-datos-planing" class="dropdown-item" href="#">Datos Planing</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item nav-item-light bg-light" *ngIf="Esquema._Esquema=='PLN'">
+              <a id="Link-Planing" class="nav-link" href="#" >Planig</a>
+            </li>
+    
+
          
 
           <!--<li class="nav-item">
@@ -230,4 +253,5 @@
 
 
 </main>
+
 </body>
