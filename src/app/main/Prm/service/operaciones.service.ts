@@ -168,7 +168,6 @@ export class OperacionesService {
    }
  
    GuardarMethodAnalysis(d : IMethodAnalysisData): Observable<any> { 
-     console.log(JSON.stringify(d));
     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarMethodAnalysis", JSON.stringify(d), { headers: {'content-type' : 'application/json'}});
    }
 

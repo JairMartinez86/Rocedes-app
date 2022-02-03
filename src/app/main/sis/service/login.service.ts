@@ -138,7 +138,7 @@ export class LoginService {
 
     this.isLoguin = false;
 
-
+    this.change.emit("CerrarTodo");
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
 
@@ -266,12 +266,6 @@ export class LoginService {
         this.bnIdle2.stopTimer();
         this.TimeOutSalir(this.Cnx.TimeClose);
       
-    
-      /*this.dialogRef.afterOpened().subscribe(() => {
-        this.isCancel = false;
-        this.bnIdle2.stopTimer();
-        this.TimeOutSalir(TimeClose);
-      });*/
     
       this.dialogRef.afterClosed().subscribe(() => {
         this.isCancel = true;

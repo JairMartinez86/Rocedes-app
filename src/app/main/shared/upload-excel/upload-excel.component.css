@@ -1,13 +1,72 @@
 
 ::ng-deep #div-subir-excel{
-    width: 300px;
-    display: flex;
+  width: 400px;
+  margin-bottom: 10px;
+  padding: 5px;
 }
+
+::ng-deep #div-subir-excel div{
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+  
+::ng-deep #div-subir-excel .btn{
+  margin-left: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  min-width: 80px;
+}
+
+::ng-deep .upload-file-select{
+  background-color: #1C394F;
+  border-color: #1C394F;
+  color: white;
+  font-weight: bold;
+}
+
+::ng-deep .upload-file-select:hover {
+  color: white;
+  box-shadow: 0 0 0 0.25rem rgb(28, 57, 79 , 0.5);
+}
+
+::ng-deep #div-subir-excel  > div:nth-child(3){
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep  #div-subir-excel ol{
+  list-style: none;
+ 
+}
+
+
+::ng-deep  #div-subir-excel ol div{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+::ng-deep  #div-subir-excel ol div li{
+  text-align: left;
+  overflow: hidden;
+}
+
+::ng-deep  #div-subir-excel ol div a{
+  margin-right: 5px;
+}
+
+
+
+
+
+
+
+/*
 
 ::ng-deep #file-upload-excel{
     width: 100%;
   }
-  
 
   ::ng-deep .afu-select-btn {
     margin-top: 10px;
@@ -65,7 +124,7 @@
     float: right;
     bottom: 0;
   }
-
+*/
   /*
   .afu-select-btn {}
   .afu-reset-btn {}

@@ -4,7 +4,7 @@ import { Esquema, Formulario } from 'src/app/main/shared/class/Esquema/esquema';
 import {LoginService,} from './sis/service/login.service'; 
 import { IUsuarioPerfil } from './sis/interface/i-UsuarioPerfil';
 import { DialogoComponent } from './shared/dialogo/dialogo.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UsuarioComponent } from './sis/components/usuario/usuario.component';
 import { AccesoLinkComponent } from './sis/components/acceso-link/acceso-link.component';
 import { FactorTendidoComponent } from './Prm/components/tendido/factor-tendido/factor-tendido.component';
@@ -33,7 +33,6 @@ import { ClienteComponent } from './cxc/cliente/components/cliente.component';
 import { OpenCloseDirective } from './shared/Directive/open-close.directive';
 import { PlaningComponent } from './Pln/components/planing/planing.component';
 import { UploadExcelComponent } from './shared/upload-excel/upload-excel.component';
-import { DatosPlaningComponent } from './Pln/components/subir-archivos/datos-planing/datos-planing.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -55,6 +54,7 @@ export class MainComponent implements OnInit {
   searchDrop = false;
  
   private Index : number = 0;
+  private dialogOpen : string = "";
 
 
 
@@ -68,9 +68,9 @@ export class MainComponent implements OnInit {
     if (!this.href || this.href == '#' || (this.href && this.href.length === 0)) {
       var element = <HTMLElement>event.target;
 
-
-      if(element.tagName.toLocaleLowerCase()  == "a" && element.getAttribute("href") == "#"){
+      if(element.tagName  == "A" && element.getAttribute("href") == "#"){
         this.AbrirForm(element.id);   
+        
       }  
       
 
@@ -186,7 +186,8 @@ export class MainComponent implements OnInit {
   AbrirForm(_Id : string)
   {
 
-    let component = null;           
+    let component = null;    
+    let index = 0;       
 
     if(_Id == "") return;
 
@@ -359,6 +360,8 @@ export class MainComponent implements OnInit {
       this.dinamycHost.viewContainerRef!.clear();
     }
     
+   
+
     
 
   }
@@ -385,8 +388,10 @@ export class MainComponent implements OnInit {
   if(this.Esquema._Esquema == "PLN")
   {
 
+    
     if(_Id != "Link-Pln-datos-planing"){
-      this.dinamycHost.viewContainerRef!.clear();
+      this.dialogOpen = ""
+      this.dialog.closeAll();
     }
 
     if(_Id != "Link-Planing"){
@@ -780,10 +785,22 @@ export class MainComponent implements OnInit {
 
           case "Link-Pln-datos-planing":
   
-              
-            this.dialog.open(UploadExcelComponent);
+            index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
 
-     
+            if(this.dialogOpen == "" || index == -1)
+            {
+             
+              if(index != -1) this.dialog.openDialogs.splice(index, 1);
+
+              this.dialog.open(UploadExcelComponent, {
+                data: _Id,
+                id : _Id
+              });
+
+              this.dialogOpen  = _Id;
+            } 
+
+            
 
             break;
 
@@ -950,6 +967,9 @@ export class MainComponent implements OnInit {
     if(this.loginserv.isLoguin) this.loginserv.TimeOut();
 
     this.loginserv.change.subscribe(s => {
+
+      if(s == "CerrarTodo") this.dialog.closeAll();
+      
 
       this.NomUsuario = this.loginserv.Nombre;
 

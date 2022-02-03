@@ -36,7 +36,7 @@ import { MainComponent } from './main/main.component';
 
 
 import {  faBroom,  faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser, faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
+  faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser, faPlus, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
   import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
   import { DialogoComponent } from './main/shared/dialogo/dialogo.component';
   import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
@@ -108,7 +108,6 @@ import { PlaningComponent } from './main/Pln/components/planing/planing.componen
 import { UploadExcelComponent } from './main/shared/upload-excel/upload-excel.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { FilePickerModule } from  'ngx-awesome-uploader';
-import { DatosPlaningComponent } from './main/Pln/components/subir-archivos/datos-planing/datos-planing.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -167,7 +166,6 @@ export const CUSTOM_MOMENT_FORMATS  = {
     MatrizOperacionComponent,
     PlaningComponent,
     UploadExcelComponent,
-    DatosPlaningComponent
 
     
     
@@ -266,7 +264,7 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add multiple icons to the library
     library.addIcons(faBroom, faSave, faBarcode, faTrashAlt, faUserEdit, faDoorClosed, faCheck, faUserCheck, faTrashRestore, faSignOutAlt,
-      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser, faPlus, faEdit);
+      faSearch, faCircle, faMinusSquare, faFileExcel, faPrint, faSuitcase, faUnlock, faEraser, faPlus, faEdit, faTimes);
   }
 }
 
