@@ -5,7 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 import { IPlaning } from '../../interface/i-planing';
+import { PlaningService } from '../../service/planing.service';
 
 let ELEMENT_DATA_PLALING : IPlaning[] = [];
 @Component({
@@ -42,10 +44,9 @@ clickedRows = new Set<IPlaning>();
 
 
   
-  constructor( private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, public datePipe: DatePipe) { }
+  constructor( private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, public datePipe: DatePipe,
+    private _PlaningService : PlaningService) { }
 
-  ngOnInit(): void {
-  }
 
 
   
@@ -89,5 +90,48 @@ clickedRows = new Set<IPlaning>();
 
     //#endregion EVENTOS TABLA
 
+    LlenarTabla() : void
+    {
+      ELEMENT_DATA_PLALING.splice(0, ELEMENT_DATA_PLALING.length);
+      this.dataSource.data.splice(0, this.dataSource.data.length);
+  
+  
+  
+      this._PlaningService.Get().subscribe( s =>{
+  
+        let _json = JSON.parse(s);
+  
+    
+        if(_json["esError"] == 0)
+        {
+          if(_json["count"] > 0)
+          {
+  
+            _json["d"].forEach((j : IPlaning) => {
+              ELEMENT_DATA_PLALING.push(j);
+            });
+          }
+        }
+        else
+        {
+          this.dialog.open(DialogoComponent, {
+            data : _json["msj"]
+          })
+        }
+    
+        this.dataSource = new MatTableDataSource(ELEMENT_DATA_PLALING);
+  
+  
+      
+      });
+    }
+
+    
+    ngOnInit(): void {
+
+      this.LlenarTabla();
+    }
+  
+  
 
 }

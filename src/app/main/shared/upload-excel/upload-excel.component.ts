@@ -5,7 +5,6 @@ import * as XLSX from 'xlsx';
 import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 
-import { IUploadExcelPlaningFormat } from '../../Pln/interface/i-upload-excel-planing';
 import { f_General } from '../class/funciones/f_General';
 import { PlaningService } from '../../Pln/service/planing.service';
 import { DialogoComponent } from '../dialogo/dialogo.component';
@@ -124,6 +123,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
     
         datos.datos = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+        datos.datos.splice(0, 1);
    
 
         switch (this.Link) {
@@ -193,13 +193,23 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
     let worksheet = workbook.addWorksheet("FORMATO");
 
 
-    funciones.Merge("A1", "Rocedes Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-    funciones.Merge("B1", "Cliente", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-    funciones.Merge("C1", "Linea", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-    funciones.Merge("D1", "Cut", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-    funciones.Merge("E1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-    funciones.Merge("F1", "Quant", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+    switch (this.Link) {
+          
+      case "Link-Pln-datos-planing":
+        
+        funciones.Merge("A1", "Rocedes Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("B1", "Cliente", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("C1", "Linea", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("D1", "Cut", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("E1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("F1", "Quant", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
 
+        break;
+    
+      default:
+        break;
+    }
+    
    
 
     let fname="formato";  

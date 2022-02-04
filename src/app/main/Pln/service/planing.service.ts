@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Conexion } from '../../shared/class/Cnx/conexion';
 
+export interface IUpload {
+  link : string;
+  datos : any[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,10 +19,10 @@ export class PlaningService {
 
   Get() : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Inventario/SerialComponente/Get");
+    return this.http.get<any>(this.Cnx.Url() + "Pln/Planing/Get");
   }
 
-  SubirArchivo(d : any): Observable<any> {
+  SubirArchivo(d : IUpload): Observable<any> {
     return this.http.post<any>(this.Cnx.Url() + "Pln/Planing/SubirArchivo", JSON.stringify(d), { headers: {'content-type' : 'application/json'}});
   }
 }

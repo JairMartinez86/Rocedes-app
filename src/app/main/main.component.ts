@@ -202,205 +202,175 @@ export class MainComponent implements OnInit {
   document.getElementById(_Id)?.classList.remove("active");
 
 
-  if(this.Esquema._Esquema == "SIS")
-  {
-    if(_Id != "LinkUsuario"){
+  //-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
 
-      if(this.Esquema._Nombre != "LinkUsuario")
-      {
-        this.dinamycHost.viewContainerRef!.clear();
-      }
-      
+  if(_Id != "LinkUsuario"){
 
-    }
-
-    if(_Id != "LinkRegistrosUsuario"){
-      
-      if(this.Esquema._Nombre != "LinkRegistrosUsuario")
-      {
-        this.dinamycHost.viewContainerRef!.clear();
-      }
-      
-    }
-
-
-
-    if(_Id != "LinkUsuarioPerfil"){
+    if(this.Esquema._Nombre != "LinkUsuario")
+    {
       this.dinamycHost.viewContainerRef!.clear();
-
     }
-
+  
   }
 
-
-  if(this.Esquema._Esquema == "INV")
-  {
-    if(_Id != "LinkBundleBoxing" && _Id != "LinkBundleBoxingComplemento"){
+  
+  if(_Id != "LinkRegistrosUsuario"){
+    
+    if(this.Esquema._Nombre != "LinkRegistrosUsuario")
+    {
       this.dinamycHost.viewContainerRef!.clear();
     }
     
-
-    
-    if(_Id != "LinkReportBundleBoxing"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkBundleBoxingSaco"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkBundleBoxingSerial"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkBundleBoxingEnvio"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-  }
-
-
-  if(this.Esquema._Esquema == "PRM")
-  {
-
-
-
-    if(_Id != "LinkProcesoTendidoFactor"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkProcesoTendidoCapaSencilla"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkProcesoTendidoCapaDoble"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-
-    
-    if(_Id != "LinkProcesoCorteFactor"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkProcesoCorteFactorTiempo"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-
-
-
-    if(_Id != "LinkProcesoFoleoFactor"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkProcesoFoleoCapaSencilla"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "LinkProcesoFoleoCapaDoble"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-
-
-
-    if(_Id != "LinkFlujoCorte"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-    if(_Id != "Link-Operaciones-cliente"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-codigo-gsd"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-tela"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-partes"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-sewing"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-    if(_Id != "Link-Operaciones-sewing-accuracy"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-    if(_Id != "Link-Operaciones-producto"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-ounce"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
-    if(_Id != "Link-Operaciones-data-machine"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-Development-Methos-Analisys"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-    if(_Id != "Link-Operaciones-Matriz-Data"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-    
-   
-
-    
-
   }
 
 
 
+  if(_Id != "LinkUsuarioPerfil"){
+    this.dinamycHost.viewContainerRef!.clear();
+
+  }
 
 
+  //-----------------------------INVENTARIO---------------------------------------------------------------------------------------------------------------->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  if(this.Esquema._Esquema == "PLN")
-  {
-
-    
-    if(_Id != "Link-Pln-datos-planing"){
-      this.dialogOpen = ""
-      this.dialog.closeAll();
-    }
-
-    if(_Id != "Link-Planing"){
-      this.dinamycHost.viewContainerRef!.clear();
-    }
-
-
+  if(_Id != "LinkBundleBoxing" && _Id != "LinkBundleBoxingComplemento"){
+    this.dinamycHost.viewContainerRef!.clear();
   }
   
+
+  
+  if(_Id != "LinkReportBundleBoxing"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkBundleBoxingSaco"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkBundleBoxingSerial"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkBundleBoxingEnvio"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+
+  //-----------------------------PREMIUM------------------------------------------------------------------------------------------------------------------->
+
+  
+  if(_Id != "LinkProcesoTendidoFactor"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkProcesoTendidoCapaSencilla"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkProcesoTendidoCapaDoble"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+
+  
+  if(_Id != "LinkProcesoCorteFactor"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkProcesoCorteFactorTiempo"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+
+
+
+  if(_Id != "LinkProcesoFoleoFactor"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkProcesoFoleoCapaSencilla"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "LinkProcesoFoleoCapaDoble"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+
+
+
+  if(_Id != "LinkFlujoCorte"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+  if(_Id != "Link-Operaciones-cliente"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-codigo-gsd"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-tela"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-partes"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-sewing"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+  if(_Id != "Link-Operaciones-sewing-accuracy"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+  if(_Id != "Link-Operaciones-producto"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-ounce"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+
+  if(_Id != "Link-Operaciones-data-machine"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-Development-Methos-Analisys"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+
+  if(_Id != "Link-Operaciones-Matriz-Data"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
+  
+ 
+
+
+
+  //-----------------------------PLANING------------------------------------------------------------------------------------------------------------------->
+  
+
+  if(_Id != "Link-Pln-datos-planing"){
+    this.dialogOpen = ""
+    this.dialog.closeAll();
+  }
+
+  if(_Id != "Link-Planing"){
+    this.dinamycHost.viewContainerRef!.clear();
+  }
   
 
   this.Esquema.ActivarForm(_Id);
