@@ -139,17 +139,11 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
         this._PlaningService.SubirArchivo(datos).subscribe(s => {
           let _json = JSON.parse(s);
 
-          if(_json["esError"] == 0)
-          {
-            
-    
-          }
-          else
-          {
-            this.dialog.open(DialogoComponent, {
-              data : _json["msj"]
-            })
-          }
+          if(_json["esError"] == 0) this.Limpiar();
+         
+          this.dialog.open(DialogoComponent, {
+            data : _json["msj"]
+          })
 
         });
     
