@@ -1220,6 +1220,9 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
         this._RowMaquina = {} as IDataMachine;
         this._RowTela = {} as ITela;
+        this._RowProducto = {} as IProducto;
+
+   
   
         this.str_Codigo = Datos.Codigo;
         this.IdMethodAnalysis = Datos.IdMethodAnalysis;
@@ -1232,7 +1235,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
         this._RowMaquina.Fatigue = Datos.Fatigue;
         this._RowTela.IdTela = Datos.IdTela;
         this._RowTela.Nombre = Datos.Tela;
-        this._RowProducto = Datos.IdProducto;
+        this._RowProducto.Nombre = Datos.TipoProducto;
+        this._RowProducto.IdProducto = Datos.IdProducto;
 
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor = Datos.Usuario;
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor = Datos.ProcesoManufact;
@@ -1257,7 +1261,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
         this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(Datos.Usuario);
         this.val.ValForm.get("txt_method_analisys_manufactura")?.setValue(Datos.ProcesoManufact);
-        this.val.ValForm.get("txt_method_analisys_Producto")?.setValue(this._RowProducto);
+        this.val.ValForm.get("txt_method_analisys_producto")?.setValue(this._RowProducto);
         this.val.ValForm.get("txt_method_analisys_parametro4")?.setValue(Datos.Operacion);
         this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue(this._RowMaquina);
         this.val.ValForm.get("txt_method_analisys_parametro6")?.setValue(Datos.Puntadas);
