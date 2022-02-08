@@ -92,6 +92,10 @@ export class MainComponent implements OnInit {
   
     let _Esquema : Esquema;
 
+    _Esquema = new Esquema("HOM", "INICIO", false, new Formulario("", "", false));
+    this.lstEsquema.push(_Esquema);
+
+
     _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuario", "Usuario", false));
     this.lstEsquema.push(_Esquema);
 
@@ -808,6 +812,8 @@ export class MainComponent implements OnInit {
   {
 
     this.Esquema =  <Esquema>this.lstEsquema.find(x => x._Esquema == m);
+
+    if(m == "HOM" ) this.Esquema._Nombre = "Inicio"
 
     if(m == "SIS" ) this.Esquema._Nombre = "Configuración"
 

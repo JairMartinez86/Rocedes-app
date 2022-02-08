@@ -149,7 +149,7 @@ export class OperacionesService {
 
 
 
-   //#region METHOD ANALISIS
+   //#region METHOD ANALISIS                                            
   
 
    GetMethodAnalysis(FechaInicio : string, FechaFinal : string) : Observable<any>

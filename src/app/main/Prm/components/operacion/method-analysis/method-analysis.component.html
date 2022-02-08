@@ -38,6 +38,16 @@
 
 						<td mat-cell *matCellDef="let element; let i = index">
 
+
+							
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 1">
+								<input matInput formControlName="{{'txt_method_analisys_parametro1'}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
+								(input)="txt_method_analisys_onSearchChange($event)"
+								(keydown)="cellChanged_Param($event, element.Index)"
+								[disabled]="true">
+							</mat-form-field>
+
+
 							<mat-form-field floatLabel="never" *ngIf="element.Index == 2">
 							<mat-select formControlName="txt_method_analisys_manufactura"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
 								(keydown)="cellChanged_Param($event, element.Index)"
@@ -68,15 +78,24 @@
 							</mat-form-field>
 
 
+							<mat-form-field floatLabel="never" *ngIf="element.Index == 4">
+								<input matInput formControlName="{{'txt_method_analisys_parametro4'}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
+								(input)="txt_method_analisys_onSearchChange($event)"
+								(keydown)="cellChanged_Param($event, element.Index)"
+								>
+							</mat-form-field>
 
-							<mat-form-field floatLabel="never" *ngIf="element.Index != 2 && element.Index != 3 && element.Index != 5 && element.Index != 10">
+
+							<!--<mat-form-field floatLabel="never" *ngIf="element.Index != 2 && element.Index != 3 && element.Index != 5 && element.Index != 10">
 								<input matInput formControlName="{{'txt_method_analisys_parametro' + element.Index}}"   [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
 								(input)="txt_method_analisys_onSearchChange($event)"
 								(keydown)="cellChanged_Param($event, element.Index)"
 								[disabled]="element.Index == 1">
-							</mat-form-field>
+							</mat-form-field>-->
 
 
+
+	
 
 							<mat-form-field floatLabel="never" class="col-method-analisys-maquina" *ngIf="element.Index == 5">
 								<input matInput type="text" id="txt_method_analisys_Maquina" formControlName="txt_method_analisys_Maquina" [matAutocomplete]="auto" (input)="txt_method_analisys_Maquina_onSearchChange($event)" 
@@ -87,6 +106,15 @@
 										{{option.Name}}
 									</mat-option>
 								</mat-autocomplete>
+
+
+								<mat-form-field floatLabel="never" *ngIf="element.Index >= 6 && element.Index != 10">
+									<input matInput formControlName="{{'txt_method_analisys_parametro' + element.Index}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
+									(input)="txt_method_analisys_onSearchChange($event)"
+									(keydown)="cellChanged_Param($event, element.Index)"
+									>
+								</mat-form-field>
+
 
 								<mat-icon matSuffix>
 									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>

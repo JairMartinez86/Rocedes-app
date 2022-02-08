@@ -12,7 +12,7 @@ export class Conexion {
     }
 
 
-   /* private IP : string = "192.168.14.8";
+    /*private IP : string = "192.168.14.8";
     private PORT : String =  "23501";
 
     public TimeVerif: number = 600;
