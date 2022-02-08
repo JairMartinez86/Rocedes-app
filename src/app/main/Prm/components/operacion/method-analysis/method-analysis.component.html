@@ -107,20 +107,19 @@
 									</mat-option>
 								</mat-autocomplete>
 
-
-								<mat-form-field floatLabel="never" *ngIf="element.Index >= 6 && element.Index != 10">
-									<input matInput formControlName="{{'txt_method_analisys_parametro' + element.Index}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
-									(input)="txt_method_analisys_onSearchChange($event)"
-									(keydown)="cellChanged_Param($event, element.Index)"
-									>
-								</mat-form-field>
-
-
 								<mat-icon matSuffix>
 									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_Maquina')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
+							</mat-form-field>
+
+
+							<mat-form-field floatLabel="never" *ngIf="element.Index >= 6 && element.Index != 10">
+								<input matInput formControlName="{{'txt_method_analisys_parametro' + element.Index}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
+								(input)="txt_method_analisys_onSearchChange($event)"
+								(keydown)="cellChanged_Param($event, element.Index)"
+								>
 							</mat-form-field>
 
 							
