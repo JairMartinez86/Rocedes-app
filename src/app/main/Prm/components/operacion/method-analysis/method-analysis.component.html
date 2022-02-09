@@ -1,6 +1,6 @@
 
 
-<div *ngIf="Open">
+<div >
 	<div class="container">
 		<div class="col-12">
 			<div class="button-row text-center">
@@ -41,10 +41,7 @@
 
 							
 							<mat-form-field floatLabel="never" *ngIf="element.Index == 1">
-								<input matInput formControlName="{{'txt_method_analisys_parametro1'}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}"
-								(input)="txt_method_analisys_onSearchChange($event)"
-								(keydown)="cellChanged_Param($event, element.Index)"
-								[disabled]="true">
+								<input matInput formControlName="{{'txt_method_analisys_parametro1'}}"  [value]="element.Valor" [(ngModel)]="element.Valor" [ngStyle]="{'color':element.Index == 1 ? 'blue' : 'black'}">
 							</mat-form-field>
 
 

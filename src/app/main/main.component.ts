@@ -751,7 +751,7 @@ export class MainComponent implements OnInit {
 
 
           case "Link-Operaciones-Development-Methos-Analisys":
-            if(this.Esquema._Id != "Link-Operaciones-Development-Methos-Analisys")
+            if(this.Esquema._Id != _Id)
             {
 
               this.dinamycHost.viewContainerRef!.clear();

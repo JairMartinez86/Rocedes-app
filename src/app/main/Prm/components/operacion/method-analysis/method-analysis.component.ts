@@ -66,6 +66,7 @@ export class MethodAnalysisComponent implements OnInit {
   clickedRows = new Set<IDetMethodAnalysis>();
 
   constructor(private _LoginService : LoginService, public _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
+   
     this.val.add("txt_method_analisys_parametro1", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_manufactura", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_producto", "1", "LEN>", "0");
@@ -86,6 +87,7 @@ export class MethodAnalysisComponent implements OnInit {
     this.val.add("txt_method_analisys_parametro18", "1", "LEN>=", "0");
     this.val.add("txt_method_analisys_parametro19", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_parametro20", "1", "LEN>", "0");
+    this.Limpiar();
    }
 
    
@@ -98,44 +100,11 @@ export class MethodAnalysisComponent implements OnInit {
     if(this.Cargando) return;
     this.str_Codigo = "";
     this.IdMethodAnalysis = -1;
-    this.val.ValForm.reset();
-    this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
     document.getElementById("from-method-analisys")?.classList.add("disabled");
-    
-
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS = [
-      {Index : 1, Requerido : "*", Parametro : "ANALISTA", Valor : this._LoginService.str_user},
-      {Index : 2, Requerido : "*", Parametro : "PROCESO DE MANUFACTURA", Valor : ""},
-      {Index : 3, Requerido : "*", Parametro : "TIPO DE PRODUCTO", Valor : ""},
-      {Index : 4, Requerido : "*", Parametro : "NOMBRE DE LA OPERACION", Valor : ""},
-      {Index : 5, Requerido : "*", Parametro : "TIPO DE MAQUINA", Valor : ""},
-      {Index : 6, Requerido : "*", Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
-      {Index : 7, Requerido : "", Parametro : "MANEJO DE PAQUETE", Valor : ""},
-      {Index : 8, Requerido : "*", Parametro : "RATE C$", Valor : 0},
-      {Index : 9, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : 0},
-      {Index : 10, Requerido : "*", Parametro : "TIPO DE TELA", Valor : ""},
-      {Index : 11, Requerido : "*", Parametro : "ONZAJE DE TELA", Valor : 0},
-      {Index : 12, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : ""},
-      {Index : 13, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : ""},
-      {Index : 14, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : ""},
-      {Index : 15, Requerido : "", Parametro : "MATERIA PRIMA 4", Valor : ""},
-      {Index : 16, Requerido : "", Parametro : "MATERIA PRIMA 5", Valor : ""},
-      {Index : 17, Requerido : "", Parametro : "MATERIA PRIMA 6", Valor : ""},
-      {Index : 18, Requerido : "", Parametro : "MATERIA PRIMA 7", Valor : ""},
-      {Index : 19, Requerido : "*", Parametro : "FAMILIA", Valor : ""},
-      {Index : 20, Requerido : "*", Parametro : "TIPO DE CONSTRUCCION", Valor : ""}
-    ];
-
-    this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
-
     this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
-
-    let cloned = this.dataSource_method_analisys.data.slice()
-    this.dataSource_method_analisys.data = cloned;
-
-    this.dataSource_method_analisys.paginator?.lastPage();
-
-    
+    this.dataSource_parametros_method_analisys.data.splice(0, this.dataSource_parametros_method_analisys.data.length);
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.splice(0, ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.length);
+    this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
    }
  
 
@@ -817,7 +786,44 @@ txt_method_analisys_onSearchChange(event : any) :void{
   {
 
     this.Editar = true;
+
+    this.val.ValForm.reset();
+    this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(this._LoginService.str_user);
     document.getElementById("from-method-analisys")?.classList.remove("disabled");
+    
+    
+
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS = [
+      {Index : 1, Requerido : "*", Parametro : "ANALISTA", Valor : this._LoginService.str_user},
+      {Index : 2, Requerido : "*", Parametro : "PROCESO DE MANUFACTURA", Valor : ""},
+      {Index : 3, Requerido : "*", Parametro : "TIPO DE PRODUCTO", Valor : ""},
+      {Index : 4, Requerido : "*", Parametro : "NOMBRE DE LA OPERACION", Valor : ""},
+      {Index : 5, Requerido : "*", Parametro : "TIPO DE MAQUINA", Valor : ""},
+      {Index : 6, Requerido : "*", Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
+      {Index : 7, Requerido : "", Parametro : "MANEJO DE PAQUETE", Valor : ""},
+      {Index : 8, Requerido : "*", Parametro : "RATE C$", Valor : 0},
+      {Index : 9, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : 0},
+      {Index : 10, Requerido : "*", Parametro : "TIPO DE TELA", Valor : ""},
+      {Index : 11, Requerido : "*", Parametro : "ONZAJE DE TELA", Valor : 0},
+      {Index : 12, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : ""},
+      {Index : 13, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : ""},
+      {Index : 14, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : ""},
+      {Index : 15, Requerido : "", Parametro : "MATERIA PRIMA 4", Valor : ""},
+      {Index : 16, Requerido : "", Parametro : "MATERIA PRIMA 5", Valor : ""},
+      {Index : 17, Requerido : "", Parametro : "MATERIA PRIMA 6", Valor : ""},
+      {Index : 18, Requerido : "", Parametro : "MATERIA PRIMA 7", Valor : ""},
+      {Index : 19, Requerido : "*", Parametro : "FAMILIA", Valor : ""},
+      {Index : 20, Requerido : "*", Parametro : "TIPO DE CONSTRUCCION", Valor : ""}
+    ];
+
+    this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
+
+    this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
+
+    let cloned = this.dataSource_method_analisys.data.slice()
+    this.dataSource_method_analisys.data = cloned;
+
+    this.dataSource_method_analisys.paginator?.lastPage();
     
   }
 
@@ -1216,10 +1222,12 @@ txt_method_analisys_onSearchChange(event : any) :void{
   {
 
     this.Limpiar();
+
     this._OperacionesService.change.subscribe(s => {
 
       if(s[0] == "Open")
       {
+        this.Nuevo();
         this.Cargando = true;
         this.Limpiar();
         this.Editar = true;
