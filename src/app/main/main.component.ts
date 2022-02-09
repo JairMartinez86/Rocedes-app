@@ -356,23 +356,25 @@ export class MainComponent implements OnInit {
         switch(_Id)
         {
           case "LinkUsuario":
-            /*if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
+            if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
 
 
              if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+
               component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
               let Usuario: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Usuario.instance.str_from = "frmUsuario";
-            }*/
+            }
 
            
            //ABRIR COMPONENTE MAS DE UNA VEZ
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
+           /* const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
             const componentRef = this.container!.createComponent(componentFactory);
             this.Index++;
             componentRef.instance.IndexModulo = this.Index
-            componentRef.instance.str_from = "frmUsuario";
+            componentRef.instance.str_from = "frmUsuario";*/
            
           break;
 
@@ -381,7 +383,7 @@ export class MainComponent implements OnInit {
             if(this.Esquema._Id != _Id)
             {
               this.dinamycHost.viewContainerRef!.clear();
-              
+
               component = this.componentFactoryResolver.resolveComponentFactory(AccesoLinkComponent);
               let Acceso: ComponentRef<AccesoLinkComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Acceso.instance.str_frm = "PerfilUsuario";
@@ -753,12 +755,11 @@ export class MainComponent implements OnInit {
             {
 
               this.dinamycHost.viewContainerRef!.clear();
-            
+ 
               component = this.componentFactoryResolver.resolveComponentFactory(MethodAnalysisComponent);
               let MethodAnalysis: ComponentRef<MethodAnalysisComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               MethodAnalysis.instance.Link = "Link-Operaciones-Development-Methos-Analisys";
               MethodAnalysis.instance.Open = true;
-              MethodAnalysis.instance._OperacionesService.change.emit(["Nuevo", null]);
               }
           break;
 

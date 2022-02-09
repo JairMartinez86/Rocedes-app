@@ -1218,11 +1218,6 @@ txt_method_analisys_onSearchChange(event : any) :void{
     this.Limpiar();
     this._OperacionesService.change.subscribe(s => {
 
-      if(s[0] == "Nuevo")
-      {
-        return;
-      }
-
       if(s[0] == "Open")
       {
         this.Cargando = true;
@@ -1336,18 +1331,6 @@ txt_method_analisys_onSearchChange(event : any) :void{
     });
   }
 
-  ngOnInit(): void {
-
-    this._OperacionesService.change.subscribe(s => {
-
-      if(s[0] == "Nuevo")
-      {
-        this.Limpiar();
-        this.Nuevo();
-        return;
-      }
-
-    });
-  }
+  ngOnInit(): void {}
 
 }
