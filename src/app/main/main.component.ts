@@ -47,8 +47,9 @@ export class MainComponent implements OnInit {
   @ViewChild (OpenCloseDirective) public dinamycHost: OpenCloseDirective = {} as OpenCloseDirective;
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef | undefined;
   
-  private lstEsquema :  Esquema[] = [];
-  Esquema !:Esquema; 
+  Esquema : Esquema = new Esquema(); 
+  public str_Modulo : string = "";
+  public str_Esquema : string = "";
   
   public NomUsuario : string = "";
   searchDrop = false;
@@ -90,97 +91,66 @@ export class MainComponent implements OnInit {
 
     this.loginserv.VerificarSession()
   
-    let _Esquema : Esquema;
-
-    _Esquema = new Esquema("HOM", "INICIO", false, new Formulario("", "", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("HOM", "", "", false);
 
 
-    _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuario", "Usuario", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("SIS", "LinkUsuario", "Usuario", false);
+    this.Esquema.add("SIS", "LinkUsuarioPerfil", "Perfil", false);
 
-    _Esquema = new Esquema("SIS", "Configuración", false, new Formulario("LinkUsuarioPerfil", "Perfil", false));
-    this.lstEsquema.push(_Esquema);
   
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoFactor", "Spreading Factors", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoCapaSencilla", "Single Ply", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoCapaDoble", "Double Ply", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoTendidoCapaManual", "Manual Spreading", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("PRM", "LinkProcesoTendidoFactor", "Spreading Factors", false);
+    this.Esquema.add("PRM", "LinkProcesoTendidoCapaSencilla", "Single Ply", false);
+    this.Esquema.add("PRM", "LinkProcesoTendidoCapaDoble", "Double Ply", false);
+    this.Esquema.add("PRM", "LinkProcesoTendidoCapaManual", "Manual Spreading", false);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoCorteFactor", "Cutting Factors", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoCorteFactorTiempo", "Cutting Time", false));
-    this.lstEsquema.push(_Esquema);
+
+    this.Esquema.add("PRM", "LinkProcesoCorteFactor", "Cutting Factors", false);
+    this.Esquema.add("PRM", "LinkProcesoCorteFactorTiempo", "Cutting Time", false);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoFoleoFactor", "Layer Marking Factors", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoFoleoCapaSencilla", "Single Ply", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkProcesoFoleoCapaDoble", "Double Ply", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("PRM", "LinkProcesoFoleoFactor", "Layer Marking Factors", false);
+    this.Esquema.add("PRM", "LinkProcesoFoleoCapaSencilla", "Single Ply", false);
+    this.Esquema.add("PRM", "LinkProcesoFoleoCapaDoble", "Double Ply", false);
     
 
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("LinkFlujoCorte", "Cutting Flow", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("PRM", "LinkFlujoCorte", "Cutting Flow", false);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-cliente", "Customers", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-producto", "Product Catalog", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-codigo-gsd", "Manufacturing Codes", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-tela", "Type of Fabic", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-partes", "Sewing Garment", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-sewing", "Sewing Considerations", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
-    this.lstEsquema.push(_Esquema);
+
+    this.Esquema.add("PRM", "Link-Operaciones-cliente", "Customers", false);
+    this.Esquema.add("PRM", "Link-Operaciones-producto", "Product Catalog", false);
+    this.Esquema.add("PRM", "Link-Operaciones-codigo-gsd", "Manufacturing Codes", false);
+    this.Esquema.add("PRM", "Link-Operaciones-tela", "Type of Fabic", false);
+    this.Esquema.add("PRM", "Link-Operaciones-partes", "Sewing Garment", false);
+    this.Esquema.add("PRM", "Link-Operaciones-sewing", "Sewing Considerations", false);
+    this.Esquema.add("PRM", "Link-Operaciones-sewing-accuracy", "Sewing Stop Accuracy", false);
+    this.Esquema.add("PRM", "Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false));
-    this.lstEsquema.push(_Esquema);
+
+    this.Esquema.add("PRM", "Link-Operaciones-Development-Methos-Analisys", "Method Analysis", false);
 
 
-    _Esquema = new Esquema("PRM", "Manufacturing Solution System", false, new Formulario("Link-Operaciones-Matriz-Data", "Operation Matrix Data", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("PRM", "Link-Operaciones-Matriz-Data", "Operation Matrix Data", false);
 
     
-    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkBundleBoxing", "Bundle Boxing", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkReportBundleBoxing", "Reporte Bundle Boxing", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkBundleBoxingSerial", "Seriales", false));
-    this.lstEsquema.push(_Esquema);
-    _Esquema = new Esquema("INV", "Inventario", false, new Formulario("LinkBundleBoxingEnvio", "Envio", false));
-    this.lstEsquema.push(_Esquema);
+    this.Esquema.add("INV", "LinkBundleBoxing", "Bundle Boxing", false);
+    this.Esquema.add("INV", "LinkReportBundleBoxing", "Reporte Bundle Boxing", false);
+    this.Esquema.add("INV", "LinkBundleBoxingSerial", "Seriales", false);
+    this.Esquema.add("INV", "LinkBundleBoxingEnvio", "Envio", false);
 
 
-    _Esquema = new Esquema("PLN", "Planing", false, new Formulario("Link-Pln-datos-planing", "Datos Planing", false));
-    this.lstEsquema.push(_Esquema);
 
-    _Esquema = new Esquema("PLN", "Planing", false, new Formulario("Link-Planing", "Planing", false));
-    this.lstEsquema.push(_Esquema);
-    
+    this.Esquema.add("PLN","Link-Pln-datos-planing", "Datos Planing", false);
 
-    this.Esquema = new Esquema("", "", false, new Formulario("", "", false));;
-    this.Esquema._Esquema = "";
-    this.Esquema._Activo = false;
-    this.Esquema._Nombre = "";
+    this.Esquema.add("PLN", "Link-Planing", "Planing", false);
+
+  
 
 
   }
@@ -207,10 +177,10 @@ export class MainComponent implements OnInit {
 
 
   //-----------------------------CONFIGURACION------------------------------------------------------------------------------------------------------------->
-
+/*
   if(_Id != "LinkUsuario"){
 
-    if(this.Esquema._Nombre != "LinkUsuario")
+    if(this.Esquema._Id != "LinkUsuario")
     {
       this.dinamycHost.viewContainerRef!.clear();
     }
@@ -220,7 +190,7 @@ export class MainComponent implements OnInit {
   
   if(_Id != "LinkRegistrosUsuario"){
     
-    if(this.Esquema._Nombre != "LinkRegistrosUsuario")
+    if(this.Esquema._Id != "LinkRegistrosUsuario")
     {
       this.dinamycHost.viewContainerRef!.clear();
     }
@@ -375,15 +345,12 @@ export class MainComponent implements OnInit {
   if(_Id != "Link-Planing"){
     this.dinamycHost.viewContainerRef!.clear();
   }
-  
-
-  this.Esquema.ActivarForm(_Id);
-
+  */
 
 
   let element!: HTMLElement;
 
-    switch(this.Esquema._Esquema){
+    switch(this.str_Esquema){
 
       case "SIS":
         switch(_Id)
@@ -392,7 +359,7 @@ export class MainComponent implements OnInit {
             /*if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
 
 
-            if(this.dinamycHost.viewContainerRef.length == 0)
+             if(this.Esquema._Id != _Id)
             {
               component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
               let Usuario: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
@@ -411,8 +378,10 @@ export class MainComponent implements OnInit {
 
           case "LinkUsuarioPerfil":
 
-            if(this.dinamycHost.viewContainerRef.length == 0)
+            if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+              
               component = this.componentFactoryResolver.resolveComponentFactory(AccesoLinkComponent);
               let Acceso: ComponentRef<AccesoLinkComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Acceso.instance.str_frm = "PerfilUsuario";
@@ -423,8 +392,10 @@ export class MainComponent implements OnInit {
 
             if(this.loginserv.isOpen && this.loginserv.str_Form != "frmRegistros") this.dinamycHost.viewContainerRef.clear();
 
-            if(this.dinamycHost.viewContainerRef.length == 0)
+            if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+
               component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
               let UsuarioRegistros: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               UsuarioRegistros.instance.str_from = "frmRegistros";
@@ -442,8 +413,10 @@ export class MainComponent implements OnInit {
         {
           case "LinkBundleBoxing":
 
-            if(this.dinamycHost.viewContainerRef.length == 0)
+            if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+
               component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingComponent);
               let BundleBoxing: ComponentRef<BundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               BundleBoxing.instance.AbirBundle();
@@ -451,8 +424,10 @@ export class MainComponent implements OnInit {
             break;
 
             case "LinkBundleBoxingComplemento":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingComponent);
                 let BundleComplemento: ComponentRef<BundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleComplemento.instance.AbirComplemento();
@@ -463,8 +438,10 @@ export class MainComponent implements OnInit {
             case "LinkReportBundleBoxing":
 
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(ReportBundleBoxingComponent);
                 let ReporBundle: ComponentRef<ReportBundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 ReporBundle.instance.str_from = "ReportBundleBoxing";
@@ -475,8 +452,10 @@ export class MainComponent implements OnInit {
 
             case "LinkBundleBoxingSaco":
 
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingSacoComponent);
                 let BundleSaco: ComponentRef<BundleBoxingSacoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleSaco.instance.str_from = "BundleBoxingSaco";
@@ -487,8 +466,10 @@ export class MainComponent implements OnInit {
             case "LinkBundleBoxingSerial":
 
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingSerialComponent);
                 let BundleSerial: ComponentRef<BundleBoxingSerialComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleSerial.instance.str_from = "BundleBoxingSerial";
@@ -497,8 +478,10 @@ export class MainComponent implements OnInit {
               break;
 
             case "LinkBundleBoxingEnvio":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingEnvioComponent);
                 let BundleEnvio: ComponentRef<BundleBoxingEnvioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleEnvio.instance.str_from = "LinkBundleBoxingEnvio";
@@ -516,8 +499,10 @@ export class MainComponent implements OnInit {
             case "LinkProcesoTendidoFactor":
 
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorTendidoComponent);
                 let FactorTendido: ComponentRef<FactorTendidoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "factores";
@@ -529,8 +514,10 @@ export class MainComponent implements OnInit {
 
             
 
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
                 let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaSencilla";
@@ -541,8 +528,10 @@ export class MainComponent implements OnInit {
             case "LinkProcesoTendidoCapaDoble":
               
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+                
                 component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
                 let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaDoble";
@@ -553,8 +542,10 @@ export class MainComponent implements OnInit {
             case "LinkProcesoTendidoCapaManual":
               
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
                 let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaManual";
@@ -565,8 +556,10 @@ export class MainComponent implements OnInit {
             case "LinkProcesoCorteFactor":
 
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorCorteComponent);
                 let FactorCorte: ComponentRef<FactorCorteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorCorte.instance.str_from = "LinkProcesoCorteFactor";
@@ -580,8 +573,10 @@ export class MainComponent implements OnInit {
             case "LinkProcesoCorteFactorTiempo":
 
             
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorCorteTiempoComponent);
                 let FactorCorte: ComponentRef<FactorCorteTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorCorte.instance.Open = true;
@@ -593,8 +588,10 @@ export class MainComponent implements OnInit {
 
 
             case "LinkProcesoFoleoFactor":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorFoleoComponent);
                let FactorFoleo: ComponentRef<FactorFoleoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                FactorFoleo.instance.str_from = "factores";
@@ -602,8 +599,10 @@ export class MainComponent implements OnInit {
               break;
 
             case "LinkProcesoFoleoCapaSencilla":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
                let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaSencilla";
@@ -613,8 +612,10 @@ export class MainComponent implements OnInit {
 
 
             case "LinkProcesoFoleoCapaDoble":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(FoleoTiempoComponent);
                let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaDoble";
@@ -624,8 +625,10 @@ export class MainComponent implements OnInit {
 
 
             case "LinkFlujoCorte":
-                if(this.dinamycHost.viewContainerRef.length == 0)
+                 if(this.Esquema._Id != _Id)
                 {
+                  this.dinamycHost.viewContainerRef!.clear();
+
                   component = this.componentFactoryResolver.resolveComponentFactory(FlujoCorteComponent);
                  let TiempoFole: ComponentRef<FlujoCorteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                  TiempoFole.instance.Link = "LinkFlujoCorte";
@@ -634,8 +637,10 @@ export class MainComponent implements OnInit {
                 break;
 
             case "Link-Operaciones-cliente":
-                if(this.dinamycHost.viewContainerRef.length == 0)
+                 if(this.Esquema._Id != _Id)
                 {
+                  this.dinamycHost.viewContainerRef!.clear();
+
                   component = this.componentFactoryResolver.resolveComponentFactory(ClienteComponent);
                   let OperCliente: ComponentRef<ClienteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                   OperCliente.instance.Link = "Link-Operaciones-cliente";
@@ -645,8 +650,10 @@ export class MainComponent implements OnInit {
 
 
             case "Link-Operaciones-codigo-gsd":
-                if(this.dinamycHost.viewContainerRef.length == 0)
+                 if(this.Esquema._Id != _Id)
                 {
+                  this.dinamycHost.viewContainerRef!.clear();
+
                   component = this.componentFactoryResolver.resolveComponentFactory(CodigoGsdComponent);
                  let CodigoGSD: ComponentRef<CodigoGsdComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                  CodigoGSD.instance.Link = "Link-Operaciones-codigo-gsd";
@@ -655,8 +662,10 @@ export class MainComponent implements OnInit {
                 break;
 
             case "Link-Operaciones-tela":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(TiposTelaComponent);
                 let Partes: ComponentRef<TiposTelaComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 Partes.instance.Link = "Link-Operaciones-tela";
@@ -665,8 +674,10 @@ export class MainComponent implements OnInit {
               break;
 
             case "Link-Operaciones-partes":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(PartesComponent);
                 let Partes: ComponentRef<PartesComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 Partes.instance.Link = "Link-Operaciones-partes";
@@ -676,8 +687,10 @@ export class MainComponent implements OnInit {
 
 
             case "Link-Operaciones-sewing":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(SewingComponent);
                 let Sewing: ComponentRef<SewingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 Sewing.instance.Link = "Link-Operaciones-sewing";
@@ -686,8 +699,10 @@ export class MainComponent implements OnInit {
               break;
 
           case "Link-Operaciones-sewing-accuracy":
-            if(this.dinamycHost.viewContainerRef.length == 0)
+             if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+
               component = this.componentFactoryResolver.resolveComponentFactory(SewingAccuracyComponent);
               let SewingAccuracy: ComponentRef<SewingAccuracyComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               SewingAccuracy.instance.Link = "Link-Operaciones-sewing-accuracy";
@@ -697,8 +712,10 @@ export class MainComponent implements OnInit {
 
 
           case "Link-Operaciones-producto":
-            if(this.dinamycHost.viewContainerRef.length == 0)
+             if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+
               component = this.componentFactoryResolver.resolveComponentFactory(ProductoComponent);
               let Producto: ComponentRef<ProductoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Producto.instance.Link = "Link-Operaciones-producto";
@@ -707,18 +724,22 @@ export class MainComponent implements OnInit {
             break;
 
           case "Link-Operaciones-ounce":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
                 {
-                component = this.componentFactoryResolver.resolveComponentFactory(FabricOunceComponent);
-                let Ounce: ComponentRef<FabricOunceComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
-                Ounce.instance.Link = "Link-Operaciones-ounce";
-                Ounce.instance.Open = true;
+                  this.dinamycHost.viewContainerRef!.clear();
+
+                  component = this.componentFactoryResolver.resolveComponentFactory(FabricOunceComponent);
+                  let Ounce: ComponentRef<FabricOunceComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                  Ounce.instance.Link = "Link-Operaciones-ounce";
+                  Ounce.instance.Open = true;
                 }
               break;
 
           case "Link-Operaciones-data-machine":
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(DataMachineComponent);
                 let DataMachine: ComponentRef<DataMachineComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 DataMachine.instance.Link = "Link-Operaciones-data-machine";
@@ -728,19 +749,25 @@ export class MainComponent implements OnInit {
 
 
           case "Link-Operaciones-Development-Methos-Analisys":
-            if(this.dinamycHost.viewContainerRef.length == 0)
+            if(this.Esquema._Id != "Link-Operaciones-Development-Methos-Analisys")
             {
+
+              this.dinamycHost.viewContainerRef!.clear();
+            
               component = this.componentFactoryResolver.resolveComponentFactory(MethodAnalysisComponent);
               let MethodAnalysis: ComponentRef<MethodAnalysisComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               MethodAnalysis.instance.Link = "Link-Operaciones-Development-Methos-Analisys";
               MethodAnalysis.instance.Open = true;
+              MethodAnalysis.instance._OperacionesService.change.emit(["Nuevo", null]);
               }
           break;
 
 
           case "Link-Operaciones-Matriz-Data":
-            if(this.dinamycHost.viewContainerRef.length == 0)
+             if(this.Esquema._Id != _Id)
             {
+              this.dinamycHost.viewContainerRef!.clear();
+
               component = this.componentFactoryResolver.resolveComponentFactory(MatrizOperacionComponent);
               let MatrizData: ComponentRef<MatrizOperacionComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               MatrizData.instance.Link = "Link-Operaciones-Matriz-Data";
@@ -782,8 +809,10 @@ export class MainComponent implements OnInit {
             case "Link-Planing":
   
               
-              if(this.dinamycHost.viewContainerRef.length == 0)
+               if(this.Esquema._Id != _Id)
               {
+                this.dinamycHost.viewContainerRef!.clear();
+
                 component = this.componentFactoryResolver.resolveComponentFactory(PlaningComponent);
                 let Planing: ComponentRef<PlaningComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 Planing.instance.Link = _Id;
@@ -800,6 +829,10 @@ export class MainComponent implements OnInit {
     document.getElementById(_Id)?.classList.add("active");
     
 
+    
+   this.Esquema.ActivarForm(_Id);
+
+  
   }
 
   Salir()
@@ -811,19 +844,21 @@ export class MainComponent implements OnInit {
   Modulo(m : string)
   {
 
-    this.Esquema =  <Esquema>this.lstEsquema.find(x => x._Esquema == m);
 
-    if(m == "HOM" ) this.Esquema._Nombre = "Inicio"
+    if(m == "HOM" ) this.str_Modulo = "Inicio"
 
-    if(m == "SIS" ) this.Esquema._Nombre = "Configuración"
+    if(m == "SIS" ) this.str_Modulo = "Configuración"
 
 
-    if(m == "PRM" ) this.Esquema._Nombre = "Manufacturing Solution System"
+    if(m == "PRM" ) this.str_Modulo = "Manufacturing Solution System"
 
-    if(m == "INV" ) this.Esquema._Nombre = "Inventario"
+    if(m == "INV" ) this.str_Modulo = "Inventario"
 
-    if(m == "PLN" ) this.Esquema._Nombre = "Planing"
+    if(m == "PLN" ) this.str_Modulo = "Planing"
     
+    this.str_Esquema = m;
+    this.Esquema._Esquema = m;
+    this.Esquema._Id = "";
    
     this.dinamycHost.viewContainerRef!.clear();
     

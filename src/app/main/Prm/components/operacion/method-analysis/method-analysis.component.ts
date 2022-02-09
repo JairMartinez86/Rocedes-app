@@ -1,4 +1,4 @@
-import { Component, OnInit, ReflectiveInjector } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, startWith } from 'rxjs';
@@ -65,7 +65,7 @@ export class MethodAnalysisComponent implements OnInit {
   dataSource_method_analisys = new MatTableDataSource(ELEMENT_DATA_METHOD_ANALISIS);
   clickedRows = new Set<IDetMethodAnalysis>();
 
-  constructor(private _LoginService : LoginService, private _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
+  constructor(private _LoginService : LoginService, public _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
     this.val.add("txt_method_analisys_parametro1", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_manufactura", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_producto", "1", "LEN>", "0");
@@ -1218,6 +1218,11 @@ txt_method_analisys_onSearchChange(event : any) :void{
     this.Limpiar();
     this._OperacionesService.change.subscribe(s => {
 
+      if(s[0] == "Nuevo")
+      {
+        return;
+      }
+
       if(s[0] == "Open")
       {
         this.Cargando = true;
@@ -1332,6 +1337,17 @@ txt_method_analisys_onSearchChange(event : any) :void{
   }
 
   ngOnInit(): void {
+
+    this._OperacionesService.change.subscribe(s => {
+
+      if(s[0] == "Nuevo")
+      {
+        this.Limpiar();
+        this.Nuevo();
+        return;
+      }
+
+    });
   }
 
 }

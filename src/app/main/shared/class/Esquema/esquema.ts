@@ -7,11 +7,13 @@ export class Formulario
     public _Form : string = '';
     public _Nombre : string = '';
     public _Activo : boolean = false;
+    public _Esquema : string = '';
 
-    constructor(Form : string, Nombre : string, Activo : boolean){
-        this._Form = Form;
+    constructor(Id : string, Nombre : string, Activo : boolean, Esquema : string){
+        this._Form = Id;
         this._Nombre = Nombre;
         this._Activo = Activo;
+        this._Esquema = Esquema;
     }
 
 
@@ -24,27 +26,24 @@ export class Esquema {
 
     
     public _Esquema : string = '';
-    public _Nombre : string = '';
-    public _Activo : boolean = false;
+    public _Id : string = '';
 
     private _Form : Formulario[] = [];
 
 
-    constructor(Esquema : string, Nombre : string, Activo : boolean, Form  : Formulario){
-        this._Esquema = Esquema;
-        this._Nombre = Nombre;
-        this._Activo = Activo;
+    constructor(){}
 
-        this._Form.push(Form);
-
+    public add(Esquema : string, Id :  string, Nombre : string, Activo : boolean){
+        this._Form.push( new Formulario(Id , Nombre, Activo, Esquema));
     }
+
 
     private buscar(id : string) : Formulario{
         let form : Formulario;
 
 
 
-        if(id = ""){
+        if(id == ""){
             form = <Formulario>this._Form.find(x => x._Activo);
         }
         else{
@@ -60,6 +59,9 @@ export class Esquema {
     ActivarForm(m : string){
         let form : Formulario = <Formulario>this.buscar(m);
 
+        this._Id = "";
+        this._Esquema = "";
+
         if(form != null)
         {
             form._Activo = true;
@@ -71,8 +73,12 @@ export class Esquema {
                 }
                 
             });
+
+            this._Id = form._Form;
+            this._Esquema = form._Esquema;
         }
 
+      
     }
 
     getActivo() : string{
