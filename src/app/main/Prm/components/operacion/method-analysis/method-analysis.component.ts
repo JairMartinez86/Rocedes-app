@@ -105,6 +105,7 @@ export class MethodAnalysisComponent implements OnInit {
     this.dataSource_parametros_method_analisys.data.splice(0, this.dataSource_parametros_method_analisys.data.length);
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.splice(0, ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.length);
     this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
+    this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
    }
  
 
@@ -789,6 +790,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
     this.val.ValForm.reset();
     this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(this._LoginService.str_user);
+    this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
     document.getElementById("from-method-analisys")?.classList.remove("disabled");
     
     
