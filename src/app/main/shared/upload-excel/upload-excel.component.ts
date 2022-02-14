@@ -193,11 +193,13 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
 
     let worksheet = workbook.addWorksheet("FORMATO");
 
+    let fname : string ="";  
 
     switch (this.Link) {
           
       case "Link-Pln-datos-planning":
         
+        fname = "datos-planning";
         funciones.Merge("A1", "Rocedes Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("B1", "Cliente", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("C1", "Linea", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
@@ -210,6 +212,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
 
         case "Link-Pln-datos-plotter":
         
+          fname = "datos-plotter";
         funciones.Merge("A1", "Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("B1", "Cut number", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("C1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
@@ -226,7 +229,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
     
    
 
-    let fname="formato";  
+
     worksheet.properties.defaultColWidth = 20;
 
     workbook.xlsx.writeBuffer().then((data) => {
