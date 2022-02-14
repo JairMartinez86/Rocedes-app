@@ -101,7 +101,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
 
     this._Filas.push(f);
 
-  
+    (<HTMLInputElement>document.getElementById("upload-file-excel")).value = "";
   }
 
   
@@ -130,6 +130,10 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
           
           case "Link-Pln-datos-planning":
             datos.link = "datos-planning";
+            break;
+
+          case "Link-Pln-datos-plotter":
+            datos.link = "datos-plotter";
             break;
         
           default:
@@ -168,11 +172,14 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
   {
     this._Filas.splice(0, this._Filas.length);
     this.renderer2.removeChild(this.el.nativeElement,this.upload_file_item.nativeElement);
+    (<HTMLInputElement>document.getElementById("upload-file-excel")).value = "";
   }
 
   Eliminar(id : string, i : number) : void
   {
     document.getElementById(id)!.outerHTML = "";
+    (<HTMLInputElement>document.getElementById("upload-file-excel")).value = "";
+ 
 
     let index = this._Filas.findIndex(f => f.Index == i);
     this._Filas.splice(index, 1);
@@ -197,7 +204,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
         funciones.Merge("D1", "Cut", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("E1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("F1", "Quant", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("F1", "Cut date body", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("G1", "Cut date body", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
 
         break;
 

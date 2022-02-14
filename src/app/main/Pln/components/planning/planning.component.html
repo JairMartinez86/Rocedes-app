@@ -60,7 +60,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cut_date_all_component">
         Cut date all component.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_all_component, 'dd-MMMM-yyyy')?.toString()}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_all_component, 'dd-MMM-yyyy')?.toString()}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Ct">
@@ -129,14 +129,14 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cut_date_body">
         Cut date body.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_body, 'dd-MMMM-yyyy')?.toString()}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_body, 'dd-MMM-yyyy')?.toString()}} </td>
   </ng-container>
 
   <ng-container matColumnDef="foleo_date_body">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by foleo_date_body">
         foleo date body.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.foleo_date_body, 'dd-MMMM-yyyy')?.toString()}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.foleo_date_body, 'dd-MMM-yyyy')?.toString()}} </td>
   </ng-container>
 
   <ng-container matColumnDef="In_plant">
