@@ -6,7 +6,7 @@ import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 
 import { f_General } from '../class/funciones/f_General';
-import { PlaningService } from '../../Pln/service/planing.service';
+import { PlanningService } from '../../Pln/service/planning.service';
 import { DialogoComponent } from '../dialogo/dialogo.component';
 
 
@@ -74,7 +74,7 @@ export class UploadExcelComponent {
 
 
 constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private renderer2: Renderer2,private el:ElementRef,
-  private _PlaningService : PlaningService, private dialog : MatDialog,
+  private _PlanningService : PlanningService, private dialog : MatDialog,
   @Inject(MAT_DIALOG_DATA) public data : any) 
 { 
   this.Link = data;
@@ -128,15 +128,15 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
 
         switch (this.Link) {
           
-          case "Link-Pln-datos-planing":
-            datos.link = "datos-planing";
+          case "Link-Pln-datos-planning":
+            datos.link = "datos-planning";
             break;
         
           default:
             break;
         }
     
-        this._PlaningService.SubirArchivo(datos).subscribe(s => {
+        this._PlanningService.SubirArchivo(datos).subscribe(s => {
           let _json = JSON.parse(s);
 
           if(_json["esError"] == 0) this.Limpiar();
@@ -189,7 +189,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
 
     switch (this.Link) {
           
-      case "Link-Pln-datos-planing":
+      case "Link-Pln-datos-planning":
         
         funciones.Merge("A1", "Rocedes Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
         funciones.Merge("B1", "Cliente", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)

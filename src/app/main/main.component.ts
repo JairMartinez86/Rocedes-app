@@ -31,8 +31,8 @@ import { MethodAnalysisComponent } from './Prm/components/operacion/method-analy
 import { MatrizOperacionComponent } from './Prm/components/operacion/matriz-operacion/matriz-operacion.component';
 import { ClienteComponent } from './cxc/cliente/components/cliente.component';
 import { OpenCloseDirective } from './shared/Directive/open-close.directive';
-import { PlaningComponent } from './Pln/components/planing/planing.component';
 import { UploadExcelComponent } from './shared/upload-excel/upload-excel.component';
+import { PlanningComponent } from './Pln/components/planning/planning.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -338,7 +338,7 @@ export class MainComponent implements OnInit {
   //-----------------------------PLANING------------------------------------------------------------------------------------------------------------------->
   
 
-  if(_Id != "Link-Pln-datos-planing"){
+  if(_Id != "Link-Pln-datos-planning"){
     this.dialogOpen = ""
     this.dialog.closeAll();
   }
@@ -348,6 +348,12 @@ export class MainComponent implements OnInit {
   }
   */
 
+  if(this.Esquema._Id != _Id)
+  {
+    this.dialogOpen = ""
+    this.dialog.closeAll();
+  }
+  
 
   let element!: HTMLElement;
 
@@ -788,16 +794,9 @@ export class MainComponent implements OnInit {
 
           case "Link-Pln-datos-planning":
 
-           
+            this.dinamycHost.viewContainerRef!.clear();
             index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
 
-
-            if(index == -1)
-            {
-              this.dialogOpen = ""
-              this.dialog.closeAll();
-            }
-           
   
 
             if(this.dialogOpen == "" || index == -1)
@@ -819,29 +818,22 @@ export class MainComponent implements OnInit {
 
             case "Link-Pln-datos-plotter":
 
-            
-  
-            index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
+              this.dinamycHost.viewContainerRef!.clear();
+              index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
 
 
-            if(index == -1)
-            {
-              this.dialogOpen = ""
-              this.dialog.closeAll();
-            }
+              if(this.dialogOpen == "" || index == -1)
+              {
+              
+                if(index != -1) this.dialog.openDialogs.splice(index, 1);
 
-            if(this.dialogOpen == "" || index == -1)
-            {
-             
-              if(index != -1) this.dialog.openDialogs.splice(index, 1);
+                this.dialog.open(UploadExcelComponent, {
+                  data: _Id,
+                  id : _Id
+                });
 
-              this.dialog.open(UploadExcelComponent, {
-                data: _Id,
-                id : _Id
-              });
-
-              this.dialogOpen  = _Id;
-            } 
+                this.dialogOpen  = _Id;
+              } 
 
             
 
@@ -851,12 +843,12 @@ export class MainComponent implements OnInit {
             case "Link-Planning":
   
               
-               if(this.Esquema._Id != _Id)
+              if(this.Esquema._Id != _Id)
               {
                 this.dinamycHost.viewContainerRef!.clear();
 
-                component = this.componentFactoryResolver.resolveComponentFactory(PlaningComponent);
-                let Planing: ComponentRef<PlaningComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+                component = this.componentFactoryResolver.resolveComponentFactory(PlanningComponent);
+                let Planing: ComponentRef<PlanningComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 Planing.instance.Link = _Id;
                  Planing.instance.Open = true;
               }

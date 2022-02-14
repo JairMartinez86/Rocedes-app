@@ -1,4 +1,4 @@
-export interface PlaningFormat {
+export interface PlanningFormat {
     Week : string;
     Cliente : string;
     Linea : string;

@@ -11,7 +11,7 @@ export interface IUpload {
 @Injectable({
   providedIn: 'root'
 })
-export class PlaningService {
+export class PlanningService {
 
   private Cnx : Conexion = new Conexion();
 
@@ -19,10 +19,10 @@ export class PlaningService {
 
   Get() : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Pln/Planing/Get");
+    return this.http.get<any>(this.Cnx.Url() + "Pln/Planning/Get");
   }
 
   SubirArchivo(d : IUpload): Observable<any> {
-    return this.http.post<any>(this.Cnx.Url() + "Pln/Planing/SubirArchivo", JSON.stringify(d), { headers: {'content-type' : 'application/json'}});
+    return this.http.post<any>(this.Cnx.Url() + "Pln/Planning/SubirArchivo", JSON.stringify(d), { headers: {'content-type' : 'application/json'}});
   }
 }

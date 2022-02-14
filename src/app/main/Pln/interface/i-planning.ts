@@ -1,5 +1,5 @@
-export interface IPlaning {
-    IdPlaningSwing : number;
+export interface IPlanning {
+    IdPlanningSwing : number;
     IdCliente : number;
     Cliente : string;
     Modulo : string;

@@ -6,27 +6,28 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
-import { IPlaning } from '../../interface/i-planing';
-import { PlaningService } from '../../service/planing.service';
+import { IPlanning } from '../../interface/i-planning';
+import { PlanningService } from '../../service/planning.service';
 
-let ELEMENT_DATA_PLALING : IPlaning[] = [];
+
+let ELEMENT_DATA_PLALING : IPlanning[] = [];
 @Component({
-  selector: 'app-planing',
-  templateUrl: './planing.component.html',
-  styleUrls: ['./planing.component.css']
+  selector: 'app-planning',
+  templateUrl: './planning.component.html',
+  styleUrls: ['./planning.component.css']
 })
-export class PlaningComponent implements OnInit {
+export class PlanningComponent implements OnInit {
 
   public Open : boolean = false;
   public Link : string = "";
 
 
-  displayedColumns: string[] = ["IdPlaningSwing", "IdCliente",   "Modulo", "Linea", "Cut_date_all_component", "Ct", "Marker", "Largo", "NotasEspeciales",
+  displayedColumns: string[] = ["IdPlanningSwing", "IdCliente",   "Modulo", "Linea", "Cut_date_all_component", "Ct", "Marker", "Largo", "NotasEspeciales",
 "Origen_segun_wip", "Cutting_plan", "Cut", "Style", "Cut_date_body", "foleo_date_body", "In_plant", "Quant", "Status_comp", "Status_cuerpo", "Foleo",
 "Status_envio", "Fabric", "Pocketing", "Fuse1", "Fuse2", "Cordura", "Quilt", "Dracon", "Linning", "Binding1", "Binding2", "Sherpa", "Rib", "Price",
 "Total"];
 dataSource = new MatTableDataSource(ELEMENT_DATA_PLALING);
-clickedRows = new Set<IPlaning>();
+clickedRows = new Set<IPlanning>();
 
 
   
@@ -45,7 +46,7 @@ clickedRows = new Set<IPlaning>();
 
   
   constructor( private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, public datePipe: DatePipe,
-    private _PlaningService : PlaningService) { }
+    private _PlaningService : PlanningService) { }
 
 
 
@@ -81,7 +82,7 @@ clickedRows = new Set<IPlaning>();
   };
 
   
-  clickRow(row : IPlaning){
+  clickRow(row : IPlanning){
 
   
   }
@@ -107,7 +108,7 @@ clickedRows = new Set<IPlaning>();
           if(_json["count"] > 0)
           {
   
-            _json["d"].forEach((j : IPlaning) => {
+            _json["d"].forEach((j : IPlanning) => {
               ELEMENT_DATA_PLALING.push(j);
             });
           }

@@ -104,7 +104,7 @@ import { MethodAnalysisComponent } from './main/Prm/components/operacion/method-
 import { ConfirmarContinuarComponent } from './main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
 import { MatrizOperacionComponent } from './main/Prm/components/operacion/matriz-operacion/matriz-operacion.component';
 import { ClienteComponent } from './main/cxc/cliente/components/cliente.component';
-import { PlaningComponent } from './main/Pln/components/planing/planing.component';
+import { PlanningComponent } from './main/Pln/components/planning/planning.component';
 import { UploadExcelComponent } from './main/shared/upload-excel/upload-excel.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { FilePickerModule } from  'ngx-awesome-uploader';
@@ -164,7 +164,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     MethodAnalysisComponent,
     ConfirmarContinuarComponent,
     MatrizOperacionComponent,
-    PlaningComponent,
+    PlanningComponent,
     UploadExcelComponent,
 
     
