@@ -147,6 +147,7 @@ export class MainComponent implements OnInit {
 
 
     this.Esquema.add("PLN","Link-Pln-datos-planing", "Datos Planing", false);
+    this.Esquema.add("PLN","Link-Pln-datos-plotter", "Datos Plotter", false);
 
     this.Esquema.add("PLN", "Link-Planing", "Planing", false);
 
@@ -786,6 +787,27 @@ export class MainComponent implements OnInit {
         {
 
           case "Link-Pln-datos-planing":
+  
+            index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
+
+            if(this.dialogOpen == "" || index == -1)
+            {
+             
+              if(index != -1) this.dialog.openDialogs.splice(index, 1);
+
+              this.dialog.open(UploadExcelComponent, {
+                data: _Id,
+                id : _Id
+              });
+
+              this.dialogOpen  = _Id;
+            } 
+
+            
+
+            break;
+
+            case "Link-Pln-datos-plotter":
   
             index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
 
