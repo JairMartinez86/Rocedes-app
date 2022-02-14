@@ -352,11 +352,11 @@ export class LoginService {
     
 
 
-      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planing", Link: "pln-planing-subir-archivos", NombreLink : "Subir Archivos", Activo : false},
-      {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planing", Link: "Link-Pln-datos-planing", NombreLink : "Datos Planing", Activo : false},
-      {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planing", Link: "Link-Pln-datos-plotter", NombreLink : "Datos Plotter", Activo : false},
+      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planning", Link: "pln-planning-subir-archivos", NombreLink : "Subir Archivos", Activo : false},
+      {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Pln-datos-planning", NombreLink : "Datos Planning", Activo : false},
+      {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Pln-datos-plotter", NombreLink : "Datos Plotter", Activo : false},
     
-      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planing", Link: "Link-Planing", NombreLink : "Planing", Activo : false},
+      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Planning", NombreLink : "Planning", Activo : false},
     
       
       ]

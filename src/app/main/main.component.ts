@@ -146,10 +146,10 @@ export class MainComponent implements OnInit {
 
 
 
-    this.Esquema.add("PLN","Link-Pln-datos-planing", "Datos Planing", false);
+    this.Esquema.add("PLN","Link-Pln-datos-planning", "Datos Planning", false);
     this.Esquema.add("PLN","Link-Pln-datos-plotter", "Datos Plotter", false);
 
-    this.Esquema.add("PLN", "Link-Planing", "Planing", false);
+    this.Esquema.add("PLN", "Link-Planning", "Planning", false);
 
   
 
@@ -786,9 +786,19 @@ export class MainComponent implements OnInit {
         switch(_Id)
         {
 
-          case "Link-Pln-datos-planing":
-  
+          case "Link-Pln-datos-planning":
+
+           
             index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
+
+
+            if(index == -1)
+            {
+              this.dialogOpen = ""
+              this.dialog.closeAll();
+            }
+           
+  
 
             if(this.dialogOpen == "" || index == -1)
             {
@@ -808,8 +818,17 @@ export class MainComponent implements OnInit {
             break;
 
             case "Link-Pln-datos-plotter":
+
+            
   
             index = this.dialog.openDialogs.findIndex(f => f.id == _Id)
+
+
+            if(index == -1)
+            {
+              this.dialogOpen = ""
+              this.dialog.closeAll();
+            }
 
             if(this.dialogOpen == "" || index == -1)
             {
@@ -829,7 +848,7 @@ export class MainComponent implements OnInit {
             break;
 
   
-            case "Link-Planing":
+            case "Link-Planning":
   
               
                if(this.Esquema._Id != _Id)
@@ -877,7 +896,7 @@ export class MainComponent implements OnInit {
 
     if(m == "INV" ) this.str_Modulo = "Inventario"
 
-    if(m == "PLN" ) this.str_Modulo = "Planing"
+    if(m == "PLN" ) this.str_Modulo = "Planning"
     
     this.str_Esquema = m;
     this.Esquema._Esquema = m;
