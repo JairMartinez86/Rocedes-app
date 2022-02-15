@@ -161,7 +161,7 @@ export class MainComponent implements OnInit {
   AbrirForm(_Id : string)
   {
 
-    let component = null;    
+    let component : any;    
     let index = 0;       
 
     if(_Id == "") return;
@@ -365,15 +365,23 @@ export class MainComponent implements OnInit {
           case "LinkUsuario":
             if(this.loginserv.isOpen && this.loginserv.str_Form != "frmUsuario") this.dinamycHost.viewContainerRef.clear();
 
+            let Usuario  : ComponentRef<UsuarioComponent>;
 
-             if(this.Esquema._Id != _Id)
+            if(this.Esquema._Id != _Id)
             {
               this.dinamycHost.viewContainerRef!.clear();
 
               component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
-              let Usuario: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
+              Usuario = this.dinamycHost.viewContainerRef.createComponent(component);
               Usuario.instance.str_from = "frmUsuario";
             }
+            else
+            {
+              component = this.dinamycHost.viewContainerRef.get(0)
+              component = component._view[30]
+              if(this.Esquema._Id == _Id) component.str_from = "frmUsuario";
+            }
+            
 
            
            //ABRIR COMPONENTE MAS DE UNA VEZ
@@ -395,6 +403,13 @@ export class MainComponent implements OnInit {
               let Acceso: ComponentRef<AccesoLinkComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               Acceso.instance.str_frm = "PerfilUsuario";
             }
+            else
+            {
+              component = this.dinamycHost.viewContainerRef.get(0)
+              console.log(component._view[30])
+              component = component._view[30]
+              if(this.Esquema._Id == _Id) component.str_frm = "PerfilUsuario";
+            }
           break;
 
           case "LinkRegistrosUsuario":
@@ -408,6 +423,12 @@ export class MainComponent implements OnInit {
               component = this.componentFactoryResolver.resolveComponentFactory(UsuarioComponent);
               let UsuarioRegistros: ComponentRef<UsuarioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               UsuarioRegistros.instance.str_from = "frmRegistros";
+            }
+            else
+            {
+              component = this.dinamycHost.viewContainerRef.get(0)
+              component = component._view[30]
+              if(this.Esquema._Id == _Id) component.str_from = "frmRegistros";
             }
 
             
@@ -429,7 +450,14 @@ export class MainComponent implements OnInit {
               component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingComponent);
               let BundleBoxing: ComponentRef<BundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
               BundleBoxing.instance.AbirBundle();
-            };
+            }
+            else
+            {
+              component = this.dinamycHost.viewContainerRef.get(0)
+              component = component._view[30]
+              if(this.Esquema._Id == _Id) component.AbirBundle();
+            }
+
             break;
 
             case "LinkBundleBoxingComplemento":
@@ -441,19 +469,31 @@ export class MainComponent implements OnInit {
                 let BundleComplemento: ComponentRef<BundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleComplemento.instance.AbirComplemento();
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.AbirComplemento();
+              }
 
               break;
 
             case "LinkReportBundleBoxing":
 
             
-               if(this.Esquema._Id != _Id)
+              if(this.Esquema._Id != _Id)
               {
                 this.dinamycHost.viewContainerRef!.clear();
 
                 component = this.componentFactoryResolver.resolveComponentFactory(ReportBundleBoxingComponent);
                 let ReporBundle: ComponentRef<ReportBundleBoxingComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 ReporBundle.instance.str_from = "ReportBundleBoxing";
+              }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "ReportBundleBoxing";
               }
 
 
@@ -469,6 +509,12 @@ export class MainComponent implements OnInit {
                 let BundleSaco: ComponentRef<BundleBoxingSacoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleSaco.instance.str_from = "BundleBoxingSaco";
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "BundleBoxingSaco";
+              }
 
               break;
 
@@ -483,6 +529,12 @@ export class MainComponent implements OnInit {
                 let BundleSerial: ComponentRef<BundleBoxingSerialComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleSerial.instance.str_from = "BundleBoxingSerial";
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "BundleBoxingSerial";
+              }
 
               break;
 
@@ -494,6 +546,12 @@ export class MainComponent implements OnInit {
                 component = this.componentFactoryResolver.resolveComponentFactory(BundleBoxingEnvioComponent);
                 let BundleEnvio: ComponentRef<BundleBoxingEnvioComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 BundleEnvio.instance.str_from = "LinkBundleBoxingEnvio";
+              }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "LinkBundleBoxingEnvio";
               }
 
               break;
@@ -516,6 +574,12 @@ export class MainComponent implements OnInit {
                 let FactorTendido: ComponentRef<FactorTendidoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "factores";
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "factores";
+              }
 
               break;
 
@@ -531,6 +595,12 @@ export class MainComponent implements OnInit {
                 let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaSencilla";
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "LinkProcesoTendidoCapaSencilla";
+              }
 
               break;
 
@@ -544,6 +614,12 @@ export class MainComponent implements OnInit {
                 component = this.componentFactoryResolver.resolveComponentFactory(TendidoTiempoComponent);
                 let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaDoble";
+              }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "LinkProcesoTendidoCapaDoble";
               }
 
               break;
@@ -559,6 +635,13 @@ export class MainComponent implements OnInit {
                 let FactorTendido: ComponentRef<TendidoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorTendido.instance.str_from = "LinkProcesoTendidoCapaManual";
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "LinkProcesoTendidoCapaManual";
+              }
+
   
               break;
 
@@ -573,7 +656,12 @@ export class MainComponent implements OnInit {
                 let FactorCorte: ComponentRef<FactorCorteComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorCorte.instance.str_from = "LinkProcesoCorteFactor";
               }
-
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "LinkProcesoCorteFactor";
+              }
 
 
               break;
@@ -582,13 +670,19 @@ export class MainComponent implements OnInit {
             case "LinkProcesoCorteFactorTiempo":
 
             
-               if(this.Esquema._Id != _Id)
+              if(this.Esquema._Id != _Id)
               {
                 this.dinamycHost.viewContainerRef!.clear();
 
                 component = this.componentFactoryResolver.resolveComponentFactory(FactorCorteTiempoComponent);
                 let FactorCorte: ComponentRef<FactorCorteTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 FactorCorte.instance.Open = true;
+              }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.Open = true;
               }
   
   
@@ -597,7 +691,7 @@ export class MainComponent implements OnInit {
 
 
             case "LinkProcesoFoleoFactor":
-               if(this.Esquema._Id != _Id)
+              if(this.Esquema._Id != _Id)
               {
                 this.dinamycHost.viewContainerRef!.clear();
 
@@ -605,6 +699,13 @@ export class MainComponent implements OnInit {
                let FactorFoleo: ComponentRef<FactorFoleoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                FactorFoleo.instance.str_from = "factores";
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id) component.str_from = "factores";
+              }
+
               break;
 
             case "LinkProcesoFoleoCapaSencilla":
@@ -616,6 +717,16 @@ export class MainComponent implements OnInit {
                let TiempoFole: ComponentRef<FoleoTiempoComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaSencilla";
                TiempoFole.instance.Open = true;
+              }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id)
+                {
+                  component.Link = "LinkProcesoFoleoCapaSencilla";
+                  component.Open = true;
+                }
               }
               break;
 
@@ -630,6 +741,16 @@ export class MainComponent implements OnInit {
                TiempoFole.instance.Link = "LinkProcesoFoleoCapaDoble";
                TiempoFole.instance.Open = true;
               }
+              else
+              {
+                component = this.dinamycHost.viewContainerRef.get(0)
+                component = component._view[30]
+                if(this.Esquema._Id == _Id)
+                {
+                  component.Link = "LinkProcesoFoleoCapaDoble";
+                  component.Open = true;
+                }
+              }
               break;
 
 
@@ -643,7 +764,17 @@ export class MainComponent implements OnInit {
                  TiempoFole.instance.Link = "LinkFlujoCorte";
                  TiempoFole.instance.Open = true;
                 }
-                break;
+                else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "LinkFlujoCorte";
+                    component.Open = true;
+                  }
+                }
+              break;
 
             case "Link-Operaciones-cliente":
                  if(this.Esquema._Id != _Id)
@@ -655,7 +786,17 @@ export class MainComponent implements OnInit {
                   OperCliente.instance.Link = "Link-Operaciones-cliente";
                   OperCliente.instance.Open = true;
                 }
-                break;
+                else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-cliente";
+                    component.Open = true;
+                  }
+                }
+              break;
 
 
             case "Link-Operaciones-codigo-gsd":
@@ -668,7 +809,17 @@ export class MainComponent implements OnInit {
                  CodigoGSD.instance.Link = "Link-Operaciones-codigo-gsd";
                  CodigoGSD.instance.Open = true;
                 }
-                break;
+                else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-codigo-gsd";
+                    component.Open = true;
+                  }
+                }
+              break;
 
             case "Link-Operaciones-tela":
                if(this.Esquema._Id != _Id)
@@ -680,6 +831,16 @@ export class MainComponent implements OnInit {
                 Partes.instance.Link = "Link-Operaciones-tela";
                 Partes.instance.Open = true;
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-tela";
+                    component.Open = true;
+                  }
+                }
               break;
 
             case "Link-Operaciones-partes":
@@ -692,6 +853,16 @@ export class MainComponent implements OnInit {
                 Partes.instance.Link = "Link-Operaciones-partes";
                 Partes.instance.Open = true;
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-partes";
+                    component.Open = true;
+                  }
+                }
               break;
 
 
@@ -705,6 +876,16 @@ export class MainComponent implements OnInit {
                 Sewing.instance.Link = "Link-Operaciones-sewing";
                 Sewing.instance.Open = true;
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-sewing";
+                    component.Open = true;
+                  }
+                }
               break;
 
           case "Link-Operaciones-sewing-accuracy":
@@ -717,6 +898,16 @@ export class MainComponent implements OnInit {
               SewingAccuracy.instance.Link = "Link-Operaciones-sewing-accuracy";
               SewingAccuracy.instance.Open = true;
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-sewing-accuracy";
+                    component.Open = true;
+                  }
+                }
             break;
 
 
@@ -730,6 +921,16 @@ export class MainComponent implements OnInit {
               Producto.instance.Link = "Link-Operaciones-producto";
               Producto.instance.Open = true;
             }
+            else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-producto";
+                    component.Open = true;
+                  }
+                }
             break;
 
           case "Link-Operaciones-ounce":
@@ -742,6 +943,16 @@ export class MainComponent implements OnInit {
                   Ounce.instance.Link = "Link-Operaciones-ounce";
                   Ounce.instance.Open = true;
                 }
+                else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-ounce";
+                    component.Open = true;
+                  }
+                }
               break;
 
           case "Link-Operaciones-data-machine":
@@ -753,6 +964,16 @@ export class MainComponent implements OnInit {
                 let DataMachine: ComponentRef<DataMachineComponent> = this.dinamycHost.viewContainerRef.createComponent(component);
                 DataMachine.instance.Link = "Link-Operaciones-data-machine";
                 DataMachine.instance.Open = true;
+                }
+                else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-data-machine";
+                    component.Open = true;
+                  }
                 }
             break;
 
@@ -768,6 +989,16 @@ export class MainComponent implements OnInit {
               MethodAnalysis.instance.Link = "Link-Operaciones-Development-Methos-Analisys";
               MethodAnalysis.instance.Open = true;
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-Development-Methos-Analisys";
+                    component.Open = true;
+                  }
+                }
           break;
 
 
@@ -782,6 +1013,16 @@ export class MainComponent implements OnInit {
               MatrizData.instance.Open = true;
              
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = "Link-Operaciones-Matriz-Data";
+                    component.Open = true;
+                  }
+                }
           break;
             
 
@@ -852,6 +1093,16 @@ export class MainComponent implements OnInit {
                 Planing.instance.Link = _Id;
                  Planing.instance.Open = true;
               }
+              else
+                {
+                  component = this.dinamycHost.viewContainerRef.get(0)
+                  component = component._view[30]
+                  if(this.Esquema._Id == _Id)
+                  {
+                    component.Link = _Id;
+                    component.Open = true;
+                  }
+                }
   
               break;
           }
