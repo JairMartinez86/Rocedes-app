@@ -355,7 +355,9 @@ export class LoginService {
       {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planning", Link: "pln-planning-subir-archivos", NombreLink : "Subir Archivos", Activo : false},
       {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Pln-datos-planning", NombreLink : "Datos Planning", Activo : false},
       {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Pln-datos-asignacion-corte", NombreLink : "Datos Asignacion Corte", Activo : false},
+      {EsMenu: false, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Pln-datos-plotter", NombreLink : "Datos de Plotter", Activo : false},
     
+      {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Pln-estado-corte", NombreLink : "Estado de Corte", Activo : false},
       {EsMenu: true, Esquema : "PLN", NombreEsquema : "Planning", Link: "Link-Planning", NombreLink : "Planning", Activo : false},
     
       

@@ -25,4 +25,8 @@ export class PlanningService {
   SubirArchivo(d : IUpload): Observable<any> {
     return this.http.post<any>(this.Cnx.Url() + "Pln/Planning/SubirArchivo", JSON.stringify(d), { headers: {'content-type' : 'application/json'}});
   }
+
+  GuardarEstadoCorte(IdPlanningSwing : number, estado : string): Observable<any> {
+    return this.http.post<any>(this.Cnx.Url() + "Pln/Planning/GuardarEstadoCorte" + "?IdPlanningSwing=" + IdPlanningSwing + "&estado=" + estado, { headers: {'content-type' : 'application/text'}});
+  }
 }

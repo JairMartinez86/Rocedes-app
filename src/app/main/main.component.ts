@@ -42,6 +42,7 @@ import { ClienteComponent } from './cxc/cliente/components/cliente.component';
 import { OpenCloseDirective } from './shared/Directive/open-close.directive';
 import { UploadExcelComponent } from './shared/upload-excel/upload-excel.component';
 import { PlanningComponent } from './Pln/components/planning/planning.component';
+import { EstadoCorteComponent } from './Pln/components/estado-corte/estado-corte.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -203,7 +204,9 @@ export class MainComponent implements OnInit {
 
     this.Esquema.add('PLN', 'Link-Pln-datos-planning', 'Datos Planning', false);
     this.Esquema.add('PLN', 'Link-Pln-datos-asignacion-corte', 'Datos Asignacion Corte', false);
-
+    this.Esquema.add('PLN', 'Link-Pln-datos-plotter', 'Datos de Plotter', false);
+   
+    this.Esquema.add('PLN', 'Link-Pln-estado-corte', 'Estado de Corte', false);
     this.Esquema.add('PLN', 'Link-Planning', 'Planning', false);
   }
 
@@ -908,15 +911,56 @@ export class MainComponent implements OnInit {
 
             break;
 
+            case 'Link-Pln-datos-plotter':
+              this.dinamycHost.viewContainerRef!.clear();
+              index = this.dialog.openDialogs.findIndex((f) => f.id == _Id);
+  
+              if (this.dialogOpen == '' || index == -1) {
+                if (index != -1) this.dialog.openDialogs.splice(index, 1);
+  
+                this.dialog.open(UploadExcelComponent, {
+                  data: _Id,
+                  id: _Id,
+                });
+  
+                this.dialogOpen = _Id;
+              }
+  
+              break;
+
+
           case 'Link-Planning':
+            if (this.Esquema._Id != _Id) {
+                this.dinamycHost.viewContainerRef!.clear();
+  
+                component =
+                  this.componentFactoryResolver.resolveComponentFactory(
+                    PlanningComponent
+                  );
+                let Planing: ComponentRef<PlanningComponent> =
+                  this.dinamycHost.viewContainerRef.createComponent(component);
+                Planing.instance.Link = _Id;
+                Planing.instance.Open = true;
+              } else {
+                component = this.dinamycHost.viewContainerRef.get(0);
+                component = component._view[30];
+                if (this.Esquema._Id == _Id) {
+                  component.Link = _Id;
+                  component.Open = true;
+                }
+              }
+  
+            break;
+
+          case 'Link-Pln-estado-corte':
             if (this.Esquema._Id != _Id) {
               this.dinamycHost.viewContainerRef!.clear();
 
               component =
                 this.componentFactoryResolver.resolveComponentFactory(
-                  PlanningComponent
+                  EstadoCorteComponent
                 );
-              let Planing: ComponentRef<PlanningComponent> =
+              let Planing: ComponentRef<EstadoCorteComponent> =
                 this.dinamycHost.viewContainerRef.createComponent(component);
               Planing.instance.Link = _Id;
               Planing.instance.Open = true;
@@ -933,7 +977,7 @@ export class MainComponent implements OnInit {
         }
         break;
     }
-
+    
     element = <HTMLElement>(
       document.getElementById(_Id)?.parentElement?.parentElement?.parentElement
     );

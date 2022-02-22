@@ -22,7 +22,7 @@ export class PlanningComponent implements OnInit {
   public Link : string = "";
 
 
-  displayedColumns: string[] = ["IdPlanningSwing", "IdCliente",   "Modulo", "Linea", "Cut_date_all_component", "Ct", "Marker", "Largo", "NotasEspeciales",
+  displayedColumns: string[] = ["IdPlanningSwing", "IdCliente",   "Modulo", "Linea", "Cut_date_all_component", "Ct", "Status_cut", "Marker", "Largo", "NotasEspeciales",
 "Origen_segun_wip", "Cutting_plan", "Cut", "Style", "Cut_date_body", "foleo_date_body", "In_plant", "Quant", "Status_comp", "Status_cuerpo", "Foleo",
 "Status_envio", "Fabric", "Pocketing", "Fuse1", "Fuse2", "Cordura", "Quilt", "Dracon", "Linning", "Binding1", "Binding2", "Sherpa", "Rib", "Price",
 "Total"];
@@ -93,7 +93,6 @@ clickedRows = new Set<IPlanning>();
 
     LlenarTabla() : void
     {
-      ELEMENT_DATA_PLALING.splice(0, ELEMENT_DATA_PLALING.length);
       this.dataSource.data.splice(0, this.dataSource.data.length);
   
   
@@ -109,7 +108,7 @@ clickedRows = new Set<IPlanning>();
           {
   
             _json["d"].forEach((j : IPlanning) => {
-              ELEMENT_DATA_PLALING.push(j);
+              this.dataSource.data.push(j);
             });
           }
         }
@@ -120,7 +119,7 @@ clickedRows = new Set<IPlanning>();
           })
         }
     
-        this.dataSource = new MatTableDataSource(ELEMENT_DATA_PLALING);
+        this.dataSource.filter = "";
   
   
       

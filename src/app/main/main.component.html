@@ -572,8 +572,20 @@
                     >Datos Asignacion Corte</a
                   >
                 </li>
+                <li>
+                  <a id="Link-Pln-datos-plotter" class="dropdown-item" href="#"
+                    >Datos de Plotter</a
+                  >
+                </li>
               </ul>
             </li>
+
+            <li
+            class="nav-item nav-item-light bg-light"
+            *ngIf="str_Esquema == 'PLN'"
+          >
+            <a id="Link-Pln-estado-corte" class="nav-link" href="#">Estado de Corte</a>
+          </li>
 
             <li
               class="nav-item nav-item-light bg-light"

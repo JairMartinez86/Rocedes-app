@@ -16,6 +16,7 @@ export interface IPlanning {
     Cut_date_body : Date;
     foleo_date_body : Date;
     Quant : number;
+    Status_cut : string;
     Status_comp : string;
     Status_cuerpo : string;
     Foleo : string;

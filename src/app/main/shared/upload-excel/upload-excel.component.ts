@@ -135,6 +135,10 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
           case "Link-Pln-datos-asignacion-corte":
             datos.link = "datos-asignacion-corte";
             break;
+
+          case "Link-Pln-datos-plotter":
+            datos.link = "datos-plotter";
+            break;
         
           default:
             break;
@@ -208,7 +212,7 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
 
         break;
 
-        case "Link-Pln-datos-asignacion-corte":
+      case "Link-Pln-datos-asignacion-corte":
         
           fname = "datos-asignacion-corte";
           funciones.Merge("A1", "PO", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
@@ -217,6 +221,17 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
           funciones.Merge("D1", "WEEK", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
           funciones.Merge("E1", "LOCATION", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
           funciones.Merge("F1", "COMMENT", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+
+        break;
+
+      case "Link-Pln-datos-plotter":
+        
+          fname = "datos-plotter";
+          funciones.Merge("A1", "Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("B1", "Cut number", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("C1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("D1", "Total yds", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("E1", "Plotter", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
 
         break;
     

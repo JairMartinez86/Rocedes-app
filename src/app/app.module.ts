@@ -108,6 +108,7 @@ import { PlanningComponent } from './main/Pln/components/planning/planning.compo
 import { UploadExcelComponent } from './main/shared/upload-excel/upload-excel.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { FilePickerModule } from  'ngx-awesome-uploader';
+import { EstadoCorteComponent } from './main/Pln/components/estado-corte/estado-corte.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -166,6 +167,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     MatrizOperacionComponent,
     PlanningComponent,
     UploadExcelComponent,
+    EstadoCorteComponent,
 
     
     

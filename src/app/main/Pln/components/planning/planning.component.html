@@ -29,7 +29,7 @@
 
   <ng-container matColumnDef="IdPlanningSwing">
     <th mat-header-cell *matHeaderCellDef> NO. </th>
-    <td class="block" mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}} </td>
   </ng-container>
 
 
@@ -37,14 +37,14 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cliente">
       Cliente.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Cliente}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Cliente}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Modulo">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Modulo">
         Modulo.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Modulo}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Modulo}} </td>
   </ng-container>
 
 
@@ -52,7 +52,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Linea">
         Linea.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Linea}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Linea}} </td>
   </ng-container>
 
 
@@ -60,21 +60,28 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cut_date_all_component">
         Cut date all component.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_all_component, 'dd-MMM-yyyy')?.toString()}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_all_component, 'dd-MMM-yyyy')?.toString()}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Ct">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Ct">
         Ct.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Ct}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Ct}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Status_cut">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status_cut">
+      Status cut.
+    </th>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Status_cut}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Marker">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Marker">
         Marker.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Marker}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Marker}} </td>
   </ng-container>
 
 
@@ -82,7 +89,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Largo">
         Largo.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Largo}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Largo}} </td>
   </ng-container>
 
 
@@ -90,7 +97,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NotasEspeciales">
         Notas Especiales.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.NotasEspeciales}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.NotasEspeciales}} </td>
   </ng-container>
 
   
@@ -98,7 +105,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Origen_segun_wip">
         Origen segun wip.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Origen_segun_wip}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Origen_segun_wip}} </td>
   </ng-container>
 
 
@@ -106,7 +113,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cutting_plan">
         Cutting plan.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Cutting_plan}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Cutting_plan}} </td>
   </ng-container>
 
 
@@ -114,7 +121,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cut">
         Cut.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Cut}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Cut}} </td>
   </ng-container>
 
 
@@ -122,28 +129,28 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Style">
         Style.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Style}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Style}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Cut_date_body">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cut_date_body">
         Cut date body.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_body, 'dd-MMM-yyyy')?.toString()}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.Cut_date_body, 'dd-MMM-yyyy')?.toString()}} </td>
   </ng-container>
 
   <ng-container matColumnDef="foleo_date_body">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by foleo_date_body">
         foleo date body.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.foleo_date_body, 'dd-MMM-yyyy')?.toString()}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{this.datePipe.transform(element.foleo_date_body, 'dd-MMM-yyyy')?.toString()}} </td>
   </ng-container>
 
   <ng-container matColumnDef="In_plant">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by In_plant">
         In plant.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.In_plant}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.In_plant}} </td>
   </ng-container>
 
 
@@ -151,15 +158,17 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quant">
         Quant.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Quant}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Quant}} </td>
   </ng-container>
+
+ 
 
 
   <ng-container matColumnDef="Status_comp">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status_comp">
         Status comp.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Status_comp}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Status_comp}} </td>
   </ng-container>
 
 
@@ -169,21 +178,21 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status_cuerpo">
         Status cuerpo.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Status_cuerpo}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Status_cuerpo}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Foleo">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Foleo">
         Foleo.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Foleo}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Foleo}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Status_envio">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Status_envio">
         Status envio.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Status_envio}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Status_envio}} </td>
   </ng-container>
 
 
@@ -191,70 +200,70 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Fabric">
         Fabric.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Fabric}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Fabric}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Pocketing">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Pocketing">
         Pocketing.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Pocketing}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Pocketing}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Fuse1">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Fuse1">
         Fuse1.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Fuse1}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Fuse1}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Fuse2">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Fuse2">
         Fuse2.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Fuse2}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Fuse2}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Cordura">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Cordura">
         Cordura.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Cordura}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Cordura}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Quilt">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quilt">
         Quilt.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Quilt}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Quilt}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Dracon">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Dracon">
         Dracon.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Dracon}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Dracon}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Linning">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Linning">
         Linning.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Linning}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Linning}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Binding1">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Binding1">
         Binding1.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Binding1}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Binding1}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Binding2">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Binding2">
         Binding2.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Binding2}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Binding2}} </td>
   </ng-container>
 
 
@@ -262,14 +271,14 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sherpa">
         Sherpa.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Sherpa}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Sherpa}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Rib">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Rib">
         Rib.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Rib}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Rib}} </td>
   </ng-container>
 
 
@@ -277,14 +286,14 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Price">
         Price.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Price}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Price}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Total">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Total">
         Price.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Total}} </td>
+    <td class="block" [ngClass]="element.Status_cut == 'REJECTED' ? 'rejected' : ''"  mat-cell *matCellDef="let element"> {{element.Total}} </td>
   </ng-container>
 
 
@@ -295,5 +304,5 @@
   mat-row  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   
 </table>
-<mat-paginator [pageSizeOptions]="[50, 100, 500]"  showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[100, 500, 1000]"  showFirstLastButtons></mat-paginator>
 </div>
