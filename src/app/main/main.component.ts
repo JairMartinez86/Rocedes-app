@@ -202,7 +202,7 @@ export class MainComponent implements OnInit {
     this.Esquema.add('INV', 'LinkBundleBoxingEnvio', 'Envio', false);
 
     this.Esquema.add('PLN', 'Link-Pln-datos-planning', 'Datos Planning', false);
-    this.Esquema.add('PLN', 'Link-Pln-datos-plotter', 'Datos Plotter', false);
+    this.Esquema.add('PLN', 'Link-Pln-datos-asignacion-corte', 'Datos Asignacion Corte', false);
 
     this.Esquema.add('PLN', 'Link-Planning', 'Planning', false);
   }
@@ -891,7 +891,7 @@ export class MainComponent implements OnInit {
 
             break;
 
-          case 'Link-Pln-datos-plotter':
+          case 'Link-Pln-datos-asignacion-corte':
             this.dinamycHost.viewContainerRef!.clear();
             index = this.dialog.openDialogs.findIndex((f) => f.id == _Id);
 

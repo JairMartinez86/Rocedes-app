@@ -132,8 +132,8 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
             datos.link = "datos-planning";
             break;
 
-          case "Link-Pln-datos-plotter":
-            datos.link = "datos-plotter";
+          case "Link-Pln-datos-asignacion-corte":
+            datos.link = "datos-asignacion-corte";
             break;
         
           default:
@@ -201,25 +201,22 @@ constructor(public dialogRef: MatDialogRef<UploadExcelComponent>, private render
         
         fname = "datos-planning";
         funciones.Merge("A1", "Rocedes Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("B1", "Cliente", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("C1", "Linea", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("D1", "Cut", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("E1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("F1", "Quant", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-        funciones.Merge("G1", "Cut date body", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("B1", "Linea", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("C1", "Cut", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("D1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+        funciones.Merge("E1", "Quant", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
 
         break;
 
-        case "Link-Pln-datos-plotter":
+        case "Link-Pln-datos-asignacion-corte":
         
-          fname = "datos-plotter";
-          funciones.Merge("A1", "Week", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-          funciones.Merge("B1", "Cut number", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-          funciones.Merge("C1", "Style", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-          funciones.Merge("D1", "Customers", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-          funciones.Merge("E1", "Total yds", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-          funciones.Merge("F1", "STATUS", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
-          funciones.Merge("G1", "Plot date", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          fname = "datos-asignacion-corte";
+          funciones.Merge("A1", "PO", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("B1", "STYLE", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("C1", "LINE", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("D1", "WEEK", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("E1", "LOCATION", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
+          funciones.Merge("F1", "COMMENT", true, "middle:center", 12, "FFFFFF", "1C394F", worksheet)
 
         break;
     
