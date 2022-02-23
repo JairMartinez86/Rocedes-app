@@ -341,7 +341,7 @@ Escanner() : void{
 
   if( typeof(_Opcion) == 'string' ) {
 
-    _Opcion = this.optionCorte.filter( f => f.Corte == this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.value)[0]
+    _Opcion = this.optionCorte.filter( f => f.Corte == String(this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.value).toUpperCase())[0]
 
     if(_Opcion == null){
       this.valSeleccion.ValForm.get("txtBox_SeleccionCorte")?.setValue("");
@@ -502,8 +502,8 @@ CrearSerial(): void{
   filtrar(event: Event) {
     let filtro : string = (event.target as HTMLInputElement).value;
 
-    if(filtro == "NO ESCANEADO") filtro = "▼"
-    if(filtro == "ESCANEADO") filtro = "▲"
+    if(filtro.toLocaleUpperCase() == "NO ESCANEADO") filtro = "▼"
+    if(filtro.toLocaleUpperCase() == "ESCANEADO") filtro = "▲"
 
     this.dataSourceBoxin.filter = filtro.trim().toLowerCase();
   }  
@@ -704,6 +704,7 @@ CrearSerial(): void{
     this.int_Mesa = Number.parseInt( this.val.ValForm.get("txtBox_Mesa")?.value);
     this.dataSourceBoxin.filter = "";
     this.val.ValForm.get("txtBox_Mesa")?.disable();
+    this. VerificarSacoAbierto();
   }
   
 
@@ -743,7 +744,34 @@ CrearSerial(): void{
   }
 
 
-  
+  VerificarSacoAbierto()
+  {
+    this.BundleBoxingSacoService.VerificarSacoAbierto(this.LoginService.str_user, this.str_Corte).subscribe( s => {
+
+
+      let _json = JSON.parse(s)
+
+      if(_json["esError"] == 0){
+
+        this.int_Saco = 0;
+        this.str_Titulo_Saco = "";
+
+        if(_json["count"] > 0)
+        {
+
+          this.bol_AbrirSaco = true;
+          this.int_Saco = Number.parseInt(_json["d"].Saco);
+          this.str_Titulo_Saco = " Saco # " + _json["d"].Saco;
+
+          
+          let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
+          element.innerText = "Cerrar Saco";
+        }
+
+      }
+      
+    });
+  }
 
   AbrirSaco() : void{
 

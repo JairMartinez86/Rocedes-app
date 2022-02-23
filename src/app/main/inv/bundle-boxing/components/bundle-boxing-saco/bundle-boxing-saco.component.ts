@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -16,6 +16,7 @@ import { ReportViewerService } from 'src/app/main/shared/report-viewer/report-vi
 import { LoginService } from 'src/app/main/sis/service/login.service';
 import { IReporte } from 'src/app/main/shared/class/Form/Reporte/i-Reporte';
 import { ISacoSerial } from 'src/app/main/inv/bundle-boxing/class/i-SacoSerial';
+import { ConfirmarContinuarComponent } from 'src/app/main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
 
 
 
@@ -29,7 +30,17 @@ let ELEMENT_DATA_SACO : ISaco[] = [];
 })
 export class BundleBoxingSacoComponent implements OnInit {
 
-
+  @Input() public href: string | undefined;
+  @HostListener('click', ['$event']) public onClick(event: Event): void {
+    if (
+      !this.href ||
+      this.href == '#' ||
+      (this.href && this.href.length === 0)
+    ) {
+      event.preventDefault();
+    }
+  }
+  
 
   str_from : string = "";
   str_Serial : string = "";
@@ -139,25 +150,15 @@ export class BundleBoxingSacoComponent implements OnInit {
     this.dataSourceSaco.filter = filtro.trim().toLowerCase();
   }  
  
-  Eliminar() : void
+  Eliminar(row : any) : void
   {
     this.BundleBoxingSacoService.Eliminar(this.str_Serial, this.LoginService.str_user).subscribe( s =>{
 
       
       let _json = JSON.parse(s);
-
-  
       if(_json["esError"] == 0)
       {
-        this._Respuesta = _json;
-        document.getElementById("divRegistrosBoginxSaco")?.classList.remove("disabled");
-        this.bol_OpenDialog = false;
-        this.str_from = "";
-        this.str_Serial = "";
-        this.dataSourceSaco.data.splice(0, this.dataSourceSaco.data.length);
-        if( this.dialogConfirmar != null)this.dialogConfirmar.close();
-        if( this.dialog != null)this.dialog.closeAll();
-        
+        row.Activo = false;
       }
       else
       {
@@ -175,7 +176,19 @@ export class BundleBoxingSacoComponent implements OnInit {
 
     if(evento == "Eliminar")
     {
-      
+
+      let _dialog = this.dialog.open(ConfirmarContinuarComponent, { data : "<p>Esta seguro de eliminar?</p><p>saco: <b>" + row.Saco  + "</b><br>Serial: <b>" + row.Serial + "</b></p>" })
+      document.getElementById("body")?.classList.add("disabled");
+
+      _dialog.afterClosed().subscribe( s =>{
+        document?.getElementById("body")?.classList.remove("disabled");
+        if(_dialog.componentInstance.Retorno == "1")
+        {
+          this.str_Serial = row.Serial;
+          this.Eliminar(row);
+        }
+      });
+   /*   
     this.bol_OpenDialog = true;
     if(this.dialogConfirmar != null) this.dialogConfirmar.close();
 
@@ -203,7 +216,7 @@ export class BundleBoxingSacoComponent implements OnInit {
 
       }
       
-    });
+    });*/
 
     }
 

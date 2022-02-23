@@ -36,5 +36,10 @@ export class BundleBoxingSacoService {
 
   }
 
+  VerificarSacoAbierto(user : string, corte : string) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Inventario/Saco/VerificarSacoAbierto" + "?user=" + user + "&corte=" + corte );
+  }
+
 
 }

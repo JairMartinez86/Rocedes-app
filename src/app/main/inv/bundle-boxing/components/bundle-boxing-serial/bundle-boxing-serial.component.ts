@@ -14,6 +14,7 @@ import { ToastService } from 'src/app/main/shared/toast/toast.service';
 import { BundleBoxingSerialService } from 'src/app/main/inv/bundle-boxing/service/bundle-boxing-serial.service';
 import { InventarioService } from 'src/app/main/inv/service/inventario.service';
 import { LoginService } from 'src/app/main/sis/service/login.service';
+import { ConfirmarContinuarComponent } from 'src/app/main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
 
 
 let ELEMENT_DATA_SERIAL : IBoginxSerial[] = [];
@@ -132,7 +133,7 @@ export class BundleBoxingSerialComponent implements OnInit {
     this.dataSourceSerial.filter = filtro.trim().toLowerCase();
   }  
  
-  Eliminar() : void
+  Eliminar(row : any) : void
   {
     this.BundleBoxingSerialService.Eliminar(this.str_Serial, this.LoginService.str_user).subscribe( s =>{
 
@@ -142,15 +143,7 @@ export class BundleBoxingSerialComponent implements OnInit {
   
       if(_json["esError"] == 0)
       {
-        this._Respuesta = _json;
-        document.getElementById("divRegistrosBoginxSeriales")?.classList.remove("disabled");
-        this.bol_OpenDialog = false;
-        this.str_from = "";
-        this.str_Serial = "";
-        this.dataSourceSerial.data.splice(0, this.dataSourceSerial.data.length);
-        if( this.dialogConfirmar != null)this.dialogConfirmar.close();
-        if( this.dialog != null)this.dialog.closeAll();
-        
+        row.Activo = false;
       }
       else
       {
@@ -168,8 +161,21 @@ export class BundleBoxingSerialComponent implements OnInit {
 
     if(evento == "Eliminar")
     {
+
+      let _dialog = this.dialog.open(ConfirmarContinuarComponent, { data : "<p>Esta seguro de eliminar?</p><p>Serial: <b>" + row.Serial + "</b></p>" })
+      document.getElementById("body")?.classList.add("disabled");
+
+      _dialog.afterClosed().subscribe( s =>{
+        document?.getElementById("body")?.classList.remove("disabled");
+        if(_dialog.componentInstance.Retorno == "1")
+        {
+          this.str_Serial = row.Serial;
+          this.Eliminar(row);
+        }
+      });
       
-    this.bol_OpenDialog = true;
+      
+    /*this.bol_OpenDialog = true;
     if(this.dialogConfirmar != null) this.dialogConfirmar.close();
 
     this.dialogConfirmar = this.dialog.open(BundleBoxingSerialComponent, { id: "DialogoConfirmarSerial" });
@@ -192,7 +198,7 @@ export class BundleBoxingSerialComponent implements OnInit {
 
       }
       
-    });
+    });*/
 
     }
 
