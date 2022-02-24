@@ -115,10 +115,10 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
     let x : number = 1;
     _json.forEach((j: { Grupo : string, Mesa : number, Serial : number, Nombre : string, Talla : string, Bulto : number, Capaje : string, Yarda: string, Seccion : number, Saco : string, Corte : string, Estilo :string, Login : string, Fecha: string}) => {
       ELEMENT_DATA_TABLA.push({ cIndex : x, Grupo : j.Grupo, cMesa : j.Mesa, cSerial : j.Serial, cNomPieza : j.Nombre, cTalla : j.Talla, cNoBulto : j.Bulto, cCapaje : j.Capaje == "0" ? "" : j.Capaje, cYarda : j.Yarda == "0" ? "" : j.Yarda, cSeccion : j.Seccion, cNoSaco : j.Saco == "0" ? "" : j.Saco, cCorte: j.Corte, cEstilo : j.Estilo, cUsuario : j.Login, cFecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(),
-    cfiltro : j.Mesa + " "+ j.Serial + " "+ j.Nombre +  "" + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
+    cfiltro : j.Grupo + " " + j.Mesa + " "+ j.Serial + " "+ j.Nombre +  "" + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
 
     ELEMENT_EXCEL.push({ Index : x, Serial : j.Serial, Pieza : j.Nombre, Talla : j.Talla, Bulto : j.Bulto, Capaje : j.Capaje == "0" ? "" : j.Capaje, Yarda : j.Yarda == "0" ? "" : j.Yarda, Saco : j.Saco == "0" ? "" : j.Saco, Mesa : j.Mesa == 0 ? "" : j.Saco, Usuario : j.Login, Fecha : this.datepipe.transform(j.Fecha, 'dd-MM-yyyy hh:mm:ss')?.toString(), Grupo : j.Grupo,
-    filtro : j.Mesa + " "+ j.Serial + " "+ j.Nombre + " " + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
+    filtro : j.Grupo + " " + j.Mesa + " "+ j.Serial + " "+ j.Nombre + " " + j.Talla + " "+ j.Bulto + " "+ j.Capaje + " "+ j.Seccion + " "+ j.Saco + " "+ j.Estilo + " "+ j.Login + " "+ j.Fecha});
       x++;
     });
 
