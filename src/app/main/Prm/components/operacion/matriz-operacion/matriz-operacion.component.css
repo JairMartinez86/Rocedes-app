@@ -32,33 +32,3 @@ tr td{
 
 
 
-
-  /* button */
-  .dt-button {
-    background-color: #1b364c;
-    border: none;
-    color: white;
-    padding: .5rem 1rem;
-    cursor: pointer;
-    user-select: none;
-    outline: 0;
-  }
-  .dt-green {background-color: #4CAF50;} /* Green */
-  .dt-blue {background-color: #008CBA;} /* Blue */
-  .dt-red {background-color: #f44336;} /* Red */
-  .dt-orange {background-color: #ff9800;} /* Orange */
-  .dt-rocedes {background-color: #1b364c;} 
-  
-  /* PanelDemoComponent */
-  .panel-demo1 .ui-modal-header { background-color: red !important; }
-  
-  /* NestedModalDemoComponent */
-  .nested-modal-demo1 .ui-modal {
-    width: 37.5rem;
-  }
-  .nested-modal-demo2 .ui-modal {
-    width: 34.375rem;
-  }
-  .nested-modal-demo3 .ui-modal {
-    width: 31.25rem;
-  }
