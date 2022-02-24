@@ -159,6 +159,9 @@ export class BundleBoxingSacoComponent implements OnInit {
       if(_json["esError"] == 0)
       {
         row.Activo = false;
+        row.Abierto = false;
+        row.IdUsuarioAbre = 0;
+        row.UsuarioAbre = "";
       }
       else
       {
