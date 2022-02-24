@@ -61,6 +61,10 @@ export class LoginComponent implements OnInit {
 
     if(this.val.ValForm.invalid) return;
 
+    this.val.ValForm.get("txtLoginUsuario")?.disable();
+    this.val.ValForm.get("txtLoginPass")?.disable();
+    this.val.ValForm.get("check_LogRecordar")?.disable();
+
     this.str_user = this.val.ValForm.get("txtLoginUsuario")?.value;
     this.str_pass = this.val.ValForm.get("txtLoginPass")?.value;
     this.bol_remenber = this.val.ValForm.get("check_LogRecordar")?.value;
@@ -68,6 +72,10 @@ export class LoginComponent implements OnInit {
     this.bol_Load = true;
     this.loginserv.InicioSesion(this.str_user, this.str_pass).subscribe(datos => {
       
+      this.val.ValForm.get("txtLoginUsuario")?.enable();
+      this.val.ValForm.get("txtLoginPass")?.enable();
+      this.val.ValForm.get("check_LogRecordar")?.enable();
+
       this.bol_Load = false;
       let _json = (JSON.parse(datos));
 

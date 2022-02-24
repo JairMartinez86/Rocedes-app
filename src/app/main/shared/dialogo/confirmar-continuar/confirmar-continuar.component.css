@@ -5,3 +5,11 @@
 #div-btn-confirmar-continuar{
     padding-bottom: 15px;
 }
+
+::ng-deep .color-red{
+    color:red;
+}
+
+::ng-deep .color-blue{
+    color:blue;
+}
