@@ -480,19 +480,19 @@
 
 
 
-<app-modal #modal1
-class="panel-demo1"
-[maximizable]="true"
-[backdrop]="true">
-<ng-container class="app-modal-header">COMPLEMENTO</ng-container>
-<ng-container class="app-modal-body">
-  <app-report-viewer></app-report-viewer>
-</ng-container>
-<ng-container class="app-modal-footer">
-<div class="button-row text-end">
-<button type="button" class="dt-button dt-rocedes"  (click)="modal1.hide()" ><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close</button>
-</div>
-</ng-container>
+<app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+    <ng-container class="app-modal-header">COMPLEMENTO</ng-container>
+    <ng-container class="app-modal-body">
+        <app-report-viewer></app-report-viewer>
+    </ng-container>
+    <ng-container class="app-modal-footer">
+        <div class="button-row text-end">
+            <button type="button" class="dt-button dt-rocedes" (click)="modal1.hide()">
+                <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+            </button>
+        </div>
+    </ng-container>
+</app-modal>
 
 
 

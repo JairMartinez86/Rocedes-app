@@ -297,17 +297,17 @@
 
 
 <!--https://github.com/mazdik/ng-modal-->
-   <app-modal #modal1
-              class="panel-demo1"
-              [maximizable]="true"
-              [backdrop]="true">
-     <ng-container class="app-modal-header">Operation</ng-container>
-     <ng-container class="app-modal-body">
-       <app-method-analysis></app-method-analysis>
-     </ng-container>
-     <ng-container class="app-modal-footer">
+  <app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+    <ng-container class="app-modal-header">Operation</ng-container>
+    <ng-container class="app-modal-body">
+      <app-method-analysis></app-method-analysis>
+    </ng-container>
+    <ng-container class="app-modal-footer">
       <div class="button-row text-end">
-        <button type="button" class="dt-button dt-rocedes"  (click)="Cerrar(); modal1.hide()" ><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close</button>
+        <button type="button" class="dt-button dt-rocedes" (click)="Cerrar(); modal1.hide()">
+          <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+        </button>
       </div>
-     </ng-container>
+    </ng-container>
+  </app-modal>
   
