@@ -145,7 +145,7 @@
                 <th mat-header-cell *matHeaderCellDef>
                 </th>
                 <td mat-cell *matCellDef="let element" >
-                  <a href="#" (click)="clickRow('Eliminar', element)" *ngIf="element.Activo"><fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:red"></fa-icon></a>
+                  <a href="#" (click)="clickRow('Eliminar', element); modal1.show();" *ngIf="element.Activo"><fa-icon [icon]="['fas', 'trash-alt']" class="fa-2x" style="color:red"></fa-icon></a>
                 </td>
               </ng-container>
 
@@ -167,28 +167,18 @@
     </div>
 </ng-container>
 
-<!--<ng-container *ngIf="str_from=='BundleBoxingSerialConfirmar'">
-  <div class="formulario" id="divBoxingSerialConfirmar">
-    <div class="head-form" id="from-encabezado">
-        <div class="from-encabezado-titulo"><p>Eliminar</p></div>
-    </div>
-
-    <div class="container">
-
-            <div class="row">
-              <p>Esta seguro de Eliminar?</p>
-            </div>
-            <div class="col-12">
-                <div class="button-row text-end">
-                    <button type="button" class="btn btn-outline-success" (click)="Eliminar()">Aceptar</button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="Limpiar()">Cancelar</button>
-                </div>
-            </div>
-      </div>
-
-    </div>
-
-</ng-container>-->
+<app-modal #modal1
+class="panel-demo1"
+[maximizable]="true"
+[backdrop]="true">
+<ng-container class="app-modal-header">SERIAL</ng-container>
+<ng-container class="app-modal-body">
+  <app-report-viewer></app-report-viewer>
+</ng-container>
+<ng-container class="app-modal-footer">
+<div class="button-row text-end">
+<button type="button" class="dt-button dt-rocedes"  (click)="modal1.hide()" ><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close</button>
+</div>
+</ng-container>
 
 
-<div class="container"><app-report-viewer></app-report-viewer></div>

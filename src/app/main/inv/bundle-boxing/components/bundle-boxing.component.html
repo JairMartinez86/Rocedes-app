@@ -409,7 +409,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="button-row text-end">
-                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success" [disabled]="valSerial.ValForm.invalid" (click)="GenerarSerial()">GENERAR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
+                            <button type="button" id="btnBoxin_CrearSerial" class="btn btn-outline-success" [disabled]="valSerial.ValForm.invalid" (click)="GenerarSerial(); modal1.show();">GENERAR  <fa-icon [icon]="['fas', 'print']" class="fa-2x"></fa-icon></button>
                         </div>
                     </div>
                 </div>
@@ -480,7 +480,19 @@
 
 
 
-<div class="container"><app-report-viewer></app-report-viewer></div>
+<app-modal #modal1
+class="panel-demo1"
+[maximizable]="true"
+[backdrop]="true">
+<ng-container class="app-modal-header">COMPLEMENTO</ng-container>
+<ng-container class="app-modal-body">
+  <app-report-viewer></app-report-viewer>
+</ng-container>
+<ng-container class="app-modal-footer">
+<div class="button-row text-end">
+<button type="button" class="dt-button dt-rocedes"  (click)="modal1.hide()" ><fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close</button>
+</div>
+</ng-container>
 
 
 
