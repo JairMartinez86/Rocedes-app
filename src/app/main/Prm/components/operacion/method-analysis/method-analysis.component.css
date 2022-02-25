@@ -3,6 +3,10 @@
     max-height: 525px;
   }
 
+  button{
+    width: 130px;
+  }
+
   #tabla-parametros-method-analisys
   {
     max-height: 600px;

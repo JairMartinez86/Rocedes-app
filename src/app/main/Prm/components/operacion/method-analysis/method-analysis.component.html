@@ -153,7 +153,7 @@
 
 
 
-					<tr mat-header-row *matHeaderRowDef="displayedColumns_parametros_method_analisys"></tr>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns_parametros_method_analisys; sticky: true"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedColumns_parametros_method_analisys;"></tr>
 
 				</table>
@@ -167,25 +167,22 @@
 
 			<div class="container">
                 <form class="form"  [formGroup]="val.ValForm" novalidate>
-                    <div class="row">
+                    <div class="row col-12">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<mat-form-field>
+								<mat-label>FIND</mat-label>
+								<input matInput (keyup)="filtrar($event)" placeholder="Find">
+							</mat-form-field>
+						</div>
+	
+						
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<div class="button-row text-end">
+									<button [disabled]="val.ValForm.invalid" type="button" class="btn btn-outline-secondary" (click)="AgregarFila()"><b>NEW FILE</b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
+								</div>
+							</div>
 
-                        <div class="col-sm-12 col-md-4 col-md-6">
-                            <mat-form-field>
-                                <mat-label>FIND</mat-label>
-                                <input matInput (keyup)="filtrar($event)" placeholder="Find">
-                            </mat-form-field>
-                        </div>
-    
-                        
-                            <div class="col-sm-12 col-md-4 col-md-6">
-                                <div class="button-row text-end">
-                                    <button [disabled]="val.ValForm.invalid" type="button" class="btn btn-outline-secondary" (click)="AgregarFila()"><b>NEW FILE</b> <fa-icon [icon]="['fas', 'plus']" class="fa-2x"></fa-icon></button>
-                                </div>
-                            </div>
                      
-                        
-    
-    
                     </div>
                 </form>
 				
@@ -291,7 +288,7 @@
 
 
 
-					<tr mat-header-row *matHeaderRowDef="displayedColumns_method_analisys"></tr>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns_method_analisys; sticky: true"></tr>
 					<tr mat-row [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns_method_analisys;"></tr>
 
 
