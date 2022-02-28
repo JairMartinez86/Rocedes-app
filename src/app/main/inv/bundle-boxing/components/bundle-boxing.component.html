@@ -130,7 +130,7 @@
     </div>
 
 
-    <div class="Lista-Registro" id="divRegistrosUsuario">
+    <div class="Lista-Registro" id="divRegistrosSerialBoxing">
         <div class="franja"><p>Registros de Piezas Escaneadas</p><p style="color: green;">{{str_Titulo_Saco}}</p></div>
 
         <div class="container">
@@ -149,6 +149,11 @@
     
                 <div>
                     <button *ngIf="dataSourceBoxin.data.length > 0 && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="AbrirSaco()">Abrir Saco</button>
+                </div>
+
+                <div>
+
+                    <button *ngIf="bol_AbrirSaco && !EsComplemento" type="button" id="btnBoxin_AbrirSaco" class="btn btn-outline-secondary"  (click)="ImprimirSaco(); modal1.show();">Imprimir <fa-icon [icon]="['fas', 'print']" class="fa-lg" style="color:green"></fa-icon></button>
                 </div>
              </div>
         </div>
@@ -481,7 +486,7 @@
 
 
 <app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
-    <ng-container class="app-modal-header">COMPLEMENTO</ng-container>
+    <ng-container class="app-modal-header"></ng-container>
     <ng-container class="app-modal-body">
         <app-report-viewer></app-report-viewer>
     </ng-container>
@@ -493,6 +498,8 @@
         </div>
     </ng-container>
 </app-modal>
+
+
 
 
 

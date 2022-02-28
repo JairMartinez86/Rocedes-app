@@ -22,6 +22,7 @@ import { ReportViewerService } from '../../../shared/report-viewer/report-viewer
 import { ToastService } from '../../../shared/toast/toast.service';
 import { BundleBoxingService } from '../service/bundle-boxing.service';
 import { BundleBoxingSacoService } from '../service/bundle-boxing-saco.service';
+import { ISacoSerial } from '../class/i-SacoSerial';
 
 
 export interface IBoxin {
@@ -125,6 +126,7 @@ export class BundleBoxingComponent implements OnInit {
   str_Estilo : string = "";
   str_Titulo_Saco : string = "";
   str_Mesa : string = "-1";
+  str_SerialSaco : string = "";
   str_Label_Capaje : string = "Capaje."
   opcion_material : string = "";
   opcion_presentacion : string = "";
@@ -230,6 +232,7 @@ export class BundleBoxingComponent implements OnInit {
     this.bol_IniciarEmpaque = false;
     this.bol_AbrirSaco = false;
     this.EnSaco = false;
+    this.str_SerialSaco = "";
 
     this.int_Saco = 0;
     this.int_Mesa = 0;
@@ -762,6 +765,7 @@ CrearSerial(): void{
           this.bol_AbrirSaco = true;
           this.int_Saco = Number.parseInt(_json["d"].Saco);
           this.str_Titulo_Saco = " Saco # " + _json["d"].Saco;
+          this.str_SerialSaco = _json["d"].Serial;
 
           
           let element = <HTMLElement>document.getElementById("btnBoxin_AbrirSaco");
@@ -793,6 +797,7 @@ CrearSerial(): void{
         document.getElementById("body")?.classList.remove("disabled");
         this.int_Saco = this.dialogBundle.componentInstance.int_Saco;
         this.str_Titulo_Saco = this.dialogBundle.componentInstance.str_Titulo_Saco;
+        this.str_SerialSaco = this.dialogBundle.componentInstance.str_SerialSaco;
         
 
         if(this.int_Saco > 0){
@@ -804,6 +809,7 @@ CrearSerial(): void{
           }
           else{
             element.innerText = "Abrir Saco";
+            this.str_SerialSaco = "";
           }
         }
 
@@ -859,6 +865,7 @@ CrearSerial(): void{
          
 
           this.bol_AbrirSaco = false;
+          this.str_SerialSaco = "";
 
           if(evento == "Abrir" || evento =="Crear") this.bol_AbrirSaco = true;
           
@@ -866,6 +873,7 @@ CrearSerial(): void{
           {
             this.int_Saco = Number.parseInt(_json["d"].Saco);
             this.str_Titulo_Saco = " Saco # " + _json["d"].Saco;
+            this.str_SerialSaco = _json["d"].Serial;
           }
 
           
@@ -908,6 +916,23 @@ CrearSerial(): void{
 
   }
 
+
+  ImprimirSaco() : void
+  {
+    let reporte : IReporte = new IReporte();
+    let ISaco : ISacoSerial = new ISacoSerial();
+
+    ISaco.Serial = this.str_SerialSaco;
+    ISaco.NoMesa = this.int_Mesa;
+    ISaco.Corte = this.str_Corte;
+    ISaco.Saco = this.int_Saco;
+
+      
+    reporte.Rdlc = "SerialSaco.rdlc"
+    reporte.json = ISaco;
+
+    this.ReportViewerService.change.emit(["Imprimir",  reporte]);
+  }
  
    //#endregion EVENTOS CREAR, CERRAR, ABIR SACO
 
