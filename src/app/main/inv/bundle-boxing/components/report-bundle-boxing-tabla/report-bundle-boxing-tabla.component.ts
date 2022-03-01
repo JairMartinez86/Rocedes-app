@@ -177,7 +177,7 @@ export class ReportBundleBoxingTablaComponent implements OnInit {
   let workbook = new Workbook();
 
   //add name to sheet
-  let worksheet = workbook.addWorksheet("Employee Data");
+  let worksheet = workbook.addWorksheet("report-bundle-boxing");
 
   //add column name
   let header=["No",  "Serial", "Pieza", "Talla", "Bulto/Rollo", "Capaje", "Yardaje", "Saco", "Mesa",  "Usuario", "Fecha", "Grupo"]
