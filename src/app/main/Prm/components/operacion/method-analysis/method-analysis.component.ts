@@ -982,8 +982,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
       extension: 'png',
     });
     worksheet.addImage( headerImage, {
-      tl: { col: 0, row: 0 },
-      ext: { width: 96.88, height: 60.85 }
+      tl: { col: 0.2, row: 0.2 },
+      ext: { width: 96.88, height: 52.85 }
     });
     
 
