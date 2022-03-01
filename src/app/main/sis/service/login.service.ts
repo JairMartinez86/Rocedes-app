@@ -323,6 +323,8 @@ export class LoginService {
       {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmParametros", NombreLink : "Parameters", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-cliente", NombreLink : "Customers", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-producto", NombreLink : "Product Catalog", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-family", NombreLink : "Family", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-secuence", NombreLink : "Secuence", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-tela", NombreLink : "Type of Fabic", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-partes", NombreLink : "Sewing Garment", Activo : false},

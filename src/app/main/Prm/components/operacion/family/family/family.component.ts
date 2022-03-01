@@ -4,21 +4,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IProducto } from 'src/app/main/shared/class/Form/Inv/Interface/i-Producto';
+import { IFamily } from 'src/app/main/Prm/interface/i-Family';
+import { OperacionesService } from 'src/app/main/Prm/service/operaciones.service';
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
-import { ProductoService } from 'src/app/main/inv/service/producto.service';
 
 
-let ELEMENT_DATA_PRODUCTO : IProducto[] = [];
+
+let ELEMENT_DATA_FAMILY : IFamily[] = [];
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-family',
+  templateUrl: './family.component.html',
+  styleUrls: ['./family.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class FamilyComponent implements OnInit {
 
   public val = new Validacion();
   
@@ -28,12 +29,12 @@ export class ProductoComponent implements OnInit {
 
   public Editar : boolean = false;
   private Id : number = -1;
-  private _RowDato !: IProducto;
+  private _RowDato !: IFamily;
 
 
-  displayedColumns: string[] = ["IdProducto", "Nombre", "Code",  "Editar", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_PRODUCTO);
-  clickedRows = new Set<IProducto>();
+  displayedColumns: string[] = ["IdFamily", "Components",   "Product", "Code", "Editar", "Eliminar"];
+  dataSource = new MatTableDataSource(ELEMENT_DATA_FAMILY);
+  clickedRows = new Set<IFamily>();
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
@@ -52,10 +53,11 @@ export class ProductoComponent implements OnInit {
 
 
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _ProductoService : ProductoService) { 
-    this.val.add("txt_inv_producto_nombre", "1", "LEN>", "0");
-    this.val.add("txt_inv_producto_code", "1", "LEN>", "0");
-    this.val.add("txt_inv_producto_code", "2", "LEN==", "3");
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
+    this.val.add("txt_operacion_family_code", "1", "LEN>", "0");
+    this.val.add("txt_operacion_family_code", "2", "LEN==", "3");
+    this.val.add("txt_operacion_family_components", "1", "LEN>", "0");
+    this.val.add("txt_operacion_family_product", "1", "LEN>", "0");
   }
 
 
@@ -65,9 +67,10 @@ export class ProductoComponent implements OnInit {
     this.Editar = false;
     this.val.ValForm.reset();
 
-    this.val.ValForm.get("txt_inv_producto_nombre")?.disable();
-    this.val.ValForm.get("txt_inv_producto_code")?.disable();
-    document?.getElementById("divinv-frm-producto-registros")?.classList.remove("disabled");
+    this.val.ValForm.get("txt_operacion_family_code")?.disable();
+    this.val.ValForm.get("txt_operacion_family_components")?.disable();
+    this.val.ValForm.get("txt_operacion_family_product")?.disable();
+    document?.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.remove("disabled");
   }
 
 
@@ -94,11 +97,15 @@ export class ProductoComponent implements OnInit {
 
     switch(_input){
 
-      case "txt_inv_producto_nombre":
-        document?.getElementById("txt_inv_producto_code")?.focus();
+      case "txt_operacion_family_components":
+        document?.getElementById("txt_operacion_family_product")?.focus();
+        break;
+      
+      case "txt_operacion_family_product":
+        document?.getElementById("txt_operacion_family_code")?.focus();
         break;
 
-      case "txt_inv_producto_code":
+      case "txt_operacion_family_code":
         this.Guardar();
         break;
     }
@@ -144,10 +151,11 @@ export class ProductoComponent implements OnInit {
     if(str_Evento == "Editar")
     {
       this.Nuevo();
-      this.Id = row.IdProducto;
-      this.val.ValForm.get("txt_inv_producto_nombre")?.setValue(row.Nombre);
-      this.val.ValForm.get("txt_inv_producto_code")?.setValue(row.Code);
-      document.getElementById("divinv-frm-producto-registros")?.classList.add("disabled");
+      this.Id = row.IdFamily;
+      this.val.ValForm.get("txt_operacion_family_code")?.setValue(row.Code);
+      this.val.ValForm.get("txt_operacion_family_components")?.setValue(row.Components);
+      this.val.ValForm.get("txt_operacion_family_product")?.setValue(row.Product);
+      document.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.add("disabled");
     }
     else
     {
@@ -171,20 +179,20 @@ export class ProductoComponent implements OnInit {
   Eliminar() : void
   {
     this._RowDato.Evento = "Eliminar";
-    this._ProductoService.Guardar(this._RowDato).subscribe( s =>{
+    this._OperacionesService.GuardarFamily(this._RowDato).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_PRODUCTO.findIndex(f =>  Number(f.IdProducto) == Number(_json["d"].IdProducto));
+        let index : number = ELEMENT_DATA_FAMILY.findIndex(f =>  Number(f.IdFamily) == Number(_json["d"].IdFamily));
 
 
-        if(index >= 0) ELEMENT_DATA_PRODUCTO.splice(index, 1);
+        if(index >= 0) ELEMENT_DATA_FAMILY.splice(index, 1);
       }
      
 
-      this.dataSource.data = ELEMENT_DATA_PRODUCTO;
+      this.dataSource.data = ELEMENT_DATA_FAMILY;
       
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
@@ -196,18 +204,18 @@ export class ProductoComponent implements OnInit {
 
   LlenarTabla() :void
   {
-    ELEMENT_DATA_PRODUCTO.splice(0, ELEMENT_DATA_PRODUCTO.length);
+    ELEMENT_DATA_FAMILY.splice(0, ELEMENT_DATA_FAMILY.length);
 
-    this._ProductoService.Get().subscribe(s =>{
+    this._OperacionesService.GetFamily("").subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
       {
-        _json["d"].forEach((d : IProducto) => {
-          ELEMENT_DATA_PRODUCTO.push(d);
+        _json["d"].forEach((d : IFamily) => {
+          ELEMENT_DATA_FAMILY.push(d);
         });
 
-        this.dataSource.data = ELEMENT_DATA_PRODUCTO;
+        this.dataSource.data = ELEMENT_DATA_FAMILY;
 
       }
       else
@@ -228,23 +236,24 @@ export class ProductoComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = true;
-    this.val.ValForm.get("txt_inv_producto_nombre")?.enable();
-    this.val.ValForm.get("txt_inv_producto_code")?.enable();
- 
+    this.val.ValForm.get("txt_operacion_family_code")?.enable();
+    this.val.ValForm.get("txt_operacion_family_components")?.enable();
+    this.val.ValForm.get("txt_operacion_family_product")?.enable();
 
-    document.getElementById("txt_inv_producto_nombre")?.focus();
+    document.getElementById("txt_operacion_family_components")?.focus();
   }
 
   Guardar() : void
   {
-    let datos : IProducto = {} as IProducto;
-    datos.IdProducto = this.Id;
-    datos.Nombre = String(this.val.ValForm.get("txt_inv_producto_nombre")?.value).trimEnd();
-    datos.Code = String(this.val.ValForm.get("txt_inv_producto_code")?.value)
+    let datos : IFamily = {} as IFamily;
+    datos.IdFamily = this.Id;
+    datos.Code = String(this.val.ValForm.get("txt_operacion_family_code")?.value).trimEnd();
+    datos.Components = String(this.val.ValForm.get("txt_operacion_family_components")?.value).trimEnd();
+    datos.Product = String(this.val.ValForm.get("txt_operacion_family_product")?.value).trimEnd();
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
 
-    this._ProductoService.Guardar(datos).subscribe( s =>{
+    this._OperacionesService.GuardarFamily(datos).subscribe( s =>{
   
       let _json = JSON.parse(s);
      let _dialog =  this.dialog.open(DialogoComponent, {
@@ -255,18 +264,20 @@ export class ProductoComponent implements OnInit {
         if(_json["esError"] == 0)
         {
 
-          let index : number = ELEMENT_DATA_PRODUCTO.findIndex(f =>  Number(f.IdProducto) == Number(_json["d"].IdProducto));
+          let index : number = ELEMENT_DATA_FAMILY.findIndex(f =>  Number(f.IdFamily) == Number(_json["d"].IdFamily));
 
           if(index >= 0)
           {
-            ELEMENT_DATA_PRODUCTO[index].Code = _json["d"].Code;
-            ELEMENT_DATA_PRODUCTO[index].Nombre = _json["d"].Nombre;
+            ELEMENT_DATA_FAMILY[index].IdFamily = _json["d"].IdFamily;
+            ELEMENT_DATA_FAMILY[index].Components = _json["d"].Components;
+            ELEMENT_DATA_FAMILY[index].Product = _json["d"].Product;
+            ELEMENT_DATA_FAMILY[index].Code = _json["d"].Code;
           }
           else
           {
-            ELEMENT_DATA_PRODUCTO.push(_json["d"]);
+            ELEMENT_DATA_FAMILY.push(_json["d"]);
           }
-          this.dataSource.data = ELEMENT_DATA_PRODUCTO;
+          this.dataSource.data = ELEMENT_DATA_FAMILY;
           this.Limpiar();
          
         }
@@ -283,4 +294,5 @@ export class ProductoComponent implements OnInit {
     this.Limpiar();
     this.LlenarTabla();
   }
+
 }

@@ -10,6 +10,8 @@ import { IPartes } from '../interface/i-Partes';
 import { ISewing } from '../interface/i-Sewing';
 import { ISewingAccuracy } from '../interface/i-SewingAccuracy';
 import { ITela } from '../interface/i-Tela';
+import { IFamily } from '../interface/i-Family';
+import { ISecuence } from '../interface/i-Secuence';
 
 
 @Injectable({
@@ -39,6 +41,39 @@ export class OperacionesService {
     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarCodigoGSD" + "?d=" + json,  { 'content-type': 'application/json'});
   }
   //#endregion CODIGO GSD
+
+
+
+  
+  //#region FAMILY
+  GetFamily(Components : string) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetFamily" + "?Components=" + Components );
+  }
+
+
+
+  GuardarFamily(d : IFamily): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarFamily" + "?d=" + json,  { 'content-type': 'application/json'});
+  }
+  //#endregion FAMILY
+
+
+
+    //#region SECUENCE
+    GetSecuence(Secuence : number) : Observable<any>
+    {
+      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSecuence" + "?Secuence=" + Secuence );
+    }
+  
+  
+  
+    GuardarSecuence(d : ISecuence): Observable<any> { 
+      let json = JSON.stringify(d);  
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarSecuence" + "?d=" + json,  { 'content-type': 'application/json'});
+    }
+    //#endregion SECUENCE
 
 
     //#region PARTES

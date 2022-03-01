@@ -1,6 +1,6 @@
 export interface IProducto {
     IdProducto : number;
     Nombre : string;
-    LevelOfComplexity : number;
+    Code : string;
     Evento : string;
 }

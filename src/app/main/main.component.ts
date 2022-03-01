@@ -43,6 +43,8 @@ import { OpenCloseDirective } from './shared/Directive/open-close.directive';
 import { UploadExcelComponent } from './shared/upload-excel/upload-excel.component';
 import { PlanningComponent } from './Pln/components/planning/planning.component';
 import { EstadoCorteComponent } from './Pln/components/estado-corte/estado-corte.component';
+import { FamilyComponent } from './Prm/components/operacion/family/family/family.component';
+import { SecuenceComponent } from './Prm/components/operacion/secuence/secuence/secuence.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -149,6 +151,18 @@ export class MainComponent implements OnInit {
       'PRM',
       'Link-Operaciones-producto',
       'Product Catalog',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-family',
+      'Family',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-secuence',
+      'Family',
       false
     );
     this.Esquema.add(
@@ -785,6 +799,51 @@ export class MainComponent implements OnInit {
               }
             }
             break;
+
+
+            case 'Link-Operaciones-family':
+              if (this.Esquema._Id != _Id) {
+                this.dinamycHost.viewContainerRef!.clear();
+  
+                component =
+                  this.componentFactoryResolver.resolveComponentFactory(
+                    FamilyComponent
+                  );
+                let Producto: ComponentRef<FamilyComponent> =
+                  this.dinamycHost.viewContainerRef.createComponent(component);
+                Producto.instance.Link = 'Link-Operaciones-family';
+                Producto.instance.Open = true;
+              } else {
+                component = this.dinamycHost.viewContainerRef.get(0);
+                component = component._view[30];
+                if (this.Esquema._Id == _Id) {
+                  component.Link = 'Link-Operaciones-family';
+                  component.Open = true;
+                }
+              }
+              break;
+
+              case 'Link-Operaciones-secuence':
+                if (this.Esquema._Id != _Id) {
+                  this.dinamycHost.viewContainerRef!.clear();
+    
+                  component =
+                    this.componentFactoryResolver.resolveComponentFactory(
+                      SecuenceComponent
+                    );
+                  let Producto: ComponentRef<SecuenceComponent> =
+                    this.dinamycHost.viewContainerRef.createComponent(component);
+                  Producto.instance.Link = 'Link-Operaciones-secuence';
+                  Producto.instance.Open = true;
+                } else {
+                  component = this.dinamycHost.viewContainerRef.get(0);
+                  component = component._view[30];
+                  if (this.Esquema._Id == _Id) {
+                    component.Link = 'Link-Operaciones-secuence';
+                    component.Open = true;
+                  }
+                }
+                break;
 
           case 'Link-Operaciones-ounce':
             if (this.Esquema._Id != _Id) {
