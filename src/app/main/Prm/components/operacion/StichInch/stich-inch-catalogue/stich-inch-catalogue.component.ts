@@ -4,21 +4,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IRpm } from 'src/app/main/Prm/interface/i-Rpm';
+import { IStitchInch } from 'src/app/main/Prm/interface/i-Stitch-inch';
 import { OperacionesService } from 'src/app/main/Prm/service/operaciones.service';
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
 
-let ELEMENT_DATA_RPM : IRpm[] = [];
+let ELEMENT_DATA_STITCH_INCH : IStitchInch[] = [];
 @Component({
-  selector: 'app-rpm-catalogue',
-  templateUrl: './rpm-catalogue.component.html',
-  styleUrls: ['./rpm-catalogue.component.css']
+  selector: 'app-stich-inch-catalogue',
+  templateUrl: './stich-inch-catalogue.component.html',
+  styleUrls: ['./stich-inch-catalogue.component.css']
 })
-export class RpmCatalogueComponent implements OnInit {
+export class StichInchCatalogueComponent implements OnInit {
 
- 
   public val = new Validacion();
   
   public Open : boolean = false;
@@ -27,12 +26,12 @@ export class RpmCatalogueComponent implements OnInit {
 
   public Editar : boolean = false;
   private Id : number = -1;
-  private _RowDato !: IRpm;
+  private _RowDato !: IStitchInch;
 
 
-  displayedColumns: string[] = ["IdRpm", "Rpm",  "Code", "Editar", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_RPM);
-  clickedRows = new Set<IRpm>();
+  displayedColumns: string[] = ["IdStitchInch", "StitchInch", "Categorie",  "Code", "Editar", "Eliminar"];
+  dataSource = new MatTableDataSource(ELEMENT_DATA_STITCH_INCH);
+  clickedRows = new Set<IStitchInch>();
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
@@ -52,10 +51,12 @@ export class RpmCatalogueComponent implements OnInit {
 
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
-    this.val.add("txt_operacion_rpm_catalogue_code", "1", "LEN>", "0");
-    this.val.add("txt_operacion_rpm_catalogue_code", "2", "LEN==", "3");
-    this.val.add("txt_operacion_rpm_catalogue", "1", "LEN>", "0");
-    this.val.add("txt_operacion_rpm_catalogue", "2", "NUM>=", "0");
+    this.val.add("txt_operacion_stitch_inch_code", "1", "LEN>", "0");
+    this.val.add("txt_operacion_stitch_inch_code", "2", "LEN==", "3");
+    this.val.add("txt_operacion_stitch_inch", "1", "LEN>", "0");
+    this.val.add("txt_operacion_stitch_inch", "2", "NUM>=", "0");
+    this.val.add("txt_operacion_stitch_inch_categorie", "1", "LEN>", "0");
+    this.val.add("txt_operacion_stitch_inch_categorie", "2", "NUM>=", "0");
   }
 
 
@@ -65,9 +66,10 @@ export class RpmCatalogueComponent implements OnInit {
     this.Editar = false;
     this.val.ValForm.reset();
 
-    this.val.ValForm.get("txt_operacion_rpm_catalogue_code")?.disable();
-    this.val.ValForm.get("txt_operacion_rpm_catalogue")?.disable();
-    document?.getElementById("divOperacion-frm-rpm-catalogue-registros")?.classList.remove("disabled");
+    this.val.ValForm.get("txt_operacion_stitch_inch_code")?.disable();
+    this.val.ValForm.get("txt_operacion_stitch_inch")?.disable();
+    this.val.ValForm.get("txt_operacion_stitch_inch_categorie")?.disable();
+    document?.getElementById("divOperacion-frm-stitch-inch-registros")?.classList.remove("disabled");
   }
 
 
@@ -94,12 +96,16 @@ export class RpmCatalogueComponent implements OnInit {
 
     switch(_input){
 
-      case "txt_operacion_rpm_catalogue":
-        document?.getElementById("txt_operacion_rpm_catalogue_code")?.focus();
+      case "txt_operacion_stitch_inch":
+        document?.getElementById("txt_operacion_stitch_inch_categorie")?.focus();
+        break;
+
+      case "txt_operacion_stitch_inch_categorie":
+        document?.getElementById("txt_operacion_stitch_inch_code")?.focus();
         break;
     
 
-      case "txt_operacion_rpm_catalogue_code":
+      case "txt_operacion_stitch_inch_code":
         this.Guardar();
         break;
     }
@@ -145,10 +151,11 @@ export class RpmCatalogueComponent implements OnInit {
     if(str_Evento == "Editar")
     {
       this.Nuevo();
-      this.Id = row.IdRpm;
-      this.val.ValForm.get("txt_operacion_rpm_catalogue_code")?.setValue(row.Code);
-      this.val.ValForm.get("txt_operacion_rpm_catalogue")?.setValue(row.Rpm);
-      document.getElementById("divOperacion-frm-rpm-catalogue-registros")?.classList.add("disabled");
+      this.Id = row.IdStitchInch;
+      this.val.ValForm.get("txt_operacion_stitch_inch_code")?.setValue(row.Code);
+      this.val.ValForm.get("txt_operacion_stitch_inch")?.setValue(row.StitchInch);
+      this.val.ValForm.get("txt_operacion_stitch_inch_categorie")?.setValue(row.Categorie);
+      document.getElementById("divOperacion-frm-stitch-inch-registros")?.classList.add("disabled");
     }
     else
     {
@@ -172,20 +179,20 @@ export class RpmCatalogueComponent implements OnInit {
   Eliminar() : void
   {
     this._RowDato.Evento = "Eliminar";
-    this._OperacionesService.GuardarRpm(this._RowDato).subscribe( s =>{
+    this._OperacionesService.GuardarStitchInch(this._RowDato).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_RPM.findIndex(f =>  Number(f.IdRpm) == Number(_json["d"].IdRpm));
+        let index : number = ELEMENT_DATA_STITCH_INCH.findIndex(f =>  Number(f.IdStitchInch) == Number(_json["d"].IdStitchInch));
 
 
-        if(index >= 0) ELEMENT_DATA_RPM.splice(index, 1);
+        if(index >= 0) ELEMENT_DATA_STITCH_INCH.splice(index, 1);
       }
      
 
-      this.dataSource.data = ELEMENT_DATA_RPM;
+      this.dataSource.data = ELEMENT_DATA_STITCH_INCH;
       
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
@@ -197,18 +204,18 @@ export class RpmCatalogueComponent implements OnInit {
 
   LlenarTabla() :void
   {
-    ELEMENT_DATA_RPM.splice(0, ELEMENT_DATA_RPM.length);
+    ELEMENT_DATA_STITCH_INCH.splice(0, ELEMENT_DATA_STITCH_INCH.length);
 
-    this._OperacionesService.GetRpm(-1).subscribe(s =>{
+    this._OperacionesService.GetStitchInch(-1).subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
       {
-        _json["d"].forEach((d : IRpm) => {
-          ELEMENT_DATA_RPM.push(d);
+        _json["d"].forEach((d : IStitchInch) => {
+          ELEMENT_DATA_STITCH_INCH.push(d);
         });
 
-        this.dataSource.data = ELEMENT_DATA_RPM;
+        this.dataSource.data = ELEMENT_DATA_STITCH_INCH;
 
       }
       else
@@ -229,22 +236,24 @@ export class RpmCatalogueComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = true;
-    this.val.ValForm.get("txt_operacion_rpm_catalogue_code")?.enable();
-    this.val.ValForm.get("txt_operacion_rpm_catalogue")?.enable();
+    this.val.ValForm.get("txt_operacion_stitch_inch_code")?.enable();
+    this.val.ValForm.get("txt_operacion_stitch_inch")?.enable();
+    this.val.ValForm.get("txt_operacion_stitch_inch_categorie")?.enable();
 
-    document.getElementById("txt_operacion_rpm_catalogue")?.focus();
+    document.getElementById("txt_operacion_stitch_inch")?.focus();
   }
 
   Guardar() : void
   {
-    let datos : IRpm = {} as IRpm;
-    datos.IdRpm = this.Id;
-    datos.Code = String(this.val.ValForm.get("txt_operacion_rpm_catalogue_code")?.value).trimEnd();
-    datos.Rpm = Number(this.val.ValForm.get("txt_operacion_rpm_catalogue")?.value);
+    let datos : IStitchInch = {} as IStitchInch;
+    datos.IdStitchInch = this.Id;
+    datos.StitchInch = Number(this.val.ValForm.get("txt_operacion_stitch_inch")?.value);
+    datos.Categorie = Number(this.val.ValForm.get("txt_operacion_stitch_inch_categorie")?.value);
+    datos.Code = String(this.val.ValForm.get("txt_operacion_stitch_inch_code")?.value).trimEnd();
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
 
-    this._OperacionesService.GuardarRpm(datos).subscribe( s =>{
+    this._OperacionesService.GuardarStitchInch(datos).subscribe( s =>{
   
       let _json = JSON.parse(s);
      let _dialog =  this.dialog.open(DialogoComponent, {
@@ -255,19 +264,20 @@ export class RpmCatalogueComponent implements OnInit {
         if(_json["esError"] == 0)
         {
 
-          let index : number = ELEMENT_DATA_RPM.findIndex(f =>  Number(f.IdRpm) == Number(_json["d"].IdRpm));
+          let index : number = ELEMENT_DATA_STITCH_INCH.findIndex(f =>  Number(f.IdStitchInch) == Number(_json["d"].IdStitchInch));
 
           if(index >= 0)
           {
-            ELEMENT_DATA_RPM[index].IdRpm = _json["d"].IdRpm;
-            ELEMENT_DATA_RPM[index].Rpm = _json["d"].Rpm;
-            ELEMENT_DATA_RPM[index].Code = _json["d"].Code;
+            ELEMENT_DATA_STITCH_INCH[index].IdStitchInch = _json["d"].IdStitchInch;
+            ELEMENT_DATA_STITCH_INCH[index].StitchInch = _json["d"].StitchInch;
+            ELEMENT_DATA_STITCH_INCH[index].Categorie = _json["d"].Categorie;
+            ELEMENT_DATA_STITCH_INCH[index].Code = _json["d"].Code;
           }
           else
           {
-            ELEMENT_DATA_RPM.push(_json["d"]);
+            ELEMENT_DATA_STITCH_INCH.push(_json["d"]);
           }
-          this.dataSource.data = ELEMENT_DATA_RPM;
+          this.dataSource.data = ELEMENT_DATA_STITCH_INCH;
           this.Limpiar();
          
         }
@@ -286,5 +296,4 @@ export class RpmCatalogueComponent implements OnInit {
   }
 
 }
-
 

@@ -114,6 +114,7 @@ import { SecuenceComponent } from './main/Prm/components/operacion/secuence/secu
 import { StichTypeCatalogueComponent } from './main/Prm/components/operacion/StichType/stich-type-catalogue/stich-type-catalogue.component';
 import { NeedleTypeComponent } from './main/Prm/components/operacion/NeedleType/needle-type/needle-type.component';
 import { RpmCatalogueComponent } from './main/Prm/components/operacion/RpmCatalogue/rpm-catalogue/rpm-catalogue.component';
+import { StichInchCatalogueComponent } from './main/Prm/components/operacion/StichInch/stich-inch-catalogue/stich-inch-catalogue.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -178,6 +179,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     StichTypeCatalogueComponent,
     NeedleTypeComponent,
     RpmCatalogueComponent,
+    StichInchCatalogueComponent,
 
     
     

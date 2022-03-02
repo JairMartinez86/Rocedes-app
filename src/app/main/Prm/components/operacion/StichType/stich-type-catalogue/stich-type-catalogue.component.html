@@ -16,7 +16,7 @@
                     <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label><b>STITCH TYPE</b></mat-label>
                         <input  matInput type="text" id="txt_operacion_stitch_type"  formControlName="txt_operacion_stitch_type" placeholder="" (keydown.enter)="onKeyEnter($event)">
-                        <mat-error *ngIf="val.ValForm.get('txt_operacion_stitch_type')?.errors?.Regla=='1'">Needle it is <strong>required</strong></mat-error>
+                        <mat-error *ngIf="val.ValForm.get('txt_operacion_stitch_type')?.errors?.Regla=='1'">Stitch Type it is <strong>required</strong></mat-error>
                         <mat-error *ngIf="val.ValForm.get('txt_operacion_stitch_type')?.errors?.Regla=='2'">Maximum  <strong>10</strong> charaters</mat-error>
                     </mat-form-field>
 

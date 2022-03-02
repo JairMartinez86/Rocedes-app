@@ -14,6 +14,8 @@ import { IFamily } from '../interface/i-Family';
 import { ISecuence } from '../interface/i-Secuence';
 import { IStitchType } from '../interface/i-Stitch-Type';
 import { INeedleType } from '../interface/i-NeedleType';
+import { IRpm } from '../interface/i-Rpm';
+import { IStitchInch } from '../interface/i-Stitch-inch';
 
 
 @Injectable({
@@ -107,6 +109,37 @@ export class OperacionesService {
    }
    //#endregion NEEDLE TYPE
     
+
+   //#region RPM
+   GetRpm(Rpm : number) : Observable<any>
+   {
+     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetRpm" + "?Rpm=" + Rpm );
+   }
+   
+   
+   
+   GuardarRpm(d : IRpm): Observable<any> { 
+     let json = JSON.stringify(d);  
+     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarRpm" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+   //#endregion RPM
+
+
+
+   
+  //#region STITCH INCH
+  GetStitchInch(StitchInch : number) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetStitchInch" + "?StitchInch=" + StitchInch );
+  }
+  
+  
+  
+  GuardarStitchInch(d : IStitchInch): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarStitchInch" + "?d=" + json,  { 'content-type': 'application/json'});
+  }
+  //#endregion STITCH INCH
 
 
     //#region PARTES
