@@ -199,13 +199,14 @@ export class MainComponent implements OnInit {
       'Stitch Inch Catalogue',
       false
     );
+    this.Esquema.add('PRM', 'Link-Operaciones-tela', 'Type of Fabic', false);
     this.Esquema.add(
       'PRM',
       'Link-Operaciones-codigo-gsd',
       'Manufacturing Codes',
       false
     );
-    this.Esquema.add('PRM', 'Link-Operaciones-tela', 'Type of Fabic', false);
+    
     this.Esquema.add('PRM', 'Link-Operaciones-partes', 'Sewing Garment', false);
     this.Esquema.add(
       'PRM',

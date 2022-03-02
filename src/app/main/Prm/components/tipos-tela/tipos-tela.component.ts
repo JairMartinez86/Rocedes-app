@@ -31,7 +31,7 @@ export class TiposTelaComponent implements OnInit {
   private _RowDato !: ITela;
 
 
-  displayedColumns: string[] = ["IdTela", "Nombre",   "Editar", "Eliminar"];
+  displayedColumns: string[] = ["IdTela", "Nombre", "Code",  "Editar", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_TELA);
   clickedRows = new Set<ITela>();
 
@@ -54,6 +54,8 @@ export class TiposTelaComponent implements OnInit {
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
     this.val.add("txt_operacion_tela", "1", "LEN>", "0");
+    this.val.add("txt_operacion_tela_code", "1", "LEN>", "0");
+    this.val.add("txt_operacion_tela_code", "2", "LEN==", "3");
   }
 
 
@@ -64,6 +66,7 @@ export class TiposTelaComponent implements OnInit {
     this.val.ValForm.reset();
 
     this.val.ValForm.get("txt_operacion_tela")?.disable();
+    this.val.ValForm.get("txt_operacion_tela_code")?.disable();
     document?.getElementById("divOperacion-frm-tela-registros")?.classList.remove("disabled");
   }
 
@@ -134,6 +137,7 @@ export class TiposTelaComponent implements OnInit {
       this.Nuevo();
       this.Id = row.IdTela;
       this.val.ValForm.get("txt_operacion_tela")?.setValue(row.Nombre);
+      this.val.ValForm.get("txt_operacion_tela_code")?.setValue(row.Code);
       document.getElementById("divOperacion-frm-tela-registros")?.classList.add("disabled");
     }
     else
@@ -216,8 +220,9 @@ export class TiposTelaComponent implements OnInit {
     this.Id = -1;
     this.Editar = true;
     this.val.ValForm.get("txt_operacion_tela")?.enable();
+    this.val.ValForm.get("txt_operacion_tela_code")?.enable();
 
-    document.getElementById("txt_operacion_codigo_gsd")?.focus();
+    document.getElementById("divoperacion-frm-tela-registros")?.focus();
   }
 
   Guardar() : void
@@ -225,6 +230,7 @@ export class TiposTelaComponent implements OnInit {
     let datos : ITela = {} as ITela;
     datos.IdTela = this.Id;
     datos.Nombre = String(this.val.ValForm.get("txt_operacion_tela")?.value).trimEnd();
+    datos.Code = String(this.val.ValForm.get("txt_operacion_tela_code")?.value).trimEnd();
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
 
@@ -244,6 +250,7 @@ export class TiposTelaComponent implements OnInit {
           if(index >= 0)
           {
             ELEMENT_DATA_TELA[index].Nombre = _json["d"].Nombre;
+            ELEMENT_DATA_TELA[index].Code = _json["d"].Code;
           }
           else
           {

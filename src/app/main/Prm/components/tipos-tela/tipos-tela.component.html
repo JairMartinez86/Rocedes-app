@@ -12,11 +12,17 @@
     
 
                 <div class="row">
-                    <mat-form-field class="col-12">
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
                         <mat-label><b>FABRIC</b></mat-label>
                         <input  matInput type="text" id="txt_operacion_tela"  formControlName="txt_operacion_tela" placeholder="" (keydown.enter)="onKeyEnter($event)">
                         <mat-error *ngIf="val.ValForm.get('txt_operacion_tela')?.errors?.Regla=='1'">Fabric it is <strong>required</strong></mat-error>
                     </mat-form-field>
+                    <mat-form-field class="col-sm-12 col-md-6 col-lg-6">
+                      <mat-label><b>CODE</b></mat-label>
+                      <input matInput type="text" id="txt_operacion_tela_code" formControlName="txt_operacion_tela_code" placeholder="" (keydown.enter)="onKeyEnter($event)">
+                      <mat-error *ngIf="val.ValForm.get('txt_operacion_tela_code')?.errors?.Regla=='1'">Code it is <strong>required</strong></mat-error>
+                      <mat-error *ngIf="val.ValForm.get('txt_operacion_tela_code')?.errors?.Regla=='2'">Only <strong>3</strong> Characters</mat-error>
+                  </mat-form-field>
                 </div>
 
 
@@ -82,6 +88,12 @@
                 <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
               </ng-container>
     
+              <ng-container matColumnDef="Code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Code">
+                  Code.
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.Code}} </td>
+              </ng-container>
       
        
 
