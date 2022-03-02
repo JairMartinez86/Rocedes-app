@@ -2,7 +2,6 @@ export interface IOunce {
     IdOunce : number;
     Ounce : number;
     Category : string;
-    FeedDog : string;
-    Caliber : string;
+    Code : string
     Evento : string;
 }

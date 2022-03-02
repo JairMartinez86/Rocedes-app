@@ -115,6 +115,8 @@ import { StichTypeCatalogueComponent } from './main/Prm/components/operacion/Sti
 import { NeedleTypeComponent } from './main/Prm/components/operacion/NeedleType/needle-type/needle-type.component';
 import { RpmCatalogueComponent } from './main/Prm/components/operacion/RpmCatalogue/rpm-catalogue/rpm-catalogue.component';
 import { StichInchCatalogueComponent } from './main/Prm/components/operacion/StichInch/stich-inch-catalogue/stich-inch-catalogue.component';
+import { CaliberComponent } from './main/Prm/components/operacion/Caliber/caliber/caliber.component';
+
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -180,6 +182,8 @@ export const CUSTOM_MOMENT_FORMATS  = {
     NeedleTypeComponent,
     RpmCatalogueComponent,
     StichInchCatalogueComponent,
+    CaliberComponent,
+
 
     
     

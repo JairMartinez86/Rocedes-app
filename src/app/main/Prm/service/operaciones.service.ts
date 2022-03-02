@@ -16,6 +16,7 @@ import { IStitchType } from '../interface/i-Stitch-Type';
 import { INeedleType } from '../interface/i-NeedleType';
 import { IRpm } from '../interface/i-Rpm';
 import { IStitchInch } from '../interface/i-Stitch-inch';
+import { ICaliber } from '../interface/i-Caliber';
 
 
 @Injectable({
@@ -142,6 +143,54 @@ export class OperacionesService {
   //#endregion STITCH INCH
 
 
+
+  
+  //#region OUNCE
+  
+  GetOunce() : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetOunce");
+  }
+
+
+
+  GuardarOunce(d : IOunce): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarOunce" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+  //#endregion OUNCE
+
+
+
+  
+  //#region CALIBER
+  
+  GetCaliber() : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetCaliber");
+  }
+
+
+
+  GuardarCaliber(d : ICaliber): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarCaliber" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+  //#endregion CALIBER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //#region PARTES
     GetPartes() : Observable<any>
     {
@@ -211,21 +260,6 @@ export class OperacionesService {
 //#endregion SEWING ACCURACY
 
 
-
-  //#region OUNCE
-  
-  GetOunce() : Observable<any>
-  {
-    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetOunce");
-  }
-
-
-
-  GuardarOunce(d : IOunce): Observable<any> { 
-    let json = JSON.stringify(d);  
-    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarOunce" + "?d=" + json,  { 'content-type': 'application/json'});
-   }
-  //#endregion OUNCE
 
 
   //#region DATA MACHINE

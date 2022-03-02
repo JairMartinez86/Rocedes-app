@@ -331,13 +331,14 @@ export class LoginService {
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-rpm-catalogue", NombreLink : "Rpm Catalogue", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-stitch-inch", NombreLink : "Stitch Inch Catalogue", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-tela", NombreLink : "Type of Fabic", Activo : false},
-
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-ounce", NombreLink : "Fabric Rating", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-caliber", NombreLink : "Needle Caliber", Activo : false},
       
+
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-partes", NombreLink : "Sewing Garment", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-sewing", NombreLink : "Sewing Considerations", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-sewing-accuracy", NombreLink : "Sewing Stop Accuracy", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-ounce", NombreLink : "Fabric Rating", Activo : false},
       
       
       {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmOperDev", NombreLink : "New Operation", Activo : false},

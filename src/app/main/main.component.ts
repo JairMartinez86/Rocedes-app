@@ -49,6 +49,7 @@ import { StichTypeCatalogueComponent } from './Prm/components/operacion/StichTyp
 import { NeedleTypeComponent } from './Prm/components/operacion/NeedleType/needle-type/needle-type.component';
 import { RpmCatalogueComponent } from './Prm/components/operacion/RpmCatalogue/rpm-catalogue/rpm-catalogue.component';
 import { StichInchCatalogueComponent } from './Prm/components/operacion/StichInch/stich-inch-catalogue/stich-inch-catalogue.component';
+import { CaliberComponent } from './Prm/components/operacion/Caliber/caliber/caliber.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -200,6 +201,7 @@ export class MainComponent implements OnInit {
       false
     );
     this.Esquema.add('PRM', 'Link-Operaciones-tela', 'Type of Fabic', false);
+    this.Esquema.add('PRM', 'Link-Operaciones-caliber', 'Need Caliber', false);
     this.Esquema.add(
       'PRM',
       'Link-Operaciones-codigo-gsd',
@@ -988,6 +990,30 @@ export class MainComponent implements OnInit {
               }
             }
             break;
+
+
+
+            case 'Link-Operaciones-caliber':
+              if (this.Esquema._Id != _Id) {
+                this.dinamycHost.viewContainerRef!.clear();
+  
+                component =
+                  this.componentFactoryResolver.resolveComponentFactory(
+                    CaliberComponent
+                  );
+                let Caliber: ComponentRef<CaliberComponent> =
+                  this.dinamycHost.viewContainerRef.createComponent(component);
+                  Caliber.instance.Link = 'Link-Operaciones-caliber';
+                  Caliber.instance.Open = true;
+              } else {
+                component = this.dinamycHost.viewContainerRef.get(0);
+                component = component._view[30];
+                if (this.Esquema._Id == _Id) {
+                  component.Link = 'Link-Operaciones-caliber';
+                  component.Open = true;
+                }
+              }
+              break;
 
           case 'Link-Operaciones-data-machine':
             if (this.Esquema._Id != _Id) {
