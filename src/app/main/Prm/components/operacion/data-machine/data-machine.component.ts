@@ -23,6 +23,7 @@ export class DataMachineComponent implements OnInit {
   
   public Open : boolean = false;
   public Link : string = "";
+  public str_machine_type : string = "";
 
 
   public Editar : boolean = false;
@@ -73,6 +74,7 @@ export class DataMachineComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = false;
+    this.str_machine_type = "";
     this.val.ValForm.reset();
 
     this.val.ValForm.get("txt_Operacion_data_name")?.disable();
@@ -187,6 +189,7 @@ export class DataMachineComponent implements OnInit {
     {
       this.Nuevo();
       this.Id = row.IdDataMachine;
+      this.str_machine_type = row.Machine;
 
       this.val.ValForm.get("txt_Operacion_data_name")?.setValue(row.Name);
       this.val.ValForm.get("txt_Operacion_data_nomenclature")?.setValue(row.Nomenclature);
@@ -277,6 +280,7 @@ export class DataMachineComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = true;
+    this.str_machine_type = "";
     this.val.ValForm.get("txt_Operacion_data_name")?.enable();
     this.val.ValForm.get("txt_Operacion_data_nomenclature")?.enable();
     this.val.ValForm.get("txt_Operacion_data_machine_delay")?.enable();
@@ -299,7 +303,7 @@ export class DataMachineComponent implements OnInit {
     datos.Delay = Number(this.val.ValForm.get("txt_Operacion_data_machine_delay")?.value);
     datos.Personal = Number(this.val.ValForm.get("txt_Operacion_data_personal")?.value);
     datos.Fatigue = Number(this.val.ValForm.get("txt_Operacion_data_fatigue")?.value);
-    datos.Machine = String(this.val.ValForm.get("txt_Operacion_data_machine")?.value).trimEnd();
+    datos.Machine = this.str_machine_type;
     datos.Description = String(this.val.ValForm.get("txt_Operacion_data_description")?.value).trimEnd();
     datos.Code = String(this.val.ValForm.get("txt_Operacion_data_code")?.value).trimEnd();
 

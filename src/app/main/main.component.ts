@@ -50,6 +50,8 @@ import { NeedleTypeComponent } from './Prm/components/operacion/NeedleType/needl
 import { RpmCatalogueComponent } from './Prm/components/operacion/RpmCatalogue/rpm-catalogue/rpm-catalogue.component';
 import { StichInchCatalogueComponent } from './Prm/components/operacion/StichInch/stich-inch-catalogue/stich-inch-catalogue.component';
 import { CaliberComponent } from './Prm/components/operacion/Caliber/caliber/caliber.component';
+import { FeeddogComponent } from './Prm/components/operacion/FeedDog/feeddog/feeddog.component';
+import { PresserFootComponent } from './Prm/components/operacion/PresserFoot/presser-foot/presser-foot.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -202,6 +204,18 @@ export class MainComponent implements OnInit {
     );
     this.Esquema.add('PRM', 'Link-Operaciones-tela', 'Type of Fabic', false);
     this.Esquema.add('PRM', 'Link-Operaciones-caliber', 'Need Caliber', false);
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-feeddog',
+      'Feed Dog Catalogue',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-presserfoot',
+      'Presser Foot Catalogue',
+      false
+    );
     this.Esquema.add(
       'PRM',
       'Link-Operaciones-codigo-gsd',
@@ -1014,6 +1028,51 @@ export class MainComponent implements OnInit {
                 }
               }
               break;
+
+
+              case 'Link-Operaciones-feeddog':
+                if (this.Esquema._Id != _Id) {
+                  this.dinamycHost.viewContainerRef!.clear();
+    
+                  component =
+                    this.componentFactoryResolver.resolveComponentFactory(
+                      FeeddogComponent
+                    );
+                  let FeedDog: ComponentRef<FeeddogComponent> =
+                    this.dinamycHost.viewContainerRef.createComponent(component);
+                    FeedDog.instance.Link = 'Link-Operaciones-feeddog';
+                    FeedDog.instance.Open = true;
+                } else {
+                  component = this.dinamycHost.viewContainerRef.get(0);
+                  component = component._view[30];
+                  if (this.Esquema._Id == _Id) {
+                    component.Link = 'Link-Operaciones-feeddog';
+                    component.Open = true;
+                  }
+                }
+                break;
+
+                case 'Link-Operaciones-presserfoot':
+                if (this.Esquema._Id != _Id) {
+                  this.dinamycHost.viewContainerRef!.clear();
+    
+                  component =
+                    this.componentFactoryResolver.resolveComponentFactory(
+                      PresserFootComponent
+                    );
+                  let PresserFoot: ComponentRef<PresserFootComponent> =
+                    this.dinamycHost.viewContainerRef.createComponent(component);
+                    PresserFoot.instance.Link = 'Link-Operaciones-presserfoot';
+                    PresserFoot.instance.Open = true;
+                } else {
+                  component = this.dinamycHost.viewContainerRef.get(0);
+                  component = component._view[30];
+                  if (this.Esquema._Id == _Id) {
+                    component.Link = 'Link-Operaciones-presserfoot';
+                    component.Open = true;
+                  }
+                }
+                break;
 
           case 'Link-Operaciones-data-machine':
             if (this.Esquema._Id != _Id) {

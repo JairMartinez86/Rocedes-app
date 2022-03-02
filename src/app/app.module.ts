@@ -117,6 +117,8 @@ import { RpmCatalogueComponent } from './main/Prm/components/operacion/RpmCatalo
 import { StichInchCatalogueComponent } from './main/Prm/components/operacion/StichInch/stich-inch-catalogue/stich-inch-catalogue.component';
 import { CaliberComponent } from './main/Prm/components/operacion/Caliber/caliber/caliber.component';
 import { FeeddogComponent } from './main/Prm/components/operacion/FeedDog/feeddog/feeddog.component';
+import { PresserFootComponent } from './main/Prm/components/operacion/PresserFoot/presser-foot/presser-foot.component';
+import { FolderComponent } from './main/Prm/components/operacion/Folder/folder/folder.component';
 
 
 
@@ -185,6 +187,8 @@ export const CUSTOM_MOMENT_FORMATS  = {
     StichInchCatalogueComponent,
     CaliberComponent,
     FeeddogComponent,
+    PresserFootComponent,
+    FolderComponent,
 
 
     

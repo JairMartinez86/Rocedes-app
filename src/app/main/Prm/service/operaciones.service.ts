@@ -17,6 +17,8 @@ import { INeedleType } from '../interface/i-NeedleType';
 import { IRpm } from '../interface/i-Rpm';
 import { IStitchInch } from '../interface/i-Stitch-inch';
 import { ICaliber } from '../interface/i-Caliber';
+import { IFeedDog } from '../interface/i-FeedDog';
+import { IPresserFoot } from '../interface/i-PresserFoot';
 
 
 @Injectable({
@@ -179,8 +181,36 @@ export class OperacionesService {
   //#endregion CALIBER
 
 
+    //#region FEEDDOG
+  
+    GetFeedDog() : Observable<any>
+    {
+      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetFeedDog");
+    }
+  
+  
+  
+    GuardarFeedDog(d : IFeedDog): Observable<any> { 
+      let json = JSON.stringify(d);  
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarFeedDog" + "?d=" + json,  { 'content-type': 'application/json'});
+     }
+    //#endregion FEEDDOG
 
 
+    //#region PRESSER FOOT
+  
+    GetPresserFoot() : Observable<any>
+    {
+      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetPresserFoot");
+    }
+  
+  
+  
+    GuardarPresserFoot(d : IPresserFoot): Observable<any> { 
+      let json = JSON.stringify(d);  
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarPresserFoot" + "?d=" + json,  { 'content-type': 'application/json'});
+     }
+    //#endregion PRESSER FOOT
 
 
 

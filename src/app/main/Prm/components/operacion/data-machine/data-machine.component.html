@@ -57,11 +57,33 @@
 
 
                 <div class="row">
+         
                     <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
-                        <mat-label><b>MACHINE</b></mat-label>
-                        <input  matInput type="text" id="txt_Operacion_data_machine"  formControlName="txt_Operacion_data_machine" placeholder="" (keydown.enter)="onKeyEnter($event)">
-                        <mat-error *ngIf="val.ValForm.get('txt_Operacion_data_machine')?.errors?.Regla=='1'">Machine it is <strong>required</strong></mat-error>
-                    </mat-form-field>
+                      <mat-label><b>MACHINE</b></mat-label>
+                      <mat-select appAutofocus [(value)]="str_machine_type" id="txt_Operacion_data_machine" formControlName="txt_Operacion_data_machine" (keydown.enter)="onKeyEnter($event)">
+                        <mat-option  value="N/A">N/A</mat-option>
+                        <mat-option  value="AUTOMATICA">AUTOMATICA</mat-option>
+                          <mat-option  value="BLINDSTITCH">BLINDSTITCH</mat-option>
+                          <mat-option  value="BOTON">BOTON</mat-option>
+                          <mat-option  value="CADENETA">CADENETA</mat-option>
+                          <mat-option  value="CLIPADORA">CLIPADORA</mat-option>
+                          <mat-option  value="COMPO">COMPO</mat-option>
+                          <mat-option  value="COVERSTITCH">COVERSTITCH</mat-option>
+                          <mat-option  value="EASTLEX">EASTLEX</mat-option>
+                          <mat-option  value="FLATSEAMER">FLATSEAMER</mat-option>
+                          <mat-option  value="GUILLOTINA">GUILLOTINA</mat-option>
+                          <mat-option  value="MANUAL">MANUAL</mat-option>
+                          <mat-option  value="OJAL">OJAL</mat-option>
+                          <mat-option  value="OVERLOCK">OVERLOCK</mat-option>
+                          <mat-option  value="PLANA">PLANA</mat-option>
+                          <mat-option  value="REMACHE">REMACHE</mat-option>
+                          <mat-option  value="SNAP">SNAP</mat-option>
+                          <mat-option  value="STOP">STOP</mat-option>
+                          <mat-option  value="TROQUELADORA">TROQUELADORA</mat-option>
+                          <mat-option  value="ZIG ZAG">ZIG ZAG</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="val.ValForm.get('txt_Operacion_data_machine')?.errors?.Regla=='1'">Machine it is <strong>required</strong></mat-error>
+                  </mat-form-field>
 
 
                     <mat-form-field class="col-sm-12 col-md-4 col-lg-4">
