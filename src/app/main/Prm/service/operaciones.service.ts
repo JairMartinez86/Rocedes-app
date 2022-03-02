@@ -12,6 +12,8 @@ import { ISewingAccuracy } from '../interface/i-SewingAccuracy';
 import { ITela } from '../interface/i-Tela';
 import { IFamily } from '../interface/i-Family';
 import { ISecuence } from '../interface/i-Secuence';
+import { IStitchType } from '../interface/i-Stitch-Type';
+import { INeedleType } from '../interface/i-NeedleType';
 
 
 @Injectable({
@@ -61,19 +63,50 @@ export class OperacionesService {
 
 
 
-    //#region SECUENCE
-    GetSecuence(Secuence : number) : Observable<any>
-    {
-      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSecuence" + "?Secuence=" + Secuence );
-    }
+  //#region SECUENCE
+  GetSecuence(Secuence : number) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetSecuence" + "?Secuence=" + Secuence );
+  }
   
   
   
-    GuardarSecuence(d : ISecuence): Observable<any> { 
-      let json = JSON.stringify(d);  
-      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarSecuence" + "?d=" + json,  { 'content-type': 'application/json'});
-    }
-    //#endregion SECUENCE
+  GuardarSecuence(d : ISecuence): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarSecuence" + "?d=" + json,  { 'content-type': 'application/json'});
+  }
+  //#endregion SECUENCE
+
+
+  //#region STITCH TYPE
+  GetStitchType(TypeStitch : string) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetStitchType" + "?TypeStitch=" + TypeStitch );
+  }
+  
+  
+  
+  GuardarStitchType(d : IStitchType): Observable<any> { 
+    let json = JSON.stringify(d);  
+    return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarStitchType" + "?d=" + json,  { 'content-type': 'application/json'});
+  }
+  //#endregion STITCH TYPE
+
+
+   //#region NEEDLE TYPE
+   GetNeedleType(NeedleType : string) : Observable<any>
+   {
+     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetNeedleType" + "?NeedleType=" + NeedleType );
+   }
+   
+   
+   
+   GuardarNeedleType(d : INeedleType): Observable<any> { 
+     let json = JSON.stringify(d);  
+     return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarNeedleType" + "?d=" + json,  { 'content-type': 'application/json'});
+   }
+   //#endregion NEEDLE TYPE
+    
 
 
     //#region PARTES

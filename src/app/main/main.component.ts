@@ -45,6 +45,8 @@ import { PlanningComponent } from './Pln/components/planning/planning.component'
 import { EstadoCorteComponent } from './Pln/components/estado-corte/estado-corte.component';
 import { FamilyComponent } from './Prm/components/operacion/family/family/family.component';
 import { SecuenceComponent } from './Prm/components/operacion/secuence/secuence/secuence.component';
+import { StichTypeCatalogueComponent } from './Prm/components/operacion/StichType/stich-type-catalogue/stich-type-catalogue.component';
+import { NeedleTypeComponent } from './Prm/components/operacion/NeedleType/needle-type/needle-type.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -162,7 +164,25 @@ export class MainComponent implements OnInit {
     this.Esquema.add(
       'PRM',
       'Link-Operaciones-secuence',
-      'Family',
+      'Secuence',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-data-machine',
+      'Machine General Data',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-stitch-type',
+      'Stitch Type Catalogue',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-needle-type',
+      'Needle Type Catalogue',
       false
     );
     this.Esquema.add(
@@ -192,12 +212,7 @@ export class MainComponent implements OnInit {
       false
     );
 
-    this.Esquema.add(
-      'PRM',
-      'Link-Operaciones-Development-Methos-Analisys',
-      'Method Analysis',
-      false
-    );
+
 
     this.Esquema.add(
       'PRM',
@@ -809,10 +824,10 @@ export class MainComponent implements OnInit {
                   this.componentFactoryResolver.resolveComponentFactory(
                     FamilyComponent
                   );
-                let Producto: ComponentRef<FamilyComponent> =
+                let Family: ComponentRef<FamilyComponent> =
                   this.dinamycHost.viewContainerRef.createComponent(component);
-                Producto.instance.Link = 'Link-Operaciones-family';
-                Producto.instance.Open = true;
+                  Family.instance.Link = 'Link-Operaciones-family';
+                  Family.instance.Open = true;
               } else {
                 component = this.dinamycHost.viewContainerRef.get(0);
                 component = component._view[30];
@@ -831,10 +846,10 @@ export class MainComponent implements OnInit {
                     this.componentFactoryResolver.resolveComponentFactory(
                       SecuenceComponent
                     );
-                  let Producto: ComponentRef<SecuenceComponent> =
+                  let Secuence: ComponentRef<SecuenceComponent> =
                     this.dinamycHost.viewContainerRef.createComponent(component);
-                  Producto.instance.Link = 'Link-Operaciones-secuence';
-                  Producto.instance.Open = true;
+                    Secuence.instance.Link = 'Link-Operaciones-secuence';
+                    Secuence.instance.Open = true;
                 } else {
                   component = this.dinamycHost.viewContainerRef.get(0);
                   component = component._view[30];
@@ -844,6 +859,53 @@ export class MainComponent implements OnInit {
                   }
                 }
                 break;
+
+
+                case 'Link-Operaciones-stitch-type':
+                  if (this.Esquema._Id != _Id) {
+                    this.dinamycHost.viewContainerRef!.clear();
+      
+                    component =
+                      this.componentFactoryResolver.resolveComponentFactory(
+                        StichTypeCatalogueComponent
+                      );
+                    let StitchType: ComponentRef<StichTypeCatalogueComponent> =
+                      this.dinamycHost.viewContainerRef.createComponent(component);
+                      StitchType.instance.Link = 'Link-Operaciones-stitch-type';
+                      StitchType.instance.Open = true;
+                  } else {
+                    component = this.dinamycHost.viewContainerRef.get(0);
+                    component = component._view[30];
+                    if (this.Esquema._Id == _Id) {
+                      component.Link = 'Link-Operaciones-stitch-type';
+                      component.Open = true;
+                    }
+                  }
+                  break;
+
+
+
+                  case 'Link-Operaciones-needle-type':
+                  if (this.Esquema._Id != _Id) {
+                    this.dinamycHost.viewContainerRef!.clear();
+      
+                    component =
+                      this.componentFactoryResolver.resolveComponentFactory(
+                        NeedleTypeComponent
+                      );
+                    let Needle: ComponentRef<NeedleTypeComponent> =
+                      this.dinamycHost.viewContainerRef.createComponent(component);
+                      Needle.instance.Link = 'Link-Operaciones-needle-type';
+                      Needle.instance.Open = true;
+                  } else {
+                    component = this.dinamycHost.viewContainerRef.get(0);
+                    component = component._view[30];
+                    if (this.Esquema._Id == _Id) {
+                      component.Link = 'Link-Operaciones-needle-type';
+                      component.Open = true;
+                    }
+                  }
+                  break;
 
           case 'Link-Operaciones-ounce':
             if (this.Esquema._Id != _Id) {

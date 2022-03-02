@@ -111,6 +111,9 @@ import { FilePickerModule } from  'ngx-awesome-uploader';
 import { EstadoCorteComponent } from './main/Pln/components/estado-corte/estado-corte.component';
 import { FamilyComponent } from './main/Prm/components/operacion/family/family/family.component';
 import { SecuenceComponent } from './main/Prm/components/operacion/secuence/secuence/secuence.component';
+import { StichTypeCatalogueComponent } from './main/Prm/components/operacion/StichType/stich-type-catalogue/stich-type-catalogue.component';
+import { NeedleTypeComponent } from './main/Prm/components/operacion/NeedleType/needle-type/needle-type.component';
+import { RpmCatalogueComponent } from './main/Prm/components/operacion/RpmCatalogue/rpm-catalogue/rpm-catalogue.component';
 
 
 export const CUSTOM_MOMENT_FORMATS  = {
@@ -172,6 +175,9 @@ export const CUSTOM_MOMENT_FORMATS  = {
     EstadoCorteComponent,
     FamilyComponent,
     SecuenceComponent,
+    StichTypeCatalogueComponent,
+    NeedleTypeComponent,
+    RpmCatalogueComponent,
 
     
     

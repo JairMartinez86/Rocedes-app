@@ -68,7 +68,7 @@ export class SecuenceComponent implements OnInit {
 
     this.val.ValForm.get("txt_operacion_secuence_code")?.disable();
     this.val.ValForm.get("txt_operacion_secuence")?.disable();
-    document?.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.remove("disabled");
+    document?.getElementById("divOperacion-frm-secuence-registros")?.classList.remove("disabled");
   }
 
 
@@ -149,7 +149,7 @@ export class SecuenceComponent implements OnInit {
       this.Id = row.IdSecuence;
       this.val.ValForm.get("txt_operacion_secuence_code")?.setValue(row.Code);
       this.val.ValForm.get("txt_operacion_secuence")?.setValue(row.Secuence);
-      document.getElementById("divOperacion-frm-codigo-gsd-registros")?.classList.add("disabled");
+      document.getElementById("divOperacion-frm-secuence-registros")?.classList.add("disabled");
     }
     else
     {

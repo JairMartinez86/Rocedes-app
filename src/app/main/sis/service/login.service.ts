@@ -325,13 +325,16 @@ export class LoginService {
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-producto", NombreLink : "Product Catalog", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-family", NombreLink : "Family", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-secuence", NombreLink : "Secuence", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-data-machine", NombreLink : "Machine General Data", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-stitch-type", NombreLink : "Stitch Type Catalogue", Activo : false},
+      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-needle-type", NombreLink : "Needle Catalogue", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-codigo-gsd", NombreLink : "Manufacturing Codes", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-tela", NombreLink : "Type of Fabic", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-partes", NombreLink : "Sewing Garment", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-sewing", NombreLink : "Sewing Considerations", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-sewing-accuracy", NombreLink : "Sewing Stop Accuracy", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-ounce", NombreLink : "Fabric Rating", Activo : false},
-      {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-data-machine", NombreLink : "Machine General Data", Activo : false},
+      
       
       {EsMenu: true, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "navPrmOperDev", NombreLink : "New Operation", Activo : false},
       {EsMenu: false, Esquema : "PRM", NombreEsquema : "Manufacturing Solution System", Link: "Link-Operaciones-Development-Methos-Analisys", NombreLink : "Method Analysis", Activo : false},
