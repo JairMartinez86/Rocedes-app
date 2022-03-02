@@ -207,7 +207,7 @@ export class FolderComponent implements OnInit {
   {
     ELEMENT_DATA_FOLDER.splice(0, ELEMENT_DATA_FOLDER.length);
 
-    this._OperacionesService.GetPresserFoot().subscribe(s =>{
+    this._OperacionesService.GetFolder().subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
