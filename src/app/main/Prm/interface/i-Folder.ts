@@ -1,5 +1,5 @@
 export interface IFolder {
-    IdPresserFoot : number;
+    IdFolder : number;
     Part : string;
     Operation : string;
     Code : string;

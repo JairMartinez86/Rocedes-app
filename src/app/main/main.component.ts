@@ -52,6 +52,7 @@ import { StichInchCatalogueComponent } from './Prm/components/operacion/StichInc
 import { CaliberComponent } from './Prm/components/operacion/Caliber/caliber/caliber.component';
 import { FeeddogComponent } from './Prm/components/operacion/FeedDog/feeddog/feeddog.component';
 import { PresserFootComponent } from './Prm/components/operacion/PresserFoot/presser-foot/presser-foot.component';
+import { FolderComponent } from './Prm/components/operacion/Folder/folder/folder.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -214,6 +215,12 @@ export class MainComponent implements OnInit {
       'PRM',
       'Link-Operaciones-presserfoot',
       'Presser Foot Catalogue',
+      false
+    );
+    this.Esquema.add(
+      'PRM',
+      'Link-Operaciones-folder',
+      'Folder Catalogue',
       false
     );
     this.Esquema.add(
@@ -1069,6 +1076,29 @@ export class MainComponent implements OnInit {
                   component = component._view[30];
                   if (this.Esquema._Id == _Id) {
                     component.Link = 'Link-Operaciones-presserfoot';
+                    component.Open = true;
+                  }
+                }
+                break;
+
+
+                case 'Link-Operaciones-folder':
+                if (this.Esquema._Id != _Id) {
+                  this.dinamycHost.viewContainerRef!.clear();
+    
+                  component =
+                    this.componentFactoryResolver.resolveComponentFactory(
+                      FolderComponent
+                    );
+                  let Folder: ComponentRef<FolderComponent> =
+                    this.dinamycHost.viewContainerRef.createComponent(component);
+                    Folder.instance.Link = 'Link-Operaciones-folder';
+                    Folder.instance.Open = true;
+                } else {
+                  component = this.dinamycHost.viewContainerRef.get(0);
+                  component = component._view[30];
+                  if (this.Esquema._Id == _Id) {
+                    component.Link = 'Link-Operaciones-folder';
                     component.Open = true;
                   }
                 }

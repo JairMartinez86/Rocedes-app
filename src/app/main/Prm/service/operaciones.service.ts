@@ -19,6 +19,7 @@ import { IStitchInch } from '../interface/i-Stitch-inch';
 import { ICaliber } from '../interface/i-Caliber';
 import { IFeedDog } from '../interface/i-FeedDog';
 import { IPresserFoot } from '../interface/i-PresserFoot';
+import { IFolder } from '../interface/i-Folder';
 
 
 @Injectable({
@@ -213,6 +214,20 @@ export class OperacionesService {
     //#endregion PRESSER FOOT
 
 
+    //#region FOLDER
+  
+    GetFolder() : Observable<any>
+    {
+      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetFolder");
+    }
+  
+  
+  
+    GuardarFolder(d : IFolder): Observable<any> { 
+      let json = JSON.stringify(d);  
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarFolder" + "?d=" + json,  { 'content-type': 'application/json'});
+     }
+    //#endregion FOLDER
 
 
 
