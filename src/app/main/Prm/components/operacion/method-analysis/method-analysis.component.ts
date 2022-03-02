@@ -20,6 +20,8 @@ import { IMethodAnalysis } from '../../../interface/i-Method-Analysis';
 import { IDataMachine } from '../../../interface/i-data-machine';
 import { ITela } from '../../../interface/i-Tela';
 import { IMethodAnalysisData } from '../../../interface/i-MethodAnalysisData';
+import { IRpm } from '../../../interface/i-Rpm';
+import { IStitchType } from '../../../interface/i-Stitch-Type';
 
 
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
@@ -53,6 +55,8 @@ export class MethodAnalysisComponent implements OnInit {
   public str_Codigo : string = "";
 
   private _RowMaquina !: IDataMachine;
+  private _RowRpm !: IRpm;
+  private _RowIStitchType !: IStitchType;
   private _RowTela !: ITela;
   private _RowProducto !: IProducto;
   private Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
@@ -533,9 +537,9 @@ txt_method_analisys_onSearchChange(event : any) :void{
           element.Tmus = 0;
           if(_json["count"] > 0)
           {
-            element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor / (this._RowMaquina.Rpm * (1.0/1667.0));
+            element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor / (this._RowRpm.Rpm * (1.0/1667.0));
             element.Tmus =  (element.Tmus * Number(_json["d"][0].Factor)) * Number(Codigo2);
-            element.Tmus =  element.Tmus + (this._RowMaquina.Rpm / 1000.0) + 17;
+            element.Tmus =  element.Tmus + (this._RowRpm.Rpm / 1000.0) + 17;
            
             this.Fila_MethodAnalysis.FactorSewing = Number(_json["d"][0].Factor);
 
@@ -856,8 +860,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
     this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[19].Valor;
     this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
     this.Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
-    this.Fila_MethodAnalysis.Stitch = this._RowMaquina.Stitch;
-    this.Fila_MethodAnalysis.Rpm = this._RowMaquina.Rpm;
+    this.Fila_MethodAnalysis.Stitch = this._RowIStitchType.TypeStitch;
+    this.Fila_MethodAnalysis.Rpm = this._RowRpm.Rpm;
     this.Fila_MethodAnalysis.Delay = this._RowMaquina.Delay;
     this.Fila_MethodAnalysis.Personal = this._RowMaquina.Personal;
     this.Fila_MethodAnalysis.Fatigue = this._RowMaquina.Fatigue;
@@ -1246,8 +1250,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
         this.IdMethodAnalysis = Datos.IdMethodAnalysis;
         this._RowMaquina.IdDataMachine = Datos.IdDataMachine;
         this._RowMaquina.Name = Datos.DataMachine;
-        this._RowMaquina.Stitch = Datos.Stitch;
-        this._RowMaquina.Rpm = Datos.Rpm;
+        this._RowIStitchType.TypeStitch = Datos.Stitch;
+        this._RowRpm.Rpm = Datos.Rpm;
         this._RowMaquina.Delay = Datos.Delay;
         this._RowMaquina.Personal = Datos.Personal;
         this._RowMaquina.Fatigue = Datos.Fatigue;

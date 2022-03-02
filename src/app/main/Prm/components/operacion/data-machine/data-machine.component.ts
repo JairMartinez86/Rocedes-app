@@ -30,7 +30,7 @@ export class DataMachineComponent implements OnInit {
   private _RowDato !: IDataMachine;
 
 
-  displayedColumns: string[] = ["IdDataMachine", "Name", "Stitch", "Rpm", "Delay", "Personal", "Fatigue", "Nomenclature", "Machine", "Description", "Needle",  "Editar", "Eliminar"];
+  displayedColumns: string[] = ["IdDataMachine", "Name", "Delay", "Personal", "Fatigue", "Nomenclature", "Machine", "Description", "Code",  "Editar", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_MACHINE);
   clickedRows = new Set<IDataMachine>();
 
@@ -53,19 +53,17 @@ export class DataMachineComponent implements OnInit {
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
     this.val.add("txt_Operacion_data_name", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_data_stitch", "1", "LEN>", "0");
     this.val.add("txt_Operacion_data_nomenclature", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_data_rpm", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_data_rpm", "2", "NUM>=", "0");
     this.val.add("txt_Operacion_data_machine_delay", "1", "LEN>", "0");
     this.val.add("txt_Operacion_data_machine_delay", "2", "NUM>=", "0");
     this.val.add("txt_Operacion_data_personal", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_data_personal", "2", "NUM>", "0");
+    this.val.add("txt_Operacion_data_personal", "2", "NUM>=", "0");
     this.val.add("txt_Operacion_data_fatigue", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_data_fatigue", "2", "NUM>", "0");
+    this.val.add("txt_Operacion_data_fatigue", "2", "NUM>=", "0");
     this.val.add("txt_Operacion_data_machine", "1", "LEN>=", "0");
     this.val.add("txt_Operacion_data_description", "1", "LEN>=", "0");
-    this.val.add("txt_Operacion_data_needle", "1", "LEN>=", "0");
+    this.val.add("txt_Operacion_data_code", "1", "LEN>", "0");
+    this.val.add("txt_Operacion_data_code", "2", "LEN==", "3");
    
     
   }
@@ -78,15 +76,13 @@ export class DataMachineComponent implements OnInit {
     this.val.ValForm.reset();
 
     this.val.ValForm.get("txt_Operacion_data_name")?.disable();
-    this.val.ValForm.get("txt_Operacion_data_stitch")?.disable();
     this.val.ValForm.get("txt_Operacion_data_nomenclature")?.disable();
-    this.val.ValForm.get("txt_Operacion_data_rpm")?.disable();
     this.val.ValForm.get("txt_Operacion_data_machine_delay")?.disable();
     this.val.ValForm.get("txt_Operacion_data_personal")?.disable();
     this.val.ValForm.get("txt_Operacion_data_fatigue")?.disable();
     this.val.ValForm.get("txt_Operacion_data_machine")?.disable();
     this.val.ValForm.get("txt_Operacion_data_description")?.disable();
-    this.val.ValForm.get("txt_Operacion_data_needle")?.disable();
+    this.val.ValForm.get("txt_Operacion_data_code")?.disable();
     document?.getElementById("divOperacion-frm-data-machine-registros")?.classList.remove("disabled");
   }
 
@@ -115,18 +111,11 @@ export class DataMachineComponent implements OnInit {
     switch(_input){
 
       case "txt_Operacion_data_name":
-        document?.getElementById("txt_Operacion_data_stitch")?.focus();
-        break;
-
-      case "txt_Operacion_data_stitch":
         document?.getElementById("txt_Operacion_data_nomenclature")?.focus();
         break;
 
-      case "txt_Operacion_data_nomenclature":
-        document?.getElementById("txt_Operacion_data_rpm")?.focus();
-        break;
 
-      case "txt_Operacion_data_rpm":
+      case "txt_Operacion_data_nomenclature":
         document?.getElementById("txt_Operacion_data_machine_delay")?.focus();
         break;
 
@@ -147,11 +136,11 @@ export class DataMachineComponent implements OnInit {
         break;
 
       case "txt_Operacion_data_description":
-        document?.getElementById("txt_Operacion_data_needle")?.focus();
+        document?.getElementById("txt_Operacion_data_code")?.focus();
         break;
 
 
-      case "txt_Operacion_data_needle":
+      case "txt_Operacion_data_code":
         this.Guardar();
         break;
     }
@@ -200,15 +189,13 @@ export class DataMachineComponent implements OnInit {
       this.Id = row.IdDataMachine;
 
       this.val.ValForm.get("txt_Operacion_data_name")?.setValue(row.Name);
-      this.val.ValForm.get("txt_Operacion_data_stitch")?.setValue(row.Stitch);
       this.val.ValForm.get("txt_Operacion_data_nomenclature")?.setValue(row.Nomenclature);
-      this.val.ValForm.get("txt_Operacion_data_rpm")?.setValue(row.Rpm);
       this.val.ValForm.get("txt_Operacion_data_machine_delay")?.setValue(row.Delay);
       this.val.ValForm.get("txt_Operacion_data_personal")?.setValue(row.Personal);
       this.val.ValForm.get("txt_Operacion_data_fatigue")?.setValue(row.Fatigue);
       this.val.ValForm.get("txt_Operacion_data_machine")?.setValue(row.Machine);
       this.val.ValForm.get("txt_Operacion_data_description")?.setValue(row.Description);
-      this.val.ValForm.get("txt_Operacion_data_needle")?.setValue(row.Needle);
+      this.val.ValForm.get("txt_Operacion_data_code")?.setValue(row.Code);
       document.getElementById("divOperacion-frm-data-machine-registros")?.classList.add("disabled");
     }
     else
@@ -291,15 +278,13 @@ export class DataMachineComponent implements OnInit {
     this.Id = -1;
     this.Editar = true;
     this.val.ValForm.get("txt_Operacion_data_name")?.enable();
-    this.val.ValForm.get("txt_Operacion_data_stitch")?.enable();
     this.val.ValForm.get("txt_Operacion_data_nomenclature")?.enable();
-    this.val.ValForm.get("txt_Operacion_data_rpm")?.enable();
     this.val.ValForm.get("txt_Operacion_data_machine_delay")?.enable();
     this.val.ValForm.get("txt_Operacion_data_personal")?.enable();
     this.val.ValForm.get("txt_Operacion_data_fatigue")?.enable();
     this.val.ValForm.get("txt_Operacion_data_machine")?.enable();
     this.val.ValForm.get("txt_Operacion_data_description")?.enable();
-    this.val.ValForm.get("txt_Operacion_data_needle")?.enable();
+    this.val.ValForm.get("txt_Operacion_data_code")?.enable();
  
 
     document.getElementById("txt_Operacion_data_name")?.focus();
@@ -310,15 +295,13 @@ export class DataMachineComponent implements OnInit {
     let datos : IDataMachine = {} as IDataMachine;
     datos.IdDataMachine = this.Id;
     datos.Name = String(this.val.ValForm.get("txt_Operacion_data_name")?.value).trimEnd();
-    datos.Stitch = String(this.val.ValForm.get("txt_Operacion_data_stitch")?.value).trimEnd();
     datos.Nomenclature = String(this.val.ValForm.get("txt_Operacion_data_nomenclature")?.value).trimEnd();
-    datos.Rpm = Number(this.val.ValForm.get("txt_Operacion_data_rpm")?.value);
     datos.Delay = Number(this.val.ValForm.get("txt_Operacion_data_machine_delay")?.value);
     datos.Personal = Number(this.val.ValForm.get("txt_Operacion_data_personal")?.value);
     datos.Fatigue = Number(this.val.ValForm.get("txt_Operacion_data_fatigue")?.value);
     datos.Machine = String(this.val.ValForm.get("txt_Operacion_data_machine")?.value).trimEnd();
     datos.Description = String(this.val.ValForm.get("txt_Operacion_data_description")?.value).trimEnd();
-    datos.Needle = String(this.val.ValForm.get("txt_Operacion_data_needle")?.value).trimEnd();
+    datos.Code = String(this.val.ValForm.get("txt_Operacion_data_code")?.value).trimEnd();
 
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
@@ -340,15 +323,13 @@ export class DataMachineComponent implements OnInit {
           {
             ELEMENT_DATA_MACHINE[index].IdDataMachine = _json["d"].IdDataMachine;
             ELEMENT_DATA_MACHINE[index].Name = _json["d"].Name;
-            ELEMENT_DATA_MACHINE[index].Stitch = _json["d"].Stitch;
             ELEMENT_DATA_MACHINE[index].Nomenclature = _json["d"].Nomenclature;
-            ELEMENT_DATA_MACHINE[index].Rpm = _json["d"].Rpm;
             ELEMENT_DATA_MACHINE[index].Delay = _json["d"].Delay;
             ELEMENT_DATA_MACHINE[index].Personal = _json["d"].Personal;
             ELEMENT_DATA_MACHINE[index].Fatigue = _json["d"].Fatigue;
             ELEMENT_DATA_MACHINE[index].Machine = _json["d"].Machine;
             ELEMENT_DATA_MACHINE[index].Description = _json["d"].Description;
-            ELEMENT_DATA_MACHINE[index].Needle = _json["d"].Needle;
+            ELEMENT_DATA_MACHINE[index].Code = _json["d"].Code;
           }
           else
           {

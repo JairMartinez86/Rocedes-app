@@ -116,6 +116,7 @@ import { NeedleTypeComponent } from './main/Prm/components/operacion/NeedleType/
 import { RpmCatalogueComponent } from './main/Prm/components/operacion/RpmCatalogue/rpm-catalogue/rpm-catalogue.component';
 import { StichInchCatalogueComponent } from './main/Prm/components/operacion/StichInch/stich-inch-catalogue/stich-inch-catalogue.component';
 import { CaliberComponent } from './main/Prm/components/operacion/Caliber/caliber/caliber.component';
+import { FeeddogComponent } from './main/Prm/components/operacion/FeedDog/feeddog/feeddog.component';
 
 
 
@@ -183,6 +184,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     RpmCatalogueComponent,
     StichInchCatalogueComponent,
     CaliberComponent,
+    FeeddogComponent,
 
 
     
