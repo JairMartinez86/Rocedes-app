@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, shareReplay, startWith } from 'rxjs';
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { ConfirmarContinuarComponent } from 'src/app/main/shared/dialogo/confirmar-continuar/confirmar-continuar.component';
 import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
@@ -22,13 +22,34 @@ import { ITela } from '../../../interface/i-Tela';
 import { IMethodAnalysisData } from '../../../interface/i-MethodAnalysisData';
 import { IRpm } from '../../../interface/i-Rpm';
 import { IStitchType } from '../../../interface/i-Stitch-Type';
+import { IManufacturing } from '../../../interface/i-Manufacturing';
+import { IFamily } from '../../../interface/i-Family';
+import { ISecuence } from '../../../interface/i-Secuence';
+import { INeedleType } from '../../../interface/i-NeedleType';
+import { IStitchInch } from '../../../interface/i-Stitch-inch';
+import { IOunce } from '../../../interface/i-Ounce';
+import { ICaliber } from '../../../interface/i-Caliber';
+import { IFeedDog } from '../../../interface/i-FeedDog';
+import { IPresserFoot } from '../../../interface/i-PresserFoot';
+import { IFolder } from '../../../interface/i-Folder';
 
+
+export interface Filtro {
+  Id : number;
+  Valor : string;
+  Otros : string;
+  Code : string;
+}
+
+export interface ISeleccionLevel {
+  id : string;
+  Valor : string;
+  Otros : string;
+  Code : string;
+}
 
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
 let ELEMENT_DATA_METHOD_ANALISIS : IDetMethodAnalysis[] = []
-
-
-
 
 
 export interface IParametroMethodAnalysis {
@@ -36,7 +57,11 @@ export interface IParametroMethodAnalysis {
   Requerido : string;
   Parametro : string;
   Valor : any;
+  id : number;
+  Code : string;
 }
+
+
 
 @Component({
   selector: 'app-method-analysis',
@@ -54,11 +79,22 @@ export class MethodAnalysisComponent implements OnInit {
   private IdMethodAnalysis : number = -1;
   public str_Codigo : string = "";
 
-  private _RowMaquina !: IDataMachine;
-  private _RowRpm !: IRpm;
-  private _RowIStitchType !: IStitchType;
-  private _RowTela !: ITela;
+  private _RowManufacturing !: IManufacturing;
   private _RowProducto !: IProducto;
+  private _RowFamily !: IFamily;
+  private _RowSecuence !: ISecuence;
+  private _RowMaquina !: IDataMachine;
+  private _RowStitchType !: IStitchType;
+  private _RowNeedle !: INeedleType;
+  private _RowStitchInch !: IStitchInch;
+  private _RowRpm !: IRpm;
+  private _RowTela !: ITela;
+  private _RowFabricWeight !: IOunce;
+  private _RowCaliber !: ICaliber;
+  private _RowFeedDog !: IFeedDog;
+  private _RowPresserFoot !: IPresserFoot;
+  private _RowFolder !: IFolder;
+  
   private Fila_MethodAnalysis : IMethodAnalysis = {} as IMethodAnalysis;
 
   displayedColumns_parametros_method_analisys: string[] = ["Requerido", "Index", "Parametro",   "Valor"];
@@ -71,26 +107,37 @@ export class MethodAnalysisComponent implements OnInit {
 
   constructor(private _LoginService : LoginService, public _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
    
-    this.val.add("txt_method_analisys_parametro1", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_manufactura", "1", "LEN>", "0");
+
+
+    this.val.add("txt_method_analisys_user", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_Operacion_name", "1", "LEN>", "0");
+
+    this.val.add("txt_method_analisys_rate", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_rate", "2", "NUM>", "0");
+
+    this.val.add("txt_method_analisys_jornada", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_jornada", "2", "NUM>", "0");
+
+
+    this.val.add("txt_method_analisys_manufacturing", "1", "LEN>", "0");
     this.val.add("txt_method_analisys_producto", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro4", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_Maquina", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro6", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_parametro7", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro8", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_parametro9", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_Tela", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro11", "1", "NUM>", "0");
-    this.val.add("txt_method_analisys_parametro12", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro13", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro14", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro15", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro16", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro17", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro18", "1", "LEN>=", "0");
-    this.val.add("txt_method_analisys_parametro19", "1", "LEN>", "0");
-    this.val.add("txt_method_analisys_parametro20", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_family", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_secuence", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_Machinedata", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_stitchtype", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_needle", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_rpm", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_stitchinch", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_fabrictype", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_fabricweight", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_caliber", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_feeddog", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_presserfoot", "1", "LEN>", "0")
+    this.val.add("txt_method_analisys_folder", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_materia1", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_materia2", "1", "LEN>", "0");
+    this.val.add("txt_method_analisys_materia3", "1", "LEN>", "0");
+
     this.Limpiar();
    }
 
@@ -109,7 +156,7 @@ export class MethodAnalysisComponent implements OnInit {
     this.dataSource_parametros_method_analisys.data.splice(0, this.dataSource_parametros_method_analisys.data.length);
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.splice(0, ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.length);
     this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
-    this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
+    this.val.ValForm.get("txt_method_analisys_user")?.disable();
    }
  
 
@@ -125,22 +172,20 @@ export class MethodAnalysisComponent implements OnInit {
 
 
   
-  //#region AUTO COMPLETADO MAQUINA
-	
-  optionSeleccion : IDataMachine[] = [];
-  filteredOptions!: Observable<IDataMachine[]>;
 
-  txt_method_analisys_Maquina_onSearchChange(event : any) :void{
+	optionLevel: ISeleccionLevel[] = [];
+  optionSeleccion : Filtro[] = [];
+  filteredOptions!: Observable<Filtro[]>;
+
+
+  _onSearchChange(event : any, tipo : string) :void{
 
   this.optionSeleccion.splice(0, this.optionSeleccion.length);
 
   let value : string = event.target.value;
 
- 
-  if(value.length <= 2) return;
 
-
-  this._OperacionesService.GetDataMachineAuto(value).subscribe( s => {
+  this._OperacionesService.GetAutoComplete(value, tipo).subscribe( s => {
     let _json = JSON.parse(s);
 
 
@@ -149,7 +194,7 @@ export class MethodAnalysisComponent implements OnInit {
 
       if(_json["count"] > 0){
         
-        _json["d"].forEach((j : IDataMachine) => {
+        _json["d"].forEach((j : Filtro) => {
           this.optionSeleccion.push(j);
         });
 
@@ -176,240 +221,369 @@ export class MethodAnalysisComponent implements OnInit {
 }
 
 
-txt_method_analisys_Maquina_onFocusOutEvent(event: any) :void
+_onFocusOutEvent(event: any, id : string) :void
 {
 
-  let _Opcion : any = (<HTMLInputElement>document.getElementById("txt_method_analisys_Maquina")).value;
+  let _Opcion : any = (<HTMLInputElement>document.getElementById(id)).value;
 
   if( typeof(_Opcion) == 'string' ) {
 
-    _Opcion = this.optionSeleccion.filter( f => f.Name == _Opcion)[0]
+    _Opcion = this.optionLevel.filter( f => f.Valor == _Opcion && f.id == id)[0]
 
-    if(_Opcion == null){
-      this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue(undefined);
+    if(_Opcion == undefined){
+      this.val.ValForm.get(id)?.setValue(undefined);
       return;
     }
     
   }
 
-  this._RowMaquina = _Opcion;
-  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Name;
+  if(_Opcion == undefined) return;
+
+  switch(id)
+  {
+    case "txt_method_analisys_manufacturing":
+      this.LlenarParametroFiltro(_Opcion, "Manufacturing", id)
+    break;
+
+    
+    case "txt_method_analisys_producto":
+      this.LlenarParametroFiltro(_Opcion, "Product", id)
+    break;
+
+    case "txt_method_analisys_family":
+      this.LlenarParametroFiltro(_Opcion, "Family", id)
+    break;
+
+    case "txt_method_analisys_secuence":
+      this.LlenarParametroFiltro(_Opcion, "Secuence", id)
+    break;
+
+    case "txt_method_analisys_Machinedata":
+      this.LlenarParametroFiltro(_Opcion, "MachineData", id)
+    break;
+
+    case "txt_method_analisys_stitchtype":
+      this.LlenarParametroFiltro(_Opcion, "StitchType", id)
+    break;
+
+    case "txt_method_analisys_needle":
+      this.LlenarParametroFiltro(_Opcion, "Needle", id)
+    break;
+
+    case "txt_method_analisys_rpm":
+      this.LlenarParametroFiltro(_Opcion, "Rpm", id)
+    break;
+
+    case "txt_method_analisys_stitchinch":
+      this.LlenarParametroFiltro(_Opcion, "StitchInch", id)
+    break;
+
+    case "txt_method_analisys_fabrictype":
+      this.LlenarParametroFiltro(_Opcion, "FabricType", id)
+    break;
+
+    case "txt_method_analisys_fabricweight":
+      this.LlenarParametroFiltro(_Opcion, "FabricWeight", id)
+    break;
+
+    case "txt_method_analisys_caliber":
+      this.LlenarParametroFiltro(_Opcion, "Caliber", id)
+    break;
+  
+    case "txt_method_analisys_feeddog":
+      this.LlenarParametroFiltro(_Opcion, "FeedDog", id)
+    break;
+
+    case "txt_method_analisys_presserfoot":
+      this.LlenarParametroFiltro(_Opcion, "PresserFoot", id)
+    break;
+
+    case "txt_method_analisys_folder":
+      this.LlenarParametroFiltro(_Opcion, "Folder", id)
+    break;
+  
+    
+  
+
+  }
+
+  this.optionSeleccion.splice(0, this.optionSeleccion.length);
 
 }
 
-txt_method_analisys_Maquina_onSelectionChange(_Opcion: IDataMachine) :void
+_onSelectionChange(_Opcion: Filtro, tipo : string, id : string) :void
 {
-  this._RowMaquina = _Opcion;
-  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Name;
+  this.LlenarParametroFiltro(_Opcion, tipo, id)
+  this.optionSeleccion.splice(0, this.optionSeleccion.length);
 }
 
+LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
+{
+  switch(tipo)
+  {
+    case "Manufacturing":
+      let _Manufacturing : IManufacturing = {} as IManufacturing;
+
+      _Manufacturing.IdManufacturing = _Opcion.Id;
+      _Manufacturing.Name = _Opcion.Valor;
+      _Manufacturing.Code = _Opcion.Code;
+
+     
+      this._RowManufacturing = _Manufacturing;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Code = _Opcion.Code;
+
+    break;
+
+    case "Product":
+      let _Producto : IProducto = {} as IProducto;
+
+      _Producto.IdProducto = _Opcion.Id;
+      _Producto.Nombre = _Opcion.Valor;
+      _Producto.Code = _Opcion.Code;
+
+     
+      this._RowProducto = _Producto;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Code = _Opcion.Code;
+ 
+    break;
+
+    case "Family":
+      let _Family : IFamily = {} as IFamily;
+
+      _Family.IdFamily = _Opcion.Id;
+      _Family.Components = _Opcion.Valor;
+      _Family.Code = _Opcion.Code;
+
+     
+      this._RowFamily = _Family;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Code = _Opcion.Code;
+ 
+    break;
+
+    case "Secuence":
+      let _Secuence : ISecuence = {} as ISecuence;
+
+      _Secuence.IdSecuence = _Opcion.Id;
+      _Secuence.Secuence = Number(_Opcion.Valor);
+      _Secuence.Code = _Opcion.Code;
+
+     
+      this._RowSecuence = _Secuence;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Code = _Opcion.Code;
+ 
+    break;
+
+  case "MachineData":
+    let _Maquina : IDataMachine = {} as IDataMachine;
+
+    _Maquina.IdDataMachine = _Opcion.Id;
+    _Maquina.Name = _Opcion.Valor;
+    _Maquina.Delay = Number(_Opcion.Otros.split(";")[0]);
+    _Maquina.Personal = Number(_Opcion.Otros.split(";")[1]);
+    _Maquina.Fatigue = Number(_Opcion.Otros.split(";")[2]);
+    _Maquina.Code = _Opcion.Code;
+     
+    this._RowMaquina = _Maquina;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = _Opcion.Code;
+ 
+    break;
+
+  case "StitchType":
+    let _SitichType : IStitchType = {} as IStitchType;
+
+    _SitichType.IdStitchType = _Opcion.Id;
+    _SitichType.TypeStitch = _Opcion.Valor;
+    _SitichType.Code = _Opcion.Code;
+     
+    this._RowStitchType = _SitichType;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Code = _Opcion.Code;
+ 
+ 
+    break;
+
+  case "Needle":
+    let _RowNeedle: INeedleType = {} as INeedleType;
+
+    _RowNeedle.IdNeedle = _Opcion.Id;
+    _RowNeedle.NeedleType = _Opcion.Valor;
+    _RowNeedle.Code = _Opcion.Code;
+     
+    this._RowNeedle = _RowNeedle;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Code = _Opcion.Code;
+ 
+ 
+    break;
+
+  case "Rpm":
+    let _RowRpm: IRpm = {} as IRpm;
+  
+    _RowRpm.IdRpm = _Opcion.Id;
+    _RowRpm.Rpm = Number(_Opcion.Valor);
+    _RowRpm.Code = _Opcion.Code;
+     
+    this._RowRpm = _RowRpm;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Code = _Opcion.Code;
+   
+   
+    break;
+
+  case "StitchInch":
+    let _RowStitchInch: IStitchInch = {} as IStitchInch;
+  
+    _RowStitchInch.IdStitchInch = _Opcion.Id;
+    _RowStitchInch.StitchInch = Number(_Opcion.Valor);
+    _RowStitchInch.Code = _Opcion.Code;
+     
+    this._RowStitchInch = _RowStitchInch;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Code = _Opcion.Code;
+   
+   
+    break;
+
+  case "FabricType":
+    let _RowTela: ITela = {} as ITela;
+  
+    _RowTela.IdTela = _Opcion.Id;
+    _RowTela.Nombre = _Opcion.Valor;
+    _RowTela.Code = _Opcion.Code;
+     
+    this._RowTela = _RowTela;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Code = _Opcion.Code;
+   
+   
+    break;
 
 
-MostrarSelec(Registro: IDataMachine): string {
+  case "FabricWeight":
+    let _RowFabricWeight: IOunce = {} as IOunce;
+  
+    _RowFabricWeight.IdOunce = _Opcion.Id;
+    _RowFabricWeight.Ounce = Number(_Opcion.Valor);
+    _RowFabricWeight.Code = _Opcion.Code;
+     
+    this._RowFabricWeight = _RowFabricWeight;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Code = _Opcion.Code;
+   
+   
+    break;
+
+  case "Caliber":
+    let _RowCaliber: ICaliber = {} as ICaliber;
+  
+    _RowCaliber.IdCaliber = _Opcion.Id;
+    _RowCaliber.Caliber = _Opcion.Valor;
+    _RowCaliber.Code = _Opcion.Code;
+     
+    this._RowCaliber = _RowCaliber;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Code = _Opcion.Code;
+   
+   
+    break;
+
+
+  case "FeedDog":
+    let _RowFeedDog: IFeedDog = {} as IFeedDog;
+  
+    _RowFeedDog.IdFeedDog = _Opcion.Id;
+    _RowFeedDog.Part = _Opcion.Valor;
+    _RowFeedDog.Code = _Opcion.Code;
+     
+    this._RowFeedDog = _RowFeedDog;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Code = _Opcion.Code;
+   
+   
+    break;
+
+
+  case "PresserFoot":
+    let _RowPresserFoot: IPresserFoot = {} as IPresserFoot;
+    
+    _RowPresserFoot.IdPresserFoot = _Opcion.Id;
+    _RowPresserFoot.Part = _Opcion.Valor;
+     _RowPresserFoot.Code = _Opcion.Code;
+       
+    this._RowPresserFoot	 = _RowPresserFoot;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Code = _Opcion.Code;
+     
+     
+    break;
+
+  case "Folder":
+    let _RowFolder: IFolder = {} as IFolder;
+      
+    _RowFolder.IdFolder = _Opcion.Id;
+    _RowFolder.Part = _Opcion.Valor;
+    _RowFolder.Code = _Opcion.Code;
+         
+    this._RowFolder	 = _RowFolder;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].id = _Opcion.Id;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor = _Opcion.Valor;
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Code = _Opcion.Code;
+       
+       
+    break;
+
+  } 
+
+  
+
+  let index : number = this.optionLevel.findIndex( f => f.id == _id);
+
+  if(index == -1)
+  {
+    this.optionLevel.push({id: _id, Valor : _Opcion.Valor, Otros : _Opcion.Otros, Code : _Opcion.Code})
+  }
+  else
+  {
+    this.optionLevel[index].id =  String(_Opcion.Id);
+    this.optionLevel[index].Valor =  _Opcion.Valor;
+    this.optionLevel[index].Otros =  _Opcion.Otros;
+    this.optionLevel[index].Code =  _Opcion.Code;
+  }
+  
+}
+ 
+
+
+
+MostrarSelec(Registro: Filtro): string {
   if(Registro == null) return "";
-  return Registro.Name;
+  return Registro.Valor;
 }
 
-private _FiltroSeleccion(Name: string): IDataMachine[] {
+
+private _FiltroSeleccion(Name: string): Filtro[] {
   const filterValue = Name.toLowerCase();
   
-  return this.optionSeleccion.filter(option => option.Name.toLowerCase().startsWith(filterValue));
-}
-
-
-
-
-
-
-//#endregion AUTO COMPLETADO MAQUINA
-
-
-
-
-
-  
-  //#region AUTO COMPLETADO PRODUCTO
-	
-  optionSeleccionProducto : IProducto[] = [];
-  filteredOptionsProducto!: Observable<IProducto[]>;
-
-  txt_method_analisys_producto_onSearchChange(event : any) :void{
-
-    this.optionSeleccionProducto.splice(0, this.optionSeleccionProducto.length);
-
-    let value : string = event.target.value;
-
-
-    if(value.length <= 2) return;
-
-
-    this._ProductoService.GetAuto(value).subscribe( s => {
-      let _json = JSON.parse(s);
-
-
-      if(_json["esError"] == 0){
-
-
-        if(_json["count"] > 0){
-          
-          _json["d"].forEach((j : IProducto) => {
-            this.optionSeleccionProducto.push(j);
-          });
-
-          this.filteredOptionsProducto = this.val.ValForm.valueChanges.pipe(
-            startWith(''),
-            map(value => (typeof value === 'string' ? value : value.Nombre)),
-            map(Nombre => (Nombre ? this._FiltroSeleccionProducto(Nombre) : this.optionSeleccionProducto.slice())),
-          );
-        
-        }
-      
-      }else{
-        this.dialog.open(DialogoComponent, {
-          data: _json["msj"]
-        })
-
-
-
-      }
-
-    });
-
-
-}
-
-
-txt_method_analisys_producto_onFocusOutEvent(event: any) :void
-{
-  let _Opcion : any = (<HTMLInputElement>document.getElementById("txt_method_analisys_producto")).value;
-
-  if( typeof(_Opcion) == 'string' ) {
-
-    _Opcion = this.optionSeleccionProducto.filter( f => f.Nombre == _Opcion)[0]
-
-    if(_Opcion == null){
-      this.val.ValForm.get("txt_method_analisys_producto")?.setValue(undefined);
-      return;
-    }
-    
-  }
-
-  this._RowMaquina = _Opcion;
-  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = _Opcion.Nombre;
-}
-
-
-txt_method_analisys_producto_onSelectionChange(_Opcion: IProducto) :void
-{
-  this._RowProducto = _Opcion;
-  ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor = _Opcion.Nombre;
-}
-
-
-
-MostrarSelecProducto(Registro: IProducto): string {
-  if(Registro == null) return "";
-  return Registro.Nombre;
-}
-
-private _FiltroSeleccionProducto(Nombre: string): IProducto[] {
-  const filterValue = Nombre.toLowerCase();
-  
-  return this.optionSeleccionProducto.filter(option => option.Nombre.toLowerCase().startsWith(filterValue));
-}
-
-
-
-
-
-
-//#endregion AUTO COMPLETADO PRODUCTO
-
-
-
-  //#region AUTO COMPLETADO TELA
-	
-  optionSeleccionTela : ITela[] = [];
-  filteredOptionsTela!: Observable<ITela[]>;
-
-  txt_method_analisys_Tela_onSearchChange(event : any) :void{
-
-  
-  let value : string = event.target.value;
-
-  this.optionSeleccionTela.splice(0, this.optionSeleccionTela.length);
-
-  if(value.length <= 2) return;
-
-  this._OperacionesService.GetTelaAuto(value).subscribe( s => {
-    let _json = JSON.parse(s);
-
-
-    if(_json["esError"] == 0){
-
-
-      if(_json["count"] > 0){
-        
-        _json["d"].forEach((j : ITela) => {
-          this.optionSeleccionTela.push(j);
-        });
-
-        this.filteredOptionsTela = this.val.ValForm.valueChanges.pipe(
-          startWith(''),
-          map(value => (typeof value === 'string' ? value : value.Nombre)),
-          map(Nombre => (Nombre ? this._FiltroSeleccionTela(Nombre) : this.optionSeleccionTela.slice())),
-        );
-       
-      }
-     
-    }else{
-      this.dialog.open(DialogoComponent, {
-        data: _json["msj"]
-      })
-
-
-
-    }
-
-  });
-
-
-}
-
-txt_method_analisys_Tela_onFocusOutEvent(event: any) :void
-{
-
-  let _Opcion : any = (<HTMLInputElement>document.getElementById("txt_method_analisys_Tela")).value;
-
-  if( typeof(_Opcion) == 'string' ) {
-
-    _Opcion = this.optionSeleccionTela.filter( f => f.Nombre == _Opcion)[0]
-
-    if(_Opcion == null){
-      this.val.ValForm.get("txt_method_analisys_Tela")?.setValue(undefined);
-      return;
-    }
-    
-  }
-  
-  this._RowTela = _Opcion;
-}
-
-txt_method_analisys_Tela_onSelectionChange(_Opcion: ITela) :void
-{
-  this._RowTela = _Opcion;
-}
-
-
-MostrarSelecTela(Registro: ITela): string {
-  if(Registro == null) return "";
-  return Registro.Nombre;
-}
-
-private _FiltroSeleccionTela(Nombre: string): ITela[] {
-  const filterValue = Nombre.toLowerCase();
-  
-  return this.optionSeleccionTela.filter(option => option.Nombre.toLowerCase().startsWith(filterValue));
+  return this.optionSeleccion.filter(option => option.Valor.toLowerCase().startsWith(filterValue));
 }
 
 
@@ -423,22 +597,19 @@ cellChanged_Param(event : any, index : number) : void
 
  if(event.keyCode == 13 || event.keyCode == 40) // ENTER Y ABAJO
  {
-  if(inputs.length >= index + 1) inputs[index-1].focus();
+  if(inputs.length >= index + 1) inputs[index].focus();
  }
 
 
-if(event.keyCode == 38) // Arriba
-{
-  if(inputs.length >= index - 3) inputs[index-3].focus();
-}
+  if(event.keyCode == 38) // Arriba
+  {
+    if(inputs.length >= index - 2) inputs[index-2].focus();
+  }
 
+this.optionSeleccion.splice(0, this.optionSeleccion.length);
    
 
 }
-
-
-//#endregion AUTO COMPLETADO TELA
-
 
 
 
@@ -537,7 +708,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
           element.Tmus = 0;
           if(_json["count"] > 0)
           {
-            element.Tmus = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor / (this._RowRpm.Rpm * (1.0/1667.0));
+            element.Tmus = this._RowStitchInch.StitchInch / (this._RowRpm.Rpm * (1.0/1667.0));
             element.Tmus =  (element.Tmus * Number(_json["d"][0].Factor)) * Number(Codigo2);
             element.Tmus =  element.Tmus + (this._RowRpm.Rpm / 1000.0) + 17;
            
@@ -793,33 +964,35 @@ txt_method_analisys_onSearchChange(event : any) :void{
     this.Editar = true;
 
     this.val.ValForm.reset();
-    this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(this._LoginService.str_user);
-    this.val.ValForm.get("txt_method_analisys_parametro1")?.disable();
+    this.val.ValForm.get("txt_method_analisys_user")?.setValue(this._LoginService.str_user);
+    this.val.ValForm.get("txt_method_analisys_user")?.disable();
     document.getElementById("from-method-analisys")?.classList.remove("disabled");
     
     
 
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS = [
-      {Index : 1, Requerido : "*", Parametro : "ANALISTA", Valor : this._LoginService.str_user},
-      {Index : 2, Requerido : "*", Parametro : "PROCESO DE MANUFACTURA", Valor : ""},
-      {Index : 3, Requerido : "*", Parametro : "TIPO DE PRODUCTO", Valor : ""},
-      {Index : 4, Requerido : "*", Parametro : "NOMBRE DE LA OPERACION", Valor : ""},
-      {Index : 5, Requerido : "*", Parametro : "TIPO DE MAQUINA", Valor : ""},
-      {Index : 6, Requerido : "*", Parametro : "PUNTADAS POR PUGADAS", Valor : 0},
-      {Index : 7, Requerido : "", Parametro : "MANEJO DE PAQUETE", Valor : ""},
-      {Index : 8, Requerido : "*", Parametro : "RATE C$", Valor : 0},
-      {Index : 9, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : 0},
-      {Index : 10, Requerido : "*", Parametro : "TIPO DE TELA", Valor : ""},
-      {Index : 11, Requerido : "*", Parametro : "ONZAJE DE TELA", Valor : 0},
-      {Index : 12, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : ""},
-      {Index : 13, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : ""},
-      {Index : 14, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : ""},
-      {Index : 15, Requerido : "", Parametro : "MATERIA PRIMA 4", Valor : ""},
-      {Index : 16, Requerido : "", Parametro : "MATERIA PRIMA 5", Valor : ""},
-      {Index : 17, Requerido : "", Parametro : "MATERIA PRIMA 6", Valor : ""},
-      {Index : 18, Requerido : "", Parametro : "MATERIA PRIMA 7", Valor : ""},
-      {Index : 19, Requerido : "*", Parametro : "FAMILIA", Valor : ""},
-      {Index : 20, Requerido : "*", Parametro : "TIPO DE CONSTRUCCION", Valor : ""}
+      {Index : 1, Requerido : "*", Parametro : "ANALISTA", Valor : this._LoginService.str_user, id: 0, Code : ""},
+      {Index : 2, Requerido : "*", Parametro : "OPERATION NAME", Valor : "", id: 0, Code : ""},
+      {Index : 3, Requerido : "*", Parametro : "RATE C$", Valor : "", id: 0, Code : ""},
+      {Index : 4, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : "", id: 0, Code : ""},
+      {Index : 5, Requerido : "*", Parametro : "MANUFACTURING PROCESS", Valor : "", id: 0, Code : ""},
+      {Index : 6, Requerido : "*", Parametro : "PRODUCT CATALOGUE", Valor : "", id: 0, Code : ""},
+      {Index : 7, Requerido : "*", Parametro : "FAMILY", Valor : "", id: 0, Code : ""},
+      {Index : 8, Requerido : "*", Parametro : "OPERATION SECUENCE", Valor : "", id: 0, Code : ""},
+      {Index : 9, Requerido : "*", Parametro : "MACHINE", Valor : "", id: 0, Code : ""},
+      {Index : 10, Requerido : "*", Parametro : "STITCH TYPE", Valor : "", id: 0, Code : ""},
+      {Index : 11, Requerido : "*", Parametro : "NEEDLE", Valor : "", id: 0, Code : ""},
+      {Index : 12, Requerido : "*", Parametro : "RPM", Valor : "", id: 0, Code : ""},
+      {Index : 13, Requerido : "*", Parametro : "STITCH PER INCH", Valor : "", id: 0, Code : ""},
+      {Index : 14, Requerido : "*", Parametro : "FABRIC TYPE", Valor : "", id: 0, Code : ""},
+      {Index : 15, Requerido : "*", Parametro : "FABRIC WEIGHT (OZ)", Valor : "", id: 0, Code : ""},
+      {Index : 16, Requerido : "*", Parametro : "NEEDLE CALIBER", Valor : "", id: 0, Code : ""},
+      {Index : 17, Requerido : "*", Parametro : "FEED DOG", Valor : "", id: 0, Code : ""},
+      {Index : 18, Requerido : "*", Parametro : "PRESSER FOOT", Valor : "", id: 0, Code : ""},
+      {Index : 19, Requerido : "*", Parametro : "FOLDER ", Valor : "", id: 0, Code : ""},
+      {Index : 20, Requerido : "*", Parametro : "MATERIA PRIMA 1", Valor : "", id: 0, Code : ""},
+      {Index : 21, Requerido : "*", Parametro : "MATERIA PRIMA 2", Valor : "", id: 0, Code : ""},
+      {Index : 22, Requerido : "*", Parametro : "MATERIA PRIMA 3", Valor : "", id: 0, Code : ""}
     ];
 
     this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
@@ -836,35 +1009,59 @@ txt_method_analisys_onSearchChange(event : any) :void{
   CarpturarDatos() : void
   {
 
+    this.str_Codigo = "";
+
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.forEach(element => {
+
+      if(element.Code != "") this.str_Codigo += element.Code + "-";
+
+    });
+
+    this.str_Codigo = this.str_Codigo.substring(0, this.str_Codigo.length - 1);
+    
     this.Fila_MethodAnalysis.Codigo = this.str_Codigo;
-    this.Fila_MethodAnalysis.ProcesoManufact = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
-    this.Fila_MethodAnalysis.IdProducto = this._RowProducto.IdProducto;
-    this.Fila_MethodAnalysis.TipoProducto = this._RowProducto.Nombre;
-    this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
-    this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
-    this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
-    this.Fila_MethodAnalysis.Puntadas = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
-    this.Fila_MethodAnalysis.ManejoPaquete = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
-    this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor;
-    this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
-    this.Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
-    this.Fila_MethodAnalysis.Onza = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_4 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_5 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_6 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
-    this.Fila_MethodAnalysis.MateriaPrima_7 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
-    this.Fila_MethodAnalysis.Familia = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor;
-    this.Fila_MethodAnalysis.TipoConstruccion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[19].Valor;
-    this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
+    
     this.Fila_MethodAnalysis.IdMethodAnalysis = this.IdMethodAnalysis;
-    this.Fila_MethodAnalysis.Stitch = this._RowIStitchType.TypeStitch;
-    this.Fila_MethodAnalysis.Rpm = this._RowRpm.Rpm;
+    this.Fila_MethodAnalysis.Usuario = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[0].Valor;
+    this.Fila_MethodAnalysis.Operacion = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[1].Valor;
+    this.Fila_MethodAnalysis.Rate = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[2].Valor;
+    this.Fila_MethodAnalysis.JornadaLaboral = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[3].Valor;
+    this.Fila_MethodAnalysis.IdManufacturing = this._RowManufacturing.IdManufacturing;
+    this.Fila_MethodAnalysis.Manufacturing = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor;
+    this.Fila_MethodAnalysis.IdProducto = this._RowProducto.IdProducto;
+    this.Fila_MethodAnalysis.Producto = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor;
+    this.Fila_MethodAnalysis.IdFamily = this._RowFamily.IdFamily;
+    this.Fila_MethodAnalysis.Family = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor;
+    this.Fila_MethodAnalysis.IdSecuence = this._RowSecuence.IdSecuence;
+    this.Fila_MethodAnalysis.Secuence = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor;
+    this.Fila_MethodAnalysis.IdDataMachine = this._RowMaquina.IdDataMachine;
+    this.Fila_MethodAnalysis.DataMachine = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor;
     this.Fila_MethodAnalysis.Delay = this._RowMaquina.Delay;
     this.Fila_MethodAnalysis.Personal = this._RowMaquina.Personal;
     this.Fila_MethodAnalysis.Fatigue = this._RowMaquina.Fatigue;
+    this.Fila_MethodAnalysis.IdStitchType = this._RowStitchType.IdStitchType;
+    this.Fila_MethodAnalysis.TypeStitch = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor;
+    this.Fila_MethodAnalysis.IdNeedle = this._RowNeedle.IdNeedle;
+    this.Fila_MethodAnalysis.NeedleType = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor;
+    this.Fila_MethodAnalysis.IdRpm = this._RowRpm.IdRpm;
+    this.Fila_MethodAnalysis.Rpm = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor;
+    this.Fila_MethodAnalysis.IdStitchInch = this._RowStitchInch.IdStitchInch;
+    this.Fila_MethodAnalysis.StitchInch = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor;
+    this.Fila_MethodAnalysis.IdTela = this._RowTela.IdTela;
+    this.Fila_MethodAnalysis.StitchInch = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor;
+    this.Fila_MethodAnalysis.IdOunce = this._RowFabricWeight.IdOunce;
+    this.Fila_MethodAnalysis.Ounce = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor;
+    this.Fila_MethodAnalysis.IdCaliber = this._RowCaliber.IdCaliber;
+    this.Fila_MethodAnalysis.Caliber = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor;
+    this.Fila_MethodAnalysis.IdFeedDog = this._RowFeedDog.IdFeedDog;
+    this.Fila_MethodAnalysis.FeedDog = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor;
+    this.Fila_MethodAnalysis.IdPresserFoot = this._RowPresserFoot.IdPresserFoot;
+    this.Fila_MethodAnalysis.PresserFoot = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor;
+    this.Fila_MethodAnalysis.IdFolder = this._RowFolder.IdFolder;
+    this.Fila_MethodAnalysis.Folder = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_1 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[19].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_2 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[20].Valor;
+    this.Fila_MethodAnalysis.MateriaPrima_3 = ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[21].Valor;
     this.Fila_MethodAnalysis.Sewing = this.dataSource_method_analisys.data.filter(item => !isNaN(Number(item.Codigo2))).reduce((sum, current) => sum + Number(current.Codigo2), 0);
     this.Fila_MethodAnalysis.Tmus_Mac = this.dataSource_method_analisys.data.filter(item => item.Codigo1 == "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
     this.Fila_MethodAnalysis.Tmus_MinL = this.dataSource_method_analisys.data.filter(item => item.Codigo1 != "S" && !item.EsTotal ).reduce((sum, current) => sum + current.Tmus, 0);
@@ -915,7 +1112,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
               this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
               
               this.IdMethodAnalysis = Number(_json["d"][0].IdMethodAnalysis);
-              this.str_Codigo = String(Number(_json["d"][0].Codigo));
+              this.str_Codigo = _json["d"][0].Codigo;
 
               _json["d"][1].forEach((d : IDetMethodAnalysis )  => {
                 this.dataSource_method_analisys.data.push(d);
@@ -1013,7 +1210,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
     Fila.value = this.Fila_MethodAnalysis.Operacion;
     this.Merge("J5:L5", "STITCH TYPE :", true,"right", 11, "#000000", "", worksheet);
     Fila = worksheet.getCell("M5");
-    Fila.value = Number(this.Fila_MethodAnalysis.Stitch);
+    Fila.value = (isNaN(Number(this.Fila_MethodAnalysis.TypeStitch)) ? "" : Number(this.Fila_MethodAnalysis.TypeStitch));
     Fila.numFmt = '#,##0;[Red]-$#,##0'
 
 
@@ -1021,7 +1218,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
     this.Merge("F6:I6", "", false,"middle:center", 11, "#000000", "", worksheet);
     this.Merge("J6:L6", "SPI/SPO :", true,"right", 11, "#000000", "", worksheet);
     Fila = worksheet.getCell("M6");
-    Fila.value = Number(this.Fila_MethodAnalysis.Puntadas);
+    Fila.value = (isNaN(Number(this.Fila_MethodAnalysis.StitchInch)) ? "" : Number(this.Fila_MethodAnalysis.StitchInch));
     Fila.numFmt = '#,##0.00;[Red]-$#,##0.00'
 
     this.Merge("B7:E7", "MAQUINA :", true,"right", 11, "#000000", "", worksheet);
@@ -1240,11 +1437,23 @@ txt_method_analisys_onSearchChange(event : any) :void{
         document.getElementById("from-method-analisys")?.classList.remove("disabled");
         let Datos : any = s[1];
 
-        this._RowMaquina = {} as IDataMachine;
-        this._RowTela = {} as ITela;
+       /* this._RowManufacturing = {} as IManufacturing;
         this._RowProducto = {} as IProducto;
+        this._RowFamily = {} as IFamily;
+        this. _RowSecuence = {} as ISecuence;
+        this._RowMaquina = {} as IDataMachine;
+        this._RowStitchType = {} as IStitchType;
+        this._RowNeedle = {} as INeedleType;
+        this._RowStitchInch = {} as IStitchInch;
+        this._RowRpm = {} as IRpm;
+        this._RowTela = {} as ITela;
+        this._RowFabricWeight = {} as IOunce;
+        this._RowCaliber = {} as ICaliber;
+        this._RowFeedDog = {} as IFeedDog;
+        this._RowPresserFoot = {} as IPresserFoot;
+        this._RowFolder = {} as IFolder;
 
-   
+     
   
         this.str_Codigo = Datos.Codigo;
         this.IdMethodAnalysis = Datos.IdMethodAnalysis;
@@ -1281,26 +1490,26 @@ txt_method_analisys_onSearchChange(event : any) :void{
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[19].Valor = Datos.TipoConstruccion;
         
 
-        this.val.ValForm.get("txt_method_analisys_parametro1")?.setValue(Datos.Usuario);
-        this.val.ValForm.get("txt_method_analisys_manufactura")?.setValue(Datos.ProcesoManufact);
+        this.val.ValForm.get("txt_method_analisys_user")?.setValue(Datos.Usuario);
+        this.val.ValForm.get("txt_method_analisys_manufacturing")?.setValue(Datos.ProcesoManufact);
         this.val.ValForm.get("txt_method_analisys_producto")?.setValue(this._RowProducto);
         this.val.ValForm.get("txt_method_analisys_parametro4")?.setValue(Datos.Operacion);
-        this.val.ValForm.get("txt_method_analisys_Maquina")?.setValue(this._RowMaquina);
+        this.val.ValForm.get("txt_method_analisys_Machinedata")?.setValue(this._RowMaquina);
         this.val.ValForm.get("txt_method_analisys_parametro6")?.setValue(Datos.Puntadas);
-        this.val.ValForm.get("txt_method_analisys_parametro7")?.setValue(Datos.ManejoPaquete);
-        this.val.ValForm.get("txt_method_analisys_parametro8")?.setValue(Datos.Rate);
+        this.val.ValForm.get("txt_method_analisys_rate")?.setValue(Datos.ManejoPaquete);
+        this.val.ValForm.get("txt_method_analisys_jornada")?.setValue(Datos.Rate);
         this.val.ValForm.get("txt_method_analisys_parametro9")?.setValue(Datos.JornadaLaboral);
-        this.val.ValForm.get("txt_method_analisys_Tela")?.setValue(this._RowTela);
-        this.val.ValForm.get("txt_method_analisys_parametro11")?.setValue(Datos.Onza);
-        this.val.ValForm.get("txt_method_analisys_parametro12")?.setValue(Datos.MateriaPrima_1);
-        this.val.ValForm.get("txt_method_analisys_parametro13")?.setValue(Datos.MateriaPrima_2);
-        this.val.ValForm.get("txt_method_analisys_parametro14")?.setValue(Datos.MateriaPrima_3);
-        this.val.ValForm.get("txt_method_analisys_parametro15")?.setValue(Datos.MateriaPrima_4);
-        this.val.ValForm.get("txt_method_analisys_parametro16")?.setValue(Datos.MateriaPrima_5);
-        this.val.ValForm.get("txt_method_analisys_parametro17")?.setValue(Datos.MateriaPrima_6);
-        this.val.ValForm.get("txt_method_analisys_parametro18")?.setValue(Datos.MateriaPrima_7);
-        this.val.ValForm.get("txt_method_analisys_parametro19")?.setValue(Datos.Familia);
-        this.val.ValForm.get("txt_method_analisys_parametro20")?.setValue(Datos.TipoConstruccion);
+        this.val.ValForm.get("txt_method_analisys_fabrictype")?.setValue(this._RowTela);
+        this.val.ValForm.get("txt_method_analisys_user1")?.setValue(Datos.Onza);
+        this.val.ValForm.get("txt_method_analisys_user2")?.setValue(Datos.MateriaPrima_1);
+        this.val.ValForm.get("txt_method_analisys_user3")?.setValue(Datos.MateriaPrima_2);
+        this.val.ValForm.get("txt_method_analisys_user4")?.setValue(Datos.MateriaPrima_3);
+        this.val.ValForm.get("txt_method_analisys_user5")?.setValue(Datos.MateriaPrima_4);
+        this.val.ValForm.get("txt_method_analisys_user6")?.setValue(Datos.MateriaPrima_5);
+        this.val.ValForm.get("txt_method_analisys_user7")?.setValue(Datos.MateriaPrima_6);
+        this.val.ValForm.get("txt_method_analisys_user8")?.setValue(Datos.MateriaPrima_7);
+        this.val.ValForm.get("txt_method_analisys_user9")?.setValue(Datos.Familia);
+        this.val.ValForm.get("txt_method_analisys_parametro20")?.setValue(Datos.TipoConstruccion);*/
        
         this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
         this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);

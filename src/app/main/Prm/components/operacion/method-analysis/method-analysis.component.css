@@ -12,6 +12,14 @@
     max-height: 600px;
   }
 
+  :host ::ng-deep #tabla-parametros-method-analisys input, :host ::ng-deep #tabla-parametros-method-analisys td{
+    font-size: 12px;
+  }
+
+  :host ::ng-deep   #tabla-method-analisys input, :host ::ng-deep   #tabla-method-analisys td{
+    font-size: 12px;
+  }
+
 
 
   .myHeader{
@@ -19,11 +27,11 @@
   }
 
 
-  .col-method-analisys-maquina {
+  :host ::ng-deep .col-method-analisys-search {
     width: 350px;
   }
 
-.col-method-analisys-codigo {
+  :host ::ng-deep .col-method-analisys-codigo {
     width: 80px;
     padding-left: 2.5px;
     padding-right: 2.5px;
@@ -33,7 +41,7 @@
   }
   
 
-  .col-method-analisys-descripcion {
+  :host ::ng-deep .col-method-analisys-descripcion {
     width: 500px;
     padding-left: 2.5px;
     padding-right: 2.5px;
@@ -42,7 +50,7 @@
     font-weight: bold;
   }
 
-  .col-method-analisys-num {
+  :host ::ng-deep .col-method-analisys-num {
     max-width: 50px;
     padding-left: 2.5px;
     padding-right: 2.5px;
@@ -51,7 +59,7 @@
     text-align: right;
   }
 
-  .myHeader2, .col-method-analisys-resultado {
+  :host ::ng-deep .myHeader2, .col-method-analisys-resultado {
     max-width: 100px;
     padding-left: 2.5px;
     padding-right: 2.5px;
@@ -61,7 +69,7 @@
   }
 
   
-table a {
+  :host ::ng-deep table a {
     margin-left: 50px;
   }
   

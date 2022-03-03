@@ -36,6 +36,14 @@ export class OperacionesService {
   constructor(private http: HttpClient) { }
 
 
+  GetAutoComplete(valor : string, evento : string) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetAutoComplete" + "?valor=" + valor + "&evento=" + evento);
+  }
+
+
+
+
 
   //#region CODIGO GSD
   GetCodigoGSD(codigo : string) : Observable<any>
@@ -331,12 +339,6 @@ export class OperacionesService {
   {
     return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetDataMachine");
   }
-
-  GetDataMachineAuto(nombre : string) : Observable<any>
-  {
-    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetDataMachineAuto" + "?nombre=" + nombre);
-  }
-
 
 
   GuardarDataMachine(d : IDataMachine): Observable<any> { 
