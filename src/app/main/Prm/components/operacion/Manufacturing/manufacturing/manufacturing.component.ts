@@ -4,20 +4,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ICaliber } from 'src/app/main/Prm/interface/i-Caliber';
 import { OperacionesService } from 'src/app/main/Prm/service/operaciones.service';
 import { Validacion } from 'src/app/main/shared/class/Validacion/validacion';
 import { ConfirmarEliminarComponent } from 'src/app/main/shared/dialogo/confirmar-eliminar/confirmar-eliminar.component';
 import { DialogoComponent } from 'src/app/main/shared/dialogo/dialogo.component';
+import { IManufacturing } from '../../../../interface/i-Manufacturing'
 
-let ELEMENT_DATA_CALIBER : ICaliber[] = [];
+let ELEMENT_DATA_MANUFACTURING : IManufacturing[] = [];
 @Component({
-  selector: 'app-caliber',
-  templateUrl: './caliber.component.html',
-  styleUrls: ['./caliber.component.css']
+  selector: 'app-manufacturing',
+  templateUrl: './manufacturing.component.html',
+  styleUrls: ['./manufacturing.component.css']
 })
-export class CaliberComponent implements OnInit {
-
+export class ManufacturingComponent implements OnInit {
   public val = new Validacion();
   
   public Open : boolean = false;
@@ -26,13 +25,12 @@ export class CaliberComponent implements OnInit {
 
   public Editar : boolean = false;
   private Id : number = -1;
-  private _RowDato !: ICaliber;
-  public str_Category : string = "";
+  private _RowDato !: IManufacturing;
 
 
-  displayedColumns: string[] = ["IdCaliber", "Caliber", "Category", "Code",  "Editar", "Eliminar"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA_CALIBER);
-  clickedRows = new Set<ICaliber>();
+  displayedColumns: string[] = ["IdManufacturing", "Name", "Code",  "Editar", "Eliminar"];
+  dataSource = new MatTableDataSource(ELEMENT_DATA_MANUFACTURING);
+  clickedRows = new Set<IManufacturing>();
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
@@ -52,10 +50,9 @@ export class CaliberComponent implements OnInit {
 
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private dialog : MatDialog, private _OperacionesService : OperacionesService) { 
-    this.val.add("txt_Operacion_caliber", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_caliber_category", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_caliber_code", "1", "LEN>", "0");
-    this.val.add("txt_Operacion_caliber_code", "2", "LEN==", "3");
+    this.val.add("txt_Operacion_manufacturing", "1", "LEN>", "0");
+    this.val.add("txt_Operacion_manufacturing_code", "1", "LEN>", "0");
+    this.val.add("txt_Operacion_manufacturing_code", "2", "LEN==", "3");
    
   }
 
@@ -64,14 +61,12 @@ export class CaliberComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = false;
-    this.str_Category = "";
     this.val.ValForm.reset();
 
-    this.val.ValForm.get("txt_Operacion_caliber")?.disable();
-    this.val.ValForm.get("txt_Operacion_caliber_category")?.disable();
-    this.val.ValForm.get("txt_Operacion_caliber_code")?.disable();
+    this.val.ValForm.get("txt_Operacion_manufacturing")?.disable();
+    this.val.ValForm.get("txt_Operacion_manufacturing_code")?.disable();
 
-    document?.getElementById("divOperacion-frm-caliber-registros")?.classList.remove("disabled");
+    document?.getElementById("divOperacion-frm-manufacturing-registros")?.classList.remove("disabled");
   }
 
 
@@ -98,16 +93,11 @@ export class CaliberComponent implements OnInit {
 
     switch(_input){
 
-      case "txt_Operacion_caliber":
-        document?.getElementById("txt_Operacion_caliber_category")?.focus();
+      case "txt_Operacion_manufacturing":
+        document?.getElementById("txt_Operacion_manufacturing_code")?.focus();
         break;
 
-      case "txt_Operacion_caliber_category":
-        document?.getElementById("txt_Operacion_caliber_code")?.focus();
-        break;
-
-
-      case "txt_Operacion_caliber_code":
+      case "txt_Operacion_manufacturing_code":
         this.Guardar();
         break;
     }
@@ -153,12 +143,10 @@ export class CaliberComponent implements OnInit {
     if(str_Evento == "Editar")
     {
       this.Nuevo();
-      this.Id = row.IdCaliber;
-      this.str_Category = row.Category;
-      this.val.ValForm.get("txt_Operacion_caliber")?.setValue(row.Caliber);
-      this.val.ValForm.get("txt_Operacion_caliber_category")?.setValue(row.Category);
-      this.val.ValForm.get("txt_Operacion_caliber_code")?.setValue(row.Code);
-      document.getElementById("divOperacion-frm-caliber-registros")?.classList.add("disabled");
+      this.Id = row.IdManufacturing;
+      this.val.ValForm.get("txt_Operacion_manufacturing")?.setValue(row.Name);
+      this.val.ValForm.get("txt_Operacion_manufacturing_code")?.setValue(row.Code);
+      document.getElementById("divOperacion-frm-manufacturing-registros")?.classList.add("disabled");
     }
     else
     {
@@ -182,20 +170,20 @@ export class CaliberComponent implements OnInit {
   Eliminar() : void
   {
     this._RowDato.Evento = "Eliminar";
-    this._OperacionesService.GuardarCaliber(this._RowDato).subscribe( s =>{
+    this._OperacionesService.GuardarManufacturing(this._RowDato).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_CALIBER.findIndex(f =>  Number(f.IdCaliber) == Number(_json["d"].IdCaliber));
+        let index : number = ELEMENT_DATA_MANUFACTURING.findIndex(f =>  Number(f.IdManufacturing) == Number(_json["d"].IdManufacturing));
 
 
-        if(index >= 0) ELEMENT_DATA_CALIBER.splice(index, 1);
+        if(index >= 0) ELEMENT_DATA_MANUFACTURING.splice(index, 1);
       }
      
 
-      this.dataSource.data = ELEMENT_DATA_CALIBER;
+      this.dataSource.data = ELEMENT_DATA_MANUFACTURING;
       
       this.dialog.open(DialogoComponent, {
         data : _json["msj"]
@@ -207,18 +195,18 @@ export class CaliberComponent implements OnInit {
 
   LlenarTabla() :void
   {
-    ELEMENT_DATA_CALIBER.splice(0, ELEMENT_DATA_CALIBER.length);
+    ELEMENT_DATA_MANUFACTURING.splice(0, ELEMENT_DATA_MANUFACTURING.length);
 
-    this._OperacionesService.GetCaliber().subscribe(s =>{
+    this._OperacionesService.GetManufacturing().subscribe(s =>{
       let _json = JSON.parse(s);
 
       if(_json["esError"] == 0)
       {
-        _json["d"].forEach((d : ICaliber) => {
-          ELEMENT_DATA_CALIBER.push(d);
+        _json["d"].forEach((d : IManufacturing) => {
+          ELEMENT_DATA_MANUFACTURING.push(d);
         });
 
-        this.dataSource.data = ELEMENT_DATA_CALIBER;
+        this.dataSource.data = ELEMENT_DATA_MANUFACTURING;
 
       }
       else
@@ -239,25 +227,22 @@ export class CaliberComponent implements OnInit {
   {
     this.Id = -1;
     this.Editar = true;
-    this.str_Category = "";
-    this.val.ValForm.get("txt_Operacion_caliber")?.enable();
-    this.val.ValForm.get("txt_Operacion_caliber_category")?.enable();
-    this.val.ValForm.get("txt_Operacion_caliber_code")?.enable();
+    this.val.ValForm.get("txt_Operacion_manufacturing")?.enable();
+    this.val.ValForm.get("txt_Operacion_manufacturing_code")?.enable();
 
-    document.getElementById("txt_Operacion_caliber")?.focus();
+    document.getElementById("txt_Operacion_manufacturing")?.focus();
   }
 
   Guardar() : void
   {
-    let datos : ICaliber = {} as ICaliber;
-    datos.IdCaliber = this.Id;
-    datos.Caliber = String(this.val.ValForm.get("txt_Operacion_caliber")?.value).trimEnd()
-    datos.Category = this.str_Category;
-    datos.Code = String(this.val.ValForm.get("txt_Operacion_caliber_code")?.value).trimEnd();
+    let datos : IManufacturing = {} as IManufacturing;
+    datos.IdManufacturing = this.Id;
+    datos.Name = String(this.val.ValForm.get("txt_Operacion_manufacturing")?.value).trimEnd()
+    datos.Code = String(this.val.ValForm.get("txt_Operacion_manufacturing_code")?.value).trimEnd();
     datos.Evento = "Nuevo";
     if(this.Id > 0) datos.Evento = "Editar";
 
-    this._OperacionesService.GuardarCaliber(datos).subscribe( s =>{
+    this._OperacionesService.GuardarManufacturing(datos).subscribe( s =>{
   
       let _json = JSON.parse(s);
      let _dialog =  this.dialog.open(DialogoComponent, {
@@ -268,20 +253,19 @@ export class CaliberComponent implements OnInit {
         if(_json["esError"] == 0)
         {
 
-          let index : number = ELEMENT_DATA_CALIBER.findIndex(f =>  Number(f.IdCaliber) == Number(_json["d"].IdCaliber));
+          let index : number = ELEMENT_DATA_MANUFACTURING.findIndex(f =>  Number(f.IdManufacturing) == Number(_json["d"].IdManufacturing));
 
           if(index >= 0)
           {
-            ELEMENT_DATA_CALIBER[index].IdCaliber = _json["d"].IdCaliber;
-            ELEMENT_DATA_CALIBER[index].Caliber = _json["d"].Caliber;
-            ELEMENT_DATA_CALIBER[index].Category = _json["d"].Category;
-            ELEMENT_DATA_CALIBER[index].Code = _json["d"].Code;
+            ELEMENT_DATA_MANUFACTURING[index].IdManufacturing = _json["d"].IdManufacturing;
+            ELEMENT_DATA_MANUFACTURING[index].Name = _json["d"].Name;
+            ELEMENT_DATA_MANUFACTURING[index].Code = _json["d"].Code;
           }
           else
           {
-            ELEMENT_DATA_CALIBER.push(_json["d"]);
+            ELEMENT_DATA_MANUFACTURING.push(_json["d"]);
           }
-          this.dataSource.data = ELEMENT_DATA_CALIBER;
+          this.dataSource.data = ELEMENT_DATA_MANUFACTURING;
           this.Limpiar();
          
         }
@@ -299,3 +283,4 @@ export class CaliberComponent implements OnInit {
     this.LlenarTabla();
   }
 }
+

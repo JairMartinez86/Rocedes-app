@@ -20,6 +20,7 @@ import { ICaliber } from '../interface/i-Caliber';
 import { IFeedDog } from '../interface/i-FeedDog';
 import { IPresserFoot } from '../interface/i-PresserFoot';
 import { IFolder } from '../interface/i-Folder';
+import { IManufacturing } from '../interface/i-Manufacturing';
 
 
 @Injectable({
@@ -50,6 +51,23 @@ export class OperacionesService {
   }
   //#endregion CODIGO GSD
 
+
+
+  
+    //#region MANUFACTURING
+  
+    GetManufacturing() : Observable<any>
+    {
+      return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetManufacturing");
+    }
+  
+  
+  
+    GuardarManufacturing(d : IManufacturing): Observable<any> { 
+      let json = JSON.stringify(d);  
+      return this.http.post<any>(this.Cnx.Url() + "Premium/Operaciones/GuardarManufacturing" + "?d=" + json,  { 'content-type': 'application/json'});
+     }
+    //#endregion MANUFACTURING
 
 
   

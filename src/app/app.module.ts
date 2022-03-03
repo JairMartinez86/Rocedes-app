@@ -119,6 +119,7 @@ import { CaliberComponent } from './main/Prm/components/operacion/Caliber/calibe
 import { FeeddogComponent } from './main/Prm/components/operacion/FeedDog/feeddog/feeddog.component';
 import { PresserFootComponent } from './main/Prm/components/operacion/PresserFoot/presser-foot/presser-foot.component';
 import { FolderComponent } from './main/Prm/components/operacion/Folder/folder/folder.component';
+import { ManufacturingComponent } from './main/Prm/components/operacion/Manufacturing/manufacturing/manufacturing.component';
 
 
 
@@ -189,6 +190,7 @@ export const CUSTOM_MOMENT_FORMATS  = {
     FeeddogComponent,
     PresserFootComponent,
     FolderComponent,
+    ManufacturingComponent,
 
 
     

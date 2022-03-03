@@ -53,6 +53,7 @@ import { CaliberComponent } from './Prm/components/operacion/Caliber/caliber/cal
 import { FeeddogComponent } from './Prm/components/operacion/FeedDog/feeddog/feeddog.component';
 import { PresserFootComponent } from './Prm/components/operacion/PresserFoot/presser-foot/presser-foot.component';
 import { FolderComponent } from './Prm/components/operacion/Folder/folder/folder.component';
+import { ManufacturingComponent } from './Prm/components/operacion/Manufacturing/manufacturing/manufacturing.component';
 
 let ELEMENT_DATA_PERFIL_USUARIO: IUsuarioPerfil[] = [];
 
@@ -155,6 +156,7 @@ export class MainComponent implements OnInit {
     this.Esquema.add('PRM', 'LinkFlujoCorte', 'Cutting Flow', false);
 
     this.Esquema.add('PRM', 'Link-Operaciones-cliente', 'Customers', false);
+    this.Esquema.add('PRM', 'Link-Operaciones-manufacturing', 'Manufacturing Process', false);
     this.Esquema.add(
       'PRM',
       'Link-Operaciones-producto',
@@ -830,6 +832,30 @@ export class MainComponent implements OnInit {
               }
             }
             break;
+
+
+            case 'Link-Operaciones-manufacturing':
+            if (this.Esquema._Id != _Id) {
+              this.dinamycHost.viewContainerRef!.clear();
+
+              component =
+                this.componentFactoryResolver.resolveComponentFactory(
+                  ManufacturingComponent
+                );
+              let Manufacturing: ComponentRef<ManufacturingComponent> =
+                this.dinamycHost.viewContainerRef.createComponent(component);
+                Manufacturing.instance.Link = 'Link-Operaciones-manufacturing';
+                Manufacturing.instance.Open = true;
+            } else {
+              component = this.dinamycHost.viewContainerRef.get(0);
+              component = component._view[30];
+              if (this.Esquema._Id == _Id) {
+                component.Link = 'Link-Operaciones-manufacturing';
+                component.Open = true;
+              }
+            }
+            break;
+
 
           case 'Link-Operaciones-producto':
             if (this.Esquema._Id != _Id) {
