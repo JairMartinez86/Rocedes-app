@@ -86,25 +86,25 @@
   </ng-container>
 
 
-  <ng-container matColumnDef="ProcesoManufact">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by ProcesoManufact">
+  <ng-container matColumnDef="Manufacturing">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Manufacturing">
       PROCESO DE MANUFACTURA.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.ProcesoManufact}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Manufacturing}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="TipoProducto">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by TipoProducto">
-      TIPO DE PRODUCTO.
+  <ng-container matColumnDef="Producto">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Producto">
+      PRODUCTO.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.TipoProducto}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Producto}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Familia">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Familia">
+  <ng-container matColumnDef="Family">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Family">
       FAMILIA.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Familia}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Family}} </td>
   </ng-container>
 
 
@@ -116,19 +116,19 @@
   </ng-container>
 
 
-  <ng-container matColumnDef="UbicacionSecuencia">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by UbicacionSecuencia">
+  <ng-container matColumnDef="Secuence">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Secuence">
       UBICACION (SECUENCIA).
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.UbicacionSecuencia}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Secuence}} </td>
   </ng-container>
 
   
-  <ng-container matColumnDef="Puntadas">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Puntadas">
+  <ng-container matColumnDef="StitchInch">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by StitchInch">
       PUNTADAS POR PULGADAS.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Puntadas}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.StitchInch}} </td>
   </ng-container>
 
 
@@ -148,11 +148,11 @@
   </ng-container>
 
 
-  <ng-container matColumnDef="Stitch">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Stitch">
+  <ng-container matColumnDef="TypeStitch">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by TypeStitch">
       TIPO DE PUNTADA.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Stitch}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.TypeStitch}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Rpm">
@@ -169,19 +169,19 @@
     <td class="block" mat-cell *matCellDef="let element"> {{element.Tela}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Onza">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Onza">
+  <ng-container matColumnDef="Ounce">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Ounce">
       PESO DE TELA.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Onza}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Ounce}} </td>
   </ng-container>
 
 
-  <ng-container matColumnDef="Needle">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Needle">
+  <ng-container matColumnDef="NeedleType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by NeedleType">
       TIPO DE AGUJA.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.Needle}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.NeedleType}} </td>
   </ng-container>
 
 
@@ -202,18 +202,18 @@
     <td class="block" mat-cell *matCellDef="let element"> {{element.FeedDog}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="CodPrensatela">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by CodPrensatela">
+  <ng-container matColumnDef="PresserFoot">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by PresserFoot">
       CÓDIGO DE PRENSATELA.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.CodPrensatela}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.PresserFoot}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="TipoFolder">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by TipoFolder">
+  <ng-container matColumnDef="Folder">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Folder">
       TIPO DE FOLDER.
     </th>
-    <td class="block" mat-cell *matCellDef="let element"> {{element.TipoFolder}} </td>
+    <td class="block" mat-cell *matCellDef="let element"> {{element.Folder}} </td>
   </ng-container>
 
 

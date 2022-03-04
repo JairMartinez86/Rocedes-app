@@ -9,7 +9,7 @@
 }
 
 
-.mat-header-cell{
+#tabla-operation-matrix-data .mat-header-cell{
     color: #1C394F;
     font-weight: bold;
 }
@@ -17,13 +17,19 @@
 
 
 
-tr td{
+#tabla-operation-matrix-data tr td{
     flex: 0 0 25% !important;
     min-width: 150px !important;
     text-align: center;
+    font-size: 12px;
 }
 
-.mat-column-Operacion  {
+#tabla-operation-matrix-data .mat-column-codigo  {
+    flex: 0 0 25% !important;
+    min-width: 400px !important;
+}
+
+#tabla-operation-matrix-data .mat-column-Operacion  {
     flex: 0 0 25% !important;
     min-width: 300px !important;
 }
