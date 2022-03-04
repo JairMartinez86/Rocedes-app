@@ -81,7 +81,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Manufacturing'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_manufacturing')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -100,7 +100,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Product'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_producto')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -118,7 +118,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Family'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_family')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -136,7 +136,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Secuence'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_secuence')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -154,7 +154,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('MachineData'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_Machinedata')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -172,7 +172,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('StitchType'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_stitchtype')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -191,7 +191,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Needle'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_needle')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -210,7 +210,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Rpm'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_rpm')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -228,7 +228,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('StitchInch'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_stitchinch')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -246,7 +246,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('FabricType'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_fabrictype')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -264,7 +264,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('FabricWeight'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_fabricweight')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -282,7 +282,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Caliber'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_caliber')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -301,7 +301,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('FeedDog'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_feeddog')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -319,7 +319,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('PresserFoot'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_presserfoot')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -337,7 +337,7 @@
 								</mat-autocomplete>
 
 								<mat-icon matSuffix>
-									<fa-icon [icon]="['fas', 'search']" class="fa-lg"></fa-icon>
+									<fa-icon [icon]="['fas', 'search']" class="fa-lg" (click)="AbrirVentana('Folder'); modal1.show();"></fa-icon>
 								</mat-icon>
 								<mat-error *ngIf="val.ValForm.get('txt_method_analisys_folder')?.errors?.Regla=='1'">It is <strong>required</strong></mat-error>
 
@@ -378,7 +378,7 @@
 
 
 
-					<tr mat-header-row *matHeaderRowDef="displayedColumns_parametros_method_analisys; sticky: true"></tr>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns_parametros_method_analisys; sticky: false"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedColumns_parametros_method_analisys;"></tr>
 
 				</table>
@@ -513,7 +513,7 @@
 
 
 
-					<tr mat-header-row *matHeaderRowDef="displayedColumns_method_analisys; sticky: true"></tr>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns_method_analisys; sticky: false"></tr>
 					<tr mat-row [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns_method_analisys;"></tr>
 
 
@@ -530,3 +530,77 @@
 </div>
 
 	
+
+<app-modal #modal1 class="panel-demo1" [maximizable]="true" [backdrop]="true">
+    <ng-container class="app-modal-header"></ng-container>
+    <ng-container class="app-modal-body">
+
+		<div class="franja">
+			<p>Records</p>
+		</div>
+		
+		<div class="container">
+			<div class="row">
+		
+				<div class="col-sm-12 col-md-4 col-md-6">
+					<mat-form-field>
+						<mat-label>Find</mat-label>
+						<input appAutofocus matInput (keyup)="filtrarVentana($event)" placeholder="Find">
+					</mat-form-field>
+				</div>
+		
+		
+			</div>
+		</div>
+		
+		<div class="mat-elevation-z8" Id="tabla-filtro">
+		
+		
+			<table mat-table [dataSource]="dataSource_Filtro" matSort (matSortChange)="annSort($event)">
+		
+		
+				<ng-container matColumnDef="Id">
+					<th mat-header-cell *matHeaderCellDef> No. </th>
+					<td mat-cell *matCellDef="let element; let j = index" style="color:#1b364c; font-weight: bold;"> {{j+1}}
+					</td>
+				</ng-container>
+		
+		
+				<ng-container matColumnDef="Valor">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Valor">
+						Descripcion.
+					</th>
+					<td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+				</ng-container>
+		
+		
+		
+				<ng-container matColumnDef="Code">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Code">
+						Code.
+					</th>
+					<td mat-cell *matCellDef="let element"> {{element.Code}} </td>
+				</ng-container>
+		
+		
+		
+				<tr mat-header-row *matHeaderRowDef="displayedColumns_Filtro"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns_Filtro;">
+				</tr>
+		
+			</table>
+			<mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>
+		</div>
+			
+			
+			
+	
+    </ng-container>
+    <ng-container class="app-modal-footer">
+      <div class="button-row text-end">
+        <button type="button" class="dt-button dt-rocedes" (click)="modal1.hide()">
+          <fa-icon [icon]="['fas', 'broom']" class="fa-lg"></fa-icon> Close
+        </button>
+      </div>
+    </ng-container>
+  </app-modal>

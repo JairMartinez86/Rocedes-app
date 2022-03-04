@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, shareReplay, startWith } from 'rxjs';
@@ -32,6 +32,9 @@ import { ICaliber } from '../../../interface/i-Caliber';
 import { IFeedDog } from '../../../interface/i-FeedDog';
 import { IPresserFoot } from '../../../interface/i-PresserFoot';
 import { IFolder } from '../../../interface/i-Folder';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 
 export interface Filtro {
@@ -51,6 +54,8 @@ export interface ISeleccionLevel {
 
 let ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS : IParametroMethodAnalysis[] = []
 let ELEMENT_DATA_METHOD_ANALISIS : IDetMethodAnalysis[] = []
+
+let ELEMENT_DATA_FILTRO : Filtro[] = []
 
 
 export interface IParametroMethodAnalysis {
@@ -101,12 +106,15 @@ export class MethodAnalysisComponent implements OnInit {
   displayedColumns_parametros_method_analisys: string[] = ["Requerido", "Index", "Parametro",   "Valor"];
   dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
 
+  displayedColumns_Filtro: string[] = ["Id", "Valor", "Code"];
+  dataSource_Filtro = new MatTableDataSource(ELEMENT_DATA_FILTRO);
+
 
   displayedColumns_method_analisys: string[] = ["IdDetMethodAnalysis", "Codigo1", "Codigo2", "Codigo3", "Codigo4", "Descripcion", "Freq", "Tmus", "Sec", "Sam", "Eliminar"];
   dataSource_method_analisys = new MatTableDataSource(ELEMENT_DATA_METHOD_ANALISIS);
   clickedRows = new Set<IDetMethodAnalysis>();
 
-  constructor(private _LoginService : LoginService, public _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _LoginService : LoginService, public _OperacionesService : OperacionesService, private _ProductoService : ProductoService, private dialog : MatDialog) {
    
 
 
@@ -1623,6 +1631,86 @@ txt_method_analisys_onSearchChange(event : any) :void{
     });
   }
 
+
+  
+  //#region EVENTOS FILTRO
+
+
+  @ViewChild(MatPaginator, {static: false})
+  set paginator(value: MatPaginator) {
+    if (this.dataSource_Filtro){
+      this.dataSource_Filtro.paginator = value;
+      if(this.dataSource_Filtro.paginator != null)this.dataSource_Filtro.paginator._intl.getRangeLabel = this.getRangeDisplayText;
+    }
+  }
+  @ViewChild(MatSort, {static: false})
+  set sort(sort: MatSort) {
+     this.dataSource_Filtro.sort = sort;
+  }
+
+
+  annSort(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  filtrarVentana(event: Event) {
+    const filtro = (event.target as HTMLInputElement).value;
+    this.dataSource_Filtro.filter = filtro.trim().toLowerCase();
+  }  
+  
+  getRangeDisplayText = (page: number, pageSize: number, length: number) => {
+    const initialText = `Registros`;  // customize this line
+    if (length == 0 || pageSize == 0) {
+      return `${initialText} 0 of ${length}`;
+    }
+    length = Math.max(length, 0);
+    const startIndex = page * pageSize;
+    const endIndex = startIndex < length 
+      ? Math.min(startIndex + pageSize, length) 
+      : startIndex + pageSize;
+    return `${initialText} ${startIndex + 1} de ${endIndex} Total: ${length}`; // customize this line
+  };
+
+  
+  AbrirVentana(tipo : string) : void
+  {
+    ELEMENT_DATA_FILTRO.splice(0, ELEMENT_DATA_FILTRO.length);
+
+    this._OperacionesService.GetAutoComplete("", tipo).subscribe( s => {
+      let _json = JSON.parse(s);
+  
+  
+      if(_json["esError"] == 0){
+  
+  
+        if(_json["count"] > 0){
+          
+          _json["d"].forEach((j : Filtro) => {
+            this.dataSource_Filtro.data.push(j);
+          });
+        }
+        this.dataSource_Filtro.filter = "";
+       
+      }else{
+        this.dialog.open(DialogoComponent, {
+          data: _json["msj"]
+        })
+  
+  
+  
+      }
+  
+    });
+
+  }
+
+  //#endregion EVENTOS FILTRO
+
+  
   ngOnInit(): void {}
 
 }
