@@ -42,6 +42,7 @@ export interface Filtro {
   Valor : string;
   Otros : string;
   Code : string;
+  Seleccionar : boolean;
 }
 
 export interface ISeleccionLevel {
@@ -84,6 +85,9 @@ export class MethodAnalysisComponent implements OnInit {
   public Editar : boolean = false;
   private IdMethodAnalysis : number = -1;
   public str_Codigo : string = "";
+  public str_Machine : string = "";
+  public str_txt_Id : string = "";
+  public str_ventana : string = "";
 
   private _RowManufacturing !: IManufacturing;
   private _RowProducto !: IProducto;
@@ -106,7 +110,7 @@ export class MethodAnalysisComponent implements OnInit {
   displayedColumns_parametros_method_analisys: string[] = ["Requerido", "Index", "Parametro",   "Valor"];
   dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
 
-  displayedColumns_Filtro: string[] = ["Id", "Valor", "Code"];
+  displayedColumns_Filtro: string[] = ["Id", "Valor", "Code", "Seleccionar"];
   dataSource_Filtro = new MatTableDataSource(ELEMENT_DATA_FILTRO);
 
 
@@ -336,6 +340,9 @@ _onSelectionChange(_Opcion: Filtro, tipo : string, id : string) :void
 
 LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
 {
+  
+  this.str_Codigo = "";
+
   switch(tipo)
   {
     case "Manufacturing":
@@ -344,13 +351,12 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       _Manufacturing.IdManufacturing = _Opcion.Id;
       _Manufacturing.Name = _Opcion.Valor;
       _Manufacturing.Code = _Opcion.Code;
-
+ 
      
       this._RowManufacturing = _Manufacturing;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Code = _Opcion.Code;
-
     break;
 
     case "Product":
@@ -360,11 +366,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       _Producto.Nombre = _Opcion.Valor;
       _Producto.Code = _Opcion.Code;
 
+
      
       this._RowProducto = _Producto;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Code = _Opcion.Code;
+
  
     break;
 
@@ -375,12 +383,14 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       _Family.Components = _Opcion.Valor;
       _Family.Code = _Opcion.Code;
 
+
      
       this._RowFamily = _Family;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Code = _Opcion.Code;
- 
+
+
     break;
 
     case "Secuence":
@@ -390,12 +400,14 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       _Secuence.Secuence = Number(_Opcion.Valor);
       _Secuence.Code = _Opcion.Code;
 
+
      
       this._RowSecuence = _Secuence;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Code = _Opcion.Code;
- 
+
+
     break;
 
   case "MachineData":
@@ -406,13 +418,17 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _Maquina.Delay = Number(_Opcion.Otros.split(";")[0]);
     _Maquina.Personal = Number(_Opcion.Otros.split(";")[1]);
     _Maquina.Fatigue = Number(_Opcion.Otros.split(";")[2]);
+    _Maquina.Machine = _Opcion.Otros.split(";")[3];
     _Maquina.Code = _Opcion.Code;
+
      
     this._RowMaquina = _Maquina;
+    this.str_Machine = _Maquina.Machine;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = _Opcion.Code;
- 
+
+
     break;
 
   case "StitchType":
@@ -421,13 +437,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _SitichType.IdStitchType = _Opcion.Id;
     _SitichType.TypeStitch = _Opcion.Valor;
     _SitichType.Code = _Opcion.Code;
+
      
     this._RowStitchType = _SitichType;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Code = _Opcion.Code;
- 
- 
+
     break;
 
   case "Needle":
@@ -436,12 +452,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowNeedle.IdNeedle = _Opcion.Id;
     _RowNeedle.NeedleType = _Opcion.Valor;
     _RowNeedle.Code = _Opcion.Code;
+
      
     this._RowNeedle = _RowNeedle;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Code = _Opcion.Code;
- 
+
  
     break;
 
@@ -451,12 +468,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowRpm.IdRpm = _Opcion.Id;
     _RowRpm.Rpm = Number(_Opcion.Valor);
     _RowRpm.Code = _Opcion.Code;
+ 
      
     this._RowRpm = _RowRpm;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Code = _Opcion.Code;
-   
+
    
     break;
 
@@ -466,12 +484,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowStitchInch.IdStitchInch = _Opcion.Id;
     _RowStitchInch.StitchInch = Number(_Opcion.Valor);
     _RowStitchInch.Code = _Opcion.Code;
+
      
     this._RowStitchInch = _RowStitchInch;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Code = _Opcion.Code;
-   
+
    
     break;
 
@@ -481,12 +500,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowTela.IdTela = _Opcion.Id;
     _RowTela.Nombre = _Opcion.Valor;
     _RowTela.Code = _Opcion.Code;
+
      
     this._RowTela = _RowTela;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Code = _Opcion.Code;
-   
+
    
     break;
 
@@ -497,12 +517,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowFabricWeight.IdOunce = _Opcion.Id;
     _RowFabricWeight.Ounce = Number(_Opcion.Valor);
     _RowFabricWeight.Code = _Opcion.Code;
+
      
     this._RowFabricWeight = _RowFabricWeight;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Code = _Opcion.Code;
-   
+
    
     break;
 
@@ -512,12 +533,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowCaliber.IdCaliber = _Opcion.Id;
     _RowCaliber.Caliber = _Opcion.Valor;
     _RowCaliber.Code = _Opcion.Code;
+   
      
     this._RowCaliber = _RowCaliber;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Code = _Opcion.Code;
-   
+
    
     break;
 
@@ -528,12 +550,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowFeedDog.IdFeedDog = _Opcion.Id;
     _RowFeedDog.Part = _Opcion.Valor;
     _RowFeedDog.Code = _Opcion.Code;
+
      
     this._RowFeedDog = _RowFeedDog;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Code = _Opcion.Code;
-   
+
    
     break;
 
@@ -544,12 +567,13 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     _RowPresserFoot.IdPresserFoot = _Opcion.Id;
     _RowPresserFoot.Part = _Opcion.Valor;
      _RowPresserFoot.Code = _Opcion.Code;
+
        
     this._RowPresserFoot	 = _RowPresserFoot;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Code = _Opcion.Code;
-     
+
      
     break;
 
@@ -564,6 +588,7 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Code = _Opcion.Code;
+  
        
        
     break;
@@ -585,7 +610,19 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     this.optionLevel[index].Otros =  _Opcion.Otros;
     this.optionLevel[index].Code =  _Opcion.Code;
   }
-  
+
+
+
+    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS.forEach(element => {
+
+      if(element.Code != "") this.str_Codigo += element.Code + "-";
+
+    });
+
+    this.str_Codigo = this.str_Codigo.substring(0, this.str_Codigo.length - 1);
+
+
+ 
 }
  
 
@@ -992,21 +1029,21 @@ txt_method_analisys_onSearchChange(event : any) :void{
       {Index : 2, Requerido : "*", Parametro : "OPERATION NAME", Valor : "", id: 0, Code : ""},
       {Index : 3, Requerido : "*", Parametro : "RATE C$", Valor : "", id: 0, Code : ""},
       {Index : 4, Requerido : "*", Parametro : "JORNADA LABORAL", Valor : "", id: 0, Code : ""},
-      {Index : 5, Requerido : "*", Parametro : "MANUFACTURING PROCESS", Valor : "", id: 0, Code : ""},
-      {Index : 6, Requerido : "*", Parametro : "PRODUCT CATALOGUE", Valor : "", id: 0, Code : ""},
-      {Index : 7, Requerido : "*", Parametro : "FAMILY", Valor : "", id: 0, Code : ""},
-      {Index : 8, Requerido : "*", Parametro : "OPERATION SECUENCE", Valor : "", id: 0, Code : ""},
-      {Index : 9, Requerido : "*", Parametro : "MACHINE", Valor : "", id: 0, Code : ""},
-      {Index : 10, Requerido : "*", Parametro : "STITCH TYPE", Valor : "", id: 0, Code : ""},
-      {Index : 11, Requerido : "*", Parametro : "NEEDLE", Valor : "", id: 0, Code : ""},
-      {Index : 12, Requerido : "*", Parametro : "RPM", Valor : "", id: 0, Code : ""},
-      {Index : 13, Requerido : "*", Parametro : "STITCH PER INCH", Valor : "", id: 0, Code : ""},
-      {Index : 14, Requerido : "*", Parametro : "FABRIC TYPE", Valor : "", id: 0, Code : ""},
-      {Index : 15, Requerido : "*", Parametro : "FABRIC WEIGHT (OZ)", Valor : "", id: 0, Code : ""},
-      {Index : 16, Requerido : "*", Parametro : "NEEDLE CALIBER", Valor : "", id: 0, Code : ""},
-      {Index : 17, Requerido : "*", Parametro : "FEED DOG", Valor : "", id: 0, Code : ""},
-      {Index : 18, Requerido : "*", Parametro : "PRESSER FOOT", Valor : "", id: 0, Code : ""},
-      {Index : 19, Requerido : "*", Parametro : "FOLDER ", Valor : "", id: 0, Code : ""},
+      {Index : 5, Requerido : "*", Parametro : "MANUFACTURING PROCESS", Valor : "", id: 0, Code : "000"},
+      {Index : 6, Requerido : "*", Parametro : "PRODUCT CATALOGUE", Valor : "", id: 0, Code : "000"},
+      {Index : 7, Requerido : "*", Parametro : "FAMILY", Valor : "", id: 0, Code : "000"},
+      {Index : 8, Requerido : "*", Parametro : "OPERATION SECUENCE", Valor : "", id: 0, Code : "000"},
+      {Index : 9, Requerido : "*", Parametro : "MACHINE", Valor : "", id: 0, Code : "000"},
+      {Index : 10, Requerido : "*", Parametro : "STITCH TYPE", Valor : "", id: 0, Code : "000"},
+      {Index : 11, Requerido : "*", Parametro : "NEEDLE", Valor : "", id: 0, Code : "000"},
+      {Index : 12, Requerido : "*", Parametro : "RPM", Valor : "", id: 0, Code : "000"},
+      {Index : 13, Requerido : "*", Parametro : "STITCH PER INCH", Valor : "", id: 0, Code : "000"},
+      {Index : 14, Requerido : "*", Parametro : "FABRIC TYPE", Valor : "", id: 0, Code : "000"},
+      {Index : 15, Requerido : "*", Parametro : "FABRIC WEIGHT (OZ)", Valor : "", id: 0, Code : "000"},
+      {Index : 16, Requerido : "*", Parametro : "NEEDLE CALIBER", Valor : "", id: 0, Code : "000"},
+      {Index : 17, Requerido : "*", Parametro : "FEED DOG", Valor : "", id: 0, Code : "000"},
+      {Index : 18, Requerido : "*", Parametro : "PRESSER FOOT", Valor : "", id: 0, Code : "000"},
+      {Index : 19, Requerido : "*", Parametro : "FOLDER ", Valor : "", id: 0, Code : "000"},
       {Index : 20, Requerido : "", Parametro : "MATERIA PRIMA 1", Valor : "", id: 0, Code : ""},
       {Index : 21, Requerido : "", Parametro : "MATERIA PRIMA 2", Valor : "", id: 0, Code : ""},
       {Index : 22, Requerido : "", Parametro : "MATERIA PRIMA 3", Valor : "", id: 0, Code : ""}
@@ -1110,13 +1147,13 @@ txt_method_analisys_onSearchChange(event : any) :void{
         datos.d2 = this.dataSource_method_analisys.data.filter(f => !f.EsTotal && (f.Codigo1 + f.Codigo2 + f.Codigo3 + f.Codigo4).trimEnd().length > 0 );
 
 
-        if(datos.d2.length == 0 )
+        /*if(datos.d2.length == 0 )
         {
           this.dialog.open(DialogoComponent, {
             data : "Por favor verifique si las celdas no se encuentren vacias."
           })
           return;
-        }
+        }*/
 
         this._OperacionesService.GuardarMethodAnalysis(datos).subscribe(s =>{
 
@@ -1579,7 +1616,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[index].Code = element.Code;
 
         this.optionSeleccion.splice(0, this.optionSeleccion.length);
-        this.optionSeleccion.push({Id : element.Id, Valor : element.Valor, Otros : "", Code :  element.Code })
+        this.optionSeleccion.push({Id : element.Id, Valor : element.Valor, Otros : "", Code :  element.Code, Seleccionar : true })
         this.val.ValForm.get(element.IdCaja)?.setValue(this.optionSeleccion[0]);
 
         index++;
@@ -1676,11 +1713,18 @@ txt_method_analisys_onSearchChange(event : any) :void{
   };
 
   
-  AbrirVentana(tipo : string) : void
+  AbrirVentana(tipo : string, Id : string) : void
   {
+    this.str_txt_Id = Id;
+    this.str_ventana = tipo;
     ELEMENT_DATA_FILTRO.splice(0, ELEMENT_DATA_FILTRO.length);
 
-    this._OperacionesService.GetAutoComplete("", tipo).subscribe( s => {
+    let str : string = "";
+
+    if(tipo == "FeedDog" || tipo == "PresserFoot" )  str  = this.str_Machine
+    
+
+    this._OperacionesService.GetAutoComplete(str, tipo).subscribe( s => {
       let _json = JSON.parse(s);
   
   
@@ -1706,6 +1750,18 @@ txt_method_analisys_onSearchChange(event : any) :void{
   
     });
 
+  }
+
+  Select(element : any)
+  {
+    this.LlenarParametroFiltro(element, this.str_ventana, this.str_txt_Id)
+
+    let index : number = this.optionLevel.findIndex( f => f.IdCaja == this.str_txt_Id);
+
+    if(index == -1) return;
+    
+    this.val.ValForm.get(this.str_txt_Id)?.setValue(this.optionLevel[index])
+    
   }
 
   //#endregion EVENTOS FILTRO
