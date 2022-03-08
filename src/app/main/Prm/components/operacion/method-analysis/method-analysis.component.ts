@@ -343,10 +343,20 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
   
   this.str_Codigo = "";
 
+
   switch(tipo)
   {
     case "Manufacturing":
-      let _Manufacturing : IManufacturing = {} as IManufacturing;
+
+      if(_Opcion == null)
+      {
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].id = 0;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = "";
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Code = "000";
+      }
+      else
+      {
+        let _Manufacturing : IManufacturing = {} as IManufacturing;
 
       _Manufacturing.IdManufacturing = _Opcion.Id;
       _Manufacturing.Name = _Opcion.Valor;
@@ -357,27 +367,50 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[4].Code = _Opcion.Code;
+      }
+
+      
     break;
 
     case "Product":
-      let _Producto : IProducto = {} as IProducto;
+      if(_Opcion == null)
+      {
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].id = 0;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor = "";
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Code = "000";
 
-      _Producto.IdProducto = _Opcion.Id;
-      _Producto.Nombre = _Opcion.Valor;
-      _Producto.Code = _Opcion.Code;
+      }
+      else
+      {
+        let _Producto : IProducto = {} as IProducto;
 
-
-     
-      this._RowProducto = _Producto;
-      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].id = _Opcion.Id;
-      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor = _Opcion.Valor;
-      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Code = _Opcion.Code;
+        _Producto.IdProducto = _Opcion.Id;
+        _Producto.Nombre = _Opcion.Valor;
+        _Producto.Code = _Opcion.Code;
+  
+  
+       
+        this._RowProducto = _Producto;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].id = _Opcion.Id;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Valor = _Opcion.Valor;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[5].Code = _Opcion.Code;
+      }
+      
 
  
     break;
 
     case "Family":
-      let _Family : IFamily = {} as IFamily;
+      if(_Opcion == null)
+      {
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].id = 0;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor = "";
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Code = "000";
+
+      }
+      else
+      {
+        let _Family : IFamily = {} as IFamily;
 
       _Family.IdFamily = _Opcion.Id;
       _Family.Components = _Opcion.Valor;
@@ -389,65 +422,110 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[6].Code = _Opcion.Code;
+      }
+      
 
 
     break;
 
     case "Secuence":
-      let _Secuence : ISecuence = {} as ISecuence;
+      if(_Opcion == null)
+      {
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].id = 0;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor = "";
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Code = "000";
 
-      _Secuence.IdSecuence = _Opcion.Id;
-      _Secuence.Secuence = Number(_Opcion.Valor);
-      _Secuence.Code = _Opcion.Code;
+      }
+      else
+      {
+        let _Secuence : ISecuence = {} as ISecuence;
 
-
-     
-      this._RowSecuence = _Secuence;
-      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].id = _Opcion.Id;
-      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor = _Opcion.Valor;
-      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Code = _Opcion.Code;
+        _Secuence.IdSecuence = _Opcion.Id;
+        _Secuence.Secuence = Number(_Opcion.Valor);
+        _Secuence.Code = _Opcion.Code;
+  
+  
+       
+        this._RowSecuence = _Secuence;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].id = _Opcion.Id;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Valor = _Opcion.Valor;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[7].Code = _Opcion.Code;
+      }
+      
 
 
     break;
 
   case "MachineData":
-    let _Maquina : IDataMachine = {} as IDataMachine;
+     if(_Opcion == null)
+      {
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = 0;
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = "";
+        ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = "000";
 
-    _Maquina.IdDataMachine = _Opcion.Id;
-    _Maquina.Name = _Opcion.Valor;
-    _Maquina.Delay = Number(_Opcion.Otros.split(";")[0]);
-    _Maquina.Personal = Number(_Opcion.Otros.split(";")[1]);
-    _Maquina.Fatigue = Number(_Opcion.Otros.split(";")[2]);
-    _Maquina.Machine = _Opcion.Otros.split(";")[3];
-    _Maquina.Code = _Opcion.Code;
+      }
+      else
+      {
+        let _Maquina : IDataMachine = {} as IDataMachine;
 
-     
-    this._RowMaquina = _Maquina;
-    this.str_Machine = _Maquina.Machine;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = _Opcion.Code;
+      _Maquina.IdDataMachine = _Opcion.Id;
+      _Maquina.Name = _Opcion.Valor;
+      _Maquina.Delay = Number(_Opcion.Otros.split(";")[0]);
+      _Maquina.Personal = Number(_Opcion.Otros.split(";")[1]);
+      _Maquina.Fatigue = Number(_Opcion.Otros.split(";")[2]);
+      _Maquina.Machine = _Opcion.Otros.split(";")[3];
+      _Maquina.Code = _Opcion.Code;
+
+      
+      this._RowMaquina = _Maquina;
+      this.str_Machine = _Maquina.Machine;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = _Opcion.Code;
+
+      }
+    
 
 
     break;
 
   case "StitchType":
-    let _SitichType : IStitchType = {} as IStitchType;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Code = "000";
+
+    }
+    else
+    {
+      let _SitichType : IStitchType = {} as IStitchType;
 
     _SitichType.IdStitchType = _Opcion.Id;
     _SitichType.TypeStitch = _Opcion.Valor;
     _SitichType.Code = _Opcion.Code;
 
-     
+      
     this._RowStitchType = _SitichType;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[9].Code = _Opcion.Code;
+    }
+    
 
     break;
 
   case "Needle":
-    let _RowNeedle: INeedleType = {} as INeedleType;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Code = "000";
+
+    }
+    else
+    {
+      let _RowNeedle: INeedleType = {} as INeedleType;
 
     _RowNeedle.IdNeedle = _Opcion.Id;
     _RowNeedle.NeedleType = _Opcion.Valor;
@@ -458,94 +536,160 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[10].Code = _Opcion.Code;
+    }
+    
 
  
     break;
 
   case "Rpm":
-    let _RowRpm: IRpm = {} as IRpm;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Code = "000";
+
+    }
+    else
+    {
+      let _RowRpm: IRpm = {} as IRpm;
   
-    _RowRpm.IdRpm = _Opcion.Id;
-    _RowRpm.Rpm = Number(_Opcion.Valor);
-    _RowRpm.Code = _Opcion.Code;
- 
-     
-    this._RowRpm = _RowRpm;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Code = _Opcion.Code;
+      _RowRpm.IdRpm = _Opcion.Id;
+      _RowRpm.Rpm = Number(_Opcion.Valor);
+      _RowRpm.Code = _Opcion.Code;
+   
+       
+      this._RowRpm = _RowRpm;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[11].Code = _Opcion.Code;
+    }
+    
 
    
     break;
 
   case "StitchInch":
-    let _RowStitchInch: IStitchInch = {} as IStitchInch;
-  
-    _RowStitchInch.IdStitchInch = _Opcion.Id;
-    _RowStitchInch.StitchInch = Number(_Opcion.Valor);
-    _RowStitchInch.Code = _Opcion.Code;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Code = "000";
 
-     
-    this._RowStitchInch = _RowStitchInch;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Code = _Opcion.Code;
+    }
+    else
+    {
+      let _RowStitchInch: IStitchInch = {} as IStitchInch;
+  
+      _RowStitchInch.IdStitchInch = _Opcion.Id;
+      _RowStitchInch.StitchInch = Number(_Opcion.Valor);
+      _RowStitchInch.Code = _Opcion.Code;
+  
+       
+      this._RowStitchInch = _RowStitchInch;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[12].Code = _Opcion.Code;
+    }
+    
 
    
     break;
 
   case "FabricType":
-    let _RowTela: ITela = {} as ITela;
-  
-    _RowTela.IdTela = _Opcion.Id;
-    _RowTela.Nombre = _Opcion.Valor;
-    _RowTela.Code = _Opcion.Code;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Code = "000";
 
-     
-    this._RowTela = _RowTela;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Code = _Opcion.Code;
+    }
+    else
+    {
+      let _RowTela: ITela = {} as ITela;
+  
+      _RowTela.IdTela = _Opcion.Id;
+      _RowTela.Nombre = _Opcion.Valor;
+      _RowTela.Code = _Opcion.Code;
+  
+       
+      this._RowTela = _RowTela;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[13].Code = _Opcion.Code;
+    }
+    
 
    
     break;
 
 
   case "FabricWeight":
-    let _RowFabricWeight: IOunce = {} as IOunce;
-  
-    _RowFabricWeight.IdOunce = _Opcion.Id;
-    _RowFabricWeight.Ounce = Number(_Opcion.Valor);
-    _RowFabricWeight.Code = _Opcion.Code;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Code = "000";
 
-     
-    this._RowFabricWeight = _RowFabricWeight;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Code = _Opcion.Code;
+    }
+    else
+    {
+      let _RowFabricWeight: IOunce = {} as IOunce;
+  
+      _RowFabricWeight.IdOunce = _Opcion.Id;
+      _RowFabricWeight.Ounce = Number(_Opcion.Valor);
+      _RowFabricWeight.Code = _Opcion.Code;
+  
+       
+      this._RowFabricWeight = _RowFabricWeight;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[14].Code = _Opcion.Code;
+    }
+    
 
    
     break;
 
   case "Caliber":
-    let _RowCaliber: ICaliber = {} as ICaliber;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Code = "000";
+
+    }
+    else
+    {
+      let _RowCaliber: ICaliber = {} as ICaliber;
   
-    _RowCaliber.IdCaliber = _Opcion.Id;
-    _RowCaliber.Caliber = _Opcion.Valor;
-    _RowCaliber.Code = _Opcion.Code;
-   
+      _RowCaliber.IdCaliber = _Opcion.Id;
+      _RowCaliber.Caliber = _Opcion.Valor;
+      _RowCaliber.Code = _Opcion.Code;
      
-    this._RowCaliber = _RowCaliber;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Code = _Opcion.Code;
+       
+      this._RowCaliber = _RowCaliber;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[15].Code = _Opcion.Code;
+    }
+    
 
    
     break;
 
 
   case "FeedDog":
-    let _RowFeedDog: IFeedDog = {} as IFeedDog;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Code = "000";
+
+    }
+    else
+    {
+      let _RowFeedDog: IFeedDog = {} as IFeedDog;
   
     _RowFeedDog.IdFeedDog = _Opcion.Id;
     _RowFeedDog.Part = _Opcion.Valor;
@@ -556,39 +700,62 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].id = _Opcion.Id;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Valor = _Opcion.Valor;
     ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[16].Code = _Opcion.Code;
+    }
 
    
     break;
 
 
   case "PresserFoot":
-    let _RowPresserFoot: IPresserFoot = {} as IPresserFoot;
-    
-    _RowPresserFoot.IdPresserFoot = _Opcion.Id;
-    _RowPresserFoot.Part = _Opcion.Valor;
-     _RowPresserFoot.Code = _Opcion.Code;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Code = "000";
 
-       
-    this._RowPresserFoot	 = _RowPresserFoot;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Code = _Opcion.Code;
+    }
+    else
+    {
+      let _RowPresserFoot: IPresserFoot = {} as IPresserFoot;
+    
+      _RowPresserFoot.IdPresserFoot = _Opcion.Id;
+      _RowPresserFoot.Part = _Opcion.Valor;
+       _RowPresserFoot.Code = _Opcion.Code;
+  
+         
+      this._RowPresserFoot	 = _RowPresserFoot;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[17].Code = _Opcion.Code;
+    }
+   
 
      
     break;
 
   case "Folder":
-    let _RowFolder: IFolder = {} as IFolder;
+    if(_Opcion == null)
+    {
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].id = 0;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor = "";
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Code = "000";
+
+    }
+    else
+    {
+      let _RowFolder: IFolder = {} as IFolder;
       
-    _RowFolder.IdFolder = _Opcion.Id;
-    _RowFolder.Part = _Opcion.Valor;
-    _RowFolder.Code = _Opcion.Code;
-         
-    this._RowFolder	 = _RowFolder;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].id = _Opcion.Id;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor = _Opcion.Valor;
-    ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Code = _Opcion.Code;
-  
+      _RowFolder.IdFolder = _Opcion.Id;
+      _RowFolder.Part = _Opcion.Valor;
+      _RowFolder.Code = _Opcion.Code;
+           
+      this._RowFolder	 = _RowFolder;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].id = _Opcion.Id;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Valor = _Opcion.Valor;
+      ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[18].Code = _Opcion.Code;
+    
+    }
+    
        
        
     break;
@@ -605,10 +772,19 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
   }
   else
   {
-    this.optionLevel[index].Id =  _Opcion.Id;
-    this.optionLevel[index].Valor =  _Opcion.Valor;
-    this.optionLevel[index].Otros =  _Opcion.Otros;
-    this.optionLevel[index].Code =  _Opcion.Code;
+
+    if(_Opcion == null)
+    {
+      this.optionLevel.splice(index, 1);
+    }
+    else
+    {
+      this.optionLevel[index].Id =  _Opcion.Id;
+      this.optionLevel[index].Valor =  _Opcion.Valor;
+      this.optionLevel[index].Otros =  _Opcion.Otros;
+      this.optionLevel[index].Code =  _Opcion.Code;
+    }
+    
   }
 
 
@@ -1717,6 +1893,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
   {
     this.str_txt_Id = Id;
     this.str_ventana = tipo;
+    
     ELEMENT_DATA_FILTRO.splice(0, ELEMENT_DATA_FILTRO.length);
 
     let str : string = "";
@@ -1734,6 +1911,9 @@ txt_method_analisys_onSearchChange(event : any) :void{
         if(_json["count"] > 0){
           
           _json["d"].forEach((j : Filtro) => {
+
+            let index : number = this.optionLevel.findIndex(f => f.IdCaja == Id && f.Id == j.Id);
+            if(index != -1) j.Seleccionar = true;
             this.dataSource_Filtro.data.push(j);
           });
         }
@@ -1754,15 +1934,33 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
   Select(element : any)
   {
-    this.LlenarParametroFiltro(element, this.str_ventana, this.str_txt_Id)
+    this.val.ValForm.get(this.str_txt_Id)?.setValue(null);
 
+    element.Seleccionar = !element.Seleccionar;
+
+    this.dataSource_Filtro.data.filter(f => f.Id != element.Id).forEach(element => {
+      element.Seleccionar = false;
+    });
+
+    this.LlenarParametroFiltro((element.Seleccionar? element: null) , this.str_ventana, this.str_txt_Id)
     let index : number = this.optionLevel.findIndex( f => f.IdCaja == this.str_txt_Id);
 
     if(index == -1) return;
+
+    if(element.Seleccionar)
+    {
+      this.val.ValForm.get(this.str_txt_Id)?.setValue(this.optionLevel[index]);
+    }
+    else
+    {
     
-    this.val.ValForm.get(this.str_txt_Id)?.setValue(this.optionLevel[index])
+      this.str_Codigo = this.str_Codigo.substring(0, this.str_Codigo.length - 1);
+      
+    }
+   
     
   }
+
 
   //#endregion EVENTOS FILTRO
 

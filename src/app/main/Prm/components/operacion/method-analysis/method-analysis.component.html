@@ -537,10 +537,6 @@
     <ng-container class="app-modal-header"></ng-container>
     <ng-container class="app-modal-body">
 
-		<div class="franja">
-			<p>Records</p>
-		</div>
-		
 		<div class="container">
 			<div class="row">
 		
@@ -590,7 +586,7 @@
 						Seleccionar ?.
 					</th>
 					<td mat-cell *matCellDef="let element"> 
-					  <mat-checkbox  placeholder="" [(ngModel)]="element.Seleccionar" [(ngModel)]="element.Seleccionar"  (click)="Select(element); modal1.hide();"   color="accent">
+					  <mat-checkbox  placeholder="" [(ngModel)]="element.Seleccionar" [(ngModel)]="element.Seleccionar"  (click)="Select(element)"   color="accent">
 					  </mat-checkbox>
 					</td>
 				  </ng-container>
