@@ -42,6 +42,10 @@ export class OperacionesService {
   }
 
 
+  GetLastMethodAnalysis(IdDataMachine : number) : Observable<any>
+  {
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetLastMethodAnalysis" + "?IdDataMachine=" + IdDataMachine);
+  }
 
 
 

@@ -88,6 +88,7 @@ export class MethodAnalysisComponent implements OnInit {
   public str_Machine : string = "";
   public str_txt_Id : string = "";
   public str_ventana : string = "";
+  private int_IdMaquina : number = 0;
 
   private _RowManufacturing !: IManufacturing;
   private _RowProducto !: IProducto;
@@ -241,7 +242,7 @@ _onFocusOutEvent(event: any, id : string) :void
 
   if( typeof(_Opcion) == 'string' ) {
 
-    _Opcion = this.optionLevel.filter( f => f.Valor == _Opcion && f.IdCaja == id)[0]
+    _Opcion = this.optionLevel.filter( f => f.Valor.trimStart().trimEnd().toUpperCase() == String(_Opcion).trimStart().trimEnd().toUpperCase() && f.IdCaja == id)[0]
 
     if(_Opcion == undefined || _Opcion == null){
 
@@ -462,6 +463,7 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = 0;
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = "";
         ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = "000";
+        this.LastDataMachine(0);
 
       }
       else
@@ -482,9 +484,11 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = _Opcion.Code;
+      this.LastDataMachine(_Opcion.Id);
 
       }
     
+      
 
 
     break;
@@ -786,6 +790,9 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
     }
     
   }
+
+  index = this.optionLevel.findIndex( f => f.IdCaja == _id);
+  this.val.ValForm.get(_id)?.setValue(this.optionLevel[index]);
 
 
 
@@ -1191,6 +1198,8 @@ txt_method_analisys_onSearchChange(event : any) :void{
   Nuevo() : void
   {
 
+    this.IdMethodAnalysis = -1;
+    this.int_IdMaquina = 0;
     this.Editar = true;
 
     this.val.ValForm.reset();
@@ -1668,7 +1677,57 @@ txt_method_analisys_onSearchChange(event : any) :void{
         document.getElementById("from-method-analisys")?.classList.remove("disabled");
         let Datos : any = s[1];
 
-        let index : number = 0;
+        this.LLenarDatosParametros(Datos);
+        
+    
+       
+        this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
+        this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
+
+        this._OperacionesService.GetDetMethodAnalysis(this.IdMethodAnalysis).subscribe(s =>{
+          let _json = JSON.parse(s);
+    
+          if(_json["esError"] == 0)
+          {
+            _json["d"].forEach((d : IDetMethodAnalysis) => {
+              this.dataSource_method_analisys.data.push(d);
+            });
+    
+           this.AgregarTotal();
+
+            this.Open = true;
+            this.Cargando = false;
+    
+          }
+          else
+          {
+            this.dialog.open(DialogoComponent, {
+              data : _json["msj"]
+            })
+          }
+    
+        });
+      
+  
+        
+      }
+      else
+      {
+        this.Cargando = false;
+        this.Limpiar();
+        this.Open = false;
+        this.Link = "";
+      }
+
+      
+      
+    });
+  }
+
+
+  LLenarDatosParametros(Datos : any) : void
+  {
+    let index : number = 0;
         this.optionLevel.splice(0, this.optionLevel.length);
 
 
@@ -1798,53 +1857,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
         index++;
       });
 
-        
-    
-       
-        this.dataSource_parametros_method_analisys = new MatTableDataSource(ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS);
-        this.dataSource_method_analisys.data.splice(0, this.dataSource_method_analisys.data.length);
-
-        this._OperacionesService.GetDetMethodAnalysis(this.IdMethodAnalysis).subscribe(s =>{
-          let _json = JSON.parse(s);
-    
-          if(_json["esError"] == 0)
-          {
-            _json["d"].forEach((d : IDetMethodAnalysis) => {
-              this.dataSource_method_analisys.data.push(d);
-            });
-    
-           this.AgregarTotal();
-
-            this.Open = true;
-            this.Cargando = false;
-    
-          }
-          else
-          {
-            this.dialog.open(DialogoComponent, {
-              data : _json["msj"]
-            })
-          }
-    
-        });
-      
-  
-        
-      }
-      else
-      {
-        this.Cargando = false;
-        this.Limpiar();
-        this.Open = false;
-        this.Link = "";
-      }
-
-      
-      
-    });
   }
-
-
   
   //#region EVENTOS FILTRO
 
@@ -1958,6 +1971,42 @@ txt_method_analisys_onSearchChange(event : any) :void{
       
     }
    
+    
+  }
+
+  LastDataMachine(IdDataMachine : number) : void
+  {
+    if(this.IdMethodAnalysis != -1) return;
+    if(this.int_IdMaquina == IdDataMachine) return;
+    this.int_IdMaquina = IdDataMachine;
+
+    let _dialog = this.dialog.open(ConfirmarContinuarComponent, {
+      data: '<b>Desea llenar los parametros con respecto al ultimo registro guardado?.</b>',
+    });
+    document.getElementById('body')?.classList.add('disabled');
+
+    _dialog.afterClosed().subscribe((s) => {
+      document?.getElementById('body')?.classList.remove('disabled');
+      if (_dialog.componentInstance.Retorno == '1') {
+        this._OperacionesService
+          .GetLastMethodAnalysis(IdDataMachine)
+          .subscribe((s) => {
+            let _json = JSON.parse(s);
+
+            if (_json['esError'] == 0) {
+              if (_json['count'] > 0) {
+                let Datos: IMethodAnalysis = _json['d'][0];
+                this.LLenarDatosParametros(Datos);
+              }
+            } else {
+              this.dialog.open(DialogoComponent, {
+                data: _json['msj'],
+              });
+            }
+          });
+      }
+    });
+
     
   }
 
