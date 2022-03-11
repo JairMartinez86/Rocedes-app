@@ -294,7 +294,7 @@
 								<input matInput type="text" id="txt_method_analisys_feeddog" formControlName="txt_method_analisys_feeddog" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'FeedDog')" 
 								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_feeddog')"
 								(keydown)="cellChanged_Param($event, element.Index)"
-								[disabled]="str_Machine == ''">
+								[disabled]="str_Machine_Ref == ''">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
 									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'FeedDog', 'txt_method_analisys_feeddog')" [value]="option">
 										{{option.Valor}}
@@ -313,7 +313,7 @@
 								<input matInput type="text" id="txt_method_analisys_presserfoot" formControlName="txt_method_analisys_presserfoot" [matAutocomplete]="auto" class="col-method-analisys-search" (input)="_onSearchChange($event, 'PresserFoot')" 
 								(focusout)="_onFocusOutEvent($event, 'txt_method_analisys_presserfoot')"
 								(keydown)="cellChanged_Param($event, element.Index)"
-								[disabled]="str_Machine == ''">
+								[disabled]="str_Machine_Ref == ''">
 								<mat-autocomplete #auto="matAutocomplete" [displayWith]="MostrarSelec">
 									<mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="_onSelectionChange(option, 'PresserFoot', 'txt_method_analisys_presserfoot')" [value]="option">
 										{{option.Valor}}

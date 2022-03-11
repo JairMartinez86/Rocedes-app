@@ -85,7 +85,7 @@ export class MethodAnalysisComponent implements OnInit {
   public Editar : boolean = false;
   private IdMethodAnalysis : number = -1;
   public str_Codigo : string = "";
-  public str_Machine : string = "";
+  public str_Machine_Ref : string = "";
   public str_txt_Id : string = "";
   public str_ventana : string = "";
   private int_IdMaquina : number = 0;
@@ -476,11 +476,12 @@ LlenarParametroFiltro(_Opcion: Filtro, tipo : string, _id : string)
       _Maquina.Personal = Number(_Opcion.Otros.split(";")[1]);
       _Maquina.Fatigue = Number(_Opcion.Otros.split(";")[2]);
       _Maquina.Machine = _Opcion.Otros.split(";")[3];
+      _Maquina.Ref = _Opcion.Otros.split(";")[4];
       _Maquina.Code = _Opcion.Code;
 
       
       this._RowMaquina = _Maquina;
-      this.str_Machine = _Maquina.Machine;
+      this.str_Machine_Ref = _Maquina.Ref;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].id = _Opcion.Id;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Valor = _Opcion.Valor;
       ELEMENT_DATA_PARAMETROS_METHOD_ANALISIS[8].Code = _Opcion.Code;
@@ -1763,6 +1764,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
         this._RowMaquina.Delay = Datos.Delay;
         this._RowMaquina.Personal = Datos.Personal;
         this._RowMaquina.Fatigue = Datos.Fatigue;
+        this._RowMaquina.Ref = Datos.Ref;
 
 
         this._RowStitchType = {} as IStitchType;
@@ -1911,7 +1913,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
 
     let str : string = "";
 
-    if(tipo == "FeedDog" || tipo == "PresserFoot" )  str  = this.str_Machine
+    if(tipo == "FeedDog" || tipo == "PresserFoot" )  str  = this.str_Machine_Ref
     
 
     this._OperacionesService.GetAutoComplete(str, tipo).subscribe( s => {

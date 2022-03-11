@@ -7,6 +7,7 @@ export interface IDataMachine {
     Nomenclature : string;
     Machine : string;
     Description : string;
+    Ref : string;
     Code : string;
     Evento : string;
 }

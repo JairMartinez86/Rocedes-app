@@ -31,7 +31,7 @@ export class DataMachineComponent implements OnInit {
   private _RowDato !: IDataMachine;
 
 
-  displayedColumns: string[] = ["IdDataMachine", "Name", "Delay", "Personal", "Fatigue", "Nomenclature", "Machine", "Description", "Code",  "Editar", "Eliminar"];
+  displayedColumns: string[] = ["IdDataMachine", "Name", "Delay", "Personal", "Fatigue", "Nomenclature", "Machine", "Description", "Ref", "Code",  "Editar", "Eliminar"];
   dataSource = new MatTableDataSource(ELEMENT_DATA_MACHINE);
   clickedRows = new Set<IDataMachine>();
 
@@ -63,6 +63,7 @@ export class DataMachineComponent implements OnInit {
     this.val.add("txt_Operacion_data_fatigue", "2", "NUM>=", "0");
     this.val.add("txt_Operacion_data_machine", "1", "LEN>=", "0");
     this.val.add("txt_Operacion_data_description", "1", "LEN>=", "0");
+    this.val.add("txt_Operacion_data_ref", "1", "LEN>", "0");
     this.val.add("txt_Operacion_data_code", "1", "LEN>", "0");
     this.val.add("txt_Operacion_data_code", "2", "LEN==", "3");
    
@@ -84,6 +85,7 @@ export class DataMachineComponent implements OnInit {
     this.val.ValForm.get("txt_Operacion_data_fatigue")?.disable();
     this.val.ValForm.get("txt_Operacion_data_machine")?.disable();
     this.val.ValForm.get("txt_Operacion_data_description")?.disable();
+    this.val.ValForm.get("txt_Operacion_data_ref")?.disable();
     this.val.ValForm.get("txt_Operacion_data_code")?.disable();
     document?.getElementById("divOperacion-frm-data-machine-registros")?.classList.remove("disabled");
   }
@@ -138,6 +140,10 @@ export class DataMachineComponent implements OnInit {
         break;
 
       case "txt_Operacion_data_description":
+        document?.getElementById("txt_Operacion_data_ref")?.focus();
+        break;
+
+      case "txt_Operacion_data_ref":
         document?.getElementById("txt_Operacion_data_code")?.focus();
         break;
 
@@ -198,6 +204,7 @@ export class DataMachineComponent implements OnInit {
       this.val.ValForm.get("txt_Operacion_data_fatigue")?.setValue(row.Fatigue);
       this.val.ValForm.get("txt_Operacion_data_machine")?.setValue(row.Machine);
       this.val.ValForm.get("txt_Operacion_data_description")?.setValue(row.Description);
+      this.val.ValForm.get("txt_Operacion_data_ref")?.setValue(row.Ref);
       this.val.ValForm.get("txt_Operacion_data_code")?.setValue(row.Code);
       document.getElementById("divOperacion-frm-data-machine-registros")?.classList.add("disabled");
     }
@@ -288,6 +295,7 @@ export class DataMachineComponent implements OnInit {
     this.val.ValForm.get("txt_Operacion_data_fatigue")?.enable();
     this.val.ValForm.get("txt_Operacion_data_machine")?.enable();
     this.val.ValForm.get("txt_Operacion_data_description")?.enable();
+    this.val.ValForm.get("txt_Operacion_data_ref")?.enable();
     this.val.ValForm.get("txt_Operacion_data_code")?.enable();
  
 
@@ -305,6 +313,7 @@ export class DataMachineComponent implements OnInit {
     datos.Fatigue = Number(this.val.ValForm.get("txt_Operacion_data_fatigue")?.value);
     datos.Machine = this.str_machine_type;
     datos.Description = String(this.val.ValForm.get("txt_Operacion_data_description")?.value).trimEnd();
+    datos.Ref = String(this.val.ValForm.get("txt_Operacion_data_ref")?.value).trimEnd();
     datos.Code = String(this.val.ValForm.get("txt_Operacion_data_code")?.value).trimEnd();
 
     datos.Evento = "Nuevo";
@@ -333,6 +342,7 @@ export class DataMachineComponent implements OnInit {
             ELEMENT_DATA_MACHINE[index].Fatigue = _json["d"].Fatigue;
             ELEMENT_DATA_MACHINE[index].Machine = _json["d"].Machine;
             ELEMENT_DATA_MACHINE[index].Description = _json["d"].Description;
+            ELEMENT_DATA_MACHINE[index].Ref = _json["d"].Ref;
             ELEMENT_DATA_MACHINE[index].Code = _json["d"].Code;
           }
           else
