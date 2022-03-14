@@ -89,6 +89,7 @@ export class MethodAnalysisComponent implements OnInit {
   public str_txt_Id : string = "";
   public str_ventana : string = "";
   private int_IdMaquina : number = 0;
+  public bol_Guardando : boolean = false
 
   private _RowManufacturing !: IManufacturing;
   private _RowProducto !: IProducto;
@@ -161,6 +162,7 @@ export class MethodAnalysisComponent implements OnInit {
    {
 
     this.Editar = false;
+    this.bol_Guardando = false;
 
     if(this.Cargando) return;
     this.str_Codigo = "";
@@ -1341,9 +1343,9 @@ txt_method_analisys_onSearchChange(event : any) :void{
           })
           return;
         }*/
-
+        this.bol_Guardando = true;
         this._OperacionesService.GuardarMethodAnalysis(datos).subscribe(s =>{
-
+          this.bol_Guardando = false;
           let _json = JSON.parse(s);
     
           if(_json["esError"] == 0)
