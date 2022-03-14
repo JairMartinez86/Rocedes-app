@@ -101,7 +101,7 @@ export class MatrizOperacionComponent implements OnInit {
         document?.getElementById("body")?.classList.remove("disabled");
         if(_dialog.componentInstance.Retorno == "1")
         {
-          this.Eliminar(row.IdDataMachine);
+          this.Eliminar(row.IdMethodAnalysis);
         }
       });
     }
@@ -110,15 +110,15 @@ export class MatrizOperacionComponent implements OnInit {
   }
 
 
-  Eliminar(IdDataMachine : number) : void
+  Eliminar(IdMethodAnalysis : number) : void
   {
-    this._OperacionesService.EliminarMatrixOperacion(IdDataMachine, this._LoginService.str_user).subscribe( s =>{
+    this._OperacionesService.EliminarMatrixOperacion(IdMethodAnalysis, this._LoginService.str_user).subscribe( s =>{
   
       let _json = JSON.parse(s);
             
       if(_json["esError"] == 0)
       {
-        let index : number = ELEMENT_DATA_OPERATION_MATIX_DATA.findIndex(f =>  Number(f.IdDataMachine) == Number(_json["d"].IdDataMachine));
+        let index : number = ELEMENT_DATA_OPERATION_MATIX_DATA.findIndex(f =>  Number(f.IdMethodAnalysis) == Number(_json["d"].IdMethodAnalysis));
 
 
         if(index >= 0) ELEMENT_DATA_OPERATION_MATIX_DATA.splice(index, 1);

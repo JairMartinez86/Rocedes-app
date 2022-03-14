@@ -242,7 +242,7 @@ _onFocusOutEvent(event: any, id : string) :void
 
   if( typeof(_Opcion) == 'string' ) {
 
-    _Opcion = this.optionLevel.filter( f => f.Valor.trimStart().trimEnd().toUpperCase() == String(_Opcion).trimStart().trimEnd().toUpperCase() && f.IdCaja == id)[0]
+    _Opcion = this.optionLevel.filter( f => String(f.Valor).trimStart().trimEnd().toUpperCase() == String(_Opcion).trimStart().trimEnd().toUpperCase() && f.IdCaja == id)[0]
 
     if(_Opcion == undefined || _Opcion == null){
 
@@ -1311,8 +1311,9 @@ txt_method_analisys_onSearchChange(event : any) :void{
     this.Fila_MethodAnalysis.Min_Mac_CC = this.Fila_MethodAnalysis.Min_Mac + this.Fila_MethodAnalysis.Min_NML;
     this.Fila_MethodAnalysis.Min_NML_CC = (this.Fila_MethodAnalysis.Min_Mac *  (this._RowMaquina.Delay / 100.0)) + (this.Fila_MethodAnalysis.Min_Mac_CC * ((this._RowMaquina.Personal + this._RowMaquina.Fatigue)  / 100.0));
     this.Fila_MethodAnalysis.Sam = this.Fila_MethodAnalysis.Min_Mac_CC + this.Fila_MethodAnalysis.Min_NML_CC;
-    this.Fila_MethodAnalysis.ProducJL = Number((this.Fila_MethodAnalysis.JornadaLaboral / this.Fila_MethodAnalysis.Sam).toFixed(2));
-    this.Fila_MethodAnalysis.Precio = this.Fila_MethodAnalysis.Rate / this.Fila_MethodAnalysis.ProducJL;
+    this.Fila_MethodAnalysis.ProducJL = 0;
+    if(this.Fila_MethodAnalysis.Sam != 0)  this.Fila_MethodAnalysis.ProducJL = Number((this.Fila_MethodAnalysis.JornadaLaboral / this.Fila_MethodAnalysis.Sam).toFixed(2));
+    if(this.Fila_MethodAnalysis.ProducJL != 0)  this.Fila_MethodAnalysis.Precio = this.Fila_MethodAnalysis.Rate / this.Fila_MethodAnalysis.ProducJL;
 
   }
   Guardar() : void
