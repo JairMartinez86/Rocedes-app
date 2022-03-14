@@ -199,7 +199,7 @@ export class MethodAnalysisComponent implements OnInit {
   let value : string = event.target.value;
 
 
-  this._OperacionesService.GetAutoComplete(value, tipo).subscribe( s => {
+  this._OperacionesService.GetAutoComplete(value, tipo, "auto").subscribe( s => {
     let _json = JSON.parse(s);
 
 
@@ -1906,6 +1906,10 @@ txt_method_analisys_onSearchChange(event : any) :void{
   
   AbrirVentana(tipo : string, Id : string) : void
   {
+
+    (<HTMLInputElement>document.getElementById("filtro_ventana")).value = "";
+    
+
     this.str_txt_Id = Id;
     this.str_ventana = tipo;
     
@@ -1916,7 +1920,7 @@ txt_method_analisys_onSearchChange(event : any) :void{
     if(tipo == "FeedDog" || tipo == "PresserFoot" )  str  = this.str_Machine_Ref
     
 
-    this._OperacionesService.GetAutoComplete(str, tipo).subscribe( s => {
+    this._OperacionesService.GetAutoComplete(str, tipo, "ventana").subscribe( s => {
       let _json = JSON.parse(s);
   
   

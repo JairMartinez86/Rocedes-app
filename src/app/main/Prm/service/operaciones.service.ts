@@ -36,9 +36,9 @@ export class OperacionesService {
   constructor(private http: HttpClient) { }
 
 
-  GetAutoComplete(valor : string, evento : string) : Observable<any>
+  GetAutoComplete(valor : string, campo : string, evento : string) : Observable<any>
   {
-    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetAutoComplete" + "?valor=" + valor + "&evento=" + evento);
+    return this.http.get<any>(this.Cnx.Url() + "Premium/Operaciones/GetAutoComplete" + "?valor=" + valor + "&campo="+ campo + "&evento=" + evento);
   }
 
 
