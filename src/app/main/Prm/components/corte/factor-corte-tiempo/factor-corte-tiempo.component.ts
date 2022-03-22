@@ -460,7 +460,7 @@ exportar(): void {
  // worksheet.spliceColumns(13, 1);
   worksheet.properties.defaultColWidth = 20;
 
-
+  
   //set downloadable file name
     let fname="factor-corte-tiempo"
 
